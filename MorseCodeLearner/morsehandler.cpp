@@ -1,13 +1,18 @@
 #include "morsehandler.h"
 
 MorseHandler::MorseHandler(int wpm) : wpm(wpm), unit(1200 / wpm) {
-    gapTimer.setSingleShot(true);
-    connect(&gapTimer, &QTimer::timeout, this, &MorseHandler::onGapTimeout);
+    charGapTimer.setSingleShot(true);
+    wordGapTimer.setSingleShot(true);
+    connect(&charGapTimer, &QTimer::timeout, this, &MorseHandler::onCharGapTimeout);
+    connect(&wordGapTimer, &QTimer::timeout, this, &MorseHandler::onWordGapTimeout);
+    for (const auto& pair : encodings) {
+        reverseEncodings[pair.second] = pair.first;
+    };
 }
 
 void MorseHandler::straightKeyDown() {
     keyDownTimer.start();
-    gapTimer.stop();
+    charGapTimer.stop();
 }
 
 void MorseHandler::straightKeyUp() {
@@ -19,10 +24,14 @@ void MorseHandler::straightKeyUp() {
         emit decodedInput("-");
     }
 
-    gapTimer.start(3 * unit);
+    charGapTimer.start(3 * unit);
+    wordGapTimer.start(7 * unit);
+
 }
 
 void MorseHandler::paddleDotDown() {
+    charGapTimer.stop();
+    wordGapTimer.stop();
     paddleDotIsDown = true;
     currentPaddleInput = DOT;
     signalPaddleDot();
@@ -31,13 +40,16 @@ void MorseHandler::paddleDotDown() {
 void MorseHandler::paddleDotUp() {
     paddleDotIsDown = false;
     if (!paddleDashIsDown) {
-        gapTimer.start(3 * unit);
+        charGapTimer.start(3 * unit);
+        wordGapTimer.start(7 * unit);
     } else {
         currentPaddleInput = DASH;
     }
 }
 
 void MorseHandler::paddleDashDown() {
+    charGapTimer.stop();
+    wordGapTimer.stop();
     paddleDashIsDown = true;
     currentPaddleInput = DASH;
     signalPaddleDash();
@@ -46,7 +58,8 @@ void MorseHandler::paddleDashDown() {
 void MorseHandler::paddleDashUp() {
     paddleDashIsDown = false;
     if (!paddleDotIsDown) {
-        gapTimer.start(3 * unit);
+        charGapTimer.start(3 * unit);
+        wordGapTimer.start(7 * unit);
     } else {
         currentPaddleInput = DOT;
     }
@@ -66,15 +79,20 @@ void MorseHandler::signalPaddleDash() {
     paddleDashTimer.singleShot(unit, this, &MorseHandler::signalPaddleDash);
 }
 
-void MorseHandler::onGapTimeout() {
+void MorseHandler::onCharGapTimeout() {
     emit decodedInput(" ");
+}
+
+void MorseHandler::onWordGapTimeout() {
+    emit decodedInput("/");
 }
 
 void MorseHandler::stopTimers() {
     paddleDotIsDown = false;
     paddleDashIsDown = false;
     currentPaddleInput = EMPTY;
-    gapTimer.stop();
+    wordGapTimer.stop();
+    charGapTimer.stop();
 }
 
 void MorseHandler::setWpm(float newWpm) {
@@ -82,7 +100,7 @@ void MorseHandler::setWpm(float newWpm) {
     unit = 1200 / wpm;
 }
 
-string MorseHandler::encodeText(string text) {
+string MorseHandler::encodeText(const string text) {
     string encodedText = "";
     for (char c : text) {
         if (c == ' ') {
@@ -97,6 +115,20 @@ string MorseHandler::encodeText(string text) {
         }
     }
     return encodedText;
+}
+
+string MorseHandler::decodeMorse(const string morse) {
+    std::stringstream ss(morse);
+    string token;
+    string decoded;
+    while (ss >> token) {
+        if (token == "/") {
+            decoded += " ";
+        } else {
+            decoded += reverseEncodings.at(token);
+        }
+    }
+    return decoded;
 }
 
 

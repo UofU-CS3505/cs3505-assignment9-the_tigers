@@ -5,6 +5,7 @@
 #include <map>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <sstream>
 
 using std::map, std::string;
 
@@ -36,6 +37,8 @@ private:
         {'5', "....."}, {'6', "-...."}, {'7', "--..."}, {'8', "---.."}, {'9', "----."}
     };
 
+    map<string, char> reverseEncodings;
+
     enum morseChar { DOT, DASH, EMPTY };
 
     float wpm;
@@ -48,7 +51,8 @@ private:
 
     QTimer paddleDotTimer;
     QTimer paddleDashTimer;
-    QTimer gapTimer;
+    QTimer charGapTimer;
+    QTimer wordGapTimer;
     QElapsedTimer keyDownTimer;
 
     void signalPaddleDot();
@@ -58,6 +62,8 @@ public:
     MorseHandler(int wpm);
 
     string encodeText(const string text);
+
+    string decodeMorse(const string morse);
 
 public slots:
     void straightKeyDown();
@@ -72,7 +78,9 @@ public slots:
 
     void paddleDashUp();
 
-    void onGapTimeout();
+    void onCharGapTimeout();
+
+    void onWordGapTimeout();
 
     /**
      * Can be used to stop all current timers to ensure
