@@ -1,0 +1,25 @@
+main menu
+- buttons for each mode
+- settings
+- help
+
+lesson select
+this is a paginated thing with all the lessons/modules displayed. We could have a badge display on each tile that shows if it's completed (not present in the drawing). If we don't have many lessons we could just display them all on a single page.
+
+lesson mode
+- letter and morse code representation displayed side by side
+- progress bar to show lesson completion
+- animated telegraph input on bottom
+
+practice mode
+- score top right
+- word to type and user input in middle of screen
+- animated telegraph input on bottom
+- settings button (for settings specific to practice mode)
+
+translate mode
+- user input and corresponding translation in middle of screen
+- button to toggle from morse code -> English input (like google translate)
+- animated telegraph input on bottom
+
+I think it would be super cool to have a little telegraph thing that moves up and down when the user inputs a dot or dash. I can create the sprites for this. We could either have it move with physics in box2D or just have two frames, one where it's down and one where it's up. The second option is a lot easier and probably just as good IMO. I just think it would be a cool way to show visual feedback on user inputs.
