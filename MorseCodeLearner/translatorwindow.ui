@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>translatorwindow</class>
+ <widget class="QWidget" name="translatorwindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="backButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>71</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="englishText">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>190</y>
+     <width>781</width>
+     <height>71</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="morseText">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>300</y>
+     <width>781</width>
+     <height>71</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="swapButton">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>220</y>
+     <width>75</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Swap</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>190</y>
+     <width>49</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>350</y>
+     <width>49</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Morse</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

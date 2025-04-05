@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "translatorwindow.h"
 
 #include <QApplication>
 
