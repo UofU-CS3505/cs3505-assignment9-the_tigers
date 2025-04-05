@@ -15,6 +15,7 @@ SOURCES += \
     mainwindow.cpp \
     morsehandler.cpp \
     practicewindow.cpp \
+    settingswindow.cpp \
     translatorwindow.cpp
 
 HEADERS += \
@@ -23,6 +24,7 @@ HEADERS += \
     mainwindow.h \
     morsehandler.h \
     practicewindow.h \
+    settingswindow.h \
     translatorwindow.h
 
 FORMS += \
@@ -30,6 +32,7 @@ FORMS += \
     lessonwindow.ui \
     mainwindow.ui \
     practicewindow.ui \
+    settingswindow.ui \
     translatorwindow.ui
 
 # Default rules for deployment.
