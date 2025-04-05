@@ -14,89 +14,124 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="learningnav">
+   <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>270</y>
-      <width>300</width>
-      <height>80</height>
+      <x>0</x>
+      <y>0</y>
+      <width>1281</width>
+      <height>721</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Learning</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>360</y>
-      <width>300</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Practice</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>450</y>
-      <width>300</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Translate</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>190</y>
-      <width>311</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Morse Code!</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>490</x>
-      <y>540</y>
-      <width>75</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Help</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>540</y>
-      <width>75</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Settings</string>
-    </property>
+    <widget class="QWidget" name="page">
+     <widget class="QPushButton" name="learningnav">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Learning</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>260</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Translate</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>350</y>
+        <width>75</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Settings</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>350</y>
+        <width>75</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Help</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>170</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Practice</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>311</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Morse Code!</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="translatorwindow" name="page_2"/>
+    <widget class="practicewindow" name="page_3"/>
+    <widget class="lessonwindow" name="page_4"/>
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>translatorwindow</class>
+   <extends>QWidget</extends>
+   <header>translatorwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>practicewindow</class>
+   <extends>QWidget</extends>
+   <header>practicewindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>lessonwindow</class>
+   <extends>QWidget</extends>
+   <header>lessonwindow.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
