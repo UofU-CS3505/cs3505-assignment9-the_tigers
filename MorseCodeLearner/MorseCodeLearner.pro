@@ -10,10 +10,12 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    morsehandler.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    morsehandler.h
 
 FORMS += \
     mainwindow.ui
