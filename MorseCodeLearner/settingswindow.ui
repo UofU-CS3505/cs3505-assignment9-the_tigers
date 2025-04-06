@@ -59,7 +59,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Paddle Toggle</string>
+    <string>Paddle Input</string>
    </property>
    <property name="iconSize">
     <size>
