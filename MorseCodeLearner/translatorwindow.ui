@@ -97,6 +97,19 @@
     <string>Input: Morse</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="audioPlayButton">
+   <property name="geometry">
+    <rect>
+     <x>114</x>
+     <y>240</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

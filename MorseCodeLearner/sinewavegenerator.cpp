@@ -50,18 +50,3 @@ qint64 SineWaveGenerator::writeData(const char *, qint64) {
 qint64 SineWaveGenerator::bytesAvailable() const {
     return m_data.size() - m_pos + QIODevice::bytesAvailable();
 }
-
-
-void SineWaveGenerator::fadeOut(int durationMs) {
-    int fadeOutSamples = (m_sampleRate * durationMs) / 1000;
-
-    for (int i = 0; i < fadeOutSamples; ++i) {
-        float fadeFactor = 1.0f - (float(i) / fadeOutSamples);
-
-        qreal t = qreal(m_pos) / m_sampleRate;
-        qint16 value = 32767 * std::sin(2 * M_PI * m_freq * t) * fadeFactor;
-
-        m_data.append(reinterpret_cast<const char*>(&value), sizeof(qint16));
-        m_pos++;
-    }
-}

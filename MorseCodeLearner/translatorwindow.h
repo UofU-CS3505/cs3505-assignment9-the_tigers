@@ -10,6 +10,7 @@
 #include <QAudioOutput>
 #include <QAudioDevice>
 #include <QAudioSink>
+#include <QTimer>
 #include "morsehandler.h"
 #include "sinewavegenerator.h"
 
@@ -48,6 +49,12 @@ private slots:
 
     void onAudioStateChanged();
 
+    void on_pushButton_clicked();
+
+    void on_audioPlayButton_clicked();
+
+    void playMorseAudio();
+
 private:
     Ui::translatorwindow *ui;
 
@@ -59,13 +66,18 @@ private:
 
     translateMode mode;
 
-    string currentMorseLetter = "";
-
     QAudioFormat format;
 
     SineWaveGenerator *sineGenerator;
 
     QAudioSink *audio;
+
+    bool morseAudioPlayback = false;
+
+    string morseAudioOutputBuffer;
+
+    QTimer stopTimer;
+    QTimer gapTimer;
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

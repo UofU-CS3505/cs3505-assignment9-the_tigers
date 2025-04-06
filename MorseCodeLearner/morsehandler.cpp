@@ -133,4 +133,8 @@ string MorseHandler::decodeMorse(const string morse) {
     return decoded;
 }
 
+float MorseHandler::getUnitTime() {
+    return unit;
+}
+
 

@@ -39,6 +39,11 @@ void translatorwindow::setupMorse(MorseHandler *handler) {
 }
 
 void translatorwindow::onBackButtonClicked() {
+    morseAudioOutputBuffer = "";
+    morseAudioPlayback = false;
+    audio->suspend();
+    ui->inputText->clear();
+    ui->outputText->clear();
     emit goHome();
 }
 
@@ -74,6 +79,9 @@ void translatorwindow::on_inputText_textChanged()
 
 bool translatorwindow::eventFilter(QObject *obj, QEvent *event)
 {
+    if (morseAudioPlayback)
+        return false;
+
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
 
@@ -119,6 +127,58 @@ void translatorwindow::onAudioStateChanged() {
     if (audio->state() == QAudio::IdleState) {
         sineGenerator->start(440, 20000);
         audio->start(sineGenerator);
+    }
+}
+
+
+void translatorwindow::playMorseAudio() {
+    if (morseAudioOutputBuffer.empty()) {
+        morseAudioPlayback = false;
+        ui->audioPlayButton->setText("Play");
+        return;
+    }
+
+    if (morseAudioPlayback == false)
+        return;
+
+    float unit = morseHandler->getUnitTime();
+
+    if (morseAudioOutputBuffer.at(0) == '-') {
+        audio->resume();
+        stopTimer.singleShot(unit * 3, [=]() {audio->suspend();});
+        gapTimer.singleShot(unit * 4, this, &translatorwindow::playMorseAudio);
+    } else if (morseAudioOutputBuffer.at(0) == '.') {
+        audio->resume();
+        stopTimer.singleShot(unit, [=]() {audio->suspend();});
+        gapTimer.singleShot(unit * 2, this, &translatorwindow::playMorseAudio);
+    } else if (morseAudioOutputBuffer.at(0) == ' ' || morseAudioOutputBuffer.at(0) == '/') {
+        gapTimer.singleShot(unit * 2, this, &translatorwindow::playMorseAudio); // A slash is between 2 spaces so 1(char gap) + 2(space gap) + 2(slash gap) + 2(space gap) = 7 units
+    } else {
+        morseAudioOutputBuffer = morseAudioOutputBuffer.substr(1);
+        playMorseAudio();
+    }
+    morseAudioOutputBuffer = morseAudioOutputBuffer.substr(1);
+}
+
+
+
+void translatorwindow::on_audioPlayButton_clicked()
+{
+    if (morseAudioPlayback == false) {
+        audio->suspend();
+        ui->audioPlayButton->setText("Pause");
+        morseAudioPlayback = true;
+        if (mode == TEXT_TO_MORSE) {
+            morseAudioOutputBuffer = ui->outputText->toPlainText().toStdString();
+        } else {
+            morseAudioOutputBuffer = ui->inputText->toPlainText().toStdString();
+        }
+        playMorseAudio();
+    } else {
+        ui->audioPlayButton->setText("Play");
+        morseAudioPlayback = false;
+        morseAudioOutputBuffer = "";
+        audio->suspend();
     }
 }
 

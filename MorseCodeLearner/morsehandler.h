@@ -93,6 +93,8 @@ public slots:
 
     void setWpm(float wpm);
 
+    float getUnitTime();
+
 signals:
     void decodedInput(const std::string morse);
 };

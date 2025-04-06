@@ -17,8 +17,6 @@ public:
     qint64 writeData(const char *, qint64) override;
 
     qint64 bytesAvailable() const override;
-
-    void fadeOut(int durationMs);
 private:
     int m_sampleRate = 44100;
     int m_duration;
