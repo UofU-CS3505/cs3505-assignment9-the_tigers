@@ -164,6 +164,7 @@ void translatorwindow::playMorseAudio() {
     } else {
         morseAudioOutputBuffer = morseAudioOutputBuffer.substr(1);
         playMorseAudio();
+        return;
     }
     morseAudioOutputBuffer = morseAudioOutputBuffer.substr(1);
 }
