@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>640</x>
-     <y>20</y>
+     <y>10</y>
      <width>500</width>
      <height>80</height>
     </rect>
@@ -59,7 +59,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Straight Key Toggle</string>
+    <string>Paddle Input</string>
    </property>
    <property name="iconSize">
     <size>
@@ -165,6 +165,19 @@
    </property>
    <property name="text">
     <string>Morse Code Input Key:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>90</y>
+     <width>231</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Default input mode is straight key</string>
    </property>
   </widget>
  </widget>

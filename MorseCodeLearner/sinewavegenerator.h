@@ -4,6 +4,16 @@
 #include <QIODevice>
 #include <QObject>
 
+/**
+ * Creates a QIODevice that can be read from to get sin wave audio.
+ *
+ * Uses code from two different projects:
+ * https://forum.qt.io/topic/154815/creating-qiodevice-with-infinite-data
+ * https://github.com/pbohun/sound-gen
+ *
+ * @name Michael Timothy
+ * @date 04/06/2025
+ */
 class SineWaveGenerator : public QIODevice
 {
     Q_OBJECT
