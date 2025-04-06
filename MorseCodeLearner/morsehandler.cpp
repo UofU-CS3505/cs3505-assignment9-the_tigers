@@ -1,4 +1,5 @@
 #include "morsehandler.h"
+#include <QDebug>
 
 MorseHandler::MorseHandler(int wpm) : wpm(wpm), unit(1200 / wpm) {
     charGapTimer.setSingleShot(true);
@@ -84,7 +85,7 @@ void MorseHandler::onCharGapTimeout() {
 }
 
 void MorseHandler::onWordGapTimeout() {
-    emit decodedInput("/");
+    emit decodedInput("/ ");
 }
 
 void MorseHandler::stopTimers() {
@@ -104,13 +105,12 @@ string MorseHandler::encodeText(const string text) {
     string encodedText = "";
     for (char c : text) {
         if (c == ' ') {
-            encodedText += " ";
+            encodedText += " / ";
         } else {
-            if (encodings.count(c) != 0) {
-                // Possibly send a signal to display an error message? Or we could check
-                // if the message is valid in the view but that'd prolly break MVC.
+            if (encodings.count(c) == 0) {
+                encodedText += "?";
             } else {
-                encodedText += encodings.at(c);
+                encodedText += encodings.at(c) + " ";
             }
         }
     }
@@ -125,7 +125,9 @@ string MorseHandler::decodeMorse(const string morse) {
         if (token == "/") {
             decoded += " ";
         } else {
-            decoded += reverseEncodings.at(token);
+            if (reverseEncodings.count(token) != 0) {
+                decoded += reverseEncodings.at(token);
+            }
         }
     }
     return decoded;

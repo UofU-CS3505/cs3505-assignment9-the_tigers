@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "morsehandler.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -14,9 +15,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr, MorseHandler *morseHandler = nullptr);
     ~MainWindow();
 
+    MorseHandler *morseHandler;
 private slots:
     /**
      * Called when navigating to the Translator Page.

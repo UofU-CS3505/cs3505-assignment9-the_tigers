@@ -1,13 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent, MorseHandler *morseHandler)
     : QMainWindow(parent)
+    , morseHandler(morseHandler)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
     ui->stackedWidget->setCurrentIndex(0); // Ensures main menu is first page on app launch
+
+    ui->translatorPage->setupMorse(morseHandler);
 
     QObject::connect(ui->translatenav, &QPushButton::clicked, this, &MainWindow::onTranslatorNavClicked);
     QObject::connect(ui->practicenav, &QPushButton::clicked, this, &MainWindow::onPracticeNavClicked);
@@ -48,6 +51,7 @@ void MainWindow::onSettingsNavClicked()
 }
 
 void MainWindow::goHome() {
+    morseHandler->stopTimers();
     ui->stackedWidget->setCurrentIndex(0);
 }
 
