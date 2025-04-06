@@ -17,6 +17,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setUpPages() {
+
+}
+
 void MainWindow::onTranslatorNavClicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
@@ -32,5 +36,9 @@ void MainWindow::onPracticeNavClicked()
 void MainWindow::onLearningNavClicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::goHome() {
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
