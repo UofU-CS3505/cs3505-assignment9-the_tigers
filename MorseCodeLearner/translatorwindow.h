@@ -49,8 +49,6 @@ private slots:
 
     void onAudioStateChanged();
 
-    void on_pushButton_clicked();
-
     void on_audioPlayButton_clicked();
 
     void playMorseAudio();
