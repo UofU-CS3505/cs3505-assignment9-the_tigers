@@ -15,8 +15,17 @@ practicewindow::~practicewindow()
     delete ui;
 }
 
+void practicewindow::setUserOnThisPage(bool userOnThisPage) {
+    this->userOnThisPage = userOnThisPage;
+}
+
+bool practicewindow::getUserOnThisPage() {
+    return userOnThisPage;
+}
+
 void practicewindow::on_backButton_clicked()
 {
     emit goHome();
+    userOnThisPage = false;
 }
 

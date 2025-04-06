@@ -14,6 +14,8 @@ class MenuWindow : public QWidget
 public:
     explicit MenuWindow(QWidget *parent = nullptr);
     ~MenuWindow();
+    void setUserOnThisPage(bool userOnThisPage);
+    bool getUserOnThisPage();
 
 signals:
     void goToLessonPage();
@@ -23,6 +25,7 @@ signals:
 
 private:
     Ui::MenuWindow *ui;
+    bool userOnThisPage;
 };
 
 #endif // MENUWINDOW_H

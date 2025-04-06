@@ -14,6 +14,8 @@ class settingswindow : public QWidget
 public:
     explicit settingswindow(QWidget *parent = nullptr);
     ~settingswindow();
+    void setUserOnThisPage(bool userOnThisPage);
+    bool getUserOnThisPage();
 
 signals:
     void goHome();
@@ -23,6 +25,7 @@ private slots:
 
 private:
     Ui::settingswindow *ui;
+    bool userOnThisPage;
 };
 
 #endif // SETTINGSWINDOW_H

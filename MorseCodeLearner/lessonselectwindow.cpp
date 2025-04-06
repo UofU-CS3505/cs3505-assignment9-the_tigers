@@ -15,8 +15,17 @@ lessonselectwindow::~lessonselectwindow()
     delete ui;
 }
 
+void lessonselectwindow::setUserOnThisPage(bool userOnThisPage) {
+    this->userOnThisPage = userOnThisPage;
+}
+
+bool lessonselectwindow::getUserOnThisPage() {
+    return userOnThisPage;
+}
+
 void lessonselectwindow::on_backButton_clicked()
 {
     emit goHome();
+    userOnThisPage = false;
 }
 

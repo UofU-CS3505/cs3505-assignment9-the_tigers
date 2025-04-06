@@ -28,6 +28,10 @@ public:
 
     void setupMorse(MorseHandler *handler);
 
+    void setUserOnThisPage(bool userOnThisPage);
+
+    bool getUserOnThisPage();
+
 signals:
     /**
      * Signal that gets emitted when the back button is pressed.
@@ -78,6 +82,8 @@ private:
 
     QTimer stopTimer;
     QTimer gapTimer;
+
+    bool userOnThisPage;
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

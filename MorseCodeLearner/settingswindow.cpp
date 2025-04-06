@@ -15,8 +15,17 @@ settingswindow::~settingswindow()
     delete ui;
 }
 
+void settingswindow::setUserOnThisPage(bool userOnThisPage) {
+    this->userOnThisPage = userOnThisPage;
+}
+
+bool settingswindow::getUserOnThisPage() {
+    return userOnThisPage;
+}
+
 void settingswindow::on_backButton_clicked()
 {
     emit goHome();
+    userOnThisPage = false;
 }
 

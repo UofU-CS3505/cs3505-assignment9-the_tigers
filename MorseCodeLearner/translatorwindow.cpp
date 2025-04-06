@@ -33,6 +33,14 @@ translatorwindow::~translatorwindow()
     delete sineGenerator;
 }
 
+void translatorwindow::setUserOnThisPage(bool userOnThisPage) {
+    this->userOnThisPage = userOnThisPage;
+}
+
+bool translatorwindow::getUserOnThisPage() {
+    return userOnThisPage;
+}
+
 void translatorwindow::setupMorse(MorseHandler *handler) {
     morseHandler = handler;
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
@@ -45,6 +53,7 @@ void translatorwindow::onBackButtonClicked() {
     ui->inputText->clear();
     ui->outputText->clear();
     emit goHome();
+    userOnThisPage = false;
 }
 
 void translatorwindow::on_swapButton_clicked()

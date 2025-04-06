@@ -49,30 +49,36 @@ void MainWindow::setUpPages() {
     stackedWidget->addWidget(menuWindow);
 
     stackedWidget->setCurrentWidget(menuWindow);
+    menuWindow->setUserOnThisPage(true);
 }
 
 void MainWindow::onTranslatorNavClicked()
 {
     stackedWidget->setCurrentWidget(translatorWindow);
+    translatorWindow->setUserOnThisPage(true);
 }
 
 void MainWindow::onPracticeNavClicked()
 {
     stackedWidget->setCurrentWidget(practiceWindow);
+    practiceWindow->setUserOnThisPage(true);
 }
 
 void MainWindow::onLearningNavClicked()
 {
     stackedWidget->setCurrentWidget(lessonSelectWindow);
+    lessonSelectWindow->setUserOnThisPage(true);
 }
 
 void MainWindow::onSettingsNavClicked()
 {
     stackedWidget->setCurrentWidget(settingsWindow);
+    settingsWindow->setUserOnThisPage(true);
 }
 
 void MainWindow::goHome() {
     morseHandler->stopTimers();
     stackedWidget->setCurrentWidget(menuWindow);
+    menuWindow->setUserOnThisPage(true);
 }
 

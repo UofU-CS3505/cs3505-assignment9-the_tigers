@@ -14,9 +14,12 @@ class lessonwindow : public QWidget
 public:
     explicit lessonwindow(QWidget *parent = nullptr);
     ~lessonwindow();
+    void setUserOnThisPage(bool userOnThisPage);
+    bool getUserOnThisPage();
 
 private:
     Ui::lessonwindow *ui;
+    bool userOnThisPage;
 
 signals:
     void goToLessonSelect();
