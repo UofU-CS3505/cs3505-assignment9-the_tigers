@@ -17,6 +17,13 @@ public:
 
 private:
     Ui::lessonwindow *ui;
+
+signals:
+    void goToLessonSelect();
+private slots:
+    void on_backButton_clicked();
 };
+
+
 
 #endif // LESSONWINDOW_H

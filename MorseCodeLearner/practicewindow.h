@@ -15,8 +15,14 @@ public:
     explicit practicewindow(QWidget *parent = nullptr);
     ~practicewindow();
 
+private slots:
+    void on_backButton_clicked();
+
 private:
     Ui::practicewindow *ui;
+
+signals:
+    void goHome();
 };
 
 #endif // PRACTICEWINDOW_H

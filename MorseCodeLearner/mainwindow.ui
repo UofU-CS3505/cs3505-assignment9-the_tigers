@@ -19,19 +19,19 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1281</width>
-      <height>721</height>
+      <width>1280</width>
+      <height>720</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="menuPage">
      <widget class="QPushButton" name="learningnav">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>80</y>
+        <x>490</x>
+        <y>230</y>
         <width>300</width>
         <height>80</height>
        </rect>
@@ -43,8 +43,8 @@
      <widget class="QPushButton" name="translatenav">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>260</y>
+        <x>490</x>
+        <y>410</y>
         <width>300</width>
         <height>80</height>
        </rect>
@@ -56,8 +56,8 @@
      <widget class="QPushButton" name="settingsnav">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>350</y>
+        <x>660</x>
+        <y>510</y>
         <width>75</width>
         <height>24</height>
        </rect>
@@ -69,8 +69,8 @@
      <widget class="QPushButton" name="helpnav">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>350</y>
+        <x>540</x>
+        <y>510</y>
         <width>75</width>
         <height>24</height>
        </rect>
@@ -82,8 +82,8 @@
      <widget class="QPushButton" name="practicenav">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>170</y>
+        <x>490</x>
+        <y>320</y>
         <width>300</width>
         <height>80</height>
        </rect>
@@ -95,9 +95,9 @@
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>311</width>
+        <x>490</x>
+        <y>10</y>
+        <width>300</width>
         <height>41</height>
        </rect>
       </property>
@@ -109,9 +109,11 @@
       </property>
      </widget>
     </widget>
-    <widget class="translatorwindow" name="page_2"/>
-    <widget class="practicewindow" name="page_3"/>
-    <widget class="lessonwindow" name="page_4"/>
+    <widget class="translatorwindow" name="translatorPage"/>
+    <widget class="practicewindow" name="practicePage"/>
+    <widget class="lessonwindow" name="lessonPage"/>
+    <widget class="lessonselectwindow" name="lessonSelectPage"/>
+    <widget class="settingswindow" name="settingsPage"/>
    </widget>
   </widget>
  </widget>
@@ -132,6 +134,18 @@
    <class>lessonwindow</class>
    <extends>QWidget</extends>
    <header>lessonwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>settingswindow</class>
+   <extends>QWidget</extends>
+   <header>settingswindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>lessonselectwindow</class>
+   <extends>QWidget</extends>
+   <header>lessonselectwindow.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -12,3 +12,9 @@ lessonselectwindow::~lessonselectwindow()
 {
     delete ui;
 }
+
+void lessonselectwindow::on_backButton_clicked()
+{
+    emit goHome();
+}
+

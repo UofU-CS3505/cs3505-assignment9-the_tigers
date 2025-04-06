@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::lessonselectwindow *ui;
+
+signals:
+    void goHome();
+private slots:
+    void on_backButton_clicked();
 };
 
 #endif // LESSONSELECTWINDOW_H

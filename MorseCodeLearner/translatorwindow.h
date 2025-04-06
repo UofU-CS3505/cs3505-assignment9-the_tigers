@@ -19,7 +19,7 @@ signals:
     /**
      * Signal that gets emitted when the back button is pressed.
      */
-    void goBack();
+    void goHome();
 
 private slots:
     /**

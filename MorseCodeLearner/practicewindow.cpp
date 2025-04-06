@@ -12,3 +12,9 @@ practicewindow::~practicewindow()
 {
     delete ui;
 }
+
+void practicewindow::on_backButton_clicked()
+{
+    emit goHome();
+}
+

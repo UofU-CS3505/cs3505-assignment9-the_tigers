@@ -12,3 +12,9 @@ settingswindow::~settingswindow()
 {
     delete ui;
 }
+
+void settingswindow::on_backButton_clicked()
+{
+    emit goHome();
+}
+

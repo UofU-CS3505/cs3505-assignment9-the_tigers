@@ -33,6 +33,8 @@ private slots:
      */
     void onLearningNavClicked();
 
+    void onSettingsNavClicked();
+
     /**
      * Called when a back/home button is pressed from any page.
      */

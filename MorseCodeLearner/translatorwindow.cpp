@@ -16,6 +16,6 @@ translatorwindow::~translatorwindow()
 }
 
 void translatorwindow::onBackButtonClicked() {
-    emit goBack();
+    emit goHome();
 }
 
