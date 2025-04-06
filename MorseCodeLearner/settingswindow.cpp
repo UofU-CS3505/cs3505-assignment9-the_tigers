@@ -6,6 +6,8 @@ settingswindow::settingswindow(QWidget *parent)
     , ui(new Ui::settingswindow)
 {
     ui->setupUi(this);
+
+    QObject::connect(ui->backButton, &QPushButton::clicked, this, &settingswindow::on_backButton_clicked);
 }
 
 settingswindow::~settingswindow()

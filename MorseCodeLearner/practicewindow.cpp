@@ -6,6 +6,8 @@ practicewindow::practicewindow(QWidget *parent)
     , ui(new Ui::practicewindow)
 {
     ui->setupUi(this);
+
+    QObject::connect(ui->backButton, &QPushButton::clicked, this, &practicewindow::on_backButton_clicked);
 }
 
 practicewindow::~practicewindow()

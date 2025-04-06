@@ -2,7 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QStackedWidget>
 #include "morsehandler.h"
+#include "lessonwindow.h"
+#include "lessonselectwindow.h"
+#include "practicewindow.h"
+#include "settingswindow.h"
+#include "translatorwindow.h"
+#include "menuwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -44,6 +51,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QStackedWidget* stackedWidget;
+    lessonwindow* lessonWindow;
+    lessonselectwindow* lessonSelectWindow;
+    practicewindow* practiceWindow;
+    settingswindow* settingsWindow;
+    translatorwindow* translatorWindow;
+    MenuWindow* menuWindow;
 
     /**
      * A simple method to set up all the pages with the QStackedWidget.

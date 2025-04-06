@@ -14,6 +14,7 @@ SOURCES += \
     lessonwindow.cpp \
     main.cpp \
     mainwindow.cpp \
+    menuwindow.cpp \
     morsehandler.cpp \
     practicewindow.cpp \
     settingswindow.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     lessonselectwindow.h \
     lessonwindow.h \
     mainwindow.h \
+    menuwindow.h \
     morsehandler.h \
     practicewindow.h \
     settingswindow.h \
@@ -34,6 +36,7 @@ FORMS += \
     lessonselectwindow.ui \
     lessonwindow.ui \
     mainwindow.ui \
+    menuwindow.ui \
     practicewindow.ui \
     settingswindow.ui \
     translatorwindow.ui

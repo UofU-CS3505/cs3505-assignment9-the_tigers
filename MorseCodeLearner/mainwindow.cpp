@@ -8,20 +8,23 @@ MainWindow::MainWindow(QWidget *parent, MorseHandler *morseHandler)
 {
     ui->setupUi(this);
 
-    ui->stackedWidget->setCurrentIndex(0); // Ensures main menu is first page on app launch
+    stackedWidget = new QStackedWidget(this);
+    setCentralWidget(stackedWidget);
 
-    ui->translatorPage->setupMorse(morseHandler);
+    setUpPages();
 
-    QObject::connect(ui->translatenav, &QPushButton::clicked, this, &MainWindow::onTranslatorNavClicked);
-    QObject::connect(ui->practicenav, &QPushButton::clicked, this, &MainWindow::onPracticeNavClicked);
-    QObject::connect(ui->learningnav, &QPushButton::clicked, this, &MainWindow::onLearningNavClicked);
-    QObject::connect(ui->settingsnav, &QPushButton::clicked, this, &MainWindow::onSettingsNavClicked);
+    translatorWindow->setupMorse(morseHandler);
 
-    QObject::connect(ui->translatorPage, &translatorwindow::goHome, this, &MainWindow::goHome);
-    QObject::connect(ui->practicePage, &practicewindow::goHome, this, &MainWindow::goHome);
-    QObject::connect(ui->lessonPage, &lessonwindow::goToLessonSelect, this, &MainWindow::onLearningNavClicked);
-    QObject::connect(ui->lessonSelectPage, &lessonselectwindow::goHome, this, &MainWindow::goHome);
-    QObject::connect(ui->settingsPage, &settingswindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(menuWindow, &MenuWindow::goToTranslatorPage, this, &MainWindow::onTranslatorNavClicked);
+    QObject::connect(menuWindow, &MenuWindow::goToPracticePage, this, &MainWindow::onPracticeNavClicked);
+    QObject::connect(menuWindow, &MenuWindow::goToLessonPage, this, &MainWindow::onLearningNavClicked);
+    QObject::connect(menuWindow, &MenuWindow::goToSettingsPage, this, &MainWindow::onSettingsNavClicked);
+
+    QObject::connect(translatorWindow, &translatorwindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(practiceWindow, &practicewindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(lessonWindow, &lessonwindow::goToLessonSelect, this, &MainWindow::onLearningNavClicked);
+    QObject::connect(lessonSelectWindow, &lessonselectwindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);
 
 }
 
@@ -30,28 +33,46 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setUpPages() {
+    lessonWindow = new lessonwindow();
+    lessonSelectWindow = new lessonselectwindow();
+    practiceWindow = new practicewindow();
+    settingsWindow = new settingswindow();
+    translatorWindow = new translatorwindow();
+    menuWindow = new MenuWindow();
+
+    stackedWidget->addWidget(lessonWindow);
+    stackedWidget->addWidget(lessonSelectWindow);
+    stackedWidget->addWidget(practiceWindow);
+    stackedWidget->addWidget(settingsWindow);
+    stackedWidget->addWidget(translatorWindow);
+    stackedWidget->addWidget(menuWindow);
+
+    stackedWidget->setCurrentWidget(menuWindow);
+}
+
 void MainWindow::onTranslatorNavClicked()
 {
-    ui->stackedWidget->setCurrentIndex(1);
+    stackedWidget->setCurrentWidget(translatorWindow);
 }
 
 void MainWindow::onPracticeNavClicked()
 {
-    ui->stackedWidget->setCurrentIndex(2);
+    stackedWidget->setCurrentWidget(practiceWindow);
 }
 
 void MainWindow::onLearningNavClicked()
 {
-    ui->stackedWidget->setCurrentIndex(4);
+    stackedWidget->setCurrentWidget(lessonSelectWindow);
 }
 
 void MainWindow::onSettingsNavClicked()
 {
-    ui->stackedWidget->setCurrentIndex(5);
+    stackedWidget->setCurrentWidget(settingsWindow);
 }
 
 void MainWindow::goHome() {
     morseHandler->stopTimers();
-    ui->stackedWidget->setCurrentIndex(0);
+    stackedWidget->setCurrentWidget(menuWindow);
 }
 

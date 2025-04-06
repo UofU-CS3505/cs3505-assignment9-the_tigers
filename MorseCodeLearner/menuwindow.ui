@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MenuWindow</class>
+ <widget class="QWidget" name="MenuWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1300</width>
+    <height>678</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>80</y>
+     <width>300</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Morse Code!</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="helpnav">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>580</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="translatenav">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>480</y>
+     <width>300</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Translate</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="settingsnav">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>580</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="learningnav">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>300</y>
+     <width>300</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Learning</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="practicenav">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>390</y>
+     <width>300</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Practice</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -6,6 +6,8 @@ lessonwindow::lessonwindow(QWidget *parent)
     , ui(new Ui::lessonwindow)
 {
     ui->setupUi(this);
+
+    QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::on_backButton_clicked);
 }
 
 lessonwindow::~lessonwindow()

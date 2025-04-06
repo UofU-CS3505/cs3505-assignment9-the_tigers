@@ -6,6 +6,8 @@ lessonselectwindow::lessonselectwindow(QWidget *parent)
     , ui(new Ui::lessonselectwindow)
 {
     ui->setupUi(this);
+
+    QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonselectwindow::on_backButton_clicked);
 }
 
 lessonselectwindow::~lessonselectwindow()
