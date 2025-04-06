@@ -1,4 +1,5 @@
 QT       += core gui
+QT += multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +17,7 @@ SOURCES += \
     morsehandler.cpp \
     practicewindow.cpp \
     settingswindow.cpp \
+    sinewavegenerator.cpp \
     translatorwindow.cpp
 
 HEADERS += \
@@ -25,6 +27,7 @@ HEADERS += \
     morsehandler.h \
     practicewindow.h \
     settingswindow.h \
+    sinewavegenerator.h \
     translatorwindow.h
 
 FORMS += \

@@ -6,7 +6,12 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QWidget>
+#include <QAudioFormat>
+#include <QAudioOutput>
+#include <QAudioDevice>
+#include <QAudioSink>
 #include "morsehandler.h"
+#include "sinewavegenerator.h"
 
 namespace Ui {
 class translatorwindow;
@@ -41,6 +46,8 @@ private slots:
 
     void onMorseReceived(const std::string morse);
 
+    void onAudioStateChanged();
+
 private:
     Ui::translatorwindow *ui;
 
@@ -53,6 +60,12 @@ private:
     translateMode mode;
 
     string currentMorseLetter = "";
+
+    QAudioFormat format;
+
+    SineWaveGenerator *sineGenerator;
+
+    QAudioSink *audio;
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

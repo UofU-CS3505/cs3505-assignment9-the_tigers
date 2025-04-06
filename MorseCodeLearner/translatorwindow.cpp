@@ -14,11 +14,23 @@ translatorwindow::translatorwindow(QWidget *parent, MorseHandler *morseHandler)
     mode = MORSE_TO_TEXT;
 
     qApp->installEventFilter(this);
+
+    format.setSampleRate(44100);
+    format.setChannelCount(1);
+    format.setSampleFormat(QAudioFormat::Int16);
+    format.setChannelConfig(QAudioFormat::ChannelConfigMono);
+
+    audio = new QAudioSink(format, this);
+    sineGenerator = new SineWaveGenerator(this);
+
+    QObject::connect(audio, &QAudioSink::stateChanged, this, &translatorwindow::onAudioStateChanged);
 }
 
 translatorwindow::~translatorwindow()
 {
     delete ui;
+    delete audio;
+    delete sineGenerator;
 }
 
 void translatorwindow::setupMorse(MorseHandler *handler) {
@@ -73,9 +85,17 @@ bool translatorwindow::eventFilter(QObject *obj, QEvent *event)
         if (keyEvent->key() == Qt::Key_Space && !keyEvent->isAutoRepeat()) {
             if (event->type() == QEvent::KeyPress) {
                 // check if straight key is the current selected device
+                if (sineGenerator->bytesAvailable() == 0) {
+                    sineGenerator->start(440, 20000);
+                    audio->start(sineGenerator);
+                } else {
+                    audio->resume();
+                }
                 morseHandler->straightKeyDown();
             } else {
                 morseHandler->straightKeyUp();
+                audio->suspend();
+
             }
             return true;
         }
@@ -92,6 +112,13 @@ void translatorwindow::onMorseReceived(const string morse) {
 
     if (morse == " ") {
         on_inputText_textChanged();
+    }
+}
+
+void translatorwindow::onAudioStateChanged() {
+    if (audio->state() == QAudio::IdleState) {
+        sineGenerator->start(440, 20000);
+        audio->start(sineGenerator);
     }
 }
 
