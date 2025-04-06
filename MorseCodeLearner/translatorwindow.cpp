@@ -79,7 +79,7 @@ void translatorwindow::on_inputText_textChanged()
 
 bool translatorwindow::eventFilter(QObject *obj, QEvent *event)
 {
-    if (morseAudioPlayback)
+    if (morseAudioPlayback || mode == TEXT_TO_MORSE)
         return false;
 
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
@@ -103,7 +103,6 @@ bool translatorwindow::eventFilter(QObject *obj, QEvent *event)
             } else {
                 morseHandler->straightKeyUp();
                 audio->suspend();
-
             }
             return true;
         }
@@ -130,7 +129,6 @@ void translatorwindow::onAudioStateChanged() {
     }
 }
 
-
 void translatorwindow::playMorseAudio() {
     if (morseAudioOutputBuffer.empty()) {
         morseAudioPlayback = false;
@@ -144,12 +142,22 @@ void translatorwindow::playMorseAudio() {
     float unit = morseHandler->getUnitTime();
 
     if (morseAudioOutputBuffer.at(0) == '-') {
-        audio->resume();
-        stopTimer.singleShot(unit * 3, [=]() {audio->suspend();});
+        if (sineGenerator->bytesAvailable() == 0) {
+            sineGenerator->start(440, 20000);
+            audio->start(sineGenerator);
+        } else {
+            audio->resume();
+        }
+        stopTimer.singleShot(unit * 3, [this]() {audio->suspend();});
         gapTimer.singleShot(unit * 4, this, &translatorwindow::playMorseAudio);
     } else if (morseAudioOutputBuffer.at(0) == '.') {
-        audio->resume();
-        stopTimer.singleShot(unit, [=]() {audio->suspend();});
+        if (sineGenerator->bytesAvailable() == 0) {
+            sineGenerator->start(440, 20000);
+            audio->start(sineGenerator);
+        } else {
+            audio->resume();
+        }
+        stopTimer.singleShot(unit, [this]() {audio->suspend();});
         gapTimer.singleShot(unit * 2, this, &translatorwindow::playMorseAudio);
     } else if (morseAudioOutputBuffer.at(0) == ' ' || morseAudioOutputBuffer.at(0) == '/') {
         gapTimer.singleShot(unit * 2, this, &translatorwindow::playMorseAudio); // A slash is between 2 spaces so 1(char gap) + 2(space gap) + 2(slash gap) + 2(space gap) = 7 units
@@ -159,8 +167,6 @@ void translatorwindow::playMorseAudio() {
     }
     morseAudioOutputBuffer = morseAudioOutputBuffer.substr(1);
 }
-
-
 
 void translatorwindow::on_audioPlayButton_clicked()
 {

@@ -67,6 +67,9 @@
      <height>121</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::NoFocus</enum>
+   </property>
    <property name="text">
     <string>Swap</string>
    </property>
