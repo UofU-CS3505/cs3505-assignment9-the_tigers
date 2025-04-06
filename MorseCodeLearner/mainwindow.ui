@@ -23,6 +23,9 @@
       <height>721</height>
      </rect>
     </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
     <widget class="QWidget" name="page">
      <widget class="QPushButton" name="learningnav">
       <property name="geometry">
@@ -37,7 +40,7 @@
        <string>Learning</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="translatenav">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -50,7 +53,7 @@
        <string>Translate</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="settingsnav">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -63,7 +66,7 @@
        <string>Settings</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="helpnav">
       <property name="geometry">
        <rect>
         <x>80</x>
@@ -76,7 +79,7 @@
        <string>Help</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="practicenav">
       <property name="geometry">
        <rect>
         <x>10</x>

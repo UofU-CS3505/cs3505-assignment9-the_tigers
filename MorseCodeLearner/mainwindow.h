@@ -18,11 +18,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_3_clicked();
+    void onTranslatorNavClicked();
 
-    void on_pushButton_2_clicked();
+    void onPracticeNavClicked();
 
-    void on_learningnav_clicked();
+    void onLearningNavClicked();
 
 private:
     Ui::MainWindow *ui;

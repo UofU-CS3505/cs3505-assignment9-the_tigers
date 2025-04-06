@@ -6,6 +6,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QObject::connect(ui->translatenav, &QPushButton::clicked, this, &MainWindow::onTranslatorNavClicked);
+    QObject::connect(ui->practicenav, &QPushButton::clicked, this, &MainWindow::onPracticeNavClicked);
+    QObject::connect(ui->learningnav, &QPushButton::clicked, this, &MainWindow::onLearningNavClicked);
 }
 
 MainWindow::~MainWindow()
@@ -13,19 +17,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::onTranslatorNavClicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
 
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::onPracticeNavClicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
 }
 
 
-void MainWindow::on_learningnav_clicked()
+void MainWindow::onLearningNavClicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
 }
