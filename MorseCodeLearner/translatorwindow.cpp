@@ -72,6 +72,7 @@ bool translatorwindow::eventFilter(QObject *obj, QEvent *event)
 
         if (keyEvent->key() == Qt::Key_Space && !keyEvent->isAutoRepeat()) {
             if (event->type() == QEvent::KeyPress) {
+                // check if straight key is the current selected device
                 morseHandler->straightKeyDown();
             } else {
                 morseHandler->straightKeyUp();
