@@ -9,7 +9,12 @@ translatorwindow::translatorwindow(QWidget *parent, MorseHandler *morseHandler)
 {
     ui->setupUi(this);
 
+    ui->backButton->setIcon(QIcon(":/icons/back.svg"));
+    ui->backButton->setIconSize(QSize(52, 52));
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &translatorwindow::onBackButtonClicked);
+
+    ui->swapButton->setIcon(QIcon(":/icons/swap.svg"));
+    ui->swapButton->setIconSize(QSize(52, 104));
 
     mode = MORSE_TO_TEXT;
 

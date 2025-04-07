@@ -21,15 +21,15 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>71</width>
-     <height>61</height>
+     <width>64</width>
+     <height>64</height>
     </rect>
    </property>
    <property name="focusPolicy">
     <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
    <property name="text">
-    <string>&lt;</string>
+    <string/>
    </property>
   </widget>
   <widget class="QTextEdit" name="outputText">
@@ -44,6 +44,11 @@
      <height>71</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
    <property name="readOnly">
     <bool>true</bool>
    </property>
@@ -52,10 +57,15 @@
    <property name="geometry">
     <rect>
      <x>210</x>
-     <y>300</y>
+     <y>280</y>
      <width>781</width>
      <height>71</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>24</pointsize>
+    </font>
    </property>
    <property name="focusPolicy">
     <enum>Qt::FocusPolicy::StrongFocus</enum>
@@ -64,8 +74,8 @@
   <widget class="QPushButton" name="swapButton">
    <property name="geometry">
     <rect>
-     <x>1010</x>
-     <y>220</y>
+     <x>1000</x>
+     <y>210</y>
      <width>75</width>
      <height>121</height>
     </rect>
@@ -74,14 +84,14 @@
     <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
    <property name="text">
-    <string>Swap</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="outputLabel">
    <property name="geometry">
     <rect>
-     <x>1010</x>
-     <y>190</y>
+     <x>1000</x>
+     <y>170</y>
      <width>81</width>
      <height>16</height>
     </rect>
@@ -93,7 +103,7 @@
   <widget class="QLabel" name="inputLabel">
    <property name="geometry">
     <rect>
-     <x>1010</x>
+     <x>1000</x>
      <y>350</y>
      <width>81</width>
      <height>16</height>
@@ -106,10 +116,10 @@
   <widget class="QPushButton" name="audioPlayButton">
    <property name="geometry">
     <rect>
-     <x>114</x>
+     <x>140</x>
      <y>240</y>
-     <width>81</width>
-     <height>81</height>
+     <width>64</width>
+     <height>64</height>
     </rect>
    </property>
    <property name="focusPolicy">

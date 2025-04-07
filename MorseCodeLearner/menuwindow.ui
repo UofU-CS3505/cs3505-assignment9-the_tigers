@@ -16,14 +16,21 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>80</y>
-     <width>300</width>
-     <height>41</height>
+     <x>330</x>
+     <y>100</y>
+     <width>601</width>
+     <height>171</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Parchment</family>
+     <pointsize>128</pointsize>
+     <italic>false</italic>
+    </font>
+   </property>
    <property name="text">
-    <string>Morse Code!</string>
+    <string>Telegraphist</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -32,14 +39,20 @@
   <widget class="QPushButton" name="helpnav">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>580</y>
-     <width>75</width>
-     <height>24</height>
+     <x>630</x>
+     <y>570</y>
+     <width>64</width>
+     <height>64</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Parchment</family>
+     <pointsize>64</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>Help</string>
+    <string>?</string>
    </property>
   </widget>
   <widget class="QPushButton" name="translatenav">
@@ -51,6 +64,13 @@
      <height>80</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Scheherazade</family>
+     <pointsize>24</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
     <string>Translate</string>
    </property>
@@ -58,14 +78,14 @@
   <widget class="QPushButton" name="settingsnav">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>580</y>
-     <width>75</width>
-     <height>24</height>
+     <x>550</x>
+     <y>570</y>
+     <width>64</width>
+     <height>64</height>
     </rect>
    </property>
    <property name="text">
-    <string>Settings</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="learningnav">
@@ -77,8 +97,15 @@
      <height>80</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Scheherazade</family>
+     <pointsize>24</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
-    <string>Learning</string>
+    <string>Learn</string>
    </property>
   </widget>
   <widget class="QPushButton" name="practicenav">
@@ -89,6 +116,13 @@
      <width>300</width>
      <height>80</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Scheherazade</family>
+     <pointsize>24</pointsize>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="text">
     <string>Practice</string>

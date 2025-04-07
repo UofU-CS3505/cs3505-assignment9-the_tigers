@@ -1,3 +1,8 @@
 <RCC>
     <qresource prefix="/sounds"/>
+    <qresource prefix="/icons">
+        <file>back.svg</file>
+        <file>settings.svg</file>
+        <file>swap.svg</file>
+    </qresource>
 </RCC>

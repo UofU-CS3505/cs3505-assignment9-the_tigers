@@ -18,12 +18,12 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>71</width>
-     <height>61</height>
+     <width>64</width>
+     <height>64</height>
     </rect>
    </property>
    <property name="text">
-    <string>&lt;</string>
+    <string/>
    </property>
   </widget>
  </widget>

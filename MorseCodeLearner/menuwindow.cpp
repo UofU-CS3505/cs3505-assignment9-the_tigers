@@ -7,6 +7,9 @@ MenuWindow::MenuWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->settingsnav->setIcon(QIcon(":/icons/settings.svg"));
+    ui->settingsnav->setIconSize(QSize(52, 52));
+
     QObject::connect(ui->translatenav, &QPushButton::clicked, this, [=]() {
         emit goToTranslatorPage();
         userOnThisPage = false;

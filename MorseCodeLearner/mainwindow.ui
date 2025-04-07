@@ -11,7 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Telegraphist</string>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QStackedWidget" name="stackedWidget">
@@ -26,104 +29,7 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="menuPage">
-     <widget class="QPushButton" name="learningnav">
-      <property name="geometry">
-       <rect>
-        <x>490</x>
-        <y>230</y>
-        <width>300</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Learning</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="translatenav">
-      <property name="geometry">
-       <rect>
-        <x>490</x>
-        <y>410</y>
-        <width>300</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Translate</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="settingsnav">
-      <property name="geometry">
-       <rect>
-        <x>660</x>
-        <y>510</y>
-        <width>75</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Settings</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="helpnav">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>510</y>
-        <width>75</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Help</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="practicenav">
-      <property name="geometry">
-       <rect>
-        <x>490</x>
-        <y>320</y>
-        <width>300</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Practice</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>490</x>
-        <y>10</y>
-        <width>300</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Morse Code!</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-    </widget>
+    <widget class="QWidget" name="menuPage"/>
     <widget class="translatorwindow" name="translatorPage"/>
     <widget class="practicewindow" name="practicePage"/>
     <widget class="lessonwindow" name="lessonPage"/>
