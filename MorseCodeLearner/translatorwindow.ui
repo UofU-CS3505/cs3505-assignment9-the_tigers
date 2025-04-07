@@ -25,6 +25,9 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::NoFocus</enum>
+   </property>
    <property name="text">
     <string>&lt;</string>
    </property>

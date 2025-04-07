@@ -104,6 +104,7 @@ void MorseHandler::setWpm(float newWpm) {
 string MorseHandler::encodeText(const string text) {
     string encodedText = "";
     for (char c : text) {
+        c = std::tolower(c);
         if (c == ' ') {
             encodedText += " / ";
         } else {

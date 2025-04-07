@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="menuPage">
      <widget class="QPushButton" name="learningnav">
@@ -35,6 +35,9 @@
         <width>300</width>
         <height>80</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="text">
        <string>Learning</string>
@@ -49,6 +52,9 @@
         <height>80</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
       <property name="text">
        <string>Translate</string>
       </property>
@@ -61,6 +67,9 @@
         <width>75</width>
         <height>24</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="text">
        <string>Settings</string>
@@ -75,6 +84,9 @@
         <height>24</height>
        </rect>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
       <property name="text">
        <string>Help</string>
       </property>
@@ -87,6 +99,9 @@
         <width>300</width>
         <height>80</height>
        </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="text">
        <string>Practice</string>

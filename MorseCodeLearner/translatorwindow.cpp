@@ -88,7 +88,7 @@ void translatorwindow::on_inputText_textChanged()
 
 bool translatorwindow::eventFilter(QObject *obj, QEvent *event)
 {
-    if (morseAudioPlayback || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || morseAudioPlayback || mode == TEXT_TO_MORSE)
         return false;
 
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
