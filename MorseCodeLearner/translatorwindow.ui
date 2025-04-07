@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="focusPolicy">
-    <enum>Qt::FocusPolicy::NoFocus</enum>
+    <enum>Qt::FocusPolicy::ClickFocus</enum>
    </property>
    <property name="text">
     <string/>
@@ -39,9 +39,9 @@
    <property name="geometry">
     <rect>
      <x>210</x>
-     <y>190</y>
+     <y>90</y>
      <width>781</width>
-     <height>71</height>
+     <height>171</height>
     </rect>
    </property>
    <property name="font">
@@ -59,7 +59,7 @@
      <x>210</x>
      <y>280</y>
      <width>781</width>
-     <height>71</height>
+     <height>171</height>
     </rect>
    </property>
    <property name="font">
@@ -69,6 +69,9 @@
    </property>
    <property name="focusPolicy">
     <enum>Qt::FocusPolicy::StrongFocus</enum>
+   </property>
+   <property name="whatsThis">
+    <string>override morse input</string>
    </property>
   </widget>
   <widget class="QPushButton" name="swapButton">

@@ -100,7 +100,8 @@ bool translatorwindow::eventFilter(QObject *obj, QEvent *event)
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
 
         QWidget *focusWidget = QApplication::focusWidget();
-        if (qobject_cast<QTextEdit *>(focusWidget)) {
+        QTextEdit *textEdit = qobject_cast<QTextEdit *>(focusWidget);
+        if (textEdit) {
             return false;
         }
 
