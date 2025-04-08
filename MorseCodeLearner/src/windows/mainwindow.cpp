@@ -41,7 +41,7 @@ void MainWindow::setUpPages() {
     lessonWindow = new lessonwindow();
     lessonSelectWindow = new lessonselectwindow();
     practiceWindow = new practicewindow();
-    settingsWindow = new settingswindow();
+    settingsWindow = new settingswindow(this, morseHandler, audioHandler);
     translatorWindow = new translatorwindow(this, morseHandler, audioHandler, keyEventFilter);
     menuWindow = new MenuWindow();
 
