@@ -8,4 +8,8 @@
         <file>play.svg</file>
         <file>pause.svg</file>
     </qresource>
+    <qresource prefix="/images">
+        <file>background.jpg</file>
+        <file>illustrated_background.jpg</file>
+    </qresource>
 </RCC>
