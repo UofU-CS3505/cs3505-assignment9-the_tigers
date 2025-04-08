@@ -27,8 +27,8 @@ void MorseAudioHandler::setWpm(float wpm) {
     unit = 1200 / wpm;
 }
 
-void MorseAudioHandler::setVolume(int volume) {
-    audio->setVolume(volume);
+void MorseAudioHandler::setVolume(signed int volumeValue) {
+    audio->setVolume(volumeValue / qreal(100.0));
 }
 
 void MorseAudioHandler::onAudioStateChanged() {

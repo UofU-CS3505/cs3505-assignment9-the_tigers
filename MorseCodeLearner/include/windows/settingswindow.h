@@ -26,7 +26,8 @@ signals:
 
 private slots:
     void on_backButton_clicked();
-    void volumeChanged(int volume);
+    void volumeChanged(signed int volumeValue);
+    void wpmChanged(int wpm);
 
 private:
     Ui::settingswindow *ui;

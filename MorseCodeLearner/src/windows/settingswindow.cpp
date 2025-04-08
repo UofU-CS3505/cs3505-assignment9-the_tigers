@@ -15,6 +15,7 @@ settingswindow::settingswindow(QWidget *parent,
     ui->backButton->setIconSize(QSize(52, 52));
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &settingswindow::on_backButton_clicked);
     QObject::connect(ui->volumeSlider, &QAbstractSlider::valueChanged, this, &settingswindow::volumeChanged);
+    QObject::connect(ui->wpmSpinBox, &QSpinBox::valueChanged, this, &settingswindow::wpmChanged);
 }
 
 settingswindow::~settingswindow()
@@ -36,7 +37,12 @@ void settingswindow::on_backButton_clicked()
     userOnThisPage = false;
 }
 
-void settingswindow::volumeChanged(int volume){
-    audioHandler->setVolume(volume);
+void settingswindow::volumeChanged(signed int volumeValue){
+    audioHandler->setVolume(volumeValue);
+}
+
+void settingswindow::wpmChanged(int wpm){
+    morseHandler->setWpm(wpm);
+    audioHandler->setWpm(wpm);
 }
 
