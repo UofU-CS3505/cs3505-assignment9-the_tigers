@@ -12,4 +12,8 @@
         <file>background.jpg</file>
         <file>illustrated_background.jpg</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file>OldLondon.ttf</file>
+        <file>JMHTypewriter.ttf</file>
+    </qresource>
 </RCC>

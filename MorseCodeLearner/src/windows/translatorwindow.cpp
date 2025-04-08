@@ -68,13 +68,13 @@ void translatorwindow::onSwapButtonClicked()
 
     if (mode == MORSE_TO_TEXT) {
         mode = TEXT_TO_MORSE;
-        ui->inputLabel->setText("Text");
-        ui->outputLabel->setText("Morse");
+        ui->inputLabel->setText("TEXT");
+        ui->outputLabel->setText("MORSE");
 
     } else {
         mode = MORSE_TO_TEXT;
-        ui->inputLabel->setText("Morse");
-        ui->outputLabel->setText("Text");
+        ui->inputLabel->setText("MORSE");
+        ui->outputLabel->setText("TEXT");
     }
 
     ui->inputText->setText(ui->outputText->toPlainText());

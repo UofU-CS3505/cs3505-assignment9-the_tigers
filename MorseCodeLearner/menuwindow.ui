@@ -24,8 +24,8 @@
    </property>
    <property name="font">
     <font>
-     <family>Parchment</family>
-     <pointsize>128</pointsize>
+     <family>Old London</family>
+     <pointsize>96</pointsize>
      <italic>false</italic>
     </font>
    </property>
@@ -47,7 +47,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Parchment</family>
+     <family>Old London</family>
      <pointsize>64</pointsize>
     </font>
    </property>
@@ -73,9 +73,9 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>Scheherazade</family>
+     <family>JMH Typewriter</family>
      <pointsize>24</pointsize>
-     <bold>true</bold>
+     <bold>false</bold>
     </font>
    </property>
    <property name="focusPolicy">
@@ -120,9 +120,9 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>Scheherazade</family>
+     <family>JMH Typewriter</family>
      <pointsize>24</pointsize>
-     <bold>true</bold>
+     <bold>false</bold>
     </font>
    </property>
    <property name="focusPolicy">
@@ -147,9 +147,9 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>Scheherazade</family>
+     <family>JMH Typewriter</family>
      <pointsize>24</pointsize>
-     <bold>true</bold>
+     <bold>false</bold>
     </font>
    </property>
    <property name="focusPolicy">

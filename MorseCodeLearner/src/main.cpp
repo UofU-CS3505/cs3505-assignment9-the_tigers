@@ -1,10 +1,14 @@
 #include "mainwindow.h"
 
 #include <QApplication>
+#include <QFontDatabase>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QFontDatabase::addApplicationFont(":/fonts/OldLondon.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/JMHTypewriter.ttf");
 
     KeyEventFilter *keyEventFilter = new KeyEventFilter(&a);
     a.installEventFilter(keyEventFilter);
