@@ -19,6 +19,10 @@ translatorwindow::translatorwindow(QWidget *parent,
     ui->backButton->setIconSize(QSize(52, 52));
     ui->backButton->setCursor(Qt::PointingHandCursor);
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &translatorwindow::onBackButtonClicked);
+    QObject::connect(ui->swapButton, &QPushButton::clicked, this, &translatorwindow::onSwapButtonClicked);
+    QObject::connect(ui->inputText, &QTextEdit::textChanged, this, &translatorwindow::onInputTextTextChanged);
+    QObject::connect(ui->audioPlayButton, &QPushButton::clicked, this, &translatorwindow::onAudioPlayButtonClicked);
+
 
     ui->swapButton->setIcon(QIcon(":/icons/swap.svg"));
     ui->swapButton->setIconSize(QSize(52, 104));
@@ -58,7 +62,7 @@ void translatorwindow::onBackButtonClicked() {
     userOnThisPage = false;
 }
 
-void translatorwindow::on_swapButton_clicked()
+void translatorwindow::onSwapButtonClicked()
 {
     morseHandler->stopTimers();
 
@@ -77,7 +81,7 @@ void translatorwindow::on_swapButton_clicked()
 }
 
 
-void translatorwindow::on_inputText_textChanged()
+void translatorwindow::onInputTextTextChanged()
 {
     std::string text = ui->inputText->toPlainText().toStdString();
     if (mode == TEXT_TO_MORSE) {
@@ -109,11 +113,11 @@ void translatorwindow::onMorseReceived(const string morse) {
     ui->inputText->blockSignals(false);
 
     if (morse == " ") {
-        on_inputText_textChanged();
+        onInputTextTextChanged();
     }
 }
 
-void translatorwindow::on_audioPlayButton_clicked()
+void translatorwindow::onAudioPlayButtonClicked()
 {
     if (audioHandler->getPlayback() == false) {
         audioHandler->suspend();

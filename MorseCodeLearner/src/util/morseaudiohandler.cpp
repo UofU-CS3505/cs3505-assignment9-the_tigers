@@ -23,8 +23,8 @@ MorseAudioHandler::~MorseAudioHandler() {
     delete sineGenerator;
 }
 
-void MorseAudioHandler::setMorseUnit(float unit) {
-    this->unit = unit;
+void MorseAudioHandler::setWpm(float wpm) {
+    unit = 1200 / wpm;
 }
 
 void MorseAudioHandler::onAudioStateChanged() {

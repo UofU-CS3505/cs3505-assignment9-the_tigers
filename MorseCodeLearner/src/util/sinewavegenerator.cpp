@@ -12,7 +12,7 @@ void SineWaveGenerator::start(int freq, int durationMs) {
     m_data.clear();
 
     int samples = (m_sampleRate * durationMs) / 1000;
-    int fadeInSamples = m_sampleRate * 0.005;
+    int fadeInSamples = m_sampleRate * 0.005; // Incredibly small fade in to mitigate clipping.
     qreal fadeInStep = 1.0 / fadeInSamples;
 
     qreal phaseShift = M_PI / 2;

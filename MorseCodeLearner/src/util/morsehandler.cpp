@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <sstream>
 
-MorseHandler::MorseHandler(int wpm) : wpm(wpm), unit(1200 / wpm) {
+MorseHandler::MorseHandler(int wpm) : unit(1200 / wpm) {
     charGapTimer.setSingleShot(true);
     wordGapTimer.setSingleShot(true);
     connect(&charGapTimer, &QTimer::timeout, this, &MorseHandler::onCharGapTimeout);
@@ -20,7 +20,7 @@ void MorseHandler::straightKeyDown() {
 void MorseHandler::straightKeyUp() {
     qint64 duration = keyDownTimer.elapsed();
 
-    if (duration < 1.5 * unit) {
+    if (duration < 1.5 * unit) { // User needs to be close enough to the dot timing
         emit decodedInput(".");
     } else {
         emit decodedInput("-");
@@ -97,8 +97,7 @@ void MorseHandler::stopTimers() {
     charGapTimer.stop();
 }
 
-void MorseHandler::setWpm(float newWpm) {
-    wpm = newWpm;
+void MorseHandler::setWpm(float wpm) {
     unit = 1200 / wpm;
 }
 
@@ -109,7 +108,7 @@ string MorseHandler::encodeText(const string text) {
         if (c == ' ') {
             encodedText += " / ";
         } else {
-            if (encodings.count(c) == 0) {
+            if (encodings.count(c) == 0) {  // Unknown chars are encoded as "?"
                 encodedText += "?";
             } else {
                 encodedText += encodings.at(c) + " ";
