@@ -1,7 +1,6 @@
 #ifndef TRANSLATORWINDOW_H
 #define TRANSLATORWINDOW_H
 
-
 #include <QEvent>
 #include <QKeyEvent>
 #include <QApplication>
@@ -15,11 +14,20 @@ namespace Ui {
 class translatorwindow;
 }
 
+/**
+ * The translator page. Allows for morse or text input which is translated to its counterpart.
+ * Morse can be played back audibly with the play/pause button.
+ *
+ * @name Michael Timothy
+ * @date 04/04/2025
+ */
 class translatorwindow : public QWidget
 {
     Q_OBJECT
-
 public:
+    /**
+     * Constructor for a translator window. Takes in a MorseHandler, MorseAudioHandler, and KeyEventFilter.
+     */
     explicit translatorwindow(QWidget *parent = nullptr,
                               MorseHandler *morseHandler = nullptr,
                               MorseAudioHandler *audioHandler = nullptr,
@@ -37,18 +45,49 @@ signals:
     void goHome();
 
 private slots:
+    /**
+     * Resets the page's state when the back button is clicked.
+     */
     void onBackButtonClicked();
 
-    void on_swapButton_clicked();
+    /**
+     * Swaps the input type and puts whatever is currently in the output text box
+     * into the input text box.
+     */
+    void onSwapButtonClicked();
 
-    void on_inputText_textChanged();
+    /**
+     * Updates the output text box with the translated version of the input text box.
+     */
+    void onInputTextTextChanged();
 
+    /**
+     * Slot for when the MorseHandler object sends us a morse character.
+     * The morse character is appended to our input text box.
+     * @param morse The morse character.
+     */
     void onMorseReceived(const std::string morse);
 
-    void on_audioPlayButton_clicked();
+    /**
+     * Starts playback of the morse that is either in the input box or output box depending on the
+     * current translate mode.
+     *
+     * Disables morse device input while playing.
+     */
+    void onAudioPlayButtonClicked();
 
+    /**
+     * Tells the MorseHandler and MorseAudioHandler that the straight key has been pressed
+     * as long as: the user is currently on this page, playback of morse is not currently being played,
+     * and the translate mode is morse to text.
+     */
     void handleSpacePressed();
 
+    /**
+     * Tells the MorseHandler and MorseAudioHandler that the straight key has been released
+     * as long as: the user is currently on this page, playback of morse is not currently being played,
+     * and the translate mode is morse to text.
+     */
     void handleSpaceReleased();
 
 private:
@@ -61,7 +100,6 @@ private:
     MorseHandler *morseHandler;
     MorseAudioHandler *audioHandler;
     KeyEventFilter *keyEventFilter;
-
 
     translateMode mode = MORSE_TO_TEXT;
 

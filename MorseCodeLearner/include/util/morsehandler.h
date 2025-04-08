@@ -10,13 +10,22 @@ using std::map, std::string;
 
 /**
  * The MorseHandler class handles all morse timings from user input.
- * It receives slots when a straight key is pressed/released or
- * when a paddle is pressed/released. It then sends a signal when a valid
- * morse input happens and the morse character that was decoded from the input
- * is sent over the signal.
  *
- * The class also is able to encode English text with encodeText which
- * returns the translated morse code.
+ * Code which uses a MorseHandler object must call the methods related
+ * to straight key presses/releases or paddle presses/releases.
+ *
+ * The MorseHandler object will send a signal when a valid morse input
+ * from the straightKeyDown/Up or paddleDown/Up happens. The morse
+ * character that was decoded from the input is sent over the signal.
+ *
+ * There are methods within this class that can return the decoded version of
+ * a morse code string, and an encoded version of a passed in text string.
+ *
+ * Whenever a user navigates away from a page that is currently using the morsehandler,
+ * stopTimers() should be called.
+ *
+ * The timings used are Farnsworth morse timings, documented here:
+ * https://morsecode.world/international/timing.html
  *
  * @name Michael Timothy
  * @date 04/04/2025
@@ -40,7 +49,6 @@ private:
 
     enum morseChar { DOT, DASH, EMPTY };
 
-    float wpm;
     float unit;
 
     bool paddleDotIsDown = false;
@@ -64,22 +72,26 @@ public:
 
     string decodeMorse(const string morse);
 
-public slots:
+    /**
+     * Used when a straight key is pressed down.
+     * Starts a timer that tracks how long the key has been pressed
+     * and a char gap timer.
+     */
     void straightKeyDown();
 
+    /**
+     * Used when a straight key is released.
+     * Checks the duration that has elapsed since the straight key was pressed down.
+     * Depending on the length, either emits a dot or dash.
+     *
+     * Also starts a char gap timer and word gap timer.
+     */
     void straightKeyUp();
 
     void paddleDotDown();
-
     void paddleDotUp();
-
     void paddleDashDown();
-
     void paddleDashUp();
-
-    void onCharGapTimeout();
-
-    void onWordGapTimeout();
 
     /**
      * Can be used to stop all current timers to ensure
@@ -90,11 +102,32 @@ public slots:
      */
     void stopTimers();
 
+    /**
+     * Sets the morse unit duration.
+     */
     void setWpm(float wpm);
 
+    /**
+     * @return The current morse unit duration.
+     */
     float getUnitTime();
 
+private slots:
+    /**
+     * Emits decodedInput() with a space character to indicate the start of a new letter.
+     */
+    void onCharGapTimeout();
+
+    /**
+     * Emits decodedInput() with a slash (/) character to indicate the start of a new word.
+     */
+    void onWordGapTimeout();
+
 signals:
+    /**
+     * A signal that sends morse characters generated.
+     * @param The morse character generated.
+     */
     void decodedInput(const std::string morse);
 };
 
