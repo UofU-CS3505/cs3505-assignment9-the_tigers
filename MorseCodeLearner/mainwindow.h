@@ -10,6 +10,7 @@
 #include "settingswindow.h"
 #include "translatorwindow.h"
 #include "menuwindow.h"
+#include "keyeventfilter.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,10 +23,15 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr, MorseHandler *morseHandler = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr,
+                        MorseHandler *morseHandler = nullptr,
+                        MorseAudioHandler *audioHandler = nullptr,
+                        KeyEventFilter *keyEventFilter = nullptr);
     ~MainWindow();
 
     MorseHandler *morseHandler;
+    MorseAudioHandler *audioHandler;
+    KeyEventFilter *keyEventFilter;
 private slots:
     /**
      * Called when navigating to the Translator Page.

@@ -6,13 +6,10 @@
 #include <QKeyEvent>
 #include <QApplication>
 #include <QWidget>
-#include <QAudioFormat>
-#include <QAudioOutput>
-#include <QAudioDevice>
-#include <QAudioSink>
 #include <QTimer>
 #include "morsehandler.h"
-#include "sinewavegenerator.h"
+#include "morseaudiohandler.h"
+#include "keyeventfilter.h"
 
 namespace Ui {
 class translatorwindow;
@@ -23,10 +20,11 @@ class translatorwindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit translatorwindow(QWidget *parent = nullptr, MorseHandler *morseHandler = nullptr);
+    explicit translatorwindow(QWidget *parent = nullptr,
+                              MorseHandler *morseHandler = nullptr,
+                              MorseAudioHandler *audioHandler = nullptr,
+                              KeyEventFilter *keyEventFilter = nullptr);
     ~translatorwindow();
-
-    void setupMorse(MorseHandler *handler);
 
     void setUserOnThisPage(bool userOnThisPage);
 
@@ -39,10 +37,6 @@ signals:
     void goHome();
 
 private slots:
-    /**
-     * Slot that gets called when the back button is pressed; emits the
-     * goBack() signal.
-     */
     void onBackButtonClicked();
 
     void on_swapButton_clicked();
@@ -51,13 +45,11 @@ private slots:
 
     void onMorseReceived(const std::string morse);
 
-    void onAudioStateChanged();
-
-    //void on_pushButton_clicked();
-
     void on_audioPlayButton_clicked();
 
-    void playMorseAudio();
+    void handleSpacePressed();
+
+    void handleSpaceReleased();
 
 private:
     Ui::translatorwindow *ui;
@@ -67,26 +59,13 @@ private:
     };
 
     MorseHandler *morseHandler;
+    MorseAudioHandler *audioHandler;
+    KeyEventFilter *keyEventFilter;
 
-    translateMode mode;
 
-    QAudioFormat format;
+    translateMode mode = MORSE_TO_TEXT;
 
-    SineWaveGenerator *sineGenerator;
-
-    QAudioSink *audio;
-
-    bool morseAudioPlayback = false;
-
-    string morseAudioOutputBuffer;
-
-    QTimer stopTimer;
-    QTimer gapTimer;
-
-    bool userOnThisPage;
-
-protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
+    bool userOnThisPage = false;
 };
 
 #endif // TRANSLATORWINDOW_H

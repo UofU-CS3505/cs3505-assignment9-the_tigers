@@ -10,11 +10,13 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    keyeventfilter.cpp \
     lessonselectwindow.cpp \
     lessonwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     menuwindow.cpp \
+    morseaudiohandler.cpp \
     morsehandler.cpp \
     practicewindow.cpp \
     settingswindow.cpp \
@@ -22,10 +24,12 @@ SOURCES += \
     translatorwindow.cpp
 
 HEADERS += \
+    keyeventfilter.h \
     lessonselectwindow.h \
     lessonwindow.h \
     mainwindow.h \
     menuwindow.h \
+    morseaudiohandler.h \
     morsehandler.h \
     practicewindow.h \
     settingswindow.h \

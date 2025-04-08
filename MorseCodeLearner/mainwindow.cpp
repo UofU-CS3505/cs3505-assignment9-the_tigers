@@ -1,9 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent, MorseHandler *morseHandler)
+MainWindow::MainWindow(QWidget *parent,
+                       MorseHandler *morseHandler,
+                       MorseAudioHandler *audioHandler,
+                       KeyEventFilter *keyEventFilter)
     : QMainWindow(parent)
     , morseHandler(morseHandler)
+    , audioHandler(audioHandler)
+    , keyEventFilter(keyEventFilter)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -12,8 +17,6 @@ MainWindow::MainWindow(QWidget *parent, MorseHandler *morseHandler)
     setCentralWidget(stackedWidget);
 
     setUpPages();
-
-    translatorWindow->setupMorse(morseHandler);
 
     QObject::connect(menuWindow, &MenuWindow::goToTranslatorPage, this, &MainWindow::onTranslatorNavClicked);
     QObject::connect(menuWindow, &MenuWindow::goToPracticePage, this, &MainWindow::onPracticeNavClicked);
@@ -38,7 +41,7 @@ void MainWindow::setUpPages() {
     lessonSelectWindow = new lessonselectwindow();
     practiceWindow = new practicewindow();
     settingsWindow = new settingswindow();
-    translatorWindow = new translatorwindow();
+    translatorWindow = new translatorwindow(this, morseHandler, audioHandler, keyEventFilter);
     menuWindow = new MenuWindow();
 
     stackedWidget->addWidget(lessonWindow);
