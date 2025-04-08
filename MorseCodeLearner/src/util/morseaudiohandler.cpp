@@ -27,6 +27,10 @@ void MorseAudioHandler::setWpm(float wpm) {
     unit = 1200 / wpm;
 }
 
+void MorseAudioHandler::setVolume(int volume) {
+    audio->setVolume(volume);
+}
+
 void MorseAudioHandler::onAudioStateChanged() {
     if (audio->state() == QAudio::IdleState) {
         sineGenerator->start(frequency, 30000);

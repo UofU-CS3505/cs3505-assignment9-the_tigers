@@ -1,15 +1,20 @@
 #include "settingswindow.h"
 #include "ui_settingswindow.h"
 
-settingswindow::settingswindow(QWidget *parent)
+settingswindow::settingswindow(QWidget *parent,
+                               MorseHandler *morseHandler,
+                               MorseAudioHandler *audioHandler)
     : QWidget(parent)
     , ui(new Ui::settingswindow)
+    , morseHandler(morseHandler)
+    , audioHandler(audioHandler)
 {
     ui->setupUi(this);
 
     ui->backButton->setIcon(QIcon(":/icons/back.svg"));
     ui->backButton->setIconSize(QSize(52, 52));
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &settingswindow::on_backButton_clicked);
+    QObject::connect(ui->volumeSlider, &QAbstractSlider::valueChanged, this, &settingswindow::volumeChanged);
 }
 
 settingswindow::~settingswindow()
@@ -29,5 +34,9 @@ void settingswindow::on_backButton_clicked()
 {
     emit goHome();
     userOnThisPage = false;
+}
+
+void settingswindow::volumeChanged(int volume){
+    audioHandler->setVolume(volume);
 }
 

@@ -46,6 +46,8 @@ public:
 
     void setWpm(float wpm);
 
+    void setVolume(int volume);
+
     /**
      * @brief Starts playing an unending sine wave.
      *
