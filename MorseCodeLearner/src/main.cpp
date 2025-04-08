@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
 
     MainWindow menu(nullptr, &morseHandler, &audioHandler, keyEventFilter);
     menu.setFixedSize(1280, 720);
+    menu.setWindowIcon(QIcon(":/icons/app_icon.png"));
+
     menu.show();
     return a.exec();
 }

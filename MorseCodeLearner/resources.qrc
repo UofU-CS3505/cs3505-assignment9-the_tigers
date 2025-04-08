@@ -4,5 +4,8 @@
         <file>back.svg</file>
         <file>settings.svg</file>
         <file>swap.svg</file>
+        <file>app_icon.png</file>
+        <file>play.svg</file>
+        <file>pause.svg</file>
     </qresource>
 </RCC>

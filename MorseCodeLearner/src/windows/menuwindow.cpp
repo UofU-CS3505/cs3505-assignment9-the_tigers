@@ -10,6 +10,12 @@ MenuWindow::MenuWindow(QWidget *parent)
     ui->settingsnav->setIcon(QIcon(":/icons/settings.svg"));
     ui->settingsnav->setIconSize(QSize(52, 52));
 
+    ui->learningnav->setCursor(Qt::PointingHandCursor);
+    ui->settingsnav->setCursor(Qt::PointingHandCursor);
+    ui->practicenav->setCursor(Qt::PointingHandCursor);
+    ui->translatenav->setCursor(Qt::PointingHandCursor);
+    ui->helpnav->setCursor(Qt::PointingHandCursor);
+
     QObject::connect(ui->translatenav, &QPushButton::clicked, this, [=]() {
         emit goToTranslatorPage();
         userOnThisPage = false;

@@ -54,6 +54,10 @@
    <property name="focusPolicy">
     <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid black;
+background-color: transparent;</string>
+   </property>
    <property name="text">
     <string>?</string>
    </property>
@@ -77,6 +81,10 @@
    <property name="focusPolicy">
     <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid black;
+background-color: transparent;</string>
+   </property>
    <property name="text">
     <string>Translate</string>
    </property>
@@ -92,6 +100,10 @@
    </property>
    <property name="focusPolicy">
     <enum>Qt::FocusPolicy::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid black;
+background-color: transparent;</string>
    </property>
    <property name="text">
     <string/>
@@ -116,6 +128,10 @@
    <property name="focusPolicy">
     <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid black;
+background-color: transparent;</string>
+   </property>
    <property name="text">
     <string>Learn</string>
    </property>
@@ -138,6 +154,10 @@
    </property>
    <property name="focusPolicy">
     <enum>Qt::FocusPolicy::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid black;
+background-color: transparent;</string>
    </property>
    <property name="text">
     <string>Practice</string>
