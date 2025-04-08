@@ -5,7 +5,6 @@
 #include <map>
 #include <QTimer>
 #include <QElapsedTimer>
-#include <sstream>
 
 using std::map, std::string;
 

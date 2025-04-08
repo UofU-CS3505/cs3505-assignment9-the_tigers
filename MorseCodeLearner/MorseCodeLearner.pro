@@ -9,32 +9,37 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += $$PWD/include/util \
+               $$PWD/include/windows \
+               $$PWD/src/util \
+               $$PWD/src/windows
+
 SOURCES += \
-    keyeventfilter.cpp \
-    lessonselectwindow.cpp \
-    lessonwindow.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    menuwindow.cpp \
-    morseaudiohandler.cpp \
-    morsehandler.cpp \
-    practicewindow.cpp \
-    settingswindow.cpp \
-    sinewavegenerator.cpp \
-    translatorwindow.cpp
+    src/util/keyeventfilter.cpp \
+    src/windows/lessonselectwindow.cpp \
+    src/windows/lessonwindow.cpp \
+    src/main.cpp \
+    src/windows/mainwindow.cpp \
+    src/windows/menuwindow.cpp \
+    src/util/morseaudiohandler.cpp \
+    src/util/morsehandler.cpp \
+    src/windows/practicewindow.cpp \
+    src/windows/settingswindow.cpp \
+    src/util/sinewavegenerator.cpp \
+    src/windows/translatorwindow.cpp
 
 HEADERS += \
-    keyeventfilter.h \
-    lessonselectwindow.h \
-    lessonwindow.h \
-    mainwindow.h \
-    menuwindow.h \
-    morseaudiohandler.h \
-    morsehandler.h \
-    practicewindow.h \
-    settingswindow.h \
-    sinewavegenerator.h \
-    translatorwindow.h
+    include/util/keyeventfilter.h \
+    include/windows/lessonselectwindow.h \
+    include/windows/lessonwindow.h \
+    include/windows/mainwindow.h \
+    include/windows/menuwindow.h \
+    include/util/morseaudiohandler.h \
+    include/util/morsehandler.h \
+    include/windows/practicewindow.h \
+    include/windows/settingswindow.h \
+    include/util/sinewavegenerator.h \
+    include/windows/translatorwindow.h
 
 FORMS += \
     lessonselectwindow.ui \
