@@ -13,145 +13,293 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="backButton">
+  <widget class="QFrame" name="headerFrame">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>64</width>
-     <height>64</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1281</width>
+     <height>81</height>
     </rect>
    </property>
-   <property name="text">
-    <string/>
+   <property name="styleSheet">
+    <string notr="true">border: none;
+border-bottom: 2px solid black;</string>
    </property>
-  </widget>
-  <widget class="QLabel" name="settingsTitle">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>10</y>
-     <width>500</width>
-     <height>80</height>
-    </rect>
+   <property name="frameShape">
+    <enum>QFrame::Shape::NoFrame</enum>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>28</pointsize>
-    </font>
+   <property name="frameShadow">
+    <enum>QFrame::Shadow::Sunken</enum>
    </property>
-   <property name="text">
-    <string>Settings</string>
+   <property name="lineWidth">
+    <number>1</number>
    </property>
-  </widget>
-  <widget class="QLabel" name="volumeTitle">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>160</y>
-     <width>80</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Volume</string>
-   </property>
-  </widget>
-  <widget class="QSlider" name="volumeSlider">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>180</y>
-     <width>171</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="maximum">
-    <number>100</number>
-   </property>
-   <property name="value">
-    <number>100</number>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Orientation::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="wpmTitle">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>230</y>
-     <width>160</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Words Per Minute:</string>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="wpmSpinBox">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>260</y>
-     <width>171</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="maximum">
-    <number>30</number>
-   </property>
-   <property name="value">
-    <number>12</number>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="inputDevice">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>120</y>
-     <width>171</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>Straight Key (Default)</string>
+   <widget class="QLabel" name="headerLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1280</width>
+      <height>81</height>
+     </rect>
     </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Iambic Paddle</string>
+    <property name="font">
+     <font>
+      <family>Old London</family>
+      <pointsize>48</pointsize>
+     </font>
     </property>
-   </item>
+    <property name="lineWidth">
+     <number>-1</number>
+    </property>
+    <property name="text">
+     <string>Settings</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-color: transparent;
+background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
-  <widget class="QLabel" name="deviceLabel">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>640</x>
-     <y>90</y>
-     <width>151</width>
-     <height>21</height>
+     <x>-5</x>
+     <y>100</y>
+     <width>1345</width>
+     <height>381</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Input Device</string>
-   </property>
+   <layout class="QVBoxLayout" name="settingsLayout">
+    <property name="leftMargin">
+     <number>430</number>
+    </property>
+    <property name="rightMargin">
+     <number>450</number>
+    </property>
+    <item alignment="Qt::AlignmentFlag::AlignLeft">
+     <widget class="QLabel" name="deviceLabel">
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Input Device</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="inputDevice">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>48</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 2px solid black;
+padding-left: 0.5em;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>Straight Key (Default)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Iambic Paddle</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Straight Key uses the spacebar. 
+Iambic Paddle uses left/right arrow keys.</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLabel" name="volumeTitle">
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Volume</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSlider" name="volumeSlider">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="value">
+       <number>100</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="invertedAppearance">
+       <bool>false</bool>
+      </property>
+      <property name="invertedControls">
+       <bool>false</bool>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TickPosition::TicksBelow</enum>
+      </property>
+      <property name="tickInterval">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLabel" name="wpmTitle">
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Words Per Minute</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSpinBox" name="wpmSpinBox">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>48</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 2px solid black;
+padding-left: 0.5em;</string>
+      </property>
+      <property name="wrapping">
+       <bool>false</bool>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+      </property>
+      <property name="accelerated">
+       <bool>false</bool>
+      </property>
+      <property name="maximum">
+       <number>30</number>
+      </property>
+      <property name="value">
+       <number>12</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>How many words per minute will you be inputting?
+Determines timing in practice and translate mode</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
