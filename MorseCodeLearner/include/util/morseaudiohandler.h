@@ -25,6 +25,7 @@ class MorseAudioHandler : public QWidget
 private:
     SineWaveGenerator *sineGenerator;
     QAudioSink *audio;
+    QAudioDevice outputDevice;
     QAudioFormat format;
 
     QTimer stopTimer;

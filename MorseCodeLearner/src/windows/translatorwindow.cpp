@@ -34,6 +34,8 @@ translatorwindow::translatorwindow(QWidget *parent,
     ui->audioPlayButton->setIconSize(QSize(52, 52));
     ui->audioPlayButton->setCursor(Qt::PointingHandCursor);
 
+    ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
+
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
     QObject::connect(audioHandler, &MorseAudioHandler::playbackEnd, this, [=]() {ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));});
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &translatorwindow::handleSpacePressed);
@@ -102,6 +104,8 @@ void translatorwindow::handleSpacePressed() {
     qDebug() << morseHandler->getDevice();
     audioHandler->start();
     morseHandler->straightKeyDown();
+
+    ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border : 2px solid black; border-radius: 5px}");
 }
 
 void translatorwindow::handleSpaceReleased() {
@@ -109,6 +113,8 @@ void translatorwindow::handleSpaceReleased() {
         return;
     morseHandler->straightKeyUp();
     audioHandler->suspend();
+
+    ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
 }
 
 void translatorwindow::handleLeftArrowPressed() {

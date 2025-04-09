@@ -23,6 +23,7 @@ MorseHandler::device MorseHandler::getDevice() {
 void MorseHandler::straightKeyDown() {
     keyDownTimer.start();
     charGapTimer.stop();
+    wordGapTimer.stop();
 }
 
 void MorseHandler::straightKeyUp() {
@@ -48,6 +49,7 @@ void MorseHandler::paddleDotDown() {
 }
 
 void MorseHandler::paddleDotUp() {
+    paddleDotTimer.stop();
     paddleDotIsDown = false;
     if (!paddleDashIsDown) {
         charGapTimer.start(3 * unit);
@@ -66,6 +68,7 @@ void MorseHandler::paddleDashDown() {
 }
 
 void MorseHandler::paddleDashUp() {
+    paddleDashTimer.stop();
     paddleDashIsDown = false;
     if (!paddleDotIsDown) {
         charGapTimer.start(3 * unit);
@@ -79,14 +82,14 @@ void MorseHandler::signalPaddleDot() {
     if (!paddleDotIsDown || currentPaddleInput != DOT)
         return;
     emit decodedInput(".");
-    paddleDotTimer.singleShot(unit, this, &MorseHandler::signalPaddleDot);
+    paddleDotTimer.singleShot(unit * 2, this, &MorseHandler::signalPaddleDot);
 }
 
 void MorseHandler::signalPaddleDash() {
     if (!paddleDashIsDown || currentPaddleInput != DASH)
         return;
     emit decodedInput("-");
-    paddleDashTimer.singleShot(unit, this, &MorseHandler::signalPaddleDash);
+    paddleDashTimer.singleShot(unit * 4, this, &MorseHandler::signalPaddleDash);
 }
 
 void MorseHandler::onCharGapTimeout() {

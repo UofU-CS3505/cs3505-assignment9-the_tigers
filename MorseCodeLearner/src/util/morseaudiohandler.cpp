@@ -1,4 +1,5 @@
 #include "morseaudiohandler.h"
+#include <QMediaDevices>
 
 MorseAudioHandler::MorseAudioHandler(QWidget *parent, float unit) : QWidget(parent), unit(unit) {
 
@@ -7,7 +8,8 @@ MorseAudioHandler::MorseAudioHandler(QWidget *parent, float unit) : QWidget(pare
     format.setSampleFormat(QAudioFormat::Int16);
     format.setChannelConfig(QAudioFormat::ChannelConfigMono);
 
-    audio = new QAudioSink(format, this);
+    outputDevice = QMediaDevices::defaultAudioOutput();
+    audio = new QAudioSink(outputDevice, format, this);
     sineGenerator = new SineWaveGenerator(this);
 
     playingPlayback = false;
@@ -16,6 +18,7 @@ MorseAudioHandler::MorseAudioHandler(QWidget *parent, float unit) : QWidget(pare
     frequency = 440;
 
     QObject::connect(audio, &QAudioSink::stateChanged, this, &MorseAudioHandler::onAudioStateChanged);
+
 }
 
 MorseAudioHandler::~MorseAudioHandler() {
