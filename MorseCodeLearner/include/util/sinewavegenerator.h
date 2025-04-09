@@ -24,8 +24,9 @@ public:
      * Generates the sine wave and opens the QIODevice for reading.
      * @param freq The frequency of the wave.
      * @param durationMs The duration of the sine wave in milliseconds.
+     * @param volume The scalar for volume, 0.0 to 1.0
      */
-    void start(int freq, int durationMs);
+    void start(int freq, int durationMs, float volume);
 
     qint64 readData(char *data, qint64 maxlen) override;
 

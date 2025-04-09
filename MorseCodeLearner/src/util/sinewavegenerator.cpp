@@ -5,7 +5,7 @@ SineWaveGenerator::SineWaveGenerator(QObject *parent) :
     , m_pos(0)
 {}
 
-void SineWaveGenerator::start(int freq, int durationMs) {
+void SineWaveGenerator::start(int freq, int durationMs, float volume) {
     m_duration = durationMs;
     m_freq = freq;
     m_pos = 0;
@@ -25,7 +25,7 @@ void SineWaveGenerator::start(int freq, int durationMs) {
             fadeFactor = fadeInStep * i;
         }
 
-        qint16 value = 32767 * fadeFactor * std::sin(2 * M_PI * freq * t + phaseShift);
+        qint16 value = 32767 * volume * fadeFactor * std::sin(2 * M_PI * freq * t + phaseShift);
         m_data.append(reinterpret_cast<const char*>(&value), sizeof(qint16));
     }
 

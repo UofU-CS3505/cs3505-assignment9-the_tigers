@@ -27,20 +27,26 @@ void MorseAudioHandler::setWpm(float wpm) {
     unit = 1200 / wpm;
 }
 
-void MorseAudioHandler::setVolume(signed int volumeValue) {
-    audio->setVolume(volumeValue / qreal(100.0));
+void MorseAudioHandler::setVolume(int volumeValue) {
+    volume = volumeValue / qreal(100);
+    if (sineGenerator->openMode()) {
+        delete sineGenerator;
+        sineGenerator = new SineWaveGenerator();
+        delete audio;
+        audio = new QAudioSink(format);
+    }
 }
 
 void MorseAudioHandler::onAudioStateChanged() {
     if (audio->state() == QAudio::IdleState) {
-        sineGenerator->start(frequency, 30000);
+        sineGenerator->start(frequency, 30000, volume);
         audio->start(sineGenerator);
     }
 }
 
 void MorseAudioHandler::start() {
     if (sineGenerator->bytesAvailable() == 0) {
-        sineGenerator->start(frequency, 30000);
+        sineGenerator->start(frequency, 30000, volume);
         audio->start(sineGenerator);
     } else {
         audio->resume();
