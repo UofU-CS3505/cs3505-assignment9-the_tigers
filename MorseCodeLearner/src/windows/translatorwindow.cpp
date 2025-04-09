@@ -38,6 +38,10 @@ translatorwindow::translatorwindow(QWidget *parent,
     QObject::connect(audioHandler, &MorseAudioHandler::playbackEnd, this, [=]() {ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));});
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &translatorwindow::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &translatorwindow::handleSpaceReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, &translatorwindow::handleLeftArrowPressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, &translatorwindow::handleLeftArrowReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, &translatorwindow::handleRightArrowPressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, &translatorwindow::handleRightArrowReleased);
 }
 
 translatorwindow::~translatorwindow()
@@ -93,17 +97,42 @@ void translatorwindow::onInputTextTextChanged()
 }
 
 void translatorwindow::handleSpacePressed() {
-    if (userOnThisPage == false || audioHandler->getPlayback() || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
         return;
+    qDebug() << morseHandler->getDevice();
     audioHandler->start();
     morseHandler->straightKeyDown();
 }
 
 void translatorwindow::handleSpaceReleased() {
-    if (userOnThisPage == false || audioHandler->getPlayback() || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
         return;
     morseHandler->straightKeyUp();
     audioHandler->suspend();
+}
+
+void translatorwindow::handleLeftArrowPressed() {
+    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
+        return;
+    morseHandler->paddleDotDown();
+}
+
+void translatorwindow::handleLeftArrowReleased() {
+    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
+        return;
+    morseHandler->paddleDotUp();
+}
+
+void translatorwindow::handleRightArrowPressed() {
+    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
+        return;
+    morseHandler->paddleDashDown();
+}
+
+void translatorwindow::handleRightArrowReleased() {
+    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
+        return;
+    morseHandler->paddleDashUp();
 }
 
 void translatorwindow::onMorseReceived(const string morse) {

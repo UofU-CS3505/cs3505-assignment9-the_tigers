@@ -44,30 +44,6 @@
     <string>Settings</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="straightKeyToggle">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>100</y>
-     <width>250</width>
-     <height>40</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Paddle Input</string>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>48</width>
-     <height>48</height>
-    </size>
-   </property>
-  </widget>
   <widget class="QLabel" name="volumeTitle">
    <property name="geometry">
     <rect>
@@ -167,17 +143,42 @@
     <string>Morse Code Input Key:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QComboBox" name="inputDevice">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>120</y>
+     <width>171</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Straight Key (Default)</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Iambic Paddle</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="deviceLabel">
    <property name="geometry">
     <rect>
      <x>640</x>
      <y>90</y>
-     <width>231</width>
-     <height>20</height>
+     <width>151</width>
+     <height>21</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>Default input mode is straight key</string>
+    <string>Input Device</string>
    </property>
   </widget>
  </widget>

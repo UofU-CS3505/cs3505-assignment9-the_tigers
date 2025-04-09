@@ -25,9 +25,10 @@ signals:
     void goHome();
 
 private slots:
-    void on_backButton_clicked();
+    void onBackButtonClicked();
     void volumeChanged(signed int volumeValue);
     void wpmChanged(int wpm);
+    void onInputDeviceIndexChanged(int index);
 
 private:
     Ui::settingswindow *ui;

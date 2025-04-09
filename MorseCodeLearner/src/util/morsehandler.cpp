@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <sstream>
 
-MorseHandler::MorseHandler(int wpm) : unit(1200 / wpm) {
+MorseHandler::MorseHandler(device input, int wpm) : unit(1200 / wpm), inputDevice(input) {
     charGapTimer.setSingleShot(true);
     wordGapTimer.setSingleShot(true);
     connect(&charGapTimer, &QTimer::timeout, this, &MorseHandler::onCharGapTimeout);
@@ -10,6 +10,14 @@ MorseHandler::MorseHandler(int wpm) : unit(1200 / wpm) {
     for (const auto& pair : encodings) {
         reverseEncodings[pair.second] = pair.first;
     };
+}
+
+void MorseHandler::setDevice(device input) {
+    inputDevice = input;
+}
+
+MorseHandler::device MorseHandler::getDevice() {
+    return inputDevice;
 }
 
 void MorseHandler::straightKeyDown() {

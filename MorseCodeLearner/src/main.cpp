@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     KeyEventFilter *keyEventFilter = new KeyEventFilter(&a);
     a.installEventFilter(keyEventFilter);
 
-    MorseHandler morseHandler(10); // Param should be based on the user's saved settings, default to 10 otherwise
+    MorseHandler morseHandler(MorseHandler::STRAIGHT_KEY, 10); // Param should be based on the user's saved settings, default to 10 otherwise
     MorseAudioHandler audioHandler;
 
     MainWindow menu(nullptr, &morseHandler, &audioHandler, keyEventFilter);

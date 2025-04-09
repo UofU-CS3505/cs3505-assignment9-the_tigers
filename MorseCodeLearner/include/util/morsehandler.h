@@ -66,11 +66,17 @@ private:
     void signalPaddleDash();
 
 public:
-    MorseHandler(int wpm);
+    enum device { STRAIGHT_KEY, IAMBIC_PADDLE };
+
+    MorseHandler(device inputDevice, int wpm);
 
     string encodeText(const string text);
 
     string decodeMorse(const string morse);
+
+    void setDevice(device input);
+
+    device getDevice();
 
     /**
      * Used when a straight key is pressed down.
@@ -129,6 +135,10 @@ signals:
      * @param The morse character generated.
      */
     void decodedInput(const std::string morse);
+private:
+    device inputDevice;
 };
+
+
 
 #endif // MORSEHANDLER_H

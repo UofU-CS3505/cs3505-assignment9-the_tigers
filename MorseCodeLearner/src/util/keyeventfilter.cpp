@@ -20,6 +20,24 @@ bool KeyEventFilter::eventFilter(QObject *obj, QEvent *event) {
             }
             return true;
         }
+
+        if (keyEvent->key() == Qt::Key_Left && !keyEvent->isAutoRepeat()) {
+            if (event->type() == QEvent::KeyPress) {
+                emit leftArrowPressed();
+            } else {
+                emit leftArrowReleased();
+            }
+            return true;
+        }
+
+        if (keyEvent->key() == Qt::Key_Right && !keyEvent->isAutoRepeat()) {
+            if (event->type() == QEvent::KeyPress) {
+                emit rightArrowPressed();
+            } else {
+                emit rightArrowReleased();
+            }
+            return true;
+        }
     }
 
     return QObject::eventFilter(obj, event);

@@ -24,6 +24,10 @@ public:
 signals:
     void spacePressed();
     void spaceReleased();
+    void leftArrowPressed();
+    void leftArrowReleased();
+    void rightArrowPressed();
+    void rightArrowReleased();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
