@@ -99,8 +99,6 @@ void translatorwindow::handleSpacePressed() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
         return;
     morseHandler->straightKeyDown();
-
-
 }
 
 void translatorwindow::handleSpaceReleased() {

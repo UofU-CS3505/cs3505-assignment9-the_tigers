@@ -9,15 +9,15 @@ class LessonHandler : public QObject
     Q_OBJECT
 private:
     MorseHandler *morseHandler;
-    std::vector<char> lessonLetters;
-    std::vector<char> learnedLetters;
+    std::vector<std::string> lessonLetters;
+    std::vector<std::string> learnedLetters;
     int currentLesson;
 
-    void displayMorse();
+    void displayMorse(const std::string text);
 
-    void displayCharacter();
+    void displayText(const std::string morse);
 
-    char getRandomLetter();
+    std::string getRandomLetter();
 
     void lessonOne();
 
@@ -43,7 +43,9 @@ signals:
 
     void guessIncorrect();
 
-    void displayQuestion();
+    void displayMorseToUI(const std::string morse);
+
+    void displayTextToUI(const std::string text);
 };
 
 #endif // LESSONHANDLER_H
