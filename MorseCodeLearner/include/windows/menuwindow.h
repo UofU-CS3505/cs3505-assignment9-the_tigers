@@ -23,9 +23,13 @@ signals:
     void goToPracticePage();
     void goToSettingsPage();
 
+private slots:
+    void toggleHelp();
+
 private:
     Ui::MenuWindow *ui;
     bool userOnThisPage;
+    bool showingHelp;
 };
 
 #endif // MENUWINDOW_H

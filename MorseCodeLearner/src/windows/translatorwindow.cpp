@@ -11,11 +11,9 @@ translatorwindow::translatorwindow(QWidget *parent,
     , keyEventFilter(keyEventFilter)
 {
     ui->setupUi(this);
-    this->setStyleSheet("QPushButton{qproperty-cursor: PointingHandCursor;}");
 
     ui->backButton->setIcon(QIcon(":/icons/back.svg"));
     ui->backButton->setIconSize(QSize(52, 52));
-    ui->backButton->setCursor(Qt::PointingHandCursor);
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &translatorwindow::onBackButtonClicked);
     QObject::connect(ui->swapButton, &QPushButton::clicked, this, &translatorwindow::onSwapButtonClicked);
     QObject::connect(ui->inputText, &QTextEdit::textChanged, this, &translatorwindow::onInputTextTextChanged);
@@ -24,13 +22,11 @@ translatorwindow::translatorwindow(QWidget *parent,
 
     ui->swapButton->setIcon(QIcon(":/icons/swap.svg"));
     ui->swapButton->setIconSize(QSize(52, 104));
-    ui->swapButton->setCursor(Qt::PointingHandCursor);
 
     qApp->installEventFilter(this);
 
     ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));
     ui->audioPlayButton->setIconSize(QSize(52, 52));
-    ui->audioPlayButton->setCursor(Qt::PointingHandCursor);
 
     ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
 

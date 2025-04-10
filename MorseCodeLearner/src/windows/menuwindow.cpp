@@ -3,18 +3,17 @@
 
 MenuWindow::MenuWindow(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::MenuWindow)
+    , ui(new Ui::MenuWindow), showingHelp(false)
 {
     ui->setupUi(this);
 
     ui->settingsnav->setIcon(QIcon(":/icons/settings.svg"));
     ui->settingsnav->setIconSize(QSize(52, 52));
 
-    ui->learningnav->setCursor(Qt::PointingHandCursor);
-    ui->settingsnav->setCursor(Qt::PointingHandCursor);
-    ui->practicenav->setCursor(Qt::PointingHandCursor);
-    ui->translatenav->setCursor(Qt::PointingHandCursor);
-    ui->helpnav->setCursor(Qt::PointingHandCursor);
+    ui->settingsHelpLabel->hide();
+    ui->learnHelpLabel->hide();
+    ui->practiceHelpLabel->hide();
+    ui->translateHelpLabel->hide();
 
     QObject::connect(ui->translatenav, &QPushButton::clicked, this, [=]() {
         emit goToTranslatorPage();
@@ -32,6 +31,7 @@ MenuWindow::MenuWindow(QWidget *parent)
         emit goToSettingsPage();
         userOnThisPage = false;
     });
+    QObject::connect(ui->helpnav, &QPushButton::clicked, this, &MenuWindow::toggleHelp);
 }
 
 MenuWindow::~MenuWindow()
@@ -45,4 +45,20 @@ void MenuWindow::setUserOnThisPage(bool userOnThisPage) {
 
 bool MenuWindow::getUserOnThisPage() {
     return userOnThisPage;
+}
+
+void MenuWindow::toggleHelp() {
+    if (!showingHelp) {
+        ui->settingsHelpLabel->show();
+        ui->learnHelpLabel->show();
+        ui->practiceHelpLabel->show();
+        ui->translateHelpLabel->show();
+        showingHelp = true;
+    } else {
+        ui->settingsHelpLabel->hide();
+        ui->learnHelpLabel->hide();
+        ui->practiceHelpLabel->hide();
+        ui->translateHelpLabel->hide();
+        showingHelp = false;
+    }
 }
