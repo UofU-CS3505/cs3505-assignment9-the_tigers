@@ -15,6 +15,7 @@ INCLUDEPATH += $$PWD/include/util \
                $$PWD/src/windows
 
 SOURCES += \
+    src/util/animationhandler.cpp \
     src/util/lessonhandler.cpp \
     src/util/lessonmanager.cpp \
     src/util/keyeventfilter.cpp \
@@ -77,6 +78,7 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp
 
 HEADERS += \
+    include/util/animationhandler.h \
     include/util/keyeventfilter.h \
     include/util/lessonhandler.h \
     include/windows/lessonselectwindow.h \
