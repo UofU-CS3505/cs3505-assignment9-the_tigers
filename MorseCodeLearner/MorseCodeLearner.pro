@@ -17,7 +17,6 @@ INCLUDEPATH += $$PWD/include/util \
 SOURCES += \
     src/util/animationhandler.cpp \
     src/util/lessonhandler.cpp \
-    src/util/lessonmanager.cpp \
     src/util/keyeventfilter.cpp \
     src/windows/lessonselectwindow.cpp \
     src/windows/lessonwindow.cpp \

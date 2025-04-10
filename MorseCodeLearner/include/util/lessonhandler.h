@@ -8,7 +8,7 @@ class LessonHandler : public QObject
 {
     Q_OBJECT
 private:
-    MorseHandler& morseHandler;
+    MorseHandler *morseHandler;
     std::vector<char> lessonLetters;
     std::vector<char> learnedLetters;
     int currentLesson;
@@ -28,14 +28,14 @@ private:
     void letterLearned();
 
 public:
-    LessonHandler(MorseHandler& morseHandler, QObject* parent = nullptr);
+    explicit LessonHandler(MorseHandler *morseHandler = nullptr, QObject* parent = nullptr);
 
 public slots:
-    void startLesson();
+    // void startLesson();
 
-    void nextQuestion();
+    // void nextQuestion();
 
-    void checkUserGuess();
+    // void checkUserGuess();
 
 signals:
 
