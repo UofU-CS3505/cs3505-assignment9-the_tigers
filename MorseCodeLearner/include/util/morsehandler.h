@@ -45,6 +45,8 @@ private:
     bool paddleDashIsDown = false;
 
     morseChar currentPaddleInput = EMPTY;
+    bool symbolInProgress = false;
+    std::optional<morseChar> pendingSymbol;
 
     QTimer paddleDotTimer;
     QTimer paddleDashTimer;
@@ -104,6 +106,9 @@ public:
     void paddleDotUp();
     void paddleDashDown();
     void paddleDashUp();
+
+    void playSymbol(morseChar symbol);
+    void onSymbolComplete();
 
     /**
      * Can be used to stop all current timers to ensure

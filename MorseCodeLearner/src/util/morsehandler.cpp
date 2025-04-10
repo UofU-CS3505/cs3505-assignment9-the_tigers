@@ -53,54 +53,85 @@ void MorseHandler::straightKeyUp() {
 
     charGapTimer.start(3 * unit);
     wordGapTimer.start(7 * unit);
-
 }
 
 void MorseHandler::paddleDotDown() {
-    if (audioHandler.getPlayback())
-        return;
+    if (audioHandler.getPlayback()) return;
     charGapTimer.stop();
     wordGapTimer.stop();
     paddleDotIsDown = true;
-    currentPaddleInput = DOT;
-    signalPaddleDot();
+
+    if (!symbolInProgress) {
+        currentPaddleInput = DOT;
+        playSymbol(DOT);
+    } else {
+        pendingSymbol = DOT;
+    }
 }
 
 void MorseHandler::paddleDotUp() {
-    if (audioHandler.getPlayback())
-        return;
-    paddleDotTimer.stop();
     paddleDotIsDown = false;
-    if (!paddleDashIsDown) {
+    if (!paddleDashIsDown && !symbolInProgress) {
         charGapTimer.start(3 * unit);
         wordGapTimer.start(7 * unit);
-    } else {
-        currentPaddleInput = DASH;
-        signalPaddleDash();
     }
 }
 
 void MorseHandler::paddleDashDown() {
-    if (audioHandler.getPlayback())
-        return;
+    if (audioHandler.getPlayback()) return;
     charGapTimer.stop();
     wordGapTimer.stop();
     paddleDashIsDown = true;
-    currentPaddleInput = DASH;
-    signalPaddleDash();
+
+    if (!symbolInProgress) {
+        currentPaddleInput = DASH;
+        playSymbol(DASH);
+    } else {
+        pendingSymbol = DASH;
+    }
 }
 
 void MorseHandler::paddleDashUp() {
-    if (audioHandler.getPlayback())
-        return;
-    paddleDashTimer.stop();
     paddleDashIsDown = false;
-    if (!paddleDotIsDown) {
+    if (!paddleDotIsDown && !symbolInProgress) {
         charGapTimer.start(3 * unit);
         wordGapTimer.start(7 * unit);
+    }
+}
+
+void MorseHandler::playSymbol(morseChar symbol) {
+    symbolInProgress = true;
+    currentPaddleInput = symbol;
+
+    if (symbol == DOT) {
+        audioHandler.start();
+        emit decodedInput(".");
+        suspendAudioTimer.start(unit);
+        QTimer::singleShot(unit * 2, this, &MorseHandler::onSymbolComplete);
     } else {
-        currentPaddleInput = DOT;
-        signalPaddleDot();
+        audioHandler.start();
+        emit decodedInput("-");
+        suspendAudioTimer.start(unit * 3);
+        QTimer::singleShot(unit * 4, this, &MorseHandler::onSymbolComplete);
+    }
+}
+
+void MorseHandler::onSymbolComplete() {
+    symbolInProgress = false;
+
+    if (paddleDotIsDown && paddleDashIsDown) {
+        currentPaddleInput = (currentPaddleInput == DOT) ? DASH : DOT;
+        playSymbol(currentPaddleInput);
+    } else if (pendingSymbol.has_value()) {
+        playSymbol(pendingSymbol.value());
+        pendingSymbol.reset();
+    } else if (paddleDotIsDown) {
+        playSymbol(DOT);
+    } else if (paddleDashIsDown) {
+        playSymbol(DASH);
+    } else {
+        charGapTimer.start(3 * unit);
+        wordGapTimer.start(7 * unit);
     }
 }
 
