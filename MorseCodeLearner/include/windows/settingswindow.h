@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include "morsehandler.h"
-#include "morseaudiohandler.h"
 
 namespace Ui {
 class settingswindow;
@@ -14,9 +13,7 @@ class settingswindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit settingswindow(QWidget *parent = nullptr,
-                            MorseHandler *morseHandler = nullptr,
-                            MorseAudioHandler *audioHandler = nullptr);
+    explicit settingswindow(QWidget *parent = nullptr, MorseHandler *morseHandler = nullptr);
     ~settingswindow();
     void setUserOnThisPage(bool userOnThisPage);
     bool getUserOnThisPage();
@@ -34,7 +31,6 @@ private:
     Ui::settingswindow *ui;
 
     MorseHandler *morseHandler;
-    MorseAudioHandler *audioHandler;
     bool userOnThisPage;
 };
 

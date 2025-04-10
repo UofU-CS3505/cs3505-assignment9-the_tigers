@@ -7,7 +7,6 @@
 #include <QWidget>
 #include <QTimer>
 #include "morsehandler.h"
-#include "morseaudiohandler.h"
 #include "keyeventfilter.h"
 
 namespace Ui {
@@ -30,7 +29,6 @@ public:
      */
     explicit translatorwindow(QWidget *parent = nullptr,
                               MorseHandler *morseHandler = nullptr,
-                              MorseAudioHandler *audioHandler = nullptr,
                               KeyEventFilter *keyEventFilter = nullptr);
     ~translatorwindow();
 
@@ -106,7 +104,6 @@ private:
     };
 
     MorseHandler *morseHandler;
-    MorseAudioHandler *audioHandler;
     KeyEventFilter *keyEventFilter;
 
     translateMode mode = MORSE_TO_TEXT;

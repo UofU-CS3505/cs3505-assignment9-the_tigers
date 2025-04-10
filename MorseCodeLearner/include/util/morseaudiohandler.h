@@ -103,6 +103,10 @@ signals:
      * Sent when a buffer has no more morse to read/play.
      */
     void playbackEnd();
+
+    void lightIndicatorOn();
+
+    void lightIndicatorOff();
 };
 
 #endif // MORSEAUDIOHANDLER_H

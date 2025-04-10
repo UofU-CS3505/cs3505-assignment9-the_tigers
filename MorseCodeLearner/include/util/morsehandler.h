@@ -5,11 +5,13 @@
 #include <map>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <morseaudiohandler.h>
 
 using std::map, std::string;
 
 /**
  * The MorseHandler class handles all morse timings from user input.
+ * It also plays morse audio with a MorseAudioHandler.
  *
  * Code which uses a MorseHandler object must call the methods related
  * to straight key presses/releases or paddle presses/releases.
@@ -24,7 +26,7 @@ using std::map, std::string;
  * Whenever a user navigates away from a page that is currently using the morsehandler,
  * stopTimers() should be called.
  *
- * The timings used are Farnsworth morse timings, documented here:
+ * The standard international morse timings are used, which can be found here:
  * https://morsecode.world/international/timing.html
  *
  * @name Michael Timothy
@@ -60,10 +62,13 @@ private:
     QTimer paddleDashTimer;
     QTimer charGapTimer;
     QTimer wordGapTimer;
+    QTimer suspendAudioTimer;
     QElapsedTimer keyDownTimer;
 
     void signalPaddleDot();
     void signalPaddleDash();
+
+    MorseAudioHandler audioHandler;
 
 public:
     enum device { STRAIGHT_KEY, IAMBIC_PADDLE };
@@ -118,6 +123,16 @@ public:
      */
     float getUnitTime();
 
+    bool getPlayback();
+
+    void stopPlayback();
+
+    void playMorse(string morse);
+
+    void setVolume(int volume);
+
+
+
 private slots:
     /**
      * Emits decodedInput() with a space character to indicate the start of a new letter.
@@ -135,6 +150,11 @@ signals:
      * @param The morse character generated.
      */
     void decodedInput(const std::string morse);
+
+    void playbackEnd();
+
+    void lightIndicatorOn();
+    void lightIndicatorOff();
 private:
     device inputDevice;
 };

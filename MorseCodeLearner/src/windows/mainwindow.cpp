@@ -3,11 +3,9 @@
 
 MainWindow::MainWindow(QWidget *parent,
                        MorseHandler *morseHandler,
-                       MorseAudioHandler *audioHandler,
                        KeyEventFilter *keyEventFilter)
     : QMainWindow(parent)
     , morseHandler(morseHandler)
-    , audioHandler(audioHandler)
     , keyEventFilter(keyEventFilter)
     , ui(new Ui::MainWindow)
 {
@@ -41,8 +39,8 @@ void MainWindow::setUpPages() {
     lessonWindow = new lessonwindow();
     lessonSelectWindow = new lessonselectwindow();
     practiceWindow = new practicewindow();
-    settingsWindow = new settingswindow(this, morseHandler, audioHandler);
-    translatorWindow = new translatorwindow(this, morseHandler, audioHandler, keyEventFilter);
+    settingsWindow = new settingswindow(this, morseHandler);
+    translatorWindow = new translatorwindow(this, morseHandler, keyEventFilter);
     menuWindow = new MenuWindow();
 
     stackedWidget->addWidget(lessonWindow);

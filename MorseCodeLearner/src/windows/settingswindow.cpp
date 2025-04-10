@@ -1,13 +1,10 @@
 #include "settingswindow.h"
 #include "ui_settingswindow.h"
 
-settingswindow::settingswindow(QWidget *parent,
-                               MorseHandler *morseHandler,
-                               MorseAudioHandler *audioHandler)
+settingswindow::settingswindow(QWidget *parent, MorseHandler *morseHandler)
     : QWidget(parent)
     , ui(new Ui::settingswindow)
     , morseHandler(morseHandler)
-    , audioHandler(audioHandler)
 {
     ui->setupUi(this);
 
@@ -38,13 +35,12 @@ void settingswindow::onBackButtonClicked()
     userOnThisPage = false;
 }
 
-void settingswindow::volumeChanged(signed int volumeValue){
-    audioHandler->setVolume(volumeValue);
+void settingswindow::volumeChanged(int volumeValue){
+    morseHandler->setVolume(volumeValue);
 }
 
 void settingswindow::wpmChanged(int wpm){
     morseHandler->setWpm(wpm);
-    audioHandler->setWpm(wpm);
 }
 
 

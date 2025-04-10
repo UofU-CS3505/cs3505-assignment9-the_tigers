@@ -54,12 +54,14 @@ void MorseAudioHandler::start() {
     } else {
         audio->resume();
     }
+    emit lightIndicatorOn();
 }
 
 void MorseAudioHandler::stop() {
     playingPlayback = false;
     outputBuffer = "";
     audio->suspend();
+    emit lightIndicatorOff();
 }
 
 void MorseAudioHandler::playMorse(string morse) {
@@ -70,6 +72,7 @@ void MorseAudioHandler::playMorse(string morse) {
 
 void MorseAudioHandler::suspend() {
     audio->suspend();
+    emit lightIndicatorOff();
 }
 
 bool MorseAudioHandler::getPlayback() {

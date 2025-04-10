@@ -25,12 +25,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr,
                         MorseHandler *morseHandler = nullptr,
-                        MorseAudioHandler *audioHandler = nullptr,
                         KeyEventFilter *keyEventFilter = nullptr);
     ~MainWindow();
 
     MorseHandler *morseHandler;
-    MorseAudioHandler *audioHandler;
     KeyEventFilter *keyEventFilter;
 private slots:
     /**

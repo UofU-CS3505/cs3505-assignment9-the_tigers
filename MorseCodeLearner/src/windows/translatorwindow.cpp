@@ -4,12 +4,10 @@
 
 translatorwindow::translatorwindow(QWidget *parent,
                                    MorseHandler *morseHandler,
-                                   MorseAudioHandler *audioHandler,
                                    KeyEventFilter *keyEventFilter)
     : QWidget(parent)
     , ui(new Ui::translatorwindow)
     , morseHandler(morseHandler)
-    , audioHandler(audioHandler)
     , keyEventFilter(keyEventFilter)
 {
     ui->setupUi(this);
@@ -37,7 +35,10 @@ translatorwindow::translatorwindow(QWidget *parent,
     ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
-    QObject::connect(audioHandler, &MorseAudioHandler::playbackEnd, this, [=]() {ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));});
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [=]() {ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border : 2px solid black; border-radius: 5px}");});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");});
+
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &translatorwindow::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &translatorwindow::handleSpaceReleased);
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, &translatorwindow::handleLeftArrowPressed);
@@ -60,7 +61,7 @@ bool translatorwindow::getUserOnThisPage() {
 }
 
 void translatorwindow::onBackButtonClicked() {
-    audioHandler->stop();
+    morseHandler->stopPlayback();
 
     ui->inputText->clear();
     ui->outputText->clear();
@@ -99,44 +100,39 @@ void translatorwindow::onInputTextTextChanged()
 }
 
 void translatorwindow::handleSpacePressed() {
-    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
         return;
-    qDebug() << morseHandler->getDevice();
-    audioHandler->start();
     morseHandler->straightKeyDown();
 
-    ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border : 2px solid black; border-radius: 5px}");
+
 }
 
 void translatorwindow::handleSpaceReleased() {
-    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
         return;
     morseHandler->straightKeyUp();
-    audioHandler->suspend();
-
-    ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
 }
 
 void translatorwindow::handleLeftArrowPressed() {
-    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
         return;
     morseHandler->paddleDotDown();
 }
 
 void translatorwindow::handleLeftArrowReleased() {
-    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
         return;
     morseHandler->paddleDotUp();
 }
 
 void translatorwindow::handleRightArrowPressed() {
-    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
         return;
     morseHandler->paddleDashDown();
 }
 
 void translatorwindow::handleRightArrowReleased() {
-    if (userOnThisPage == false || audioHandler->getPlayback() || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode == TEXT_TO_MORSE)
         return;
     morseHandler->paddleDashUp();
 }
@@ -154,17 +150,17 @@ void translatorwindow::onMorseReceived(const string morse) {
 
 void translatorwindow::onAudioPlayButtonClicked()
 {
-    if (audioHandler->getPlayback() == false) {
-        audioHandler->suspend();
+    if (!morseHandler->getPlayback()) {
+        morseHandler->stopPlayback();
         ui->audioPlayButton->setIcon(QIcon(":/icons/pause.svg"));
         if (mode == TEXT_TO_MORSE) {
-            audioHandler->playMorse(ui->outputText->toPlainText().toStdString());
+            morseHandler->playMorse(ui->outputText->toPlainText().toStdString());
         } else {
-            audioHandler->playMorse(ui->inputText->toPlainText().toStdString());
+            morseHandler->playMorse(ui->inputText->toPlainText().toStdString());
         }
     } else {
         ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));
-        audioHandler->stop();
+        morseHandler->stopPlayback();
     }
 }
 

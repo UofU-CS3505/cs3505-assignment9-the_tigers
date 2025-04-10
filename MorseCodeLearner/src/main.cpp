@@ -14,9 +14,8 @@ int main(int argc, char *argv[])
     a.installEventFilter(keyEventFilter);
 
     MorseHandler morseHandler(MorseHandler::STRAIGHT_KEY, 12); // Param should be based on the user's saved settings, default to 10 otherwise
-    MorseAudioHandler audioHandler;
 
-    MainWindow menu(nullptr, &morseHandler, &audioHandler, keyEventFilter);
+    MainWindow menu(nullptr, &morseHandler, keyEventFilter);
     menu.setFixedSize(1280, 720);
     menu.setWindowIcon(QIcon(":/icons/app_icon.png"));
 
