@@ -15,6 +15,8 @@ INCLUDEPATH += $$PWD/include/util \
                $$PWD/src/windows
 
 SOURCES += \
+    src/util/lessonhandler.cpp \
+    src/util/lessonmanager.cpp \
     src/util/keyeventfilter.cpp \
     src/windows/lessonselectwindow.cpp \
     src/windows/lessonwindow.cpp \
@@ -76,6 +78,7 @@ SOURCES += \
 
 HEADERS += \
     include/util/keyeventfilter.h \
+    include/util/lessonhandler.h \
     include/windows/lessonselectwindow.h \
     include/windows/lessonwindow.h \
     include/windows/mainwindow.h \
