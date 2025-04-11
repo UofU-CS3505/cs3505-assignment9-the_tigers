@@ -1,46 +1,62 @@
 #include "sinewavegenerator.h"
 
-SineWaveGenerator::SineWaveGenerator(QObject *parent) :
-    QIODevice(parent)
-    , m_pos(0)
-{}
-
-void SineWaveGenerator::start(int freq, int durationMs, float volume) {
-    m_duration = durationMs;
-    m_freq = freq;
-    m_pos = 0;
-    m_data.clear();
-
-    int samples = (m_sampleRate * durationMs) / 1000;
-    int fadeInSamples = m_sampleRate * 0.005; // Incredibly small fade in to mitigate clipping.
-    qreal fadeInStep = 1.0 / fadeInSamples;
-
-    qreal phaseShift = M_PI / 2;
-
-    for (int i = 0; i < samples; ++i) {
-        qreal t = qreal(i) / m_sampleRate;
-        qreal fadeFactor = 1.0;
-
-        if (i < fadeInSamples) {
-            fadeFactor = fadeInStep * i;
-        }
-
-        qint16 value = 32767 * volume * fadeFactor * std::sin(2 * M_PI * freq * t + phaseShift);
-        m_data.append(reinterpret_cast<const char*>(&value), sizeof(qint16));
-    }
-
-    open(QIODevice::ReadOnly);
-    m_pos = 0;
+SineWaveGenerator::SineWaveGenerator(QAudioFormat format, QObject *parent, float frequency, float volume) :
+    QIODevice(parent),
+    volume(volume),
+    m_format(format),
+    m_phase(0.0f),
+    m_frequency(frequency)
+{
+    m_sampleRate = format.sampleRate();
+    m_bytesPerSample = format.bytesPerFrame() / format.channelCount();
 }
 
+void SineWaveGenerator::start() {
+    open(QIODevice::ReadOnly);
+}
+
+void SineWaveGenerator::stop() {
+    close();
+}
+
+void SineWaveGenerator::setFormat(const QAudioFormat &format) {
+    m_format = format;
+    m_sampleRate = format.sampleRate();
+    m_bytesPerSample = format.bytesPerFrame() / format.channelCount();
+}
 
 qint64 SineWaveGenerator::readData(char *data, qint64 maxlen) {
-    if (m_pos >= m_data.size())
-        return 0;
-    qint64 bytesToRead = qMin(maxlen, qint64(m_data.size() - m_pos));
-    memcpy(data, m_data.constData() + m_pos, bytesToRead);
-    m_pos += bytesToRead;
-    return bytesToRead;
+    const int bytesPerSample = m_bytesPerSample;
+    const int channelCount = m_format.channelCount();
+    const int sampleRate = m_sampleRate;
+
+    qint64 totalSamples = maxlen / bytesPerSample;
+
+    for (qint64 i = 0; i < totalSamples; ++i) {
+        float sample = std::sin(m_phase * 2 * M_PI) * volume;
+
+        // Assumes 16 bit format
+        qint16 value = static_cast<qint16>(sample * 32767);
+
+        for (int ch = 0; ch < channelCount; ++ch) {
+            memcpy(data, &value, sizeof(qint16));
+            data += sizeof(qint16);
+        }
+
+        m_phase += m_frequency / sampleRate;
+        if (m_phase >= 1.0)
+            m_phase -= 1.0;
+    }
+
+    return totalSamples * bytesPerSample;
+}
+
+void SineWaveGenerator::setFrequency(float freq) {
+    m_frequency = freq;
+}
+
+void SineWaveGenerator::setVolume(float volumeValue) {
+    volume = volumeValue;
 }
 
 qint64 SineWaveGenerator::writeData(const char *, qint64) {
@@ -48,5 +64,5 @@ qint64 SineWaveGenerator::writeData(const char *, qint64) {
 }
 
 qint64 SineWaveGenerator::bytesAvailable() const {
-    return m_data.size() - m_pos + QIODevice::bytesAvailable();
+    return 4096 + QIODevice::bytesAvailable();
 }

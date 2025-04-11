@@ -10,7 +10,8 @@ MorseAudioHandler::MorseAudioHandler(QWidget *parent, float unit) : QWidget(pare
 
     outputDevice = QMediaDevices::defaultAudioOutput();
     audio = new QAudioSink(outputDevice, format, this);
-    sineGenerator = new SineWaveGenerator(this);
+    sineGenerator = new SineWaveGenerator(format, this, 440.0f, 1.0f);
+    sineGenerator->start();
 
     playingPlayback = false;
     outputBuffer = "";
@@ -31,25 +32,26 @@ void MorseAudioHandler::setWpm(float wpm) {
 }
 
 void MorseAudioHandler::setVolume(int volumeValue) {
-    volume = volumeValue / qreal(100);
+    sineGenerator->setVolume(volumeValue / qreal(100));
     if (sineGenerator->openMode()) {
         delete sineGenerator;
-        sineGenerator = new SineWaveGenerator();
         delete audio;
-        audio = new QAudioSink(format);
+
+        audio = new QAudioSink(outputDevice, format, this);
+
+        sineGenerator = new SineWaveGenerator(format, this, 440.0f, volumeValue / qreal(100));
+        sineGenerator->start();
     }
 }
 
 void MorseAudioHandler::onAudioStateChanged() {
     if (audio->state() == QAudio::IdleState) {
-        sineGenerator->start(frequency, 30000, volume);
         audio->start(sineGenerator);
     }
 }
 
 void MorseAudioHandler::start() {
-    if (sineGenerator->bytesAvailable() == 0) {
-        sineGenerator->start(frequency, 30000, volume);
+    if (audio->state() == QAudio::StoppedState) {
         audio->start(sineGenerator);
     } else {
         audio->resume();

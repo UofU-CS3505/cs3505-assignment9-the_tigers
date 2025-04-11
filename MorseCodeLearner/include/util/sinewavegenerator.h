@@ -3,6 +3,7 @@
 
 #include <QIODevice>
 #include <QObject>
+#include <QAudioFormat>
 
 /**
  * Creates a QIODevice that can be read from to get sine wave audio.
@@ -18,15 +19,17 @@ public:
      * Constructor for a sine wave generator.
      * Sets up a default QIODevice.
      */
-    SineWaveGenerator(QObject *parent = nullptr);
+    SineWaveGenerator(QAudioFormat format, QObject *parent = nullptr, float freq = 440, float volume = 1.0f);
 
-    /**
-     * Generates the sine wave and opens the QIODevice for reading.
-     * @param freq The frequency of the wave.
-     * @param durationMs The duration of the sine wave in milliseconds.
-     * @param volume The scalar for volume, 0.0 to 1.0
-     */
-    void start(int freq, int durationMs, float volume);
+    void start();
+
+    void stop();
+
+    void setFormat(const QAudioFormat &format);
+
+    void setFrequency(float freq);
+
+    void setVolume(float volumeValue);
 
     qint64 readData(char *data, qint64 maxlen) override;
 
@@ -37,16 +40,15 @@ public:
      */
     qint64 writeData(const char *, qint64) override;
 
-    /**
-     * @return Returns the number of bytes left to read in the buffer.
-     */
     qint64 bytesAvailable() const override;
 private:
+    float volume = 1.0;
+
+    QAudioFormat m_format;
     int m_sampleRate = 44100;
-    int m_duration;
-    int m_freq;
-    qint64 m_pos;
-    QByteArray m_data;
+    float m_phase;
+    float m_frequency;
+    int m_bytesPerSample;
 };
 
 #endif // SINEWAVEGENERATOR_H

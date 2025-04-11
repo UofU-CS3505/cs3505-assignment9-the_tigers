@@ -37,7 +37,6 @@ private:
 
     int frequency;
     float unit;
-    float volume = 1.0;
 
 public:
     /**
