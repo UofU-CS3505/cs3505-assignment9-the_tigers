@@ -17,8 +17,8 @@ class translatorwindow;
  * The translator page. Allows for morse or text input which is translated to its counterpart.
  * Morse can be played back audibly with the play/pause button.
  *
- * @name Michael Timothy
- * @date 04/04/2025
+ * @name Michael Timothy and Chandler Eyre
+ * @date 04/11/2025
  */
 class translatorwindow : public QWidget
 {
@@ -95,6 +95,17 @@ private slots:
     void handleRightArrowPressed();
 
     void handleRightArrowReleased();
+
+    /**
+     * Clears the current input.
+     */
+    void clearInput();
+
+    /**
+     * Handles view logic when audio playback finishes.
+     * Reenables elements.
+     */
+    void handlePlaybackStopped();
 
 private:
     Ui::translatorwindow *ui;

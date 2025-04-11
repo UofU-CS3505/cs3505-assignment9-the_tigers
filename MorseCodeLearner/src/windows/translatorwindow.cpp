@@ -18,7 +18,7 @@ translatorwindow::translatorwindow(QWidget *parent,
     QObject::connect(ui->swapButton, &QPushButton::clicked, this, &translatorwindow::onSwapButtonClicked);
     QObject::connect(ui->inputText, &QTextEdit::textChanged, this, &translatorwindow::onInputTextTextChanged);
     QObject::connect(ui->audioPlayButton, &QPushButton::clicked, this, &translatorwindow::onAudioPlayButtonClicked);
-
+    QObject::connect(ui->clearBottomButton, &QPushButton::clicked, this, &translatorwindow::clearInput);
 
     ui->swapButton->setIcon(QIcon(":/icons/swap.svg"));
     ui->swapButton->setIconSize(QSize(52, 104));
@@ -31,7 +31,7 @@ translatorwindow::translatorwindow(QWidget *parent,
     ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
-    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [=]() {ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));});
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, &translatorwindow::handlePlaybackStopped);
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border : 2px solid black; border-radius: 5px}");});
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");});
 
@@ -43,8 +43,7 @@ translatorwindow::translatorwindow(QWidget *parent,
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, &translatorwindow::handleRightArrowReleased);
 }
 
-translatorwindow::~translatorwindow()
-{
+translatorwindow::~translatorwindow() {
     delete ui;
 }
 
@@ -65,8 +64,7 @@ void translatorwindow::onBackButtonClicked() {
     userOnThisPage = false;
 }
 
-void translatorwindow::onSwapButtonClicked()
-{
+void translatorwindow::onSwapButtonClicked() {
     morseHandler->stopTimers();
 
     if (mode == MORSE_TO_TEXT) {
@@ -84,8 +82,7 @@ void translatorwindow::onSwapButtonClicked()
 }
 
 
-void translatorwindow::onInputTextTextChanged()
-{
+void translatorwindow::onInputTextTextChanged() {
     std::string text = ui->inputText->toPlainText().toStdString();
     if (mode == TEXT_TO_MORSE) {
         text = morseHandler->encodeText(text);
@@ -142,19 +139,33 @@ void translatorwindow::onMorseReceived(const string morse) {
     }
 }
 
-void translatorwindow::onAudioPlayButtonClicked()
-{
+void translatorwindow::onAudioPlayButtonClicked() {
     if (!morseHandler->getPlayback()) {
         morseHandler->stopPlayback();
         ui->audioPlayButton->setIcon(QIcon(":/icons/pause.svg"));
+        ui->clearBottomButton->setEnabled(false);
+        ui->inputText->setEnabled(false);
+
         if (mode == TEXT_TO_MORSE) {
             morseHandler->playMorse(ui->outputText->toPlainText().toStdString());
         } else {
             morseHandler->playMorse(ui->inputText->toPlainText().toStdString());
         }
     } else {
-        ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));
+        handlePlaybackStopped();
         morseHandler->stopPlayback();
     }
+}
+
+void translatorwindow::clearInput() {
+    morseHandler->stopPlayback();
+    ui->inputText->clear();
+    ui->outputText->clear();
+}
+
+void translatorwindow::handlePlaybackStopped() {
+    ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));
+    ui->inputText->setEnabled(true);
+    ui->clearBottomButton->setEnabled(true);
 }
 
