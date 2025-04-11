@@ -13,18 +13,282 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="backButton">
+  <widget class="QFrame" name="headerFrame">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>64</width>
-     <height>64</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1281</width>
+     <height>81</height>
     </rect>
    </property>
-   <property name="text">
-    <string/>
+   <property name="styleSheet">
+    <string notr="true">border: none;
+border-bottom: 2px solid black;</string>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::Shape::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Shadow::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <widget class="QLabel" name="headerLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1280</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Old London</family>
+      <pointsize>48</pointsize>
+     </font>
+    </property>
+    <property name="lineWidth">
+     <number>-1</number>
+    </property>
+    <property name="text">
+     <string>Lessons</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-color: transparent;
+background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>110</y>
+     <width>1191</width>
+     <height>481</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout" rowminimumheight="0,0,0" columnminimumwidth="0,0,0,0,0">
+    <property name="spacing">
+     <number>24</number>
+    </property>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="lesson3Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="lesson2Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="lesson1Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="lesson4Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QPushButton" name="lesson5Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="lesson9Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 9</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="lesson8Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="lesson7Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="lesson6Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 6</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QPushButton" name="lesson10Button">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Lesson 10</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
