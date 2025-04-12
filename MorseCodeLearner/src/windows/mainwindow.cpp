@@ -40,7 +40,7 @@ MainWindow::~MainWindow()
 void MainWindow::setUpPages() {
     lessonWindow = new lessonwindow();
     lessonSelectWindow = new lessonselectwindow();
-    practiceWindow = new practicewindow();
+    practiceWindow = new practicewindow(this, morseHandler, keyEventFilter);
     settingsWindow = new settingswindow(this, morseHandler);
     translatorWindow = new translatorwindow(this, morseHandler, keyEventFilter);
     menuWindow = new MenuWindow();

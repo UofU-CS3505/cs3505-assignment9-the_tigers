@@ -16,26 +16,219 @@
   <property name="styleSheet">
    <string notr="true">color: black;</string>
   </property>
-  <widget class="QPushButton" name="backButton">
+  <widget class="QFrame" name="headerFrame">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>64</width>
-     <height>64</height>
+     <x>0</x>
+     <y>0</y>
+     <width>1281</width>
+     <height>81</height>
     </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">border: none;
+border-bottom: 2px solid black;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Shape::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Shadow::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <widget class="QLabel" name="headerLabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1280</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Old London</family>
+      <pointsize>48</pointsize>
+     </font>
+    </property>
+    <property name="lineWidth">
+     <number>-1</number>
+    </property>
+    <property name="text">
+     <string>Practice</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
 background-color: transparent;
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QTextEdit" name="inputText">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>240</y>
+     <width>1080</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>64</pointsize>
+    </font>
+   </property>
+   <property name="cursor" stdset="0">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::ClickFocus</enum>
+   </property>
+   <property name="whatsThis">
+    <string>override morse input</string>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 1px solid black;
+background: qradialgradient(
+        cx:0.5, cy:0.5,
+        fx:0.5, fy:0.5,
+        radius:0.75,
+        stop:0 rgba(255, 255, 255, 255),
+        stop:0.7 rgba(255, 255, 255, 200),
+        stop:1 rgba(255, 255, 255, 0)
+    );</string>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Shadow::Sunken</enum>
+   </property>
+   <property name="lineWrapMode">
+    <enum>QTextEdit::LineWrapMode::WidgetWidth</enum>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="acceptRichText">
+    <bool>false</bool>
+   </property>
+   <property name="cursorWidth">
+    <number>3</number>
+   </property>
+   <property name="placeholderText">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="problemText">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>110</y>
+     <width>1080</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>JMH Typewriter</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="flashIndicator">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>390</y>
+     <width>58</width>
+     <height>61</height>
+    </rect>
    </property>
    <property name="text">
     <string/>
    </property>
+  </widget>
+  <widget class="QLabel" name="placeholderLabel">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>480</y>
+     <width>561</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>1018</x>
+     <y>390</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>JMH Typewriter</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 1px solid black;
+padding-left: 0.5em;</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Easy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Medium</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Hard</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>
