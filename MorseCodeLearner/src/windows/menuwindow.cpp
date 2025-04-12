@@ -13,6 +13,9 @@ MenuWindow::MenuWindow(QWidget *parent)
     ui->settingsnav->setIcon(QIcon(":/icons/settings.svg"));
     ui->settingsnav->setIconSize(QSize(52, 52));
 
+    ui->referencenav->setIcon(QIcon(":/icons/bookIcon.png"));
+    ui->referencenav->setIconSize(QSize(52, 52));
+
     ui->settingsHelpLabel->hide();
     ui->learnHelpLabel->hide();
     ui->practiceHelpLabel->hide();
@@ -41,6 +44,7 @@ MenuWindow::MenuWindow(QWidget *parent)
     ui->translatenav->installEventFilter(this);
     ui->settingsnav->installEventFilter(this);
     ui->helpnav->installEventFilter(this);
+    ui->referencenav->installEventFilter(this);
 
     setupWorld();
 }
@@ -113,6 +117,11 @@ void MenuWindow::setupWorld(){
     helpBodyDefinition.position.Set(40.0f, 0.0f);
     helpBody = world.CreateBody(&helpBodyDefinition);
 
+    b2BodyDef referenceBodyDefinition;
+    referenceBodyDefinition.type = b2_dynamicBody;
+    referenceBodyDefinition.position.Set(48.0f, 0.0f);
+    referenceBody = world.CreateBody(&referenceBodyDefinition);
+
     b2FixtureDef bodyFixtureDefinition;
     bodyFixtureDefinition.shape = &dynamicBox;
     bodyFixtureDefinition.density = 10.0f;
@@ -123,12 +132,14 @@ void MenuWindow::setupWorld(){
     translatorBody->CreateFixture(&bodyFixtureDefinition);
     settingsBody->CreateFixture(&bodyFixtureDefinition);
     helpBody->CreateFixture(&bodyFixtureDefinition);
+    referenceBody->CreateFixture(&bodyFixtureDefinition);
 
     practiceButtonY = ui->practicenav->y();
     lessonButtonY = ui->learningnav->y();
     translatorButtonY = ui->translatenav->y();
     settingsButtonY = ui->settingsnav->y();
     helpButtonY = ui->helpnav->y();
+    referenceButtonY = ui->referencenav->y();
 
     timer.singleShot(10, this, &MenuWindow::updateWorld);
 }
@@ -145,6 +156,7 @@ void MenuWindow::updateWorld(){
     ui->translatenav->move(ui->translatenav->x(), translatorButtonY - translatorBody->GetPosition().y);
     ui->settingsnav->move(ui->settingsnav->x(), settingsButtonY - settingsBody->GetPosition().y);
     ui->helpnav->move(ui->helpnav->x(), helpButtonY - helpBody->GetPosition().y);
+    ui->referencenav->move(ui->referencenav->x(), referenceButtonY - referenceBody->GetPosition().y);
 
     timer.singleShot(10, this, &MenuWindow::updateWorld);
 }
@@ -174,6 +186,11 @@ void MenuWindow::jumpHelp(){
     helpBody->SetAwake(true);
 }
 
+void MenuWindow::jumpReference(){
+    referenceBody->SetTransform(b2Vec2(referenceBody->GetTransform().p.x, 8.0f), 0);
+    referenceBody->SetAwake(true);
+}
+
 bool MenuWindow::eventFilter(QObject *object, QEvent *event){
     if(object == ui->practicenav && event->type() == QEvent::HoverEnter){
         jumpPractice();
@@ -193,6 +210,10 @@ bool MenuWindow::eventFilter(QObject *object, QEvent *event){
 
     if(object == ui->helpnav && event->type() == QEvent::HoverEnter){
         jumpHelp();
+    }
+
+    if(object == ui->referencenav && event->type() == QEvent::HoverEnter){
+        jumpReference();
     }
 
     return false;

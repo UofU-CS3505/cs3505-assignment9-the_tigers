@@ -10,5 +10,6 @@
         <file>images/illustrated_background.jpg</file>
         <file>fonts/JMHTypewriter.ttf</file>
         <file>fonts/OldLondon.ttf</file>
+        <file>icons/bookIcon.png</file>
     </qresource>
 </RCC>

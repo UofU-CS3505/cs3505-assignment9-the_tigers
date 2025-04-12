@@ -41,12 +41,14 @@ private:
     b2Body* practiceBody;
     b2Body* settingsBody;
     b2Body* helpBody;
+    b2Body* referenceBody;
 
     int practiceButtonY;
     int lessonButtonY;
     int translatorButtonY;
     int settingsButtonY;
     int helpButtonY;
+    int referenceButtonY;
 
     QTimer timer;
 
@@ -56,6 +58,7 @@ private:
     void jumpTranslator();
     void jumpSettings();
     void jumpHelp();
+    void jumpReference();
 };
 
 #endif // MENUWINDOW_H
