@@ -128,7 +128,6 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -167,7 +166,6 @@ QPushButton:hover {
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -206,7 +204,6 @@ QPushButton:hover {
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -245,7 +242,6 @@ QPushButton:hover {
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -284,7 +280,6 @@ QPushButton:hover {
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -323,7 +318,6 @@ QPushButton:hover {
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -362,7 +356,6 @@ QPushButton:hover {
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -401,7 +394,6 @@ QPushButton:hover {
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -441,7 +433,6 @@ Basics</string>
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
@@ -481,7 +472,6 @@ Practice</string>
        <string notr="true">QPushButton {
     border-radius: 0px;
     border: 2px solid black;
-	transition: 0.2s;
 }
 QPushButton:hover {
     background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
