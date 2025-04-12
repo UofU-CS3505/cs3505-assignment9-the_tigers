@@ -60,23 +60,38 @@ void practicewindow::handleSpaceReleased() {
         return;
     morseHandler->straightKeyUp();
 
-    // check vs problem character
-    if (morseHandler->decodeMorse(ui->inputText->toPlainText().toStdString()) == problemText) {
-        acceptingInput = false;
-        ui->problemText->setText("Correct!");
-        timer.singleShot(1500, this, [this](){loadPracticeProblem();});
-    }
 
-    // if incorrect clear and try again
-    if (morseHandler->decodeMorse(ui->inputText->toPlainText().toStdString()).length() > problemText.length()) {
-        acceptingInput = false;
-        ui->problemText->setText("Try again!");
-        timer.singleShot(1500, this, [this](){loadPracticeProblem(problemText);});
-    }
 }
 
 void practicewindow::onMorseReceived(const string morse) {
+    if (!userOnThisPage)
+        return;
     QString qmorse = QString::fromStdString(morse);
+
+
+    // Both of these checks for "/" and " " should only happen if the mode is easy.
+    // For other modes we'll probably need some other logic
+
+    if (qmorse == "/ ")
+        return;
+
+    if (qmorse == " ") {
+        // check vs problem character
+        if (morseHandler->decodeMorse(ui->inputText->toPlainText().toStdString()) == problemText) {
+            acceptingInput = false;
+            ui->problemText->setText("Correct!");
+            timer.singleShot(1500, this, [this](){loadPracticeProblem();});
+        }
+
+        // if incorrect clear and try again
+        if (morseHandler->decodeMorse(ui->inputText->toPlainText().toStdString()) != problemText) {
+            acceptingInput = false;
+            ui->problemText->setText("Try again!");
+            timer.singleShot(1500, this, [this](){loadPracticeProblem(problemText);});
+        }
+        return;
+    }
+
     ui->inputText->blockSignals(true);
     ui->inputText->setText(ui->inputText->toPlainText() + qmorse);
     ui->inputText->blockSignals(false);

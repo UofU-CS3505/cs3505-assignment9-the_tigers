@@ -114,6 +114,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
    <property name="whatsThis">
     <string>override morse input</string>
    </property>
+   <property name="layoutDirection">
+    <enum>Qt::LayoutDirection::RightToLeft</enum>
+   </property>
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
