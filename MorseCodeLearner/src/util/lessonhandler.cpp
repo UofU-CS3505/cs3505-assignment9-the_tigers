@@ -12,18 +12,34 @@ void LessonHandler::displayText(const std::string morse) {
     emit displayTextToUI(text);
 }
 
-std::string LessonHandler::getRandomLetter() {
-    return lessonLetters[rand() % lessonLetters.size()];
-}
-
-void LessonHandler::lessonOne() {
-
-}
-
 void LessonHandler::lessonTwo() {
 
 }
 
 void LessonHandler::lessonThree() {
+
+}
+
+void LessonHandler::lessonFour() {
+
+}
+
+void LessonHandler::lessonFive() {
+
+}
+
+void LessonHandler::lessonSix() {
+
+}
+
+void LessonHandler::lessonEight() {
+
+}
+
+void LessonHandler::startLesson() {
+
+}
+
+void LessonHandler::checkUserGuess() {
 
 }

@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(menuWindow, &MenuWindow::goToLessonPage, this, &MainWindow::onLearningNavClicked);
     QObject::connect(menuWindow, &MenuWindow::goToSettingsPage, this, &MainWindow::onSettingsNavClicked);
 
+    QObject::connect(lessonSelectWindow, &lessonselectwindow::selectLesson, this, &MainWindow::onLessonClicked);
+
     QObject::connect(translatorWindow, &translatorwindow::goHome, this, &MainWindow::goHome);
     QObject::connect(practiceWindow, &practicewindow::goHome, this, &MainWindow::goHome);
     QObject::connect(lessonWindow, &lessonwindow::goToLessonSelect, this, &MainWindow::onLearningNavClicked);
@@ -72,6 +74,12 @@ void MainWindow::onLearningNavClicked()
 {
     stackedWidget->setCurrentWidget(lessonSelectWindow);
     lessonSelectWindow->setUserOnThisPage(true);
+    this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
+}
+
+void MainWindow::onLessonClicked(int lessonNumber) {
+    stackedWidget->setCurrentWidget(lessonWindow);
+    lessonWindow->setUserOnThisPage(true);
     this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
 }
 

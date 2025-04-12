@@ -46,6 +46,15 @@ private slots:
      */
     void onLearningNavClicked();
 
+    /**
+     * Called when navigating to a Lesson Page.
+     * @param lessonNumber - the number of the lesson selected.
+     */
+    void onLessonClicked(int lessonNumber);
+
+    /**
+     * Called when navigating to the Settings Page.
+     */
     void onSettingsNavClicked();
 
     /**

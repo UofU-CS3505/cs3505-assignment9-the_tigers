@@ -9,21 +9,30 @@ class LessonHandler : public QObject
     Q_OBJECT
 private:
     MorseHandler *morseHandler;
-    std::vector<std::string> lessonLetters;
-    std::vector<std::string> learnedLetters;
+    std::vector<std::string> lessonTwoLetters;
+    std::vector<std::string> lessonThreeLetters;
+    std::vector<std::string> lessonFourLetters;
+    std::vector<std::string> lessonFiveLetters;
+    std::vector<std::string> lessonSixLetters;
+    std::vector<std::string> lessonEightNumbers;
+    std::unordered_map<std::string, int> learnedCharacters;
     int currentLesson;
 
     void displayMorse(const std::string text);
 
     void displayText(const std::string morse);
 
-    std::string getRandomLetter();
-
-    void lessonOne();
-
     void lessonTwo();
 
     void lessonThree();
+
+    void lessonFour();
+    
+    void lessonFive();
+
+    void lessonSix();
+
+    void lessonEight();
 
     void letterLearned();
 
@@ -31,11 +40,11 @@ public:
     explicit LessonHandler(MorseHandler *morseHandler = nullptr, QObject* parent = nullptr);
 
 public slots:
-    // void startLesson();
+    void startLesson();
 
     // void nextQuestion();
 
-    // void checkUserGuess();
+    void checkUserGuess();
 
 signals:
 
