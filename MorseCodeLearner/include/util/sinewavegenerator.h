@@ -4,6 +4,7 @@
 #include <QIODevice>
 #include <QObject>
 #include <QAudioFormat>
+#include <QMutex>
 
 /**
  * Creates a QIODevice that can be read from to get sine wave audio.
@@ -41,6 +42,8 @@ public:
     qint64 writeData(const char *, qint64) override;
 
     qint64 bytesAvailable() const override;
+
+    QVector<qint16> getMostRecentSamples(int count) const;
 private:
     float volume = 1.0;
 
@@ -49,6 +52,13 @@ private:
     float m_phase;
     float m_frequency;
     int m_bytesPerSample;
+
+    mutable QMutex bufferMutex;
+    QVector<qint16> sampleBuffer; // stores recent samples
+    static constexpr int MaxBufferSamples = 4096;
+
+signals:
+    void newSamples(QVector<qint16> samples);
 };
 
 #endif // SINEWAVEGENERATOR_H

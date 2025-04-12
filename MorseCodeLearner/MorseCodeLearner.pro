@@ -18,6 +18,7 @@ SOURCES += \
     src/util/animationhandler.cpp \
     src/util/lessonhandler.cpp \
     src/util/keyeventfilter.cpp \
+    src/util/sinewavedisplay.cpp \
     src/windows/lessonselectwindow.cpp \
     src/windows/lessonwindow.cpp \
     src/main.cpp \
@@ -136,7 +137,8 @@ HEADERS += \
     Box2D/Dynamics/b2TimeStep.h \
     Box2D/Dynamics/b2World.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
-    Box2D/Rope/b2Rope.h
+    Box2D/Rope/b2Rope.h \
+    src/util/sinewavedisplay.h
 
 FORMS += \
     lessonselectwindow.ui \

@@ -120,6 +120,8 @@ private:
     translateMode mode = MORSE_TO_TEXT;
 
     bool userOnThisPage = false;
+
+    QTimer *displayTimer;
 };
 
 #endif // TRANSLATORWINDOW_H

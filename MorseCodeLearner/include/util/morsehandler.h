@@ -61,6 +61,10 @@ private:
     MorseAudioHandler audioHandler;
 
 public:
+
+    QVector<qint16> getMostRecentSamples(int count) const;
+
+
     const map<char, string> encodings = {
         {'a', ".-"},    {'b', "-..."},  {'c', "-.-."},  {'d', "-.."},   {'e', "."},
         {'f', "..-."},  {'g', "--."},   {'h', "...."},  {'i', ".."},    {'j', ".---"},
@@ -161,6 +165,8 @@ signals:
 
     void lightIndicatorOn();
     void lightIndicatorOff();
+
+    void emitSamples(QVector<qint16> samples);
 private:
     device inputDevice;
 };

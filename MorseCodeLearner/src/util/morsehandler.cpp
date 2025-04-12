@@ -15,6 +15,8 @@ MorseHandler::MorseHandler(device input, int wpm) : unit(1200 / wpm), inputDevic
     connect(&audioHandler, &MorseAudioHandler::lightIndicatorOn, this, [=]() {emit lightIndicatorOn();});
     connect(&audioHandler, &MorseAudioHandler::lightIndicatorOff, this, [=](){emit lightIndicatorOff();});
 
+    connect(&audioHandler, &MorseAudioHandler::emitSamples, this, &MorseHandler::emitSamples);
+
     audioHandler.setWpm(wpm);
 
     for (const auto& pair : encodings) {
@@ -225,4 +227,8 @@ void MorseHandler::playMorse(string morse) {
 
 void MorseHandler::setVolume(int volumeValue) {
     audioHandler.setVolume(volumeValue);
+}
+
+QVector<qint16> MorseHandler::getMostRecentSamples(int count) const {
+    return audioHandler.getMostRecentSamples(count);
 }

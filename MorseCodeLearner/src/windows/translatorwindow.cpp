@@ -41,6 +41,13 @@ translatorwindow::translatorwindow(QWidget *parent,
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, &translatorwindow::handleLeftArrowReleased);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, &translatorwindow::handleRightArrowPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, &translatorwindow::handleRightArrowReleased);
+
+    displayTimer = new QTimer(this);
+    QObject::connect(displayTimer, &QTimer::timeout, this, [=](){
+        QVector<qint16> recentSamples = morseHandler->getMostRecentSamples(256);
+        ui->display->updateWaveform(recentSamples);
+    });
+    displayTimer->start(16);
 }
 
 translatorwindow::~translatorwindow() {

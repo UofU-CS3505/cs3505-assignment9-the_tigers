@@ -82,6 +82,8 @@ public:
      */
     void playMorse(string morse);
 
+    QVector<qint16> getMostRecentSamples(int count) const;
+
 private slots:
     /**
      * Handler for when the audio object goes into an idle state, which means the
@@ -106,6 +108,8 @@ signals:
     void lightIndicatorOn();
 
     void lightIndicatorOff();
+
+    void emitSamples(QVector<qint16> samples);
 };
 
 #endif // MORSEAUDIOHANDLER_H

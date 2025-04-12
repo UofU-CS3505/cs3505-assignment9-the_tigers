@@ -19,7 +19,9 @@ MorseAudioHandler::MorseAudioHandler(QWidget *parent, float unit) : QWidget(pare
     frequency = 440;
 
     QObject::connect(audio, &QAudioSink::stateChanged, this, &MorseAudioHandler::onAudioStateChanged);
+    QObject::connect(sineGenerator, &SineWaveGenerator::newSamples, this, &MorseAudioHandler::emitSamples);
 
+    audio->setBufferSize(256);
 }
 
 MorseAudioHandler::~MorseAudioHandler() {
@@ -108,4 +110,8 @@ void MorseAudioHandler::playBuffer() {
         return;
     }
     outputBuffer = outputBuffer.substr(1);
+}
+
+QVector<qint16> MorseAudioHandler::getMostRecentSamples(int count) const {
+    return sineGenerator->getMostRecentSamples(count);
 }
