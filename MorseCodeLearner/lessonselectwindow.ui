@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">color: black;</string>
+  </property>
   <widget class="QFrame" name="headerFrame">
    <property name="geometry">
     <rect>
@@ -94,31 +97,12 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <height>481</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout" rowminimumheight="0,0,0" columnminimumwidth="0,0,0,0,0">
+   <layout class="QGridLayout" name="gridLayout">
     <property name="spacing">
      <number>24</number>
     </property>
-    <item row="0" column="2">
-     <widget class="QPushButton" name="lesson3Button">
-      <property name="minimumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Lesson 3</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
-     <widget class="QPushButton" name="lesson2Button">
+     <widget class="QPushButton" name="lessonButton_2">
       <property name="minimumSize">
        <size>
         <width>164</width>
@@ -131,146 +115,33 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
         <height>164</height>
        </size>
       </property>
-      <property name="text">
-       <string>Lesson 2</string>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
       </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="lesson1Button">
-      <property name="minimumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
-      <property name="maximumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Lesson 1</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QPushButton" name="lesson4Button">
-      <property name="minimumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
       </property>
       <property name="text">
-       <string>Lesson 4</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QPushButton" name="lesson5Button">
-      <property name="minimumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Lesson 5</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QPushButton" name="lesson9Button">
-      <property name="minimumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Lesson 9</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="lesson8Button">
-      <property name="minimumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Lesson 8</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QPushButton" name="lesson7Button">
-      <property name="minimumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Lesson 7</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="lesson6Button">
-      <property name="minimumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>164</width>
-        <height>164</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Lesson 6</string>
+       <string>
+2: Alphabet 1</string>
       </property>
      </widget>
     </item>
     <item row="1" column="4">
-     <widget class="QPushButton" name="lesson10Button">
+     <widget class="QPushButton" name="lessonButton_10">
       <property name="minimumSize">
        <size>
         <width>164</width>
@@ -283,12 +154,410 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
         <height>164</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
       <property name="text">
-       <string>Lesson 10</string>
+       <string>
+10: The Paddle</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="lessonButton_6">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
+      <property name="text">
+       <string>
+6: Alphabet 5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="lessonButton_9">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
+      <property name="text">
+       <string>
+9: Words</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="lessonButton_3">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
+      <property name="text">
+       <string>
+3: Alphabet 2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="lessonButton_4">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
+      <property name="text">
+       <string>
+4: Alphabet 3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QPushButton" name="lessonButton_5">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
+      <property name="text">
+       <string>
+5: Alphabet 4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="lessonButton_1">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
+      <property name="text">
+       <string>
+1: Morse Code
+Basics</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="lessonButton_8">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
+      <property name="text">
+       <string>
+8: Numbers
+Practice</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="lessonButton_7">
+      <property name="minimumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>164</width>
+        <height>164</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>JMH Typewriter</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border-radius: 0px;
+    border: 2px solid black;
+	transition: 0.2s;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}</string>
+      </property>
+      <property name="text">
+       <string>
+7: Numbers
+Basics</string>
       </property>
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="instructionTextLabel">
+   <property name="geometry">
+    <rect>
+     <x>88</x>
+     <y>640</y>
+     <width>321</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>JMH Typewriter</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>SELECT a lesson to learn morse code!</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lessonCompleteLabel">
+   <property name="geometry">
+    <rect>
+     <x>980</x>
+     <y>640</y>
+     <width>181</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>JMH Typewriter</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>LESSONS COMPLETE:</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lessonCompleteCounterLabel">
+   <property name="geometry">
+    <rect>
+     <x>1161</x>
+     <y>640</y>
+     <width>20</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>JMH Typewriter</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+   </property>
   </widget>
  </widget>
  <resources/>
