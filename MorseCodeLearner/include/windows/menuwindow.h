@@ -2,6 +2,8 @@
 #define MENUWINDOW_H
 
 #include <QWidget>
+#include <QTimer>
+#include "Box2D/Box2D.h"
 
 namespace Ui {
 class MenuWindow;
@@ -16,6 +18,8 @@ public:
     ~MenuWindow();
     void setUserOnThisPage(bool userOnThisPage);
     bool getUserOnThisPage();
+    void setupWorld();
+    void updateWorld();
 
 signals:
     void goToLessonPage();
@@ -30,6 +34,28 @@ private:
     Ui::MenuWindow *ui;
     bool userOnThisPage;
     bool showingHelp;
+
+    b2World world;
+    b2Body* lessonBody;
+    b2Body* translatorBody;
+    b2Body* practiceBody;
+    b2Body* settingsBody;
+    b2Body* helpBody;
+
+    int practiceButtonY;
+    int lessonButtonY;
+    int translatorButtonY;
+    int settingsButtonY;
+    int helpButtonY;
+
+    QTimer timer;
+
+    bool eventFilter(QObject *object, QEvent *event);
+    void jumpPractice();
+    void jumpLesson();
+    void jumpTranslator();
+    void jumpSettings();
+    void jumpHelp();
 };
 
 #endif // MENUWINDOW_H
