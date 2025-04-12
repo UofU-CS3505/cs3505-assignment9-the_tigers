@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Telegraphist</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>false</bool>
   </property>
@@ -25,6 +28,9 @@
       <width>1280</width>
       <height>720</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>0</number>
