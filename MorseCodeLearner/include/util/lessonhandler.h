@@ -28,7 +28,7 @@ private:
 
     std::unordered_map<std::string, int> learnedCharacters;
 
-    int currentLesson;
+    std::string currentQuestion;
 
     /**
      * Sends a signal to the view of what morse to display.

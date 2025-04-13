@@ -5,7 +5,7 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     QObject(parent),
     morseHandler(morseHandler)
 {
-    QObject::connect();
+    //QObject::connect();
 }
 
 void LessonHandler::displayMorse(const std::string text) {
@@ -68,5 +68,6 @@ void LessonHandler::startLesson(int lessonNumber) {
 }
 
 void LessonHandler::checkUserGuess(std::string guess) {
+    std::string correctAnswer = morseHandler->encodeText(currentQuestion);
 
 }
