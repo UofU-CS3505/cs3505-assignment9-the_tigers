@@ -1,9 +1,10 @@
 #include "lessonwindow.h"
 #include "ui_lessonwindow.h"
 
-lessonwindow::lessonwindow(QWidget *parent)
+lessonwindow::lessonwindow(KeyEventFilter *keyEventFilter, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::lessonwindow)
+    , keyEventFilter(keyEventFilter)
 {
     ui->setupUi(this);
 

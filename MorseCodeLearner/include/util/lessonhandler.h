@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include "morsehandler.h"
-#include "keyeventfilter.h"
 
 /**
  * The model and handler for interactive lessons (i.e. lessons that have practice questions).
@@ -19,14 +18,13 @@ class LessonHandler : public QObject
     Q_OBJECT
 private:
     MorseHandler *morseHandler;
-    KeyEventFilter *keyEventFilter;
 
-    std::vector<std::string> lessonTwoLetters;
-    std::vector<std::string> lessonThreeLetters;
-    std::vector<std::string> lessonFourLetters;
-    std::vector<std::string> lessonFiveLetters;
-    std::vector<std::string> lessonSixLetters;
-    std::vector<std::string> lessonEightNumbers;
+    std::vector<std::string> lessonTwoLetters = {"e", "t", "a", "n", "m", "i"};
+    std::vector<std::string> lessonThreeLetters = {"k", "r", "s", "o"};
+    std::vector<std::string> lessonFourLetters = {"g", "w", "d", "u"};
+    std::vector<std::string> lessonFiveLetters = {"b", "j", "f", "l", "c", "h"};
+    std::vector<std::string> lessonSixLetters = {"z", "v", "y", "q", "p", "x"};
+    std::vector<std::string> lessonEightNumbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
     std::unordered_map<std::string, int> learnedCharacters;
 
@@ -87,7 +85,7 @@ public:
      * @param keyEventFilter - a pointer to the Key Event Filter.
      * @param parent - the QObject (nullptr by default).
      */
-    explicit LessonHandler(MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QObject* parent = nullptr);
+    explicit LessonHandler(MorseHandler *morseHandler = nullptr, QObject* parent = nullptr);
 
 public slots:
     /**
@@ -101,8 +99,9 @@ public slots:
 
     /**
      * A slot that checks the user's guess.
+     * @param guess - the user's guess.
      */
-    void checkUserGuess();
+    void checkUserGuess(std::string guess);
 
 signals:
     /**

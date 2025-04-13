@@ -2,6 +2,7 @@
 #define LESSONWINDOW_H
 
 #include <QWidget>
+#include "keyeventfilter.h"
 
 namespace Ui {
 class lessonwindow;
@@ -12,13 +13,14 @@ class lessonwindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit lessonwindow(QWidget *parent = nullptr);
+    explicit lessonwindow(KeyEventFilter *keyEventFilter = nullptr, QWidget *parent = nullptr);
     ~lessonwindow();
     void setUserOnThisPage(bool userOnThisPage);
     bool getUserOnThisPage();
 
 private:
     Ui::lessonwindow *ui;
+    KeyEventFilter *keyEventFilter;
     bool userOnThisPage;
 
 signals:

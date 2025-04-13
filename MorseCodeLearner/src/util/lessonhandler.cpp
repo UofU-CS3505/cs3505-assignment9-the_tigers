@@ -1,10 +1,11 @@
 #include "lessonhandler.h"
 #include <QObject>
 
-LessonHandler::LessonHandler(MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QObject* parent) :
+LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     QObject(parent),
-    morseHandler(morseHandler),
-    keyEventFilter(keyEventFilter) {
+    morseHandler(morseHandler)
+{
+    QObject::connect();
 }
 
 void LessonHandler::displayMorse(const std::string text) {
@@ -66,6 +67,6 @@ void LessonHandler::startLesson(int lessonNumber) {
     }
 }
 
-void LessonHandler::checkUserGuess() {
+void LessonHandler::checkUserGuess(std::string guess) {
 
 }
