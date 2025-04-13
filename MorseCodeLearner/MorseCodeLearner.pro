@@ -25,6 +25,7 @@ SOURCES += \
     src/util/morseaudiohandler.cpp \
     src/util/morsehandler.cpp \
     src/windows/practicewindow.cpp \
+    src/windows/referencewindow.cpp \
     src/windows/settingswindow.cpp \
     src/util/sinewavegenerator.cpp \
     src/windows/translatorwindow.cpp \
@@ -85,6 +86,7 @@ HEADERS += \
     include/util/morseaudiohandler.h \
     include/util/morsehandler.h \
     include/windows/practicewindow.h \
+    include/windows/referencewindow.h \
     include/windows/settingswindow.h \
     include/util/sinewavegenerator.h \
     include/windows/translatorwindow.h \
@@ -134,7 +136,7 @@ HEADERS += \
     Box2D/Dynamics/b2TimeStep.h \
     Box2D/Dynamics/b2World.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
-    Box2D/Rope/b2Rope.h
+    Box2D/Rope/b2Rope.h \
 
 FORMS += \
     lessonselectwindow.ui \
@@ -142,6 +144,7 @@ FORMS += \
     mainwindow.ui \
     menuwindow.ui \
     practicewindow.ui \
+    referencewindow.ui \
     settingswindow.ui \
     translatorwindow.ui
 

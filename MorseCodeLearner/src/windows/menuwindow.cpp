@@ -37,6 +37,10 @@ MenuWindow::MenuWindow(QWidget *parent)
         emit goToSettingsPage();
         userOnThisPage = false;
     });
+    QObject::connect(ui->referencenav, &QPushButton::clicked, this, [=]() {
+        emit goToReferencePage();
+        userOnThisPage = false;
+    });
     QObject::connect(ui->helpnav, &QPushButton::clicked, this, &MenuWindow::toggleHelp);
 
     ui->practicenav->installEventFilter(this);

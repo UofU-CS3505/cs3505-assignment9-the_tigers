@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>referencewindow</class>
+ <widget class="QWidget" name="referencewindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="backButton">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>64</width>
+     <height>64</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;
+background-color: transparent;
+background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="alphabetList">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>70</y>
+     <width>141</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;A &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;B &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- . . .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;C &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- . - .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;D &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- . .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;E &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;F &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . - .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;G &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- - .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;H &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . . .&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="alphabetList2">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>70</y>
+     <width>141</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;I &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;J &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. - - -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;K &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- . -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;L &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. - . .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;M &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;N &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;O &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- - -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;P &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. - - .&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="alphabetList3">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>70</y>
+     <width>141</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Q &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- - . -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;R &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. - .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;S &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;T &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;-&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;U &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;V &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . . -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;W &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. - -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;X &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- . . -&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="alphabetList4">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>70</y>
+     <width>141</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Y &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- . - -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Z &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- - . .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;1 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. - - - &lt;/span&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;-&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;2 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . - - -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;3 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . . - -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;4 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . . . -&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;5 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;. . . . .&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="alphabetList5">
+   <property name="geometry">
+    <rect>
+     <x>940</x>
+     <y>70</y>
+     <width>141</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;6 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- . . . .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;7 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- - . . .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;8 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- - - . .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;9 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- - - - .&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;0 &lt;/span&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;- - - - -&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

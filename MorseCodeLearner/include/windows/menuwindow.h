@@ -26,6 +26,7 @@ signals:
     void goToTranslatorPage();
     void goToPracticePage();
     void goToSettingsPage();
+    void goToReferencePage();
 
 private slots:
     void toggleHelp();

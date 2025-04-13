@@ -10,6 +10,7 @@
 #include "settingswindow.h"
 #include "translatorwindow.h"
 #include "menuwindow.h"
+#include "referencewindow.h"
 #include "keyeventfilter.h"
 
 QT_BEGIN_NAMESPACE
@@ -58,6 +59,11 @@ private slots:
     void onSettingsNavClicked();
 
     /**
+     * Called when navigating to the Reference Page.
+     */
+    void onReferenceNavClicked();
+
+    /**
      * Called when a back/home button is pressed from any page.
      */
     void goHome();
@@ -71,6 +77,7 @@ private:
     settingswindow* settingsWindow;
     translatorwindow* translatorWindow;
     MenuWindow* menuWindow;
+    referencewindow* referenceWindow;
 
     /**
      * A simple method to set up all the pages with the QStackedWidget.
