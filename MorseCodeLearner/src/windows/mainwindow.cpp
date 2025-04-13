@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(menuWindow, &MenuWindow::goToPracticePage, this, &MainWindow::onPracticeNavClicked);
     QObject::connect(menuWindow, &MenuWindow::goToLessonPage, this, &MainWindow::onLearningNavClicked);
     QObject::connect(menuWindow, &MenuWindow::goToSettingsPage, this, &MainWindow::onSettingsNavClicked);
+    QObject::connect(menuWindow, &MenuWindow::goToReferencePage, this, &MainWindow::onReferenceNavClicked);
 
     QObject::connect(lessonSelectWindow, &lessonselectwindow::selectLesson, this, &MainWindow::onLessonClicked);
 
@@ -30,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(lessonWindow, &lessonwindow::goToLessonSelect, this, &MainWindow::onLearningNavClicked);
     QObject::connect(lessonSelectWindow, &lessonselectwindow::goHome, this, &MainWindow::goHome);
     QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(referenceWindow, &referencewindow::goHome, this, &MainWindow::goHome);
 }
 
 MainWindow::~MainWindow()
@@ -44,6 +46,7 @@ void MainWindow::setUpPages() {
     settingsWindow = new settingswindow(this, morseHandler);
     translatorWindow = new translatorwindow(this, morseHandler, keyEventFilter);
     menuWindow = new MenuWindow();
+    referenceWindow = new referencewindow(this);
 
     stackedWidget->addWidget(lessonWindow);
     stackedWidget->addWidget(lessonSelectWindow);
@@ -51,6 +54,7 @@ void MainWindow::setUpPages() {
     stackedWidget->addWidget(settingsWindow);
     stackedWidget->addWidget(translatorWindow);
     stackedWidget->addWidget(menuWindow);
+    stackedWidget->addWidget(referenceWindow);
 
     stackedWidget->setCurrentWidget(menuWindow);
     menuWindow->setUserOnThisPage(true);
@@ -87,6 +91,13 @@ void MainWindow::onSettingsNavClicked()
 {
     stackedWidget->setCurrentWidget(settingsWindow);
     settingsWindow->setUserOnThisPage(true);
+    this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
+}
+
+void MainWindow::onReferenceNavClicked()
+{
+    stackedWidget->setCurrentWidget(referenceWindow);
+    referenceWindow->setUserOnThisPage(true);
     this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
 }
 
