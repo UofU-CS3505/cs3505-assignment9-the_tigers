@@ -129,6 +129,9 @@ void translatorwindow::handleRightArrowReleased() {
 }
 
 void translatorwindow::onMorseReceived(const string morse) {
+    if (userOnThisPage == false) {
+        return;
+    }
     QString qmorse = QString::fromStdString(morse);
     ui->inputText->blockSignals(true);
     ui->inputText->setText(ui->inputText->toPlainText() + qmorse);
