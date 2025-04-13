@@ -28,6 +28,7 @@ private:
 
     std::unordered_map<std::string, int> learnedCharacters;
 
+    std::vector<std::string> currentLessonCharacters;
     std::string currentQuestion;
 
     /**
@@ -43,40 +44,9 @@ private:
     void displayText(const std::string morse);
 
     /**
-     * A method to handle all questions and logic for lesson two.
+     * A helper method that displays each of the questions in a lesson.
      */
-    void lessonTwo();
-
-    /**
-     * A method to handle all questions and logic for lesson three.
-     */
-    void lessonThree();
-
-    /**
-     * A method to handle all questions and logic for lesson four.
-     */
-    void lessonFour();
-    
-    /**
-     * A method to handle all questions and logic for lesson five.
-     */
-    void lessonFive();
-
-    /**
-     * A method to handle all questions and logic for lesson six.
-     */
-    void lessonSix();
-
-    /**
-     * A method to handle all questions and logic for lesson eight.
-     */
-    void lessonEight();
-
-    /**
-     * A helper method to update the map of letters/numbers learned by
-     * the user.
-     */
-    void letterCharacter();
+    void nextQuestion();
 
 public:
     /**
@@ -94,8 +64,6 @@ public slots:
      * @param lessonNumber - the number of the lesson to start.
      */
     void startLesson(int lessonNumber);
-
-    // void nextQuestion();
 
     /**
      * A slot that checks the user's guess.

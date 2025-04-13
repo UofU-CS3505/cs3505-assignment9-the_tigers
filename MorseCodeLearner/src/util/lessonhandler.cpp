@@ -18,56 +18,56 @@ void LessonHandler::displayText(const std::string morse) {
     emit displayTextToUI(text);
 }
 
-void LessonHandler::lessonTwo() {
+void LessonHandler::nextQuestion() {
+    while (true) {
+        currentQuestion = currentLessonCharacters[rand() % currentLessonCharacters.size()];
+        if (learnedCharacters[currentQuestion] < 3) {
+            break;
+        }
+    }
 
-}
-
-void LessonHandler::lessonThree() {
-
-}
-
-void LessonHandler::lessonFour() {
-
-}
-
-void LessonHandler::lessonFive() {
-
-}
-
-void LessonHandler::lessonSix() {
-
-}
-
-void LessonHandler::lessonEight() {
-
+    // logic for sending the question to view
 }
 
 void LessonHandler::startLesson(int lessonNumber) {
     switch (lessonNumber) {
         case 2:
-            lessonTwo();
+            currentLessonCharacters = lessonTwoLetters;
             break;
         case 3:
-            lessonThree();
+            currentLessonCharacters = lessonThreeLetters;
             break;
         case 4:
-            lessonFour();
+            currentLessonCharacters = lessonFourLetters;
             break;
         case 5:
-            lessonFive();
+            currentLessonCharacters = lessonFiveLetters;
             break;
         case 6:
-            lessonSix();
+            currentLessonCharacters = lessonSixLetters;
             break;
         case 8:
-            lessonEight();
+            currentLessonCharacters = lessonEightNumbers;
             break;
         default:
-            break;
+            return;
     }
+
+    for (const std::string &character : currentLessonCharacters) {
+        learnedCharacters[character] = 0;
+    }
+    nextQuestion();
 }
 
 void LessonHandler::checkUserGuess(std::string guess) {
     std::string correctAnswer = morseHandler->encodeText(currentQuestion);
 
+    if (guess == correctAnswer) {
+        learnedCharacters[currentQuestion] += 1;
+        emit guessCorrect();
+    } else {
+        emit guessIncorrect();
+    }
+
+    nextQuestion();
 }
