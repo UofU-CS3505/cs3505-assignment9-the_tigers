@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QFontDatabase>
+#include <QSettings>
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +14,8 @@ int main(int argc, char *argv[])
     KeyEventFilter *keyEventFilter = new KeyEventFilter(&a);
     a.installEventFilter(keyEventFilter);
 
-    MorseHandler morseHandler(MorseHandler::STRAIGHT_KEY, 12); // Param should be based on the user's saved settings, default to 10 otherwise
+    MorseHandler morseHandler(MorseHandler::STRAIGHT_KEY, 12);
+    morseHandler.setVolume(100);
 
     MainWindow menu(nullptr, &morseHandler, keyEventFilter);
     menu.setFixedSize(1280, 720);

@@ -2,6 +2,7 @@
 #define SETTINGSWINDOW_H
 
 #include <QWidget>
+#include <QSettings>
 #include "morsehandler.h"
 
 namespace Ui {
@@ -17,6 +18,7 @@ public:
     ~settingswindow();
     void setUserOnThisPage(bool userOnThisPage);
     bool getUserOnThisPage();
+    void loadSettings();
 
 signals:
     void goHome();
@@ -32,6 +34,9 @@ private:
 
     MorseHandler *morseHandler;
     bool userOnThisPage;
+
+
+    void saveSettings();
 };
 
 #endif // SETTINGSWINDOW_H

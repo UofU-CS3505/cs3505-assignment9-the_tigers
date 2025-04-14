@@ -31,6 +31,7 @@ bool settingswindow::getUserOnThisPage() {
 
 void settingswindow::onBackButtonClicked()
 {
+    saveSettings();
     emit goHome();
     userOnThisPage = false;
 }
@@ -51,5 +52,19 @@ void settingswindow::onInputDeviceIndexChanged(int index)
     } else if (index == 1) {
         morseHandler->setDevice(MorseHandler::IAMBIC_PADDLE);
     }
+}
+
+void settingswindow::saveSettings() {
+    QSettings settings("Tigers", "MorseCodeLearner");
+    settings.setValue("deviceType", ui->inputDevice->currentIndex());
+    settings.setValue("volume", ui->volumeSlider->value());
+    settings.setValue("wpm", ui->wpmSpinBox->value());
+}
+
+void settingswindow::loadSettings() {
+    QSettings settings("Tigers", "MorseCodeLearner");
+    ui->inputDevice->setCurrentIndex(settings.value("deviceType", 0).toInt());
+    ui->volumeSlider->setValue(settings.value("volume", 100).toInt());
+    ui->wpmSpinBox->setValue(settings.value("wpm", 10).toInt());
 }
 
