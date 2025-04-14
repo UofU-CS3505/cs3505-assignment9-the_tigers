@@ -26,7 +26,7 @@ void LessonHandler::nextQuestion() {
         }
     }
 
-    // logic for sending the question to view
+    emit displayTextToUI(currentQuestion);
 }
 
 void LessonHandler::startLesson(int lessonNumber) {
