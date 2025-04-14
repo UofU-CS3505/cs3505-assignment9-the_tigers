@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "keyeventfilter.h"
+#include "morsehandler.h"
 
 namespace Ui {
 class lessonwindow;
@@ -13,20 +14,41 @@ class lessonwindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit lessonwindow(KeyEventFilter *keyEventFilter = nullptr, QWidget *parent = nullptr);
+    explicit lessonwindow(MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QWidget *parent = nullptr);
     ~lessonwindow();
     void setUserOnThisPage(bool userOnThisPage);
     bool getUserOnThisPage();
 
 private:
     Ui::lessonwindow *ui;
+    MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
     bool userOnThisPage;
+    bool acceptingInput;
 
 signals:
+    /**
+     * A signal that tells the stackedWidget to send the user back
+     * to the lesson select page.
+     */
     void goToLessonSelect();
 private slots:
+    /**
+     * A slot that triggers when the back button is pressed.
+     */
     void on_backButton_clicked();
+
+    /**
+     * A slot that handles when the space key is pressed down; used
+     * for morse input.
+     */
+    void handleSpacePressed();
+
+    /**
+     * A slot that handles when the space key is released; used for
+     * morse input.
+     */
+    void handleSpaceReleased();
 };
 
 
