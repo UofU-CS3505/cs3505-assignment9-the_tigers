@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "morsehandler.h"
 #include "keyeventfilter.h"
+#include "difficultyhandler.h"
 
 namespace Ui {
 class practicewindow;
@@ -38,6 +39,22 @@ signals:
      */
     void goHome();
 
+    /**
+     * Signal that sets the practice difficulty.
+     */
+    void setDifficulty(string difficulty);
+
+    /**
+     * Gets the correct practice text for the currently selected difficulty.
+     */
+    void getPracticeText();
+
+public slots:
+    /**
+     * Loads a character, word, or sentence to practice from a set problem text.
+     */
+    void loadPracticeProblem(std::string seedText);
+
 private slots:
     /**
      * Resets the page's state when the back button is clicked.
@@ -70,6 +87,7 @@ private:
 
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
+    DifficultyHandler *difficultyHandler;
 
     bool userOnThisPage = false;
 
@@ -83,11 +101,6 @@ private:
      * Loads a character, word, or sentence to practice.
      */
     void loadPracticeProblem();
-
-    /**
-     * Loads a character, word, or sentence to practice from a set problem text.
-     */
-    void loadPracticeProblem(std::string seedText);
 
     /**
      * Gets a single character, a-z.

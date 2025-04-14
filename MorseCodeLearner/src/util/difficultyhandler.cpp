@@ -93,17 +93,22 @@ string DifficultyHandler::generateCallSign() {
 }
 
 string DifficultyHandler::getPracticeString() {
+    string practiceString = "";
+
     switch(chosenDifficulty){
     case EASY:
-        return getEasyString();
+        practiceString = getEasyString();
+        emit sendPracticeString(practiceString);
         break;
 
     case MEDIUM:
-        return getMediumString();
+        practiceString = getMediumString();
+        emit sendPracticeString(practiceString);
         break;
 
     case HARD:
-        return getHardString();
+        practiceString = getHardString();
+        emit sendPracticeString(practiceString);
         break;
     }
 }

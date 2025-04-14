@@ -24,7 +24,7 @@ public:
     DifficultyHandler();
 
 private:
-    enum difficulty chosenDifficulty;
+    enum difficulty chosenDifficulty = EASY;
     string practiceText;
 
     void fillDictionary();
@@ -33,12 +33,12 @@ private:
     string getHardString();
     string generateCallSign();
 
-private slots:
+public slots:
     void setDifficulty(string difficulty);
     string getPracticeString();
 
 signals:
-    void sendPracticeString();
+    void sendPracticeString(string practiceText);
 
 };
 
