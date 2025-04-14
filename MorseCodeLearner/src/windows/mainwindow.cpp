@@ -32,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(lessonSelectWindow, &lessonselectwindow::goHome, this, &MainWindow::goHome);
     QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);
     QObject::connect(referenceWindow, &referencewindow::goHome, this, &MainWindow::goHome);
+
+    // This needs to be called last
+    settingsWindow->loadSettings();
 }
 
 MainWindow::~MainWindow()

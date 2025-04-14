@@ -15,6 +15,7 @@ INCLUDEPATH += $$PWD/include/util \
                $$PWD/src/windows
 
 SOURCES += \
+    src/util/difficultyhandler.cpp \
     src/util/lessonhandler.cpp \
     src/util/keyeventfilter.cpp \
     src/windows/lessonselectwindow.cpp \
@@ -77,6 +78,7 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp
 
 HEADERS += \
+    include/util/difficultyhandler.h \
     include/util/keyeventfilter.h \
     include/util/lessonhandler.h \
     include/windows/lessonselectwindow.h \
@@ -158,4 +160,5 @@ RESOURCES += \
 
 DISTFILES += \
     Box2D/Box2DConfig.cmake \
-    Box2D/CMakeLists.txt
+    Box2D/CMakeLists.txt \
+    textfiles/dictionary.txt
