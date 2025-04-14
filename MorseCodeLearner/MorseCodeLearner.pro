@@ -14,7 +14,12 @@ INCLUDEPATH += $$PWD/include/util \
                $$PWD/src/util \
                $$PWD/src/windows
 
+win32: LIBS += -lole32
+macx: LIBS += -framework CoreAudio -framework AudioToolbox -framework AudioUnit
+
 SOURCES += \
+    src/util/audiosink.cpp \
+    src/util/crossplatformaudiosink.cpp \
     src/util/difficultyhandler.cpp \
     src/util/lessonhandler.cpp \
     src/util/keyeventfilter.cpp \
@@ -78,6 +83,8 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp
 
 HEADERS += \
+    include/util/audiosink.h \
+    include/util/crossplatformaudiosink.h \
     include/util/difficultyhandler.h \
     include/util/keyeventfilter.h \
     include/util/lessonhandler.h \

@@ -7,7 +7,7 @@
 #include <QAudioOutput>
 #include <QAudioDevice>
 #include <QAudioSink>
-#include "qwidget.h"
+#include "audiosink.h"
 #include "sinewavegenerator.h"
 
 using std::string;
@@ -19,15 +19,14 @@ using std::string;
  * @name Michael Timothy
  * @date 04/06/2025
  */
-class MorseAudioHandler : public QWidget
+class MorseAudioHandler : public QObject
 {
     Q_OBJECT
 private:
     SineWaveGenerator *sineGenerator;
-    QAudioSink *audio;
+    AudioSink *audio;
     QAudioDevice outputDevice;
     QAudioFormat format;
-
     QTimer stopTimer;
     QTimer gapTimer;
 
@@ -38,11 +37,16 @@ private:
     int frequency;
     float unit;
 
+    int sampleRate = 48000;
+    const int framesPerBatch = 480; // ~10ms
+
+    QTimer *audioBufferTimer;
+
 public:
     /**
      * Constructor for MorseAudioHandler. Defaults to 10 wpm timings.
      */
-    MorseAudioHandler(QWidget *parent = nullptr, float unit = 120); // 120 is 10 wpm
+    MorseAudioHandler(float unit = 120); // 120 is 10 wpm
     ~MorseAudioHandler();
 
     void setWpm(float wpm);
@@ -81,15 +85,6 @@ public:
      * @param morse The string to play.
      */
     void playMorse(string morse);
-
-private slots:
-    /**
-     * Handler for when the audio object goes into an idle state, which means the
-     * SineWaveGenerator's buffer has been fully read.
-     * Regenerates the sine wave and starts playing the audio again.
-     * As of right now, this causes some audio clipping, but only once every 30 seconds.
-     */
-    void onAudioStateChanged();
 
 protected:
     /**

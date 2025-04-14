@@ -1,25 +1,27 @@
 #include "morseaudiohandler.h"
+#include "qdebug.h"
 #include <QMediaDevices>
 
-MorseAudioHandler::MorseAudioHandler(QWidget *parent, float unit) : QWidget(parent), unit(unit) {
+MorseAudioHandler::MorseAudioHandler(float unit) : unit(unit) {
 
-    format.setSampleRate(44100);
-    format.setChannelCount(1);
-    format.setSampleFormat(QAudioFormat::Int16);
-    format.setChannelConfig(QAudioFormat::ChannelConfigMono);
+    frequency = 440;
 
-    outputDevice = QMediaDevices::defaultAudioOutput();
-    audio = new QAudioSink(outputDevice, format, this);
-    sineGenerator = new SineWaveGenerator(format, this, 440.0f, 1.0f);
-    sineGenerator->start();
+    audio = new AudioSink();
+    sineGenerator = new SineWaveGenerator(frequency, sampleRate);
+    audio->start();
 
     playingPlayback = false;
     outputBuffer = "";
 
-    frequency = 440;
+    audioBufferTimer = new QTimer(this);
 
-    QObject::connect(audio, &QAudioSink::stateChanged, this, &MorseAudioHandler::onAudioStateChanged);
+    QObject::connect(audioBufferTimer, &QTimer::timeout, this, [=]() {
+        float buffer[960];
+        sineGenerator->generate(buffer, 480);
+        audio->writeAudioData(buffer, 480);
+    });
 
+    audioBufferTimer->start(10);
 }
 
 MorseAudioHandler::~MorseAudioHandler() {
@@ -32,30 +34,12 @@ void MorseAudioHandler::setWpm(float wpm) {
 }
 
 void MorseAudioHandler::setVolume(int volumeValue) {
-    sineGenerator->setVolume(volumeValue / qreal(100));
-    if (sineGenerator->openMode()) {
-        delete sineGenerator;
-        delete audio;
-
-        audio = new QAudioSink(outputDevice, format, this);
-
-        sineGenerator = new SineWaveGenerator(format, this, 440.0f, volumeValue / qreal(100));
-        sineGenerator->start();
-    }
-}
-
-void MorseAudioHandler::onAudioStateChanged() {
-    if (audio->state() == QAudio::IdleState) {
-        audio->start(sineGenerator);
-    }
+    audio->setVolume((float)volumeValue / 100);
 }
 
 void MorseAudioHandler::start() {
-    if (audio->state() == QAudio::StoppedState) {
-        audio->start(sineGenerator);
-    } else {
-        audio->resume();
-    }
+
+    audio->resume();
     emit lightIndicatorOn();
 }
 
