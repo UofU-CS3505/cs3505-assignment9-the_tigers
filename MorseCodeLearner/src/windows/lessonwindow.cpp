@@ -1,7 +1,7 @@
 #include "lessonwindow.h"
 #include "ui_lessonwindow.h"
 
-lessonwindow::lessonwindow(MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QWidget *parent)
+lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::lessonwindow)
     , morseHandler(morseHandler)
