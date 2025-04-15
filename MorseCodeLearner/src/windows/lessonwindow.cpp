@@ -1,9 +1,10 @@
 #include "lessonwindow.h"
 #include "ui_lessonwindow.h"
 
-lessonwindow::lessonwindow(MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QWidget *parent)
+lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::lessonwindow)
+    , lessonHandler(lessonHandler)
     , morseHandler(morseHandler)
     , keyEventFilter(keyEventFilter)
 {
@@ -16,6 +17,9 @@ lessonwindow::lessonwindow(MorseHandler *morseHandler, KeyEventFilter *keyEventF
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &lessonwindow::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &lessonwindow::handleSpaceReleased);
+
+    QObject::connect(lessonHandler, &LessonHandler::guessCorrect, this, &lessonwindow::guessCorrect);
+    QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &lessonwindow::guessIncorrect);
 
     acceptingInput = true;
 }

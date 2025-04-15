@@ -3,7 +3,8 @@
 
 MainWindow::MainWindow(QWidget *parent,
                        MorseHandler *morseHandler,
-                       KeyEventFilter *keyEventFilter)
+                       KeyEventFilter *keyEventFilter,
+                       LessonHandler *lessonHandler)
     : QMainWindow(parent)
     , morseHandler(morseHandler)
     , keyEventFilter(keyEventFilter)
@@ -33,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);
     QObject::connect(referenceWindow, &referencewindow::goHome, this, &MainWindow::goHome);
 
+    QObject::connect(this, &MainWindow::startLesson, lessonHandler, &LessonHandler::startLesson);
+
     // This needs to be called last
     settingsWindow->loadSettings();
 }
@@ -43,7 +46,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::setUpPages() {
-    lessonWindow = new lessonwindow();
+    lessonWindow = new lessonwindow(lessonHandler, morseHandler, keyEventFilter);
     lessonSelectWindow = new lessonselectwindow();
     practiceWindow = new practicewindow(this, morseHandler, keyEventFilter);
     settingsWindow = new settingswindow(this, morseHandler);
@@ -88,6 +91,7 @@ void MainWindow::onLessonClicked(int lessonNumber) {
     stackedWidget->setCurrentWidget(lessonWindow);
     lessonWindow->setUserOnThisPage(true);
     this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
+    emit startLesson(lessonNumber);
 }
 
 void MainWindow::onSettingsNavClicked()
