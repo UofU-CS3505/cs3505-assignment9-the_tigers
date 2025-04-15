@@ -10,7 +10,7 @@ public:
     virtual void suspend() = 0;
     virtual void resume() = 0;
     virtual void setVolume(float v) = 0;
-    virtual void writeAudioData(const float* data, int numFrames) = 0;
+    virtual int writeAudioData(const float* data, int numFrames) = 0;
 };
 
 

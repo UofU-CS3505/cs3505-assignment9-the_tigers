@@ -16,7 +16,7 @@ public:
     void suspend() override;
     void resume() override;
     void setVolume(float v) override;
-    void writeAudioData(const float *data, int numFrames) override;
+    int writeAudioData(const float *data, int numFrames) override;
 
 private:
     CrossPlatformAudioSink *impl;

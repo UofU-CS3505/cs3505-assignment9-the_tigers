@@ -18,7 +18,9 @@ MorseAudioHandler::MorseAudioHandler(float unit) : unit(unit) {
     QObject::connect(audioBufferTimer, &QTimer::timeout, this, [=]() {
         float buffer[960];
         sineGenerator->generate(buffer, 480);
-        audio->writeAudioData(buffer, 480);
+        int written = audio->writeAudioData(buffer, 480);
+
+        sineGenerator->revertPhase(480 - written);
     });
 
     audioBufferTimer->start(10);

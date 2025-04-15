@@ -32,6 +32,6 @@ void AudioSink::setVolume(float v) {
     impl->setVolume(v);
 }
 
-void AudioSink::writeAudioData(const float *data, int numFrames) {
-    impl->writeAudioData(data, numFrames);
+int AudioSink::writeAudioData(const float *data, int numFrames) {
+    return impl->writeAudioData(data, numFrames);
 }

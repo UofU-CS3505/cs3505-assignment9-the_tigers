@@ -18,7 +18,7 @@ class WasapiAudioSink : public CrossPlatformAudioSink {
 public:
     WasapiAudioSink()
         : audioClient(nullptr), renderClient(nullptr), sampleRate(48000), channels(2), running(false) {
-        ringBuffer.resize(sampleRate * channels * 20);
+        ringBuffer.resize(sampleRate * channels * 1);
     }
 
     ~WasapiAudioSink() {
@@ -94,20 +94,19 @@ public:
             return (ringBuffer.size() - bufferReadPos + bufferWritePos) / channels;
     }
 
-    void writeAudioData(const float* data, int numFrames) override {
+    int writeAudioData(const float* data, int numFrames) override {
         std::lock_guard<std::mutex> lock(bufferMutex);
 
         size_t framesAvailable = (ringBuffer.size() / channels) - bufferedFrameCount;
-        if (framesAvailable < (size_t)numFrames + 480) {
-            return;
-        }
+        size_t framesToWrite = std::min((size_t)numFrames, framesAvailable);
 
-        for (int i = 0; i < numFrames * (int)channels; ++i) {
+        for (size_t i = 0; i < framesToWrite * channels; ++i) {
             ringBuffer[bufferWritePos] = data[i];
             bufferWritePos = (bufferWritePos + 1) % ringBuffer.size();
         }
 
-        bufferedFrameCount += numFrames;
+        bufferedFrameCount += framesToWrite;
+        return static_cast<int>(framesToWrite);
     }
 
 private:
@@ -128,6 +127,7 @@ private:
     size_t bufferReadPos = 0;
     size_t bufferedFrameCount = 0;
     float volume = 1.0f;
+    float prevSample = 0.0f;
 
     void loop() {
         while (running) {
@@ -169,6 +169,12 @@ private:
                         float sample = ringBuffer[bufferReadPos];
                         bufferReadPos = (bufferReadPos + 1) % ringBuffer.size();
                         floatData[i] = sample * volume;
+
+                        // if (abs(sample - prevSample) > 0.0576) {
+                        //     qDebug() << "sample: " << sample << " prev: " << prevSample;
+                        //     qDebug() << "read pos: " << bufferReadPos << " write pos: " << bufferWritePos;
+                        // }
+                        prevSample = sample;
                     }
 
                     bufferedFrameCount -= availableFrames;

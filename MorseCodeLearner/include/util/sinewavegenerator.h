@@ -9,6 +9,8 @@ public:
 
     void generate(float *buffer, int numFrames);
 
+    void revertPhase(int frames);
+
 private:
     float frequency;
     float rate;
