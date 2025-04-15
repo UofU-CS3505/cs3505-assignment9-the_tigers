@@ -66,7 +66,7 @@ private slots:
      * Displays the current question to the view.
      * @param text - the current question.
      */
-    void displayTextQuestion(const std::string text);
+    void displayTextQuestion(std::string text);
 };
 
 

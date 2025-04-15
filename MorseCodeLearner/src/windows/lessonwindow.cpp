@@ -12,6 +12,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 
     ui->backButton->setIcon(QIcon(":/icons/back.svg"));
     ui->backButton->setIconSize(QSize(52, 52));
+    ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::on_backButton_clicked);
 
     // Key Event Filters
@@ -71,7 +72,7 @@ void lessonwindow::guessIncorrect() {
 
 }
 
-void lessonwindow::displayTextQuestion(const std::string text) {
+void lessonwindow::displayTextQuestion(std::string text) {
     ui->problemText->setText("What is " + QString::fromStdString(text) + " in morse?");
     acceptingInput = true;
 }
