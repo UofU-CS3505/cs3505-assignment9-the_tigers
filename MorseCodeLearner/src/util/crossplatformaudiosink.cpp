@@ -84,7 +84,6 @@ public:
 
     void setVolume(float v) override {
         volume = v;
-        qDebug() << volume;
     }
 
     // assumes buffer lock from caller
