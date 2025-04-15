@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent,
     , keyEventFilter(keyEventFilter)
     , ui(new Ui::MainWindow)
     , practiceHandler(practiceHandler)
+    , lessonHandler(lessonHandler)
 {
     ui->setupUi(this);
 
