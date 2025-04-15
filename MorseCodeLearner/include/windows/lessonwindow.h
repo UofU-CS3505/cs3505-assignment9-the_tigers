@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "keyeventfilter.h"
 #include "morsehandler.h"
+#include "lessonhandler.h"
 
 namespace Ui {
 class lessonwindow;
@@ -14,13 +15,14 @@ class lessonwindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit lessonwindow(MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QWidget *parent = nullptr);
+    explicit lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QWidget *parent = nullptr);
     ~lessonwindow();
     void setUserOnThisPage(bool userOnThisPage);
     bool getUserOnThisPage();
 
 private:
     Ui::lessonwindow *ui;
+    LessonHandler *lessonHandler;
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
     bool userOnThisPage;
@@ -49,6 +51,16 @@ private slots:
      * morse input.
      */
     void handleSpaceReleased();
+
+    /**
+     * A slot that runs when a guess is correct.
+     */
+    void guessCorrect();
+
+    /**
+     * A slot that runs when a guess is incorrect.
+     */
+    void guessIncorrect();
 };
 
 

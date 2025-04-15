@@ -51,3 +51,11 @@ void lessonwindow::handleSpaceReleased() {
     morseHandler->straightKeyUp();
 }
 
+void lessonwindow::guessCorrect() {
+
+}
+
+void lessonwindow::guessIncorrect() {
+
+}
+
