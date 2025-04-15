@@ -28,12 +28,10 @@ translatorwindow::translatorwindow(QWidget *parent,
     ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));
     ui->audioPlayButton->setIconSize(QSize(52, 52));
 
-    ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
-
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
     QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, &translatorwindow::handlePlaybackStopped);
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border : 2px solid black; border-radius: 5px}");});
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border : 1px solid black;}");});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 1px solid black;}");});
 
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &translatorwindow::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &translatorwindow::handleSpaceReleased);

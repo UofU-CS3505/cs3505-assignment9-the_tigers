@@ -17,7 +17,7 @@ void DifficultyHandler::fillDictionary() {
     QString line;
     while(!file.atEnd()){
         line = file.readLine();
-        dictionary.push_back(line.toStdString());
+        dictionary.push_back(line.toStdString().erase(line.length() - 1, 1)); // must remove the last two to get rid of t
     }
 }
 
@@ -67,6 +67,8 @@ QString DifficultyHandler::getHardString() {
             practiceText.append(" ");
         }
     }
+
+    qDebug() << practiceText;
 
     return practiceText;
 }
