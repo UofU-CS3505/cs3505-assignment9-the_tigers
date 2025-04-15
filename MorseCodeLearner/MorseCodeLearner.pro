@@ -18,6 +18,7 @@ SOURCES += \
     src/util/difficultyhandler.cpp \
     src/util/lessonhandler.cpp \
     src/util/keyeventfilter.cpp \
+    src/util/practicehandler.cpp \
     src/windows/lessonselectwindow.cpp \
     src/windows/lessonwindow.cpp \
     src/main.cpp \
@@ -92,6 +93,7 @@ HEADERS += \
     include/windows/settingswindow.h \
     include/util/sinewavegenerator.h \
     include/windows/translatorwindow.h \
+    include/util/practicehandler.h \
     Box2D/Box2D.h \
     Box2D/Collision/Shapes/b2ChainShape.h \
     Box2D/Collision/Shapes/b2CircleShape.h \
@@ -138,7 +140,7 @@ HEADERS += \
     Box2D/Dynamics/b2TimeStep.h \
     Box2D/Dynamics/b2World.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
-    Box2D/Rope/b2Rope.h \
+    Box2D/Rope/b2Rope.h
 
 FORMS += \
     lessonselectwindow.ui \

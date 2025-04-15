@@ -5,6 +5,7 @@
 #include "morsehandler.h"
 #include "keyeventfilter.h"
 #include "difficultyhandler.h"
+#include "practicehandler.h"
 
 namespace Ui {
 class practicewindow;
@@ -14,7 +15,7 @@ class practicewindow;
  * The practice page. Allows the user to infinitely practice morse code decoding and encoding.
  *
  * @name Chandler Eyre and Michael Timothy
- * @date 04/12/2025
+ * @date 04/15/2025
  */
 class practicewindow : public QWidget
 {
@@ -25,8 +26,8 @@ public:
      * Constructor for a practice window. Takes in a MorseHandler, MorseAudioHandler, and KeyEventFilter.
      */
     explicit practicewindow(QWidget *parent = nullptr,
-                            MorseHandler *morseHandler = nullptr,
-                            KeyEventFilter *keyEventFilter = nullptr);
+                            KeyEventFilter *keyEventFilter = nullptr,
+                            PracticeHandler *practiceHandler = nullptr);
     ~practicewindow();
 
     void setUserOnThisPage(bool userOnThisPage);
@@ -42,7 +43,7 @@ signals:
     /**
      * Signal that sets the practice difficulty.
      */
-    void setDifficulty(string difficulty);
+    void setDifficulty(QString difficulty);
 
     /**
      * Gets the correct practice text for the currently selected difficulty.
@@ -51,61 +52,23 @@ signals:
 
 public slots:
     /**
-     * Loads a character, word, or sentence to practice from a set problem text.
+     * Updates practice text display.
      */
-    void loadPracticeProblem(std::string seedText);
+    void updatePracticeText(QString text);
+
+    /**
+     * Updates input text display.
+     */
+    void updateInputText(QString text);
 
 private slots:
-    /**
-     * Resets the page's state when the back button is clicked.
-     */
-    void onBackButtonClicked();
-
-    /**
-     * Slot for when the MorseHandler object sends us a morse character.
-     * The morse character is appended to our input text box.
-     * @param morse The morse character.
-     */
-    void onMorseReceived(const std::string morse);
-
-    /**
-     * Tells the MorseHandler and MorseAudioHandler that the straight key has been pressed
-     * as long as: the user is currently on this page, playback of morse is not currently being played,
-     * and the translate mode is morse to text.
-     */
-    void handleSpacePressed();
-
-    /**
-     * Tells the MorseHandler and MorseAudioHandler that the straight key has been released
-     * as long as: the user is currently on this page, playback of morse is not currently being played,
-     * and the translate mode is morse to text.
-     */
-    void handleSpaceReleased();
 
 private:
     Ui::practicewindow *ui;
 
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
-    DifficultyHandler *difficultyHandler;
-
-    bool userOnThisPage = false;
-
-    string problemText;
-
-    QTimer timer;
-
-    bool acceptingInput;
-
-    /**
-     * Loads a character, word, or sentence to practice.
-     */
-    void loadPracticeProblem();
-
-    /**
-     * Gets a single character, a-z.
-     */
-    std::string getCharacter();
+    PracticeHandler *practiceHandler;
 };
 
 #endif // PRACTICEWINDOW_H

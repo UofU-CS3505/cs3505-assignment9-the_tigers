@@ -20,18 +20,16 @@ private:
     // Dictionary sourced from ef.edu's most common English words list
     vector<string> dictionary;
 
-public:
-    DifficultyHandler();
-
-private:
-    enum difficulty chosenDifficulty = EASY;
     string practiceText;
-
+    difficulty chosenDifficulty = EASY;
     void fillDictionary();
     string getEasyString();
     string getMediumString();
     string getHardString();
     string generateCallSign();
+
+public:
+    DifficultyHandler();
 
 public slots:
     void setDifficulty(string difficulty);

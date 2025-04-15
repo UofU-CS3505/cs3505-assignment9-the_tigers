@@ -26,7 +26,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr,
                         MorseHandler *morseHandler = nullptr,
-                        KeyEventFilter *keyEventFilter = nullptr);
+                        KeyEventFilter *keyEventFilter = nullptr,
+                        PracticeHandler *practiceHandler = nullptr);
     ~MainWindow();
 
     MorseHandler *morseHandler;
@@ -78,6 +79,7 @@ private:
     translatorwindow* translatorWindow;
     MenuWindow* menuWindow;
     referencewindow* referenceWindow;
+    PracticeHandler* practiceHandler;
 
     /**
      * A simple method to set up all the pages with the QStackedWidget.

@@ -3,7 +3,7 @@
 #include <QDebug>
 #include "difficultyhandler.h"
 
-DifficultyHandler::DifficultyHandler() {
+DifficultyHandler::DifficultyHandler() : chosenDifficulty(EASY) {
     fillDictionary();
     std::srand(std::time(0));
 }
@@ -93,24 +93,11 @@ string DifficultyHandler::generateCallSign() {
 }
 
 string DifficultyHandler::getPracticeString() {
-    string practiceString = "";
+    string practiceString = "string";
 
-    switch(chosenDifficulty){
-    case EASY:
-        practiceString = getEasyString();
-        emit sendPracticeString(practiceString);
-        break;
+    // TODO implement switch/if else to select a string
 
-    case MEDIUM:
-        practiceString = getMediumString();
-        emit sendPracticeString(practiceString);
-        break;
-
-    case HARD:
-        practiceString = getHardString();
-        emit sendPracticeString(practiceString);
-        break;
-    }
+    return practiceString;
 }
 
 void DifficultyHandler::setDifficulty(string difficulty) {
