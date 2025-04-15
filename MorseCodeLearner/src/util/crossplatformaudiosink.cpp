@@ -200,9 +200,9 @@ private:
 class CoreAudioSink : public CrossPlatformAudioSink {
 public:
     CoreAudioSink()
-        : sampleRate(48000), channels(2), bufferByteSize(0),
-        audioQueue(nullptr), running(false), suspended(false), volume(1.0f),
-        bufferWritePos(0), bufferReadPos(0), bufferedFrameCount(0) {
+        : audioQueue(nullptr), bufferByteSize(0), sampleRate(48000),
+        channels(2), bufferWritePos(0), bufferReadPos(0), bufferedFrameCount(0),
+        running(false), suspended(false), volume(1.0f) {
         ringBuffer.resize(sampleRate * channels * 20); // 20 seconds
     }
 
@@ -221,7 +221,7 @@ public:
         format.mBytesPerPacket = format.mBytesPerFrame * format.mFramesPerPacket;
         format.mBitsPerChannel = 32;
 
-        bufferByteSize = format.mBytesPerFrame * sampleRate / 60; // ~16ms per buffer
+        bufferByteSize = format.mBytesPerFrame * sampleRate / 132;
 
         AudioQueueNewOutput(&format, audioCallback, this, nullptr, nullptr, 0, &audioQueue);
 
@@ -232,6 +232,7 @@ public:
 
         AudioQueueStart(audioQueue, nullptr);
         running = true;
+        suspend();
     }
 
     void stop() override {
@@ -255,8 +256,12 @@ public:
             suspended = false;
         }
         cv.notify_all();
+
         AudioQueueStart(audioQueue, nullptr);
     }
+
+
+
 
     void setVolume(float v) override {
         volume = v;
@@ -266,6 +271,7 @@ public:
     }
 
     void writeAudioData(const float* data, int numFrames) override {
+
         std::lock_guard<std::mutex> lock(bufferMutex);
         size_t framesAvailable = (ringBuffer.size() / channels) - bufferedFrameCount;
 

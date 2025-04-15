@@ -58,6 +58,7 @@ void MorseAudioHandler::playMorse(string morse) {
 
 void MorseAudioHandler::suspend() {
     audio->suspend();
+
     emit lightIndicatorOff();
 }
 
