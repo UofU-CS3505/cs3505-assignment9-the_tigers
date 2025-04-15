@@ -61,6 +61,12 @@ private slots:
      * A slot that runs when a guess is incorrect.
      */
     void guessIncorrect();
+
+    /**
+     * Displays the current question to the view.
+     * @param text - the current question.
+     */
+    void displayTextQuestion(const std::string text);
 };
 
 

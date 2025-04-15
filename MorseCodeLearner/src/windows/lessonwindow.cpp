@@ -20,8 +20,9 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 
     QObject::connect(lessonHandler, &LessonHandler::guessCorrect, this, &lessonwindow::guessCorrect);
     QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &lessonwindow::guessIncorrect);
+    QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &lessonwindow::displayTextQuestion);
 
-    acceptingInput = true;
+    acceptingInput = false;
 }
 
 lessonwindow::~lessonwindow()
@@ -30,6 +31,12 @@ lessonwindow::~lessonwindow()
 }
 
 void lessonwindow::setUserOnThisPage(bool userOnThisPage) {
+    if (userOnThisPage) {
+        acceptingInput = true;
+    } else {
+        acceptingInput = false;
+    }
+
     this->userOnThisPage = userOnThisPage;
 }
 
@@ -40,6 +47,7 @@ bool lessonwindow::getUserOnThisPage() {
 void lessonwindow::on_backButton_clicked()
 {
     emit goToLessonSelect();
+    acceptingInput = false;
     userOnThisPage = false;
 }
 
@@ -61,5 +69,10 @@ void lessonwindow::guessCorrect() {
 
 void lessonwindow::guessIncorrect() {
 
+}
+
+void lessonwindow::displayTextQuestion(const std::string text) {
+    ui->problemText->setText("What is " + QString::fromStdString(text) + " in morse?");
+    acceptingInput = true;
 }
 
