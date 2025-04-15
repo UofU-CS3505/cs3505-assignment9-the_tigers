@@ -86,13 +86,13 @@ signals:
      * A signal that gets emitted to send the morse to a view.
      * @param morse - the morse to send.
      */
-    void displayMorseToUI(const std::string morse);
+    void displayMorseToUI(std::string morse);
 
     /**
      * A signal that gets emitted to send the text to a view.
      * @param text - the text to send.
      */
-    void displayTextToUI(const std::string text);
+    void displayTextToUI(std::string text);
 };
 
 #endif // LESSONHANDLER_H

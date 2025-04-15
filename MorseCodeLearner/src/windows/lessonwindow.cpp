@@ -4,6 +4,7 @@
 lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::lessonwindow)
+    , lessonHandler(lessonHandler)
     , morseHandler(morseHandler)
     , keyEventFilter(keyEventFilter)
 {
@@ -11,13 +12,18 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 
     ui->backButton->setIcon(QIcon(":/icons/back.svg"));
     ui->backButton->setIconSize(QSize(52, 52));
+    ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::on_backButton_clicked);
 
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &lessonwindow::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &lessonwindow::handleSpaceReleased);
 
-    acceptingInput = true;
+    QObject::connect(lessonHandler, &LessonHandler::guessCorrect, this, &lessonwindow::guessCorrect);
+    QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &lessonwindow::guessIncorrect);
+    QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &lessonwindow::displayTextQuestion);
+
+    acceptingInput = false;
 }
 
 lessonwindow::~lessonwindow()
@@ -26,6 +32,12 @@ lessonwindow::~lessonwindow()
 }
 
 void lessonwindow::setUserOnThisPage(bool userOnThisPage) {
+    if (userOnThisPage) {
+        acceptingInput = true;
+    } else {
+        acceptingInput = false;
+    }
+
     this->userOnThisPage = userOnThisPage;
 }
 
@@ -36,6 +48,7 @@ bool lessonwindow::getUserOnThisPage() {
 void lessonwindow::on_backButton_clicked()
 {
     emit goToLessonSelect();
+    acceptingInput = false;
     userOnThisPage = false;
 }
 
@@ -57,5 +70,10 @@ void lessonwindow::guessCorrect() {
 
 void lessonwindow::guessIncorrect() {
 
+}
+
+void lessonwindow::displayTextQuestion(std::string text) {
+    ui->problemText->setText("What is " + QString::fromStdString(text) + " in morse?");
+    acceptingInput = true;
 }
 

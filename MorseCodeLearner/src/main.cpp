@@ -18,8 +18,9 @@ int main(int argc, char *argv[])
     morseHandler.setVolume(100);
 
     PracticeHandler practiceHandler(&morseHandler);
+    LessonHandler *lessonHandler = new LessonHandler(&morseHandler);
 
-    MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler);
+    MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler, lessonHandler);
     menu.setFixedSize(1280, 720);
     menu.setWindowIcon(QIcon(":/icons/app_icon.png"));
 

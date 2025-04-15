@@ -12,6 +12,7 @@
 #include "menuwindow.h"
 #include "referencewindow.h"
 #include "keyeventfilter.h"
+#include "lessonhandler.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,11 +28,21 @@ public:
     explicit MainWindow(QWidget *parent = nullptr,
                         MorseHandler *morseHandler = nullptr,
                         KeyEventFilter *keyEventFilter = nullptr,
-                        PracticeHandler *practiceHandler = nullptr);
+                        PracticeHandler *practiceHandler = nullptr,
+                        LessonHandler *lessonHandler = nullptr);
     ~MainWindow();
 
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
+    LessonHandler *lessonHandler;
+
+signals:
+    /**
+     * Emits this signal when a lesson is selected.
+     * @param lessonNumber
+     */
+    void startLesson(int lessonNumber);
+
 private slots:
     /**
      * Called when navigating to the Translator Page.

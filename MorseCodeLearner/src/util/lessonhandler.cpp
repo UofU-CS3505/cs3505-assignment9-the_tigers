@@ -5,7 +5,7 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     QObject(parent),
     morseHandler(morseHandler)
 {
-    //QObject::connect();
+
 }
 
 void LessonHandler::displayMorse(const std::string text) {
