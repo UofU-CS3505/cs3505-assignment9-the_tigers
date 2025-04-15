@@ -11,5 +11,6 @@
         <file>fonts/JMHTypewriter.ttf</file>
         <file>fonts/OldLondon.ttf</file>
         <file>icons/bookIcon.png</file>
+        <file>textfiles/dictionary.txt</file>
     </qresource>
 </RCC>

@@ -6,13 +6,14 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
 {
     QTimer timer(this);
 
-    DifficultyHandler difficultyHandler;
+    difficultyHandler = new DifficultyHandler();
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &PracticeHandler::onMorseReceived);
 }
 
 void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
     this->userOnThisPage = userOnThisPage;
+    loadPracticeProblem();
 }
 
 bool PracticeHandler::getUserOnThisPage() {
@@ -26,25 +27,26 @@ void PracticeHandler::onBackButtonClicked() {
     userOnThisPage = false;
 }
 
-
 void PracticeHandler::handleSpacePressed() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
         return;
+    emit lightIndicatorOn();
     morseHandler->straightKeyDown();
 }
 
 void PracticeHandler::handleSpaceReleased() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
         return;
+    emit lightIndicatorOff();
     morseHandler->straightKeyUp();
 }
 
 
 void PracticeHandler::loadPracticeProblem() {
-    qDebug() << "Loaded practice problem";
     // clear input text and send new practice problem
     emit updateInputText("");
-    emit updatePracticeText(QString::fromStdString(difficultyHandler->getPracticeString()));
+    problemText = difficultyHandler->getPracticeString();
+    emit updatePracticeText(problemText);
 
     acceptingInput = true;
 }
@@ -63,33 +65,35 @@ void PracticeHandler::onMorseReceived(const string morse) {
 
     QString qmorse = QString::fromStdString(morse);
 
-    // TODO implement different checks depending on mode.
+    string inputAsText = morseHandler->decodeMorse(morseText.toStdString());
 
-    if (qmorse == "/ ")
-        return;
-
-    if (qmorse == " ") {
-        // check vs problem character
-        if (morseHandler->decodeMorse(morseText.toStdString()) == problemText) {
+     if (qmorse == "/ ") {
+        if (inputAsText == problemText.toStdString()) {
             acceptingInput = false;
             emit updatePracticeText("Correct!");
+            morseText = "";
             timer.singleShot(1500, this, [this](){loadPracticeProblem();});
         }
 
         // if incorrect clear and try again
-        if (morseHandler->decodeMorse(morseText.toStdString()) != problemText) {
+        else if (inputAsText != problemText.toStdString()) {
             acceptingInput = false;
+            morseText = "";
             emit updatePracticeText("Try Again!");
-            timer.singleShot(1500, this, [this](){loadPracticeProblem(QString::fromStdString(problemText));});
+            timer.singleShot(1500, this, [this](){loadPracticeProblem(problemText);});
         }
-        return;
+    return;
     }
-
-    emit updateInputText(morseText + qmorse);
+    else {
+        morseText += qmorse;
+        emit updateInputText(morseText);
+    }
 }
 
 void PracticeHandler::setDifficulty(QString difficulty) {
-    // TODO implement
+    difficultyHandler->setDifficulty(difficulty);
+
+    loadPracticeProblem();
 }
 
 

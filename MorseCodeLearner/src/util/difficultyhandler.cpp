@@ -9,7 +9,7 @@ DifficultyHandler::DifficultyHandler() : chosenDifficulty(EASY) {
 }
 
 void DifficultyHandler::fillDictionary() {
-    QFile file("../dictionary.txt");
+    QFile file(":/textfiles/dictionary.txt");
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
@@ -21,32 +21,32 @@ void DifficultyHandler::fillDictionary() {
     }
 }
 
-string DifficultyHandler::getEasyString() {
+QString DifficultyHandler::getEasyString() {
     int stringIndex = rand() % easyOptions.size();
-    practiceText = easyOptions.at(stringIndex);
+    practiceText = QString::fromStdString(easyOptions.at(stringIndex));
 
     return practiceText;
 }
 
-string DifficultyHandler::getMediumString() {
+QString DifficultyHandler::getMediumString() {
     int randomSelection = rand() % 2;
     practiceText = "";
 
-    if(randomSelection == 0){
+    if(randomSelection == 0) {
         int randomPracticeIndex = rand() % dictionary.size();
-        practiceText = dictionary.at(randomPracticeIndex);
+        practiceText = QString::fromStdString(dictionary.at(randomPracticeIndex));
     }
 
     else {
         // Gets a number between 100 and 10,000,000
         int randomPracticeNumber = (rand() % 9999901) + 100;
-        practiceText = std::to_string(randomPracticeNumber);
+        practiceText = QString::fromStdString(std::to_string(randomPracticeNumber));
     }
 
     return practiceText;
 }
 
-string DifficultyHandler::getHardString() {
+QString DifficultyHandler::getHardString() {
     int randomSelection;
     int randomPracticeIndex;
     practiceText = "";
@@ -71,7 +71,7 @@ string DifficultyHandler::getHardString() {
     return practiceText;
 }
 
-string DifficultyHandler::generateCallSign() {
+QString DifficultyHandler::generateCallSign() {
     string callSign = "";
 
     char letter;
@@ -89,27 +89,41 @@ string DifficultyHandler::generateCallSign() {
         }
     }
 
-    return callSign;
+    return QString::fromStdString(callSign);
 }
 
-string DifficultyHandler::getPracticeString() {
-    string practiceString = "string";
+QString DifficultyHandler::getPracticeString() {
+    QString practiceString;
 
-    // TODO implement switch/if else to select a string
+    switch(chosenDifficulty) {
+    case EASY:
+        practiceString = getEasyString();
+        break;
+
+    case MEDIUM:
+        practiceString = getMediumString();
+        break;
+
+    case HARD:
+        practiceString = getHardString();
+        break;
+    }
 
     return practiceString;
 }
 
-void DifficultyHandler::setDifficulty(string difficulty) {
-    if (difficulty == "easy"){
+void DifficultyHandler::setDifficulty(QString difficulty) {
+    difficulty = difficulty.toLower();
+
+    if (difficulty == "easy") {
         chosenDifficulty = EASY;
     }
 
-    else if( difficulty == "medium"){
+    else if( difficulty == "medium") {
         chosenDifficulty = MEDIUM;
     }
 
-    else if( difficulty == "hard"){
+    else if( difficulty == "hard") {
         chosenDifficulty = HARD;
     }
 }

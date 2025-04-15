@@ -21,7 +21,7 @@ private:
     DifficultyHandler *difficultyHandler;
     QTimer timer;
     bool userOnThisPage;
-    string problemText;
+    QString problemText;
     QString morseText; // string containing morse input for english problem and morse input
     bool acceptingInput;
 

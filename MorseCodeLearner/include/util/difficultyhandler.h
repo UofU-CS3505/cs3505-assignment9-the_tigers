@@ -2,12 +2,15 @@
 #define DIFFICULTYHANDLER_H
 
 #include <QObject>
+#include <string>
+#include <vector>
 
 using std::vector;
 using std::string;
 
 class DifficultyHandler : public QObject {
     Q_OBJECT
+
 private:
     enum difficulty {EASY, MEDIUM, HARD};
 
@@ -20,23 +23,23 @@ private:
     // Dictionary sourced from ef.edu's most common English words list
     vector<string> dictionary;
 
-    string practiceText;
+    QString practiceText = "";
     difficulty chosenDifficulty = EASY;
     void fillDictionary();
-    string getEasyString();
-    string getMediumString();
-    string getHardString();
-    string generateCallSign();
+    QString getEasyString();
+    QString getMediumString();
+    QString getHardString();
+    QString generateCallSign();
 
 public:
     DifficultyHandler();
 
 public slots:
-    void setDifficulty(string difficulty);
-    string getPracticeString();
+    void setDifficulty(QString difficulty);
+    QString getPracticeString();
 
 signals:
-    void sendPracticeString(string practiceText);
+    void sendPracticeString(QString practiceText);
 
 };
 
