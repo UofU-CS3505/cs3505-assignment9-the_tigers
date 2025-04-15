@@ -208,7 +208,7 @@ public:
         : audioQueue(nullptr), bufferByteSize(0), sampleRate(48000),
         channels(2), bufferWritePos(0), bufferReadPos(0), bufferedFrameCount(0),
         running(false), suspended(false), volume(1.0f) {
-        ringBuffer.resize(sampleRate * channels * 20); // 20 seconds
+        ringBuffer.resize(sampleRate * channels * 5); // 5 seconds
     }
 
     ~CoreAudioSink() {
@@ -275,13 +275,13 @@ public:
         }
     }
 
-    void writeAudioData(const float* data, int numFrames) override {
+    int writeAudioData(const float* data, int numFrames) override {
 
         std::lock_guard<std::mutex> lock(bufferMutex);
         size_t framesAvailable = (ringBuffer.size() / channels) - bufferedFrameCount;
 
         if (framesAvailable < static_cast<size_t>(numFrames) + 480)
-            return;
+            return 0;
 
         for (int i = 0; i < numFrames * (int)channels; ++i) {
             ringBuffer[bufferWritePos] = data[i];
@@ -289,6 +289,7 @@ public:
         }
 
         bufferedFrameCount += numFrames;
+        return numFrames;
     }
 
     size_t bufferedFrames() {
@@ -319,6 +320,7 @@ private:
     std::atomic<bool> running;
     std::atomic<bool> suspended;
     float volume;
+    float lastOutputSample = 0.0f;
 
     static void audioCallback(void* userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer) {
         auto* self = static_cast<CoreAudioSink*>(userData);
@@ -339,6 +341,11 @@ private:
             for (size_t i = 0; i < frames * self->channels; ++i) {
                 output[i] = self->ringBuffer[self->bufferReadPos] * self->volume;
                 self->bufferReadPos = (self->bufferReadPos + 1) % self->ringBuffer.size();
+
+                // if (abs(self->lastOutputSample - output[i]) > 0.0576)
+                //     qDebug() << "prev: " << output[i-1] << " sample: " << output[i];
+
+                // self->lastOutputSample = output[i];
             }
             self->bufferedFrameCount -= frames;
         } else {
