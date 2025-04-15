@@ -16,7 +16,7 @@ void DifficultyHandler::fillDictionary() {
 
     QString line;
     while(!file.atEnd()){
-        line = file.readLine();
+        line = file.readLine().trimmed();
         dictionary.push_back(line.toStdString());
     }
 }
