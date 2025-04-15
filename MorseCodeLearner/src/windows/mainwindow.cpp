@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(lessonSelectWindow, &lessonselectwindow::selectLesson, this, &MainWindow::onLessonClicked);
 
     QObject::connect(translatorWindow, &translatorwindow::goHome, this, &MainWindow::goHome);
-    QObject::connect(practiceWindow, &practicewindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(practiceHandler, &PracticeHandler::goHome, this, &MainWindow::goHome);
     QObject::connect(lessonWindow, &lessonwindow::goToLessonSelect, this, &MainWindow::onLearningNavClicked);
     QObject::connect(lessonSelectWindow, &lessonselectwindow::goHome, this, &MainWindow::goHome);
     QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);

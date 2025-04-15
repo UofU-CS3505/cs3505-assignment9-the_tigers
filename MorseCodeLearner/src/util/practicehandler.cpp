@@ -9,8 +9,6 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
     DifficultyHandler difficultyHandler;
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &PracticeHandler::onMorseReceived);
-
-    loadPracticeProblem();
 }
 
 void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
@@ -43,6 +41,7 @@ void PracticeHandler::handleSpaceReleased() {
 
 
 void PracticeHandler::loadPracticeProblem() {
+    qDebug() << "Loaded practice problem";
     // clear input text and send new practice problem
     emit updateInputText("");
     emit updatePracticeText(QString::fromStdString(difficultyHandler->getPracticeString()));
