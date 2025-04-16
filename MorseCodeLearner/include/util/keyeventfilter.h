@@ -8,12 +8,13 @@
 #include <QApplication>
 
 /**
- * An event filter for key presses. Currently handles spacebar presses
- * but more can be added. The filter does nothing if the user is currently focused
- * on a QTextEdit object.
+ * An event filter for key presses.
+ * Handles spacebar presses, arrowkey presses, and the enter key.
+ * The filter does nothing if the user is currently focused on a QTextEdit object.
+ * The filter only handles enter key presses if the user is currently focused on a QLineEdit object.
  *
- * @name Michael Timothy
- * @date 04/07/2025
+ * @name Michael Timothy and Chandler Eyre
+ * @date 04/16/2025
  */
 class KeyEventFilter : public QObject
 {
@@ -28,6 +29,7 @@ signals:
     void leftArrowReleased();
     void rightArrowPressed();
     void rightArrowReleased();
+    void enterPressed();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

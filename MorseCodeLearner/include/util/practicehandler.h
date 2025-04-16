@@ -21,9 +21,14 @@ private:
     DifficultyHandler *difficultyHandler;
     QTimer timer;
     bool userOnThisPage;
-    QString problemText;
-    QString morseText; // string containing morse input for english problem and morse input
+    QString problemText; // contains the current problem in english
+    QString inputText; // contains the user's input
+    QString morseText; // contains morse input for english problem and morse input
     bool acceptingInput;
+
+    enum practiceMode { ENCODE_ENGLISH, DECODE_MORSE, DECODE_SOUND };
+
+    practiceMode mode = ENCODE_ENGLISH;
 
     /**
      * Loads a practice problem using state and difficulty info, and sends to the window.
@@ -54,6 +59,13 @@ public:
      */
     bool getUserOnThisPage();
 
+    /**
+     * Sets the practice mode.
+     * Mode can be "Encode English", "Decode Morse", "Decode Sound"
+     * @param newMode - The new mode
+     */
+    void setMode(QString newMode);
+
 public slots:
     /**
      * Tells the MorseHandler and MorseAudioHandler that the straight key has been pressed
@@ -78,7 +90,7 @@ public slots:
 
     /**
      * Sets the practice difficulty in the DifficultyHandler.
-     * @param difficulty - new difficulty
+     * @param difficulty - New difficulty
      */
     void setDifficulty(QString difficulty);
 
@@ -86,6 +98,18 @@ public slots:
      * Resets the page's state when the back button is clicked.
      */
     void onBackButtonClicked();
+
+    /**
+     * Checks if the input is correct and sets up the next problem.
+     */
+    void checkProblem();
+
+    /**
+     * Updates the stored input text.
+     * If mode is encoding english, will convert morse to english for easier comparison.
+     * @param text - New input text
+     */
+    void receiveInputText(QString text);
 
 signals:
     /**
@@ -114,6 +138,26 @@ signals:
      * Turns off the flashing light indicator.
      */
     void lightIndicatorOff();
+
+    /**
+     * The input check button should be displayed.
+     */
+    void showInputCheck();
+
+    /**
+     * The input check button should not be displayed.
+     */
+    void hideInputCheck();
+
+    /**
+     * @param readOnly - Whether the user input box should be read only.
+     */
+    void isInputReadOnly(bool readOnly);
+
+    /**
+     * Focus the input box.
+     */
+    void focusInput();
 };
 
 #endif // PRACTICEHANDLER_H

@@ -10,6 +10,8 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 {
     ui->setupUi(this);
 
+    ui->inputText->setFixedWidth(1081);
+
     ui->backButton->setIcon(QIcon(":/icons/back.svg"));
     ui->backButton->setIconSize(QSize(52, 52));
     QObject::connect(ui->backButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::onBackButtonClicked);
@@ -20,13 +22,41 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, practiceHandler, &PracticeHandler::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, practiceHandler, &PracticeHandler::handleSpaceReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, practiceHandler, &PracticeHandler::checkProblem);
 
     QObject::connect(practiceHandler, &PracticeHandler::updateInputText, this, &practicewindow::updateInputText);
     QObject::connect(practiceHandler, &PracticeHandler::updatePracticeText, this, &practicewindow::updatePracticeText);
     QObject::connect(ui->difficultySelectBox, &QComboBox::currentTextChanged, practiceHandler, &PracticeHandler::setDifficulty);
 
-    // automatically scroll input box
-    QObject::connect(ui->inputText, &QTextEdit::textChanged, [=](){ui->inputText->moveCursor(QTextCursor::End);});
+    QObject::connect(ui->inputText, &QLineEdit::textChanged, practiceHandler, [practiceHandler, this](){practiceHandler->receiveInputText(ui->inputText->text());});
+
+    QObject::connect(ui->modeSelectBox, &QComboBox::currentTextChanged, this, [=](){
+        QString newMode = ui->modeSelectBox->currentText();
+        practiceHandler->setMode(ui->modeSelectBox->currentText());
+        if (newMode == "Decode Morse" || newMode == "Decode Sound") {
+            ui->inputText->setFixedWidth(1011);
+        } else {
+            ui->inputText->setFixedWidth(1081);
+        }
+
+        if (newMode == "Decode Morse") {
+            ui->modeInstructionLabel->setText("Translate the morse code into English. Check your answer with the ENTER key or the button!");
+        } else if (newMode == "Decode Sound") {
+            ui->modeInstructionLabel->setText("Translate the audible morse code into English. Check your answer with the ENTER key or the button!");
+        } else {
+            ui->modeInstructionLabel->setText("Translate English by inputting morse code with the spacebar or paddles. Your answers are checked automatically!");
+        }
+    });
+
+    ui->checkInputButton->hide();
+    QObject::connect(practiceHandler, &PracticeHandler::showInputCheck, ui->checkInputButton, &QPushButton::show);
+    QObject::connect(practiceHandler, &PracticeHandler::hideInputCheck, ui->checkInputButton, &QPushButton::hide);
+
+    QObject::connect(practiceHandler, &PracticeHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
+
+    QObject::connect(ui->checkInputButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::checkProblem);
+
+    QObject::connect(practiceHandler, &PracticeHandler::focusInput, this, [this]() {ui->inputText->setFocus();});
 }
 
 practicewindow::~practicewindow() {

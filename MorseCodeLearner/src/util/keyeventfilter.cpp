@@ -1,4 +1,5 @@
 #include "keyeventfilter.h"
+#include <QLineEdit>
 
 KeyEventFilter::KeyEventFilter(QObject *parent) : QObject(parent) {}
 
@@ -7,8 +8,20 @@ bool KeyEventFilter::eventFilter(QObject *obj, QEvent *event) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
 
         QWidget *focusWidget = QApplication::focusWidget();
+
         QTextEdit *textEdit = qobject_cast<QTextEdit *>(focusWidget);
         if (textEdit) {
+            return false;
+        }
+
+        QLineEdit *lineEdit = qobject_cast<QLineEdit *>(focusWidget);
+        if (lineEdit) {
+            if (keyEvent->key() == Qt::Key_Return && !keyEvent->isAutoRepeat()) {
+                if (event->type() == QEvent::KeyPress) {
+                    emit enterPressed();
+                    return true;
+                }
+            }
             return false;
         }
 
