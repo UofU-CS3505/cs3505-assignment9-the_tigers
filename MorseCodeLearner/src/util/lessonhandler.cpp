@@ -3,11 +3,11 @@
 
 LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     QObject(parent),
-    morseHandler(morseHandler)
+    morseHandler(morseHandler),
+    acceptingInput(false),
+    userOnThisPage(false)
 {
     QTimer timer(this);
-
-    QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &LessonHandler::onMorseReceived);
 }
 
 void LessonHandler::displayMorse(const std::string text) {
@@ -21,6 +21,8 @@ void LessonHandler::displayText(const std::string morse) {
 }
 
 void LessonHandler::nextQuestion() {
+    acceptingInput = true;
+
     while (true) {
         currentQuestion = currentLessonCharacters[rand() % currentLessonCharacters.size()];
         if (learnedCharacters[currentQuestion] < 3) {
@@ -62,27 +64,56 @@ void LessonHandler::startLesson(int lessonNumber) {
 }
 
 void LessonHandler::checkUserGuess(std::string guess) {
+    acceptingInput = false;
+
     std::string correctAnswer = morseHandler->encodeText(currentQuestion);
 
     if (guess == correctAnswer) {
         learnedCharacters[currentQuestion] += 1;
         emit guessCorrect();
         morseText = "";
+        emit updateInputText(morseText);
     } else {
         emit guessIncorrect();
         morseText = "";
+        emit updateInputText(morseText);
     }
 
     timer.singleShot(1500, this, [this](){nextQuestion();});
 }
 
 void LessonHandler::onMorseReceived(const std::string morse) {
-    QString qmorse = QString::fromStdString(morse);
+    if (acceptingInput) {
+        QString qmorse = QString::fromStdString(morse);
 
-    if (qmorse == "/ ") {
-        checkUserGuess(morseText.toStdString());
-    } else {
-        morseText += qmorse;
-        emit updateInputText(morseText);
+        if (qmorse == "/ ") {
+            checkUserGuess(morseText.toStdString());
+        } else {
+            morseText += qmorse;
+            emit updateInputText(morseText);
+        }
     }
+}
+
+void LessonHandler::handleSpacePressed() {
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
+        return;
+    emit lightIndicatorOn();
+    morseHandler->straightKeyDown();
+}
+
+void LessonHandler::handleSpaceReleased() {
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
+        return;
+    emit lightIndicatorOff();
+    morseHandler->straightKeyUp();
+}
+
+void LessonHandler::onBackButtonClicked() {
+    acceptingInput = false;
+    userOnThisPage = false;
+}
+
+void LessonHandler::setUserOnThisPage(bool userOnThisPage) {
+    this->userOnThisPage = userOnThisPage;
 }

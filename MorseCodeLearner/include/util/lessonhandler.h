@@ -34,6 +34,9 @@ private:
 
     QTimer timer;
 
+    bool acceptingInput;
+    bool userOnThisPage;
+
     /**
      * Sends a signal to the view of what morse to display.
      * @param text - the text to translate to morse.
@@ -76,6 +79,14 @@ public slots:
 
     void onMorseReceived(const std::string morse);
 
+    void handleSpacePressed();
+
+    void handleSpaceReleased();
+
+    void onBackButtonClicked();
+
+    void setUserOnThisPage(bool userOnThisPage);
+
 signals:
     /**
      * A signal that gets emitted when the user is correct.
@@ -100,6 +111,10 @@ signals:
     void displayTextToUI(QString text);
 
     void updateInputText(QString inputText);
+
+    void lightIndicatorOn();
+
+    void lightIndicatorOff();
 };
 
 #endif // LESSONHANDLER_H
