@@ -87,7 +87,7 @@ QString DifficultyHandler::generateCallSign() {
 
         else {
             letter = (rand() % 26) + 'a';
-            callSign.append(std::to_string(letter));
+            callSign += letter;
         }
     }
 
