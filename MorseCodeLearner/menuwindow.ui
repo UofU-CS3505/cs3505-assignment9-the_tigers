@@ -310,7 +310,7 @@ background-color: transparent;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="settingsHelpLabel_2">
+  <widget class="QLabel" name="encodingsHelpLabel">
    <property name="enabled">
     <bool>true</bool>
    </property>

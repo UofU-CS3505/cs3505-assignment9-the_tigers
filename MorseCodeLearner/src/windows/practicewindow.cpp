@@ -24,6 +24,9 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     QObject::connect(practiceHandler, &PracticeHandler::updateInputText, this, &practicewindow::updateInputText);
     QObject::connect(practiceHandler, &PracticeHandler::updatePracticeText, this, &practicewindow::updatePracticeText);
     QObject::connect(ui->difficultySelectBox, &QComboBox::currentTextChanged, practiceHandler, &PracticeHandler::setDifficulty);
+
+    // automatically scroll input box
+    QObject::connect(ui->inputText, &QTextEdit::textChanged, [=](){ui->inputText->moveCursor(QTextCursor::End);});
 }
 
 practicewindow::~practicewindow() {
