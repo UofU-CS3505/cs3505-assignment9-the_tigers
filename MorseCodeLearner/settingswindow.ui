@@ -142,7 +142,8 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       </property>
       <property name="styleSheet">
        <string notr="true">border: 2px solid black;
-padding-left: 0.5em;</string>
+padding-left: 0.5em;
+background-color: white;</string>
       </property>
       <item>
        <property name="text">
@@ -266,7 +267,8 @@ Iambic Paddle uses left/right arrow keys.</string>
       </property>
       <property name="styleSheet">
        <string notr="true">border: 2px solid black;
-padding-left: 0.5em;</string>
+padding-left: 0.5em;
+background-color: white;</string>
       </property>
       <property name="wrapping">
        <bool>false</bool>

@@ -28,11 +28,15 @@ private:
 
     std::unordered_map<std::string, int> learnedCharacters;
 
+    int currentLessonNumber;
     std::vector<std::string> currentLessonCharacters;
     std::string currentQuestion;
     QString morseText;
 
     QTimer timer;
+
+    bool acceptingInput;
+    bool userOnThisPage;
 
     /**
      * Sends a signal to the view of what morse to display.
@@ -50,6 +54,8 @@ private:
      * A helper method that displays each of the questions in a lesson.
      */
     void nextQuestion();
+
+    void lessonComplete();
 
 public:
     /**
@@ -76,6 +82,14 @@ public slots:
 
     void onMorseReceived(const std::string morse);
 
+    void handleSpacePressed();
+
+    void handleSpaceReleased();
+
+    void onBackButtonClicked();
+
+    void setUserOnThisPage(bool userOnThisPage);
+
 signals:
     /**
      * A signal that gets emitted when the user is correct.
@@ -100,6 +114,12 @@ signals:
     void displayTextToUI(QString text);
 
     void updateInputText(QString inputText);
+
+    void lightIndicatorOn();
+
+    void lightIndicatorOff();
+
+    void completedLesson();
 };
 
 #endif // LESSONHANDLER_H

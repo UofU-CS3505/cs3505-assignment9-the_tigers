@@ -43,6 +43,8 @@ signals:
      */
     void startLesson(int lessonNumber);
 
+    void userOnLessonPage(bool userOnThisPage);
+
 private slots:
     /**
      * Called when navigating to the Translator Page.

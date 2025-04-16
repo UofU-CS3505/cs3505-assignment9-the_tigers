@@ -251,7 +251,8 @@ background: qradialgradient(
    </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
-padding-left: 0.5em;</string>
+padding-left: 0.5em;
+background-color: white;</string>
    </property>
    <item>
     <property name="text">
@@ -286,7 +287,8 @@ padding-left: 0.5em;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
-padding-left: 0.5em;</string>
+padding-left: 0.5em;
+background-color: white;</string>
    </property>
    <item>
     <property name="text">

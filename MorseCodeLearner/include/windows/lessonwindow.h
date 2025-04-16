@@ -17,16 +17,12 @@ class lessonwindow : public QWidget
 public:
     explicit lessonwindow(LessonHandler *lessonHandler = nullptr, MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QWidget *parent = nullptr);
     ~lessonwindow();
-    void setUserOnThisPage(bool userOnThisPage);
-    bool getUserOnThisPage();
 
 private:
     Ui::lessonwindow *ui;
     LessonHandler *lessonHandler;
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
-    bool userOnThisPage;
-    bool acceptingInput;
 
 signals:
     /**
@@ -34,23 +30,10 @@ signals:
      * to the lesson select page.
      */
     void goToLessonSelect();
+
+    void backButtonClicked();
 private slots:
-    /**
-     * A slot that triggers when the back button is pressed.
-     */
-    void on_backButton_clicked();
-
-    /**
-     * A slot that handles when the space key is pressed down; used
-     * for morse input.
-     */
-    void handleSpacePressed();
-
-    /**
-     * A slot that handles when the space key is released; used for
-     * morse input.
-     */
-    void handleSpaceReleased();
+    void onBackButtonClicked();
 
     /**
      * A slot that runs when a guess is correct.
