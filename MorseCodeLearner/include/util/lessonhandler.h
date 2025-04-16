@@ -30,6 +30,9 @@ private:
 
     std::vector<std::string> currentLessonCharacters;
     std::string currentQuestion;
+    QString morseText;
+
+    QTimer timer;
 
     /**
      * Sends a signal to the view of what morse to display.
@@ -71,6 +74,8 @@ public slots:
      */
     void checkUserGuess(std::string guess);
 
+    void onMorseReceived(const std::string morse);
+
 signals:
     /**
      * A signal that gets emitted when the user is correct.
@@ -92,7 +97,9 @@ signals:
      * A signal that gets emitted to send the text to a view.
      * @param text - the text to send.
      */
-    void displayTextToUI(std::string text);
+    void displayTextToUI(QString text);
+
+    void updateInputText(QString inputText);
 };
 
 #endif // LESSONHANDLER_H

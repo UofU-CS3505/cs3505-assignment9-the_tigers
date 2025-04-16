@@ -5,7 +5,9 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     QObject(parent),
     morseHandler(morseHandler)
 {
+    QTimer timer(this);
 
+    QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &LessonHandler::onMorseReceived);
 }
 
 void LessonHandler::displayMorse(const std::string text) {
@@ -15,7 +17,7 @@ void LessonHandler::displayMorse(const std::string text) {
 
 void LessonHandler::displayText(const std::string morse) {
     std::string text = morseHandler->decodeMorse(morse);
-    emit displayTextToUI(text);
+    emit displayTextToUI(QString::fromStdString(text));
 }
 
 void LessonHandler::nextQuestion() {
@@ -26,7 +28,7 @@ void LessonHandler::nextQuestion() {
         }
     }
 
-    emit displayTextToUI(currentQuestion);
+    emit displayTextToUI(QString::fromStdString(currentQuestion));
 }
 
 void LessonHandler::startLesson(int lessonNumber) {
@@ -65,9 +67,22 @@ void LessonHandler::checkUserGuess(std::string guess) {
     if (guess == correctAnswer) {
         learnedCharacters[currentQuestion] += 1;
         emit guessCorrect();
+        morseText = "";
     } else {
         emit guessIncorrect();
+        morseText = "";
     }
 
-    nextQuestion();
+    timer.singleShot(1500, this, [this](){nextQuestion();});
+}
+
+void LessonHandler::onMorseReceived(const std::string morse) {
+    QString qmorse = QString::fromStdString(morse);
+
+    if (qmorse == "/ ") {
+        checkUserGuess(morseText.toStdString());
+    } else {
+        morseText += qmorse;
+        emit updateInputText(morseText);
+    }
 }

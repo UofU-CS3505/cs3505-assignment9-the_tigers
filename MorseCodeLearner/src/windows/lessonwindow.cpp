@@ -22,6 +22,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::guessCorrect, this, &lessonwindow::guessCorrect);
     QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &lessonwindow::guessIncorrect);
     QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &lessonwindow::displayTextQuestion);
+    QObject::connect(lessonHandler, &LessonHandler::updateInputText, this, &lessonwindow::updateInputText);
 
     acceptingInput = false;
 }
@@ -55,25 +56,34 @@ void lessonwindow::on_backButton_clicked()
 void lessonwindow::handleSpacePressed() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
         return;
+    ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border : 2px solid black; border-radius: 5px}");
     morseHandler->straightKeyDown();
 }
 
 void lessonwindow::handleSpaceReleased() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
         return;
+    ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
     morseHandler->straightKeyUp();
 }
 
 void lessonwindow::guessCorrect() {
-
+    acceptingInput = false;
+    ui->problemText->setText("Correct!");
 }
 
 void lessonwindow::guessIncorrect() {
-
+    acceptingInput = false;
+    ui->problemText->setText("Incorrect!");
 }
 
-void lessonwindow::displayTextQuestion(std::string text) {
-    ui->problemText->setText("What is " + QString::fromStdString(text) + " in morse?");
+void lessonwindow::displayTextQuestion(QString text) {
+    ui->inputText->setText("");
+    ui->problemText->setText("What is " + text + " in morse?");
     acceptingInput = true;
+}
+
+void lessonwindow::updateInputText(QString inputText) {
+    ui->inputText->setText(inputText);
 }
 
