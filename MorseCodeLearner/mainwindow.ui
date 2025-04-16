@@ -19,63 +19,8 @@
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>false</bool>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QStackedWidget" name="stackedWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1280</width>
-      <height>720</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="menuPage"/>
-    <widget class="translatorwindow" name="translatorPage"/>
-    <widget class="practicewindow" name="practicePage"/>
-    <widget class="lessonwindow" name="lessonPage"/>
-    <widget class="lessonselectwindow" name="lessonSelectPage"/>
-    <widget class="settingswindow" name="settingsPage"/>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>translatorwindow</class>
-   <extends>QWidget</extends>
-   <header>translatorwindow.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>practicewindow</class>
-   <extends>QWidget</extends>
-   <header>practicewindow.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>lessonwindow</class>
-   <extends>QWidget</extends>
-   <header>lessonwindow.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>settingswindow</class>
-   <extends>QWidget</extends>
-   <header>settingswindow.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>lessonselectwindow</class>
-   <extends>QWidget</extends>
-   <header>lessonselectwindow.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
