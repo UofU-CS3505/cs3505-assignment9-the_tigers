@@ -48,6 +48,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <pointsize>15</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: black;</string>
+   </property>
    <property name="lineWidth">
     <number>0</number>
    </property>
@@ -71,6 +74,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     <font>
      <pointsize>15</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: black;</string>
    </property>
    <property name="lineWidth">
     <number>0</number>
@@ -96,6 +102,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <pointsize>15</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: black;</string>
+   </property>
    <property name="lineWidth">
     <number>0</number>
    </property>
@@ -120,6 +129,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <pointsize>15</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: black;</string>
+   </property>
    <property name="lineWidth">
     <number>0</number>
    </property>
@@ -143,6 +155,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     <font>
      <pointsize>15</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: black;</string>
    </property>
    <property name="lineWidth">
     <number>0</number>
