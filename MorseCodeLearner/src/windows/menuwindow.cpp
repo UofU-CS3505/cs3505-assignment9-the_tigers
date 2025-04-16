@@ -20,6 +20,7 @@ MenuWindow::MenuWindow(QWidget *parent)
     ui->learnHelpLabel->hide();
     ui->practiceHelpLabel->hide();
     ui->translateHelpLabel->hide();
+    ui->encodingsHelpLabel->hide();
 
     QObject::connect(ui->translatenav, &QPushButton::clicked, this, [=]() {
         emit goToTranslatorPage();
@@ -72,12 +73,14 @@ void MenuWindow::toggleHelp() {
         ui->learnHelpLabel->show();
         ui->practiceHelpLabel->show();
         ui->translateHelpLabel->show();
+        ui->encodingsHelpLabel->show();
         showingHelp = true;
     } else {
         ui->settingsHelpLabel->hide();
         ui->learnHelpLabel->hide();
         ui->practiceHelpLabel->hide();
         ui->translateHelpLabel->hide();
+        ui->encodingsHelpLabel->hide();
         showingHelp = false;
     }
 }
