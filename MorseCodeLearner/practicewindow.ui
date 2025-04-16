@@ -165,7 +165,7 @@ background: qradialgradient(
    <property name="font">
     <font>
      <family>JMH Typewriter</family>
-     <pointsize>28</pointsize>
+     <pointsize>32</pointsize>
     </font>
    </property>
    <property name="autoFillBackground">
