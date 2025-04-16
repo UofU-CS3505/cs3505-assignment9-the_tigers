@@ -134,8 +134,11 @@ background: qradialgradient(
    <property name="frameShadow">
     <enum>QFrame::Shadow::Sunken</enum>
    </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+   </property>
    <property name="lineWrapMode">
-    <enum>QTextEdit::LineWrapMode::WidgetWidth</enum>
+    <enum>QTextEdit::LineWrapMode::NoWrap</enum>
    </property>
    <property name="readOnly">
     <bool>true</bool>
@@ -397,7 +400,7 @@ border-style: solid double;</string>
     </font>
    </property>
    <property name="text">
-    <string>SELECT a mode and difficulty to begin training; tap the SPACEBAR to encode each letter. PRACTICE for a higher score!</string>
+    <string>SELECT a mode and difficulty to begin training; input morse to encode each letter. PRACTICE for a higher score!</string>
    </property>
   </widget>
   <widget class="QLabel" name="scoreLabel">

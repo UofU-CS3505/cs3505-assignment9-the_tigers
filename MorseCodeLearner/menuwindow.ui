@@ -42,7 +42,7 @@
   <widget class="QPushButton" name="helpnav">
    <property name="geometry">
     <rect>
-     <x>630</x>
+     <x>600</x>
      <y>570</y>
      <width>64</width>
      <height>64</height>
@@ -101,7 +101,7 @@ background-color: transparent;</string>
   <widget class="QPushButton" name="settingsnav">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>520</x>
      <y>570</y>
      <width>64</width>
      <height>64</height>
@@ -187,7 +187,7 @@ background-color: transparent;</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>340</x>
+     <x>300</x>
      <y>590</y>
      <width>201</width>
      <height>21</height>
@@ -284,7 +284,7 @@ background-color: transparent;</string>
   <widget class="QPushButton" name="referencenav">
    <property name="geometry">
     <rect>
-     <x>710</x>
+     <x>680</x>
      <y>570</y>
      <width>64</width>
      <height>64</height>
@@ -308,6 +308,28 @@ background-color: transparent;</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="settingsHelpLabel_2">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>760</x>
+     <y>590</y>
+     <width>361</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>JMH Typewriter</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>←View morse encodings for all characters</string>
    </property>
   </widget>
  </widget>
