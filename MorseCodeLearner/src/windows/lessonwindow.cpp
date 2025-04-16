@@ -29,6 +29,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &lessonwindow::guessIncorrect);
     QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &lessonwindow::displayTextQuestion);
     QObject::connect(lessonHandler, &LessonHandler::updateInputText, this, &lessonwindow::updateInputText);
+    QObject::connect(lessonHandler, &LessonHandler::completedLesson, this, &lessonwindow::onBackButtonClicked);
 }
 
 lessonwindow::~lessonwindow()
@@ -51,7 +52,7 @@ void lessonwindow::guessIncorrect() {
 
 void lessonwindow::displayTextQuestion(QString text) {
     ui->inputText->setText("");
-    ui->problemText->setText("What is " + text + " in morse?");
+    ui->problemText->setText(text);
 }
 
 void lessonwindow::updateInputText(QString inputText) {

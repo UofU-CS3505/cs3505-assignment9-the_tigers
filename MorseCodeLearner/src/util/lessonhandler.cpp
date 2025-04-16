@@ -1,5 +1,6 @@
 #include "lessonhandler.h"
 #include <QObject>
+#include <QSettings>
 
 LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     QObject(parent),
@@ -22,6 +23,18 @@ void LessonHandler::displayText(const std::string morse) {
 
 void LessonHandler::nextQuestion() {
     acceptingInput = true;
+    int charactersLearned = 0;
+
+    for (const std::string &character : currentLessonCharacters) {
+        if (learnedCharacters[character] >= 3) {
+            charactersLearned++;
+        }
+    }
+
+    if (charactersLearned == (int)currentLessonCharacters.size()) {
+        lessonComplete();
+        return;
+    }
 
     while (true) {
         currentQuestion = currentLessonCharacters[rand() % currentLessonCharacters.size()];
@@ -30,11 +43,13 @@ void LessonHandler::nextQuestion() {
         }
     }
 
-    emit displayTextToUI(QString::fromStdString(currentQuestion));
+    emit displayTextToUI("What is " + QString::fromStdString(currentQuestion) + " in morse?");
 }
 
 void LessonHandler::startLesson(int lessonNumber) {
-    switch (lessonNumber) {
+    currentLessonNumber = lessonNumber;
+
+    switch (currentLessonNumber) {
         case 2:
             currentLessonCharacters = lessonTwoLetters;
             break;
@@ -80,6 +95,17 @@ void LessonHandler::checkUserGuess(std::string guess) {
     }
 
     timer.singleShot(1500, this, [this](){nextQuestion();});
+}
+
+void LessonHandler::lessonComplete() {
+    acceptingInput = false;
+
+    QSettings settings("Tigers", "MorseCodeLearner");
+    settings.setValue("lesson" + std::to_string(currentLessonNumber) + "Completed", true);
+
+    emit displayTextToUI("You have completed this lesson!");
+
+    timer.singleShot(1500, this, [=](){emit completedLesson();});
 }
 
 void LessonHandler::onMorseReceived(const std::string morse) {

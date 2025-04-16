@@ -28,6 +28,7 @@ private:
 
     std::unordered_map<std::string, int> learnedCharacters;
 
+    int currentLessonNumber;
     std::vector<std::string> currentLessonCharacters;
     std::string currentQuestion;
     QString morseText;
@@ -53,6 +54,8 @@ private:
      * A helper method that displays each of the questions in a lesson.
      */
     void nextQuestion();
+
+    void lessonComplete();
 
 public:
     /**
@@ -115,6 +118,8 @@ signals:
     void lightIndicatorOn();
 
     void lightIndicatorOff();
+
+    void completedLesson();
 };
 
 #endif // LESSONHANDLER_H
