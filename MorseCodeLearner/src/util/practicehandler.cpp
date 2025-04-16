@@ -87,6 +87,9 @@ void PracticeHandler::onMorseReceived(const string morse) {
 
 void PracticeHandler::setDifficulty(QString difficulty) {
     difficultyHandler->setDifficulty(difficulty);
+    score = 0;
+    emit updateScore(QString::number(score));
+    loadPracticeProblem();
     loadPracticeProblem();
 }
 
@@ -107,6 +110,8 @@ void PracticeHandler::setMode(QString newMode) {
         emit isInputReadOnly(false);
         emit focusInput();
     }
+    score = 0;
+    emit updateScore(QString::number(score));
     loadPracticeProblem();
 }
 
@@ -114,10 +119,14 @@ void PracticeHandler::checkProblem() {
     acceptingInput = false;
     if (inputText == problemText) {
         emit updatePracticeText("Correct!");
+        streak++;
+        score += inputText.length() * 100 * (streak * 0.25);
+        emit updateScore(QString::number(score));
         timer.singleShot(1500, this, [this](){loadPracticeProblem();});
     }
     else {
         emit updatePracticeText("Try Again!");
+        streak = 0;
         timer.singleShot(1500, this, [this](){loadPracticeProblem(problemText);});
     }
 }

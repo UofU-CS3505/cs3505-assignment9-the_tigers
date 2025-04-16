@@ -25,6 +25,8 @@ private:
     QString inputText; // contains the user's input
     QString morseText; // contains morse input for english problem and morse input
     bool acceptingInput;
+    int score = 0;
+    int streak; // number of correct answers in a row
 
     enum practiceMode { ENCODE_ENGLISH, DECODE_MORSE, DECODE_SOUND };
 
@@ -158,6 +160,12 @@ signals:
      * Focus the input box.
      */
     void focusInput();
+
+    /**
+     * Emits the current score
+     * @param score - New score
+     */
+    void updateScore(QString score);
 };
 
 #endif // PRACTICEHANDLER_H
