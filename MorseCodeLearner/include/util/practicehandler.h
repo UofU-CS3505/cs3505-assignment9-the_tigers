@@ -20,13 +20,13 @@ private:
     MorseHandler *morseHandler;
     DifficultyHandler *difficultyHandler;
     QTimer timer;
-    bool userOnThisPage;
+    bool userOnThisPage = false;
     QString problemText; // contains the current problem in english
     QString inputText; // contains the user's input
     QString morseText; // contains morse input for english problem and morse input
-    bool acceptingInput;
+    bool acceptingInput = false;
     int score = 0;
-    int streak; // number of correct answers in a row
+    int streak = 0; // number of correct answers in a row
 
     enum practiceMode { ENCODE_ENGLISH, DECODE_MORSE, DECODE_SOUND };
 

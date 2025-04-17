@@ -137,7 +137,7 @@ void PracticeHandler::checkProblem() {
     if (inputText == problemText) {
         emit updatePracticeText("Correct!");
         streak++;
-        score += inputText.length() * 100 * (streak * 0.25);
+        score += problemText.length() * 100 * (streak * 0.25);
         emit updateScore(QString::number(score));
         timer.singleShot(1500, this, [this](){loadPracticeProblem();});
     }
