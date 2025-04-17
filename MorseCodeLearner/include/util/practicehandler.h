@@ -86,6 +86,26 @@ public slots:
     void handleSpaceReleased();
 
     /**
+     * Handles logic for morse input with left arrow.
+     */
+    void handleLeftArrowPressed();
+
+    /**
+     * Handles logic for morse input with left arrow.
+     */
+    void handleLeftArrowReleased();
+
+    /**
+     * Handles logic for morse input with right arrow.
+     */
+    void handleRightArrowPressed();
+
+    /**
+     * Handles logic for morse input with right arrow.
+     */
+    void handleRightArrowReleased();
+
+    /**
      * Slot for when the MorseHandler object sends us a morse character.
      * The morse character is appended to our input text box.
      * @param morse The morse character.

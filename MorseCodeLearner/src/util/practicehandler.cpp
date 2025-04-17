@@ -39,15 +39,39 @@ void PracticeHandler::onBackButtonClicked() {
 }
 
 void PracticeHandler::handleSpacePressed() {
-    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || mode != ENCODE_ENGLISH)
         return;
     morseHandler->straightKeyDown();
 }
 
 void PracticeHandler::handleSpaceReleased() {
-    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || mode != ENCODE_ENGLISH)
         return;
     morseHandler->straightKeyUp();
+}
+
+void PracticeHandler::handleLeftArrowPressed() {
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || mode != ENCODE_ENGLISH)
+        return;
+    morseHandler->paddleDotDown();
+}
+
+void PracticeHandler::handleLeftArrowReleased() {
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || mode != ENCODE_ENGLISH)
+        return;
+    morseHandler->paddleDotUp();
+}
+
+void PracticeHandler::handleRightArrowPressed() {
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || mode != ENCODE_ENGLISH)
+        return;
+    morseHandler->paddleDashDown();
+}
+
+void PracticeHandler::handleRightArrowReleased() {
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || mode != ENCODE_ENGLISH)
+        return;
+    morseHandler->paddleDashUp();
 }
 
 
