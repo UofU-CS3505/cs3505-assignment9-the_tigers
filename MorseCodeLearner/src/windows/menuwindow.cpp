@@ -85,7 +85,7 @@ void MenuWindow::toggleHelp() {
     }
 }
 
-void MenuWindow::setupWorld(){
+void MenuWindow::setupWorld() {
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0.0f, -10.0f);
 
@@ -151,7 +151,7 @@ void MenuWindow::setupWorld(){
     timer.singleShot(10, this, &MenuWindow::updateWorld);
 }
 
-void MenuWindow::updateWorld(){
+void MenuWindow::updateWorld() {
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
@@ -168,59 +168,61 @@ void MenuWindow::updateWorld(){
     timer.singleShot(10, this, &MenuWindow::updateWorld);
 }
 
-void MenuWindow::jumpPractice(){
+void MenuWindow::jumpPractice() {
     practiceBody->SetTransform(b2Vec2(practiceBody->GetTransform().p.x, 8.0f), 0);
     practiceBody->SetAwake(true);
 }
 
-void MenuWindow::jumpLesson(){
+void MenuWindow::jumpLesson() {
     lessonBody->SetTransform(b2Vec2(lessonBody->GetTransform().p.x, 8.0f), 0);
     lessonBody->SetAwake(true);
 }
 
-void MenuWindow::jumpTranslator(){
+void MenuWindow::jumpTranslator() {
     translatorBody->SetTransform(b2Vec2(translatorBody->GetTransform().p.x, 8.0f), 0);
     translatorBody->SetAwake(true);
 }
 
-void MenuWindow::jumpSettings(){
+void MenuWindow::jumpSettings() {
     settingsBody->SetTransform(b2Vec2(settingsBody->GetTransform().p.x, 8.0f), 0);
     settingsBody->SetAwake(true);
 }
 
-void MenuWindow::jumpHelp(){
+void MenuWindow::jumpHelp() {
     helpBody->SetTransform(b2Vec2(helpBody->GetTransform().p.x, 8.0f), 0);
     helpBody->SetAwake(true);
 }
 
-void MenuWindow::jumpReference(){
+void MenuWindow::jumpReference() {
     referenceBody->SetTransform(b2Vec2(referenceBody->GetTransform().p.x, 8.0f), 0);
     referenceBody->SetAwake(true);
 }
 
-bool MenuWindow::eventFilter(QObject *object, QEvent *event){
-    if(object == ui->practicenav && event->type() == QEvent::HoverEnter){
-        jumpPractice();
-    }
+bool MenuWindow::eventFilter(QObject *object, QEvent *event) {
+    if (event->type() == QEvent::Enter) {
+        if (object == ui->practicenav){
+            jumpPractice();
+        }
 
-    if(object == ui->learningnav && event->type() == QEvent::HoverEnter){
-        jumpLesson();
-    }
+        if (object == ui->learningnav) {
+            jumpLesson();
+        }
 
-    if(object == ui->translatenav && event->type() == QEvent::HoverEnter){
-        jumpTranslator();
-    }
+        if (object == ui->translatenav) {
+            jumpTranslator();
+        }
 
-    if(object == ui->settingsnav && event->type() == QEvent::HoverEnter){
-        jumpSettings();
-    }
+        if (object == ui->settingsnav) {
+            jumpSettings();
+        }
 
-    if(object == ui->helpnav && event->type() == QEvent::HoverEnter){
-        jumpHelp();
-    }
+        if (object == ui->helpnav) {
+            jumpHelp();
+        }
 
-    if(object == ui->referencenav && event->type() == QEvent::HoverEnter){
-        jumpReference();
+        if (object == ui->referencenav) {
+            jumpReference();
+        }
     }
 
     return false;
