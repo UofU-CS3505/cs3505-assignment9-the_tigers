@@ -135,6 +135,30 @@ void LessonHandler::handleSpaceReleased() {
     morseHandler->straightKeyUp();
 }
 
+void LessonHandler::handleLeftArrowPressed() {
+    if (!userOnThisPage|| morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput)
+        return;
+    morseHandler->paddleDotDown();
+}
+
+void LessonHandler::handleLeftArrowReleased() {
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput)
+        return;
+    morseHandler->paddleDotUp();
+}
+
+void LessonHandler::handleRightArrowPressed() {
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput)
+        return;
+    morseHandler->paddleDashDown();
+}
+
+void LessonHandler::handleRightArrowReleased() {
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput)
+        return;
+    morseHandler->paddleDashUp();
+}
+
 void LessonHandler::onBackButtonClicked() {
     acceptingInput = false;
     userOnThisPage = false;
