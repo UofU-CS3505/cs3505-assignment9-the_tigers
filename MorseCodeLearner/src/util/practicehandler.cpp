@@ -5,6 +5,7 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
     , morseHandler(morseHandler)
 {
     QTimer timer(this);
+    timer.setSingleShot(true);
 
     difficultyHandler = new DifficultyHandler();
 
@@ -79,6 +80,8 @@ void PracticeHandler::loadPracticeProblem() {
     inputText = "";
     morseText = "";
     hardWordCounter = 0;
+    morseHandler->stopPlayback();
+
     problemText = difficultyHandler->getPracticeString();
 
     if (mode == ENCODE_ENGLISH) {
@@ -108,6 +111,7 @@ void PracticeHandler::loadPracticeProblem(QString problemText) {
     inputText = "";
     morseText = "";
     hardWordCounter = 0;
+    morseHandler->stopPlayback();
 
     if (mode == ENCODE_ENGLISH) {
         emit updatePracticeText(problemText);
@@ -165,15 +169,13 @@ void PracticeHandler::setDifficulty(QString difficulty) {
     firstAudioPlay = true;
     difficultyHandler->setDifficulty(difficulty);
     score = 0;
-    morseHandler->stopPlayback();
+
     emit updateScore(QString::number(score));
-    loadPracticeProblem();
     loadPracticeProblem();
 }
 
 void PracticeHandler::setMode(QString newMode) {
     firstAudioPlay = true;
-    morseHandler->stopPlayback();
 
     newMode = newMode.toLower();
     if (newMode == "encode english") {
@@ -192,9 +194,11 @@ void PracticeHandler::setMode(QString newMode) {
         emit focusInput();
         emit updateInputText("");
     }
+
     score = 0;
     streak = 0;
     emit updateScore(QString::number(score));
+
     loadPracticeProblem();
 }
 
@@ -223,6 +227,12 @@ void PracticeHandler::receiveInputText(QString text) {
         inputText = QString::fromStdString(morseHandler->decodeMorse(text.toStdString()));
     } else {
         inputText = text;
+    }
+}
+
+void PracticeHandler::skipProblem() {
+    if (acceptingInput) {
+        loadPracticeProblem();
     }
 }
 

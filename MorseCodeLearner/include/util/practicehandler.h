@@ -8,9 +8,11 @@
 /**
  * Model and backend handler for practice mode.
  * Practice mode has three difficulties and three modes.
+ * Difficulties: Easy, Medium, Hard
+ * Modes: Encode English, Decode Morse, Decode Audio
  *
  * @name Chandler Eyre
- * @date 4/15/25
+ * @date 4/17/25
  */
 
 class PracticeHandler : public QObject
@@ -134,6 +136,11 @@ public slots:
      * @param text - New input text
      */
     void receiveInputText(QString text);
+
+    /**
+     * Skips the current problem.
+     */
+    void skipProblem();
 
 signals:
     /**
