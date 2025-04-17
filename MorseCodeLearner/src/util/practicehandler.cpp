@@ -5,8 +5,17 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
     : QObject{parent}
     , morseHandler(morseHandler)
 {
-    QTimer timer(this);
-    timer.setSingleShot(true);
+    loadProblemTimer.setSingleShot(true);
+    loadProblemFromTextTimer.setSingleShot(true);
+    audioDelayTimer.setSingleShot(true);
+
+    // Timer connects
+    QObject::connect(&loadProblemTimer, &QTimer::timeout, this, [this](){loadPracticeProblem();});
+    QObject::connect(&loadProblemFromTextTimer, &QTimer::timeout, this, [this](){loadPracticeProblem(problemText);});
+    QObject::connect(&audioDelayTimer, &QTimer::timeout, this, [this, morseHandler](){
+        morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
+        emit soundPlaying();
+    });
 
     difficultyHandler = new DifficultyHandler();
 
@@ -97,10 +106,7 @@ void PracticeHandler::loadPracticeProblem() {
         emit updatePracticeText("");
 
         if (firstAudioPlay) {
-            timer.singleShot(1000, [this](){
-                morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
-                emit soundPlaying();
-            });
+            audioDelayTimer.start(1000);
             firstAudioPlay = false;
         } else {
             emit soundPlaying();
@@ -126,10 +132,7 @@ void PracticeHandler::loadPracticeProblem(QString problemText) {
         emit updatePracticeText("");
 
         if (firstAudioPlay) {
-            timer.singleShot(1000, [this, problemText](){
-                morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
-                emit soundPlaying();
-            });
+            audioDelayTimer.start(1000);
             firstAudioPlay = false;
         } else {
             emit soundPlaying();
@@ -174,6 +177,7 @@ void PracticeHandler::setDifficulty(QString difficulty) {
     firstAudioPlay = true;
     difficultyHandler->setDifficulty(difficulty);
     score = 0;
+    audioDelayTimer.stop();
 
     emit updateScore(QString::number(score));
     loadPracticeProblem();
@@ -181,20 +185,18 @@ void PracticeHandler::setDifficulty(QString difficulty) {
 
 void PracticeHandler::setMode(QString newMode) {
     firstAudioPlay = true;
+    audioDelayTimer.stop();
 
     newMode = newMode.toLower();
     if (newMode == "encode english") {
         mode = ENCODE_ENGLISH;
-        emit hideInputCheck();
         emit isInputReadOnly(true);
     } else if (newMode == "decode morse") {
         mode = DECODE_MORSE;
-        emit showInputCheck();
         emit isInputReadOnly(false);
         emit focusInput();
     } else if (newMode == "decode sound") {
         mode = DECODE_SOUND;
-        emit showInputCheck();
         emit isInputReadOnly(false);
         emit focusInput();
         emit updateInputText("");
@@ -221,14 +223,14 @@ void PracticeHandler::checkProblem() {
             emit updateHighScore(QString::number(score));
         }
 
-        timer.singleShot(1500, this, [this](){loadPracticeProblem();});
+        loadProblemTimer.start(1500);
     }
     else {
         emit updatePracticeText("Try Again!");
         streak = 0;
         score = 0;
         emit updateScore(QString::number(0));
-        timer.singleShot(1500, this, [this](){loadPracticeProblem(problemText);});
+        loadProblemFromTextTimer.start(1000);
     }
 }
 

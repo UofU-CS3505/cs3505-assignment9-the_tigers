@@ -21,7 +21,9 @@ class PracticeHandler : public QObject
 private:
     MorseHandler *morseHandler;
     DifficultyHandler *difficultyHandler;
-    QTimer timer;
+    QTimer loadProblemTimer;
+    QTimer loadProblemFromTextTimer;
+    QTimer audioDelayTimer;
     bool userOnThisPage = false;
     QString problemText; // contains the current problem in english
     QString inputText; // contains the user's input
@@ -194,16 +196,6 @@ signals:
      * Turns off the flashing light indicator.
      */
     void lightIndicatorOff();
-
-    /**
-     * The input check button should be displayed.
-     */
-    void showInputCheck();
-
-    /**
-     * The input check button should not be displayed.
-     */
-    void hideInputCheck();
 
     /**
      * @param readOnly - Whether the user input box should be read only.
