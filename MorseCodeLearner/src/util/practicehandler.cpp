@@ -10,6 +10,8 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &PracticeHandler::onMorseReceived);
     QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this](){emit soundNotPlaying();});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [this](){emit lightIndicatorOn();});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [this](){emit lightIndicatorOff();});
 }
 
 void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
@@ -38,14 +40,12 @@ void PracticeHandler::onBackButtonClicked() {
 void PracticeHandler::handleSpacePressed() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
         return;
-    emit lightIndicatorOn();
     morseHandler->straightKeyDown();
 }
 
 void PracticeHandler::handleSpaceReleased() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
         return;
-    emit lightIndicatorOff();
     morseHandler->straightKeyUp();
 }
 
