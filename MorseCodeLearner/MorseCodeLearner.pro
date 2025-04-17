@@ -12,7 +12,8 @@ CONFIG += c++17
 INCLUDEPATH += $$PWD/include/util \
                $$PWD/include/windows \
                $$PWD/src/util \
-               $$PWD/src/windows
+               $$PWD/src/windows \
+               $$PWD/Box2D
 
 SOURCES += \
     src/util/difficultyhandler.cpp \
