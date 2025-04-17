@@ -88,7 +88,6 @@ void PracticeHandler::loadPracticeProblem() {
     } else if (mode == DECODE_SOUND) {
         emit updatePracticeText("");
 
-
         if (firstAudioPlay) {
             timer.singleShot(1000, [this](){
                 morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
@@ -96,6 +95,7 @@ void PracticeHandler::loadPracticeProblem() {
             });
             firstAudioPlay = false;
         } else {
+            emit soundPlaying();
             morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
         }
     }
@@ -115,7 +115,7 @@ void PracticeHandler::loadPracticeProblem(QString problemText) {
         emit updatePracticeText(QString::fromStdString(morseHandler->encodeText(problemText.toStdString())));
     } else if (mode == DECODE_SOUND) {
         emit updatePracticeText("");
-        emit soundPlaying();
+
         if (firstAudioPlay) {
             timer.singleShot(1000, [this, problemText](){
                 morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
@@ -123,6 +123,7 @@ void PracticeHandler::loadPracticeProblem(QString problemText) {
             });
             firstAudioPlay = false;
         } else {
+            emit soundPlaying();
             morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
         }
     }
@@ -202,13 +203,15 @@ void PracticeHandler::checkProblem() {
     if (inputText == problemText) {
         emit updatePracticeText("Correct!");
         streak++;
-        score += problemText.length() * 100 * (streak * 0.25);
+        score += problemText.length() * 100 * (streak * 0.25) * (1200 / morseHandler->getUnitTime());
         emit updateScore(QString::number(score));
         timer.singleShot(1500, this, [this](){loadPracticeProblem();});
     }
     else {
         emit updatePracticeText("Try Again!");
         streak = 0;
+        score = 0;
+        emit updateScore(QString::number(0));
         timer.singleShot(1500, this, [this](){loadPracticeProblem(problemText);});
     }
 }
