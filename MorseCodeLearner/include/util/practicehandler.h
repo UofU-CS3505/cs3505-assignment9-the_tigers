@@ -28,6 +28,7 @@ private:
     int score = 0;
     int streak = 0; // number of correct answers in a row
     bool firstAudioPlay = true; // whether this is the first question in decode audio mode
+    int hardWordCounter = 0; // the amount of words input thus far; used to track when to check the problem in hard mode
 
     enum practiceMode { ENCODE_ENGLISH, DECODE_MORSE, DECODE_SOUND };
 

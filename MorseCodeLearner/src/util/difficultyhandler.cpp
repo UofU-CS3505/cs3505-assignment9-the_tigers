@@ -127,3 +127,7 @@ void DifficultyHandler::setDifficulty(QString difficulty) {
         chosenDifficulty = HARD;
     }
 }
+
+DifficultyHandler::difficulty DifficultyHandler::getDifficulty() {
+    return chosenDifficulty;
+}

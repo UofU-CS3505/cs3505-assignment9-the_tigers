@@ -34,6 +34,11 @@ private:
 public:
     DifficultyHandler();
 
+    /**
+     * @return the current difficulty
+     */
+    difficulty getDifficulty();
+
 public slots:
     void setDifficulty(QString difficulty);
     QString getPracticeString();

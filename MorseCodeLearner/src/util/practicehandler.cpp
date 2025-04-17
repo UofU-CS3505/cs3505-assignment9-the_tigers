@@ -54,6 +54,7 @@ void PracticeHandler::handleSpaceReleased() {
 void PracticeHandler::loadPracticeProblem() {
     inputText = "";
     morseText = "";
+    hardWordCounter = 0;
     problemText = difficultyHandler->getPracticeString();
 
     if (mode == ENCODE_ENGLISH) {
@@ -82,6 +83,8 @@ void PracticeHandler::loadPracticeProblem() {
 void PracticeHandler::loadPracticeProblem(QString problemText) {
     inputText = "";
     morseText = "";
+    hardWordCounter = 0;
+
     if (mode == ENCODE_ENGLISH) {
         emit updatePracticeText(problemText);
     } else if (mode == DECODE_MORSE) {
@@ -110,7 +113,21 @@ void PracticeHandler::onMorseReceived(const string morse) {
 
     QString qmorse = QString::fromStdString(morse);
 
-    if (qmorse == "/ ") {
+    if (difficultyHandler->getDifficulty() == 2) {
+        // Hard Difficulty
+        if (qmorse == "/ " && hardWordCounter < 4) {
+            hardWordCounter++;
+            morseText += qmorse;
+            emit updateInputText(morseText);
+        } else if (qmorse == "/ " && hardWordCounter >= 4) {
+            checkProblem();
+        } else {
+            morseText += qmorse;
+            emit updateInputText(morseText);
+        }
+    }
+    // checks for other modes
+    else if (qmorse == "/ ") {
         checkProblem();
     }
     else {
