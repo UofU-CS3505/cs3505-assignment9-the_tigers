@@ -15,7 +15,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     QPixmap soundPlaying(QPixmap::fromImage(QImage(":/icons/playing_audio.png")));
     QPixmap soundNotPlaying(QPixmap::fromImage(QImage(":/icons/not_playing_audio.png")));
     ui->soundDisplayLabel->hide();
-    ui->soundDisplayLabel->setPixmap(QPixmap::fromImage(QImage(":/icons/playing_audio.png")));
+    ui->soundDisplayLabel->setPixmap(soundNotPlaying);
     ui->soundDisplayLabel->setScaledContents(true);
 
     ui->backButton->setIcon(QIcon(":/icons/back.svg"));

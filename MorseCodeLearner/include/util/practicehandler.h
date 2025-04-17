@@ -27,6 +27,7 @@ private:
     bool acceptingInput = false;
     int score = 0;
     int streak = 0; // number of correct answers in a row
+    bool firstAudioPlay = true; // whether this is the first question in decode audio mode
 
     enum practiceMode { ENCODE_ENGLISH, DECODE_MORSE, DECODE_SOUND };
 

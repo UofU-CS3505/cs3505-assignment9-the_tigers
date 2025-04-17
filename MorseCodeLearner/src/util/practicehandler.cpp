@@ -15,6 +15,7 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
 }
 
 void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
+    firstAudioPlay = true;
     this->userOnThisPage = userOnThisPage;
     loadPracticeProblem();
 }
@@ -61,8 +62,17 @@ void PracticeHandler::loadPracticeProblem() {
         emit updatePracticeText(QString::fromStdString(morseHandler->encodeText(problemText.toStdString())));
     } else if (mode == DECODE_SOUND) {
         emit updatePracticeText("");
-        emit soundPlaying();
-        morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
+
+
+        if (firstAudioPlay) {
+            timer.singleShot(1000, [this](){
+                morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
+                emit soundPlaying();
+            });
+            firstAudioPlay = false;
+        } else {
+            morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
+        }
     }
 
     emit updateInputText("");
@@ -79,7 +89,15 @@ void PracticeHandler::loadPracticeProblem(QString problemText) {
     } else if (mode == DECODE_SOUND) {
         emit updatePracticeText("");
         emit soundPlaying();
-        morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
+        if (firstAudioPlay) {
+            timer.singleShot(1000, [this, problemText](){
+                morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
+                emit soundPlaying();
+            });
+            firstAudioPlay = false;
+        } else {
+            morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
+        }
     }
 
     emit updateInputText("");
@@ -102,14 +120,19 @@ void PracticeHandler::onMorseReceived(const string morse) {
 }
 
 void PracticeHandler::setDifficulty(QString difficulty) {
+    firstAudioPlay = true;
     difficultyHandler->setDifficulty(difficulty);
     score = 0;
+    morseHandler->stopPlayback();
     emit updateScore(QString::number(score));
     loadPracticeProblem();
     loadPracticeProblem();
 }
 
 void PracticeHandler::setMode(QString newMode) {
+    firstAudioPlay = true;
+    morseHandler->stopPlayback();
+
     newMode = newMode.toLower();
     if (newMode == "encode english") {
         mode = ENCODE_ENGLISH;
@@ -128,6 +151,7 @@ void PracticeHandler::setMode(QString newMode) {
         emit updateInputText("");
     }
     score = 0;
+    streak = 0;
     emit updateScore(QString::number(score));
     loadPracticeProblem();
 }
