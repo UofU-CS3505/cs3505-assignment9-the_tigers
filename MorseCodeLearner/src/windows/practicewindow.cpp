@@ -10,8 +10,6 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 {
     ui->setupUi(this);
 
-    ui->inputText->setFixedWidth(1081);
-
     QPixmap soundPlaying(QPixmap::fromImage(QImage(":/icons/playing_audio.png")));
     QPixmap soundNotPlaying(QPixmap::fromImage(QImage(":/icons/not_playing_audio.png")));
     ui->soundDisplayLabel->hide();
@@ -21,6 +19,8 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     ui->backButton->setIcon(QIcon(":/icons/back.svg"));
     ui->backButton->setIconSize(QSize(52, 52));
     QObject::connect(ui->backButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::onBackButtonClicked);
+
+    ui->checkInputButton->hide();
 
     QObject::connect(practiceHandler, &PracticeHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border: 1px solid black;}");});
     QObject::connect(practiceHandler, &PracticeHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border: 1px solid black;}");});
@@ -44,9 +44,13 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
         QString newMode = ui->modeSelectBox->currentText();
         practiceHandler->setMode(ui->modeSelectBox->currentText());
         if (newMode == "Decode Morse" || newMode == "Decode Sound") {
-            ui->inputText->setFixedWidth(1011);
+            ui->checkInputButton->show();
+            ui->skipButton->setFixedHeight(61);
+            ui->skipButton->move(1110, 310);
         } else {
-            ui->inputText->setFixedWidth(1081);
+            ui->checkInputButton->hide();
+            ui->skipButton->setFixedHeight(131);
+            ui->skipButton->move(1110, 240);
         }
 
         if (newMode == "Decode Morse") {
@@ -59,11 +63,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
             ui->modeInstructionLabel->setText("Translate English by inputting morse code with the spacebar or paddles. Your answers are checked automatically!");
             ui->soundDisplayLabel->hide();
         }
-    });
-
-    ui->checkInputButton->hide();
-    QObject::connect(practiceHandler, &PracticeHandler::showInputCheck, ui->checkInputButton, &QPushButton::show);
-    QObject::connect(practiceHandler, &PracticeHandler::hideInputCheck, ui->checkInputButton, &QPushButton::hide);
+    }); 
 
     QObject::connect(practiceHandler, &PracticeHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
 
@@ -74,6 +74,8 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 
     QObject::connect(practiceHandler, &PracticeHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
     QObject::connect(practiceHandler, &PracticeHandler::soundNotPlaying, this, [this, soundNotPlaying]() {ui->soundDisplayLabel->setPixmap(soundNotPlaying);});
+
+    QObject::connect(ui->skipButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::skipProblem);
 }
 
 practicewindow::~practicewindow() {
