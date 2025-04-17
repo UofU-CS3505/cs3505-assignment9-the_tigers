@@ -1,4 +1,5 @@
 #include "practicehandler.h"
+#include <QSettings>
 
 PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
     : QObject{parent}
@@ -16,9 +17,13 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
 }
 
 void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
-    firstAudioPlay = true;
     this->userOnThisPage = userOnThisPage;
-    loadPracticeProblem();
+
+    if (userOnThisPage) {
+        loadHighScore();
+        loadPracticeProblem();
+        firstAudioPlay = true;
+    }
 }
 
 bool PracticeHandler::getUserOnThisPage() {
@@ -46,7 +51,7 @@ void PracticeHandler::handleSpacePressed() {
 }
 
 void PracticeHandler::handleSpaceReleased() {
-    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || mode != ENCODE_ENGLISH)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode != ENCODE_ENGLISH)
         return;
     morseHandler->straightKeyUp();
 }
@@ -58,7 +63,7 @@ void PracticeHandler::handleLeftArrowPressed() {
 }
 
 void PracticeHandler::handleLeftArrowReleased() {
-    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || mode != ENCODE_ENGLISH)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDotUp();
 }
@@ -70,7 +75,7 @@ void PracticeHandler::handleRightArrowPressed() {
 }
 
 void PracticeHandler::handleRightArrowReleased() {
-    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || mode != ENCODE_ENGLISH)
+    if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDashUp();
 }
@@ -142,7 +147,7 @@ void PracticeHandler::onMorseReceived(const string morse) {
 
     QString qmorse = QString::fromStdString(morse);
 
-    if (difficultyHandler->getDifficulty() == 2) {
+    if (difficultyHandler->getDifficulty() == DifficultyHandler::difficulty::HARD) {
         // Hard Difficulty
         if (qmorse == "/ " && hardWordCounter < 4) {
             hardWordCounter++;
@@ -199,6 +204,7 @@ void PracticeHandler::setMode(QString newMode) {
     streak = 0;
     emit updateScore(QString::number(score));
 
+    loadHighScore();
     loadPracticeProblem();
 }
 
@@ -209,6 +215,12 @@ void PracticeHandler::checkProblem() {
         streak++;
         score += problemText.length() * 100 * (streak * 0.25) * (1200 / morseHandler->getUnitTime());
         emit updateScore(QString::number(score));
+
+        if (isHighScore(score)) {
+            saveHighScore(score);
+            emit updateHighScore(QString::number(score));
+        }
+
         timer.singleShot(1500, this, [this](){loadPracticeProblem();});
     }
     else {
@@ -232,7 +244,34 @@ void PracticeHandler::receiveInputText(QString text) {
 
 void PracticeHandler::skipProblem() {
     if (acceptingInput) {
+        if (isHighScore(score)) {
+            saveHighScore(score);
+        }
+
+        score = 0;
+        streak = 0;
+        emit updateScore(QString::number(score));
         loadPracticeProblem();
     }
+}
+
+void PracticeHandler::saveHighScore(int score) {
+    QSettings settings("Tigers", "MorseCodeLearner");
+    QString key = QString::number(difficultyHandler->getDifficulty()) + QString::number(mode);
+    qDebug() << "Saving; Key: " << key << " | Score: " << score;
+    settings.setValue(key, score);
+}
+
+void PracticeHandler::loadHighScore() {
+    QSettings settings("Tigers", "MorseCodeLearner");
+    QString key = QString::number(difficultyHandler->getDifficulty()) + QString::number(mode);
+    int highScore = settings.value(key).toInt();
+    emit updateHighScore(QString::number(highScore));
+}
+
+bool PracticeHandler::isHighScore(int score) {
+    QSettings settings("Tigers", "MorseCodeLearner");
+    QString key = QString::number(difficultyHandler->getDifficulty()) + QString::number(mode);
+    return score > settings.value(key).toInt();
 }
 

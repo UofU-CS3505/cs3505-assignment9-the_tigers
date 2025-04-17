@@ -11,9 +11,17 @@ using std::string;
 class DifficultyHandler : public QObject {
     Q_OBJECT
 
-private:
+public:
+    DifficultyHandler();
+
     enum difficulty {EASY, MEDIUM, HARD};
 
+    /**
+     * @return the current difficulty
+     */
+    difficulty getDifficulty();
+
+private:
     vector<string> easyOptions = {"a", "b", "c", "d", "e", "f", "g", "h",
                                   "i", "j", "k", "l", "m", "n", "o", "p",
                                   "q", "r", "s", "t", "u", "v", "w", "x",
@@ -30,14 +38,6 @@ private:
     QString getMediumString();
     QString getHardString();
     QString generateCallSign();
-
-public:
-    DifficultyHandler();
-
-    /**
-     * @return the current difficulty
-     */
-    difficulty getDifficulty();
 
 public slots:
     void setDifficulty(QString difficulty);

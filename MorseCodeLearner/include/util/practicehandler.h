@@ -46,6 +46,31 @@ private:
      */
     void loadPracticeProblem(QString seedText);
 
+    /**
+     * Saves a high score for a given difficulty and mode.
+     *
+     * @param difficulty - Current difficulty
+     * @param mode - Current mode
+     * @param score - High score to save
+     */
+    void saveHighScore(int score);
+
+    /**
+     * Loads a high score for a given difficulty and mode.
+     *
+     * @param difficulty - Current difficulty
+     * @param mode - Current mode
+     */
+    void loadHighScore();
+
+    /**
+     * Checks if a given score is greater than the new high score for that mode.
+     *
+     * @param score - Score to check
+     * @return - Whether given score is greater than high score
+     */
+    bool isHighScore(int score);
+
 public:
     /**
      * Constructor for the Practice Handler.
@@ -205,6 +230,12 @@ signals:
      * Emitted when morse code stops playing in decode audio mode.
      */
     void soundNotPlaying();
+
+    /**
+     * Sends a high score
+     * @param highScore - high score to send
+     */
+    void updateHighScore(QString highScore);
 };
 
 #endif // PRACTICEHANDLER_H
