@@ -86,6 +86,14 @@ public slots:
 
     void handleSpaceReleased();
 
+    void handleLeftArrowPressed();
+
+    void handleLeftArrowReleased();
+
+    void handleRightArrowPressed();
+
+    void handleRightArrowReleased();
+
     void onBackButtonClicked();
 
     void setUserOnThisPage(bool userOnThisPage);
