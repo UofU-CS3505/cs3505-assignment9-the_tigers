@@ -1,6 +1,5 @@
 #include "menuwindow.h"
 #include "ui_menuwindow.h"
-#include "Box2D/Box2D.h"
 
 MenuWindow::MenuWindow(QWidget *parent)
     : QWidget(parent)

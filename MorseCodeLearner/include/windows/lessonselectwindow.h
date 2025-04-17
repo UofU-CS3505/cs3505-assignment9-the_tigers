@@ -2,6 +2,8 @@
 #define LESSONSELECTWINDOW_H
 
 #include <QWidget>
+#include <QTimer>
+#include "Box2D/Box2D.h"
 
 namespace Ui {
 class lessonselectwindow;
@@ -32,6 +34,10 @@ public:
 
     bool getUserOnThisPage();
 
+    void setupWorld();
+
+    void updateWorld();
+
 signals:
     /**
      * Signal that gets emitted when the back button is pressed.
@@ -53,6 +59,43 @@ private:
     Ui::lessonselectwindow *ui;
 
     bool userOnThisPage = false;
+
+    b2World world;
+    b2Body* lessonOneBody;
+    b2Body* lessonTwoBody;
+    b2Body* lessonThreeBody;
+    b2Body* lessonFourBody;
+    b2Body* lessonFiveBody;
+    b2Body* lessonSixBody;
+    b2Body* lessonSevenBody;
+    b2Body* lessonEightBody;
+    b2Body* lessonNineBody;
+    b2Body* lessonTenBody;
+
+    int lessonOneY;
+    int lessonTwoY;
+    int lessonThreeY;
+    int lessonFourY;
+    int lessonFiveY;
+    int lessonSixY;
+    int lessonSevenY;
+    int lessonEightY;
+    int lessonNineY;
+    int lessonTenY;
+
+    QTimer timer;
+
+    bool eventFilter(QObject *object, QEvent *event);
+    void jumpLessonOne();
+    void jumpLessonTwo();
+    void jumpLessonThree();
+    void jumpLessonFour();
+    void jumpLessonFive();
+    void jumpLessonSix();
+    void jumpLessonSeven();
+    void jumpLessonEight();
+    void jumpLessonNine();
+    void jumpLessonTen();
 };
 
 #endif // LESSONSELECTWINDOW_H
