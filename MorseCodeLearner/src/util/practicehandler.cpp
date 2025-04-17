@@ -9,6 +9,7 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
     difficultyHandler = new DifficultyHandler();
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &PracticeHandler::onMorseReceived);
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this](){emit soundNotPlaying();});
 }
 
 void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
@@ -22,6 +23,13 @@ bool PracticeHandler::getUserOnThisPage() {
 
 void PracticeHandler::onBackButtonClicked() {
     emit updateInputText("");
+    inputText = "";
+    morseText = "";
+    problemText = "";
+    score = 0;
+    streak = 0;
+    emit updateScore(QString::number(0));
+    morseHandler->stopPlayback();
 
     emit goHome();
     userOnThisPage = false;
@@ -51,6 +59,10 @@ void PracticeHandler::loadPracticeProblem() {
         emit updatePracticeText(problemText);
     } else if (mode == DECODE_MORSE) {
         emit updatePracticeText(QString::fromStdString(morseHandler->encodeText(problemText.toStdString())));
+    } else if (mode == DECODE_SOUND) {
+        emit updatePracticeText("");
+        emit soundPlaying();
+        morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
     }
 
     emit updateInputText("");
@@ -64,6 +76,10 @@ void PracticeHandler::loadPracticeProblem(QString problemText) {
         emit updatePracticeText(problemText);
     } else if (mode == DECODE_MORSE) {
         emit updatePracticeText(QString::fromStdString(morseHandler->encodeText(problemText.toStdString())));
+    } else if (mode == DECODE_SOUND) {
+        emit updatePracticeText("");
+        emit soundPlaying();
+        morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
     }
 
     emit updateInputText("");
@@ -109,6 +125,7 @@ void PracticeHandler::setMode(QString newMode) {
         emit showInputCheck();
         emit isInputReadOnly(false);
         emit focusInput();
+        emit updateInputText("");
     }
     score = 0;
     emit updateScore(QString::number(score));

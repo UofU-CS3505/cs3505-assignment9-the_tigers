@@ -130,7 +130,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     <string>TextLabel</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
@@ -537,6 +537,19 @@ padding-left: 1em;</string>
 border-style: solid double;</string>
    </property>
   </widget>
+  <widget class="QLabel" name="soundDisplayLabel">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>100</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>soundDisplayLabel</string>
+   </property>
+  </widget>
   <zorder>lineWidget_4</zorder>
   <zorder>headerFrame</zorder>
   <zorder>problemText</zorder>
@@ -559,6 +572,7 @@ border-style: solid double;</string>
   <zorder>checkInputButton</zorder>
   <zorder>inputText</zorder>
   <zorder>modeInstructionLabel</zorder>
+  <zorder>soundDisplayLabel</zorder>
  </widget>
  <resources/>
  <connections/>

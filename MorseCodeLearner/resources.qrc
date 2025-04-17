@@ -12,5 +12,7 @@
         <file>fonts/OldLondon.ttf</file>
         <file>icons/bookIcon.png</file>
         <file>textfiles/dictionary.txt</file>
+        <file>icons/not_playing_audio.png</file>
+        <file>icons/playing_audio.png</file>
     </qresource>
 </RCC>

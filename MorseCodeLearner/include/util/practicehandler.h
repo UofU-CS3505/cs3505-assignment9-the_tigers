@@ -166,6 +166,16 @@ signals:
      * @param score - New score
      */
     void updateScore(QString score);
+
+    /**
+     * Emitted when morse code starts playing in decode audio mode.
+     */
+    void soundPlaying();
+
+    /**
+     * Emitted when morse code stops playing in decode audio mode.
+     */
+    void soundNotPlaying();
 };
 
 #endif // PRACTICEHANDLER_H

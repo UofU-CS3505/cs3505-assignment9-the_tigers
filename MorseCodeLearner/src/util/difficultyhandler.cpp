@@ -68,8 +68,6 @@ QString DifficultyHandler::getHardString() {
         }
     }
 
-    qDebug() << practiceText;
-
     return practiceText;
 }
 

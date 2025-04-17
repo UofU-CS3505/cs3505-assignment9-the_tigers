@@ -12,6 +12,12 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 
     ui->inputText->setFixedWidth(1081);
 
+    QPixmap soundPlaying(QPixmap::fromImage(QImage(":/icons/playing_audio.png")));
+    QPixmap soundNotPlaying(QPixmap::fromImage(QImage(":/icons/not_playing_audio.png")));
+    ui->soundDisplayLabel->hide();
+    ui->soundDisplayLabel->setPixmap(QPixmap::fromImage(QImage(":/icons/playing_audio.png")));
+    ui->soundDisplayLabel->setScaledContents(true);
+
     ui->backButton->setIcon(QIcon(":/icons/back.svg"));
     ui->backButton->setIconSize(QSize(52, 52));
     QObject::connect(ui->backButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::onBackButtonClicked);
@@ -41,10 +47,13 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 
         if (newMode == "Decode Morse") {
             ui->modeInstructionLabel->setText("Translate the morse code into English. Check your answer with the ENTER key or the button!");
+            ui->soundDisplayLabel->hide();
         } else if (newMode == "Decode Sound") {
             ui->modeInstructionLabel->setText("Translate the audible morse code into English. Check your answer with the ENTER key or the button!");
+            ui->soundDisplayLabel->show();
         } else {
             ui->modeInstructionLabel->setText("Translate English by inputting morse code with the spacebar or paddles. Your answers are checked automatically!");
+            ui->soundDisplayLabel->hide();
         }
     });
 
@@ -58,6 +67,9 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 
     QObject::connect(practiceHandler, &PracticeHandler::focusInput, this, [this]() {ui->inputText->setFocus();});
     QObject::connect(practiceHandler, &PracticeHandler::updateScore, ui->scoreDisplayLabel, &QLabel::setText);
+
+    QObject::connect(practiceHandler, &PracticeHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
+    QObject::connect(practiceHandler, &PracticeHandler::soundNotPlaying, this, [this, soundNotPlaying]() {ui->soundDisplayLabel->setPixmap(soundNotPlaying);});
 }
 
 practicewindow::~practicewindow() {
