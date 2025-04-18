@@ -535,13 +535,13 @@ SWAP—Swap from Morse and English input with the swap button.</string>
     </property>
    </widget>
   </widget>
-  <widget class="QLabel" name="placeholderLabel">
+  <widget class="QLabel" name="illustrationLabel">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>480</y>
-     <width>561</width>
-     <height>101</height>
+     <x>190</x>
+     <y>430</y>
+     <width>600</width>
+     <height>250</height>
     </rect>
    </property>
    <property name="styleSheet">

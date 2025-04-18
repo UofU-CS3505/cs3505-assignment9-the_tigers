@@ -13,6 +13,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
 
+    // Light indicator
     QPixmap lightOn(QPixmap::fromImage(QImage(":/icons/light_on.png")));
     QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
     ui->flashIndicator->setPixmap(lightOff);
@@ -21,6 +22,15 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     // Buttons
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::onBackButtonClicked);
     QObject::connect(this, &lessonwindow::backButtonClicked, lessonHandler, &LessonHandler::onBackButtonClicked);
+
+    // Telegraph illustrations
+    QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+    QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
+    ui->illustrationLabel->setScaledContents(true);
+    ui->illustrationLabel->setPixmap(straightKeyUp);
+    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
+    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
+
 
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, lessonHandler, &LessonHandler::handleSpacePressed);

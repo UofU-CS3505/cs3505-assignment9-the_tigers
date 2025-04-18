@@ -22,5 +22,7 @@
         <file>icons/skip.png</file>
         <file>icons/light_on.png</file>
         <file>icons/light_off.png</file>
+        <file>images/straight_key_up.png</file>
+        <file>images/straight_key_down.png</file>
     </qresource>
 </RCC>
