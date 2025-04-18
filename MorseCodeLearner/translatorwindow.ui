@@ -278,9 +278,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: 1px solid black;
+     <string notr="true">QPushButton {border: 1px solid black;
 background-color: transparent;
-background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));</string>
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}
+</string>
     </property>
     <property name="text">
      <string/>
@@ -314,9 +318,13 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <enum>Qt::FocusPolicy::NoFocus</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: 1px solid black;
+     <string notr="true">QPushButton {border: 1px solid black;
 background-color: transparent;
-background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));</string>
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}
+</string>
     </property>
     <property name="text">
      <string/>
@@ -408,7 +416,7 @@ border-bottom: 2px solid black;</string>
      <enum>QFrame::Shadow::Raised</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="clearBottomButton">
+   <widget class="QPushButton" name="clearButton">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -423,8 +431,17 @@ border-bottom: 2px solid black;</string>
     <property name="focusPolicy">
      <enum>Qt::FocusPolicy::NoFocus</enum>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {border: 1px solid black;
+background-color: transparent;
+}
+QPushButton:hover {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));
+}
+</string>
+    </property>
     <property name="text">
-     <string>Clear</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="handPlaceholder">

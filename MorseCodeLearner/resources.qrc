@@ -14,5 +14,9 @@
         <file>textfiles/dictionary.txt</file>
         <file>icons/not_playing_audio.png</file>
         <file>icons/playing_audio.png</file>
+        <file>icons/clear.png</file>
+        <file>icons/encodings.png</file>
+        <file>icons/help.png</file>
+        <file>icons/settings.png</file>
     </qresource>
 </RCC>

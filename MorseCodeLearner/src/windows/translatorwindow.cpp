@@ -18,10 +18,12 @@ translatorwindow::translatorwindow(QWidget *parent,
     QObject::connect(ui->swapButton, &QPushButton::clicked, this, &translatorwindow::onSwapButtonClicked);
     QObject::connect(ui->inputText, &QTextEdit::textChanged, this, &translatorwindow::onInputTextTextChanged);
     QObject::connect(ui->audioPlayButton, &QPushButton::clicked, this, &translatorwindow::onAudioPlayButtonClicked);
-    QObject::connect(ui->clearBottomButton, &QPushButton::clicked, this, &translatorwindow::clearInput);
+    QObject::connect(ui->clearButton, &QPushButton::clicked, this, &translatorwindow::clearInput);
 
     ui->swapButton->setIcon(QIcon(":/icons/swap.svg"));
     ui->swapButton->setIconSize(QSize(52, 104));
+    ui->clearButton->setIcon(QIcon(":/icons/clear.png"));
+    ui->clearButton->setIconSize(QSize(58, 58));
 
     qApp->installEventFilter(this);
 
@@ -144,7 +146,7 @@ void translatorwindow::onAudioPlayButtonClicked() {
     if (!morseHandler->getPlayback()) {
         morseHandler->stopPlayback();
         ui->audioPlayButton->setIcon(QIcon(":/icons/pause.svg"));
-        ui->clearBottomButton->setEnabled(false);
+        ui->clearButton->setEnabled(false);
         ui->inputText->setEnabled(false);
 
         if (mode == TEXT_TO_MORSE) {
@@ -167,6 +169,6 @@ void translatorwindow::clearInput() {
 void translatorwindow::handlePlaybackStopped() {
     ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));
     ui->inputText->setEnabled(true);
-    ui->clearBottomButton->setEnabled(true);
+    ui->clearButton->setEnabled(true);
 }
 

@@ -9,11 +9,14 @@ MenuWindow::MenuWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->settingsnav->setIcon(QIcon(":/icons/settings.svg"));
-    ui->settingsnav->setIconSize(QSize(52, 52));
+    ui->settingsnav->setIcon(QIcon(":/icons/settings.png"));
+    ui->settingsnav->setIconSize(QSize(51, 51));
 
-    ui->referencenav->setIcon(QIcon(":/icons/bookIcon.png"));
-    ui->referencenav->setIconSize(QSize(52, 52));
+    ui->referencenav->setIcon(QIcon(":/icons/encodings.png"));
+    ui->referencenav->setIconSize(QSize(56, 56));
+
+    ui->helpnav->setIcon(QIcon(":/icons/help.png"));
+    ui->helpnav->setIconSize(QSize(50, 50));
 
     ui->settingsHelpLabel->hide();
     ui->learnHelpLabel->hide();

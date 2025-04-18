@@ -65,7 +65,7 @@
 background-color: transparent;</string>
    </property>
    <property name="text">
-    <string>?</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="translatenav">
