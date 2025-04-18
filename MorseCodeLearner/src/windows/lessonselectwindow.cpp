@@ -29,6 +29,8 @@ lessonselectwindow::lessonselectwindow(QWidget *parent)
     // Event Filters
     ui->lessonButton_1->installEventFilter(this);
     ui->lessonButton_2->installEventFilter(this);
+
+    setupWorld();
 }
 
 lessonselectwindow::~lessonselectwindow()
@@ -52,7 +54,7 @@ void lessonselectwindow::onBackButtonClicked()
 
 void lessonselectwindow::setupWorld() {
     b2BodyDef groundBodyDef;
-    groundBodyDef.position.Set(0.0f, -10.0f);
+    groundBodyDef.position.Set(0.0f, -50.0f);
 
     b2Body* groundBody = world.CreateBody(&groundBodyDef);
 
@@ -116,12 +118,12 @@ bool lessonselectwindow::eventFilter(QObject *object, QEvent *event){
 }
 
 void lessonselectwindow::jumpLessonOne(){
-    lessonOneBody->SetTransform(b2Vec2(lessonOneBody->GetTransform().p.x, 8.0f), 0);
+    lessonOneBody->SetTransform(b2Vec2(lessonOneBody->GetTransform().p.x, -30.0f), 0);
     lessonOneBody->SetAwake(true);
 }
 
 void lessonselectwindow::jumpLessonTwo(){
-    lessonTwoBody->SetTransform(b2Vec2(lessonTwoBody->GetTransform().p.x, 8.0f), 0);
+    lessonTwoBody->SetTransform(b2Vec2(lessonTwoBody->GetTransform().p.x, -30.0f), 0);
     lessonTwoBody->SetAwake(true);
 }
 
