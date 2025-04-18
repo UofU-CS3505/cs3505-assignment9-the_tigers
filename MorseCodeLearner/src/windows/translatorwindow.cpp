@@ -37,10 +37,20 @@ translatorwindow::translatorwindow(QWidget *parent,
     ui->flashIndicator->setPixmap(lightOff);
     ui->flashIndicator->setScaledContents(true);
 
-    QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
-    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, &translatorwindow::handlePlaybackStopped);
+    // Telegraph illustrations
+    QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+    QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
+    ui->illustrationLabel->setScaledContents(true);
+    ui->illustrationLabel->setPixmap(straightKeyUp);
+    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
+    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
+
+    // Light indicator
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
+
+    QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, &translatorwindow::handlePlaybackStopped);
 
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &translatorwindow::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &translatorwindow::handleSpaceReleased);
@@ -103,11 +113,15 @@ void translatorwindow::handleSpacePressed() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
         return;
     morseHandler->straightKeyDown();
+    QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
+    ui->illustrationLabel->setPixmap(straightKeyDown);
 }
 
 void translatorwindow::handleSpaceReleased() {
     if (userOnThisPage == false || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode == TEXT_TO_MORSE)
         return;
+    QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+    ui->illustrationLabel->setPixmap(straightKeyUp);
     morseHandler->straightKeyUp();
 }
 

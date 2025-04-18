@@ -88,19 +88,6 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     </property>
    </widget>
   </widget>
-  <widget class="QLabel" name="placeholderLabel">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>480</y>
-     <width>561</width>
-     <height>101</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
-   </property>
-  </widget>
   <widget class="QTextEdit" name="inputText">
    <property name="enabled">
     <bool>true</bool>
@@ -115,6 +102,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
    </property>
    <property name="font">
     <font>
+     <family>JMH Typewriter</family>
      <pointsize>64</pointsize>
     </font>
    </property>
@@ -199,6 +187,30 @@ background: qradialgradient(
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="illustrationLabel">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>450</y>
+     <width>600</width>
+     <height>250</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">b</string>
+   </property>
+   <property name="text">
+    <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
  </widget>
