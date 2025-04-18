@@ -57,7 +57,7 @@ border-bottom: 2px solid black;</string>
      <number>-1</number>
     </property>
     <property name="text">
-     <string>Lessons</string>
+     <string>Lesson Select</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -117,7 +117,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -156,7 +156,7 @@ e, t, a, n, m, i</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -194,7 +194,7 @@ The Paddle</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -233,7 +233,7 @@ z, v, y, q, p, x</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -271,7 +271,7 @@ Words</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -310,7 +310,7 @@ k, r, s, o</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -349,7 +349,7 @@ Alphabet 3
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -388,7 +388,7 @@ b, j, f, l, c, h</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -427,7 +427,7 @@ Basics</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -466,7 +466,7 @@ Practice</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -502,7 +502,7 @@ Basics</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -521,7 +521,7 @@ Basics</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -543,7 +543,7 @@ Basics</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>

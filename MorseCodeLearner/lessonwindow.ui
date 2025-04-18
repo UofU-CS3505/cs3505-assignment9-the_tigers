@@ -102,8 +102,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>64</pointsize>
+     <kerning>false</kerning>
     </font>
    </property>
    <property name="cursor" stdset="0">
@@ -162,7 +163,7 @@ background: qradialgradient(
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>48</pointsize>
     </font>
    </property>

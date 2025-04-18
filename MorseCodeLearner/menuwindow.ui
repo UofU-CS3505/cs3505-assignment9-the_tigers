@@ -19,17 +19,18 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>160</x>
      <y>100</y>
-     <width>601</width>
+     <width>931</width>
      <height>171</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Old London</family>
-     <pointsize>96</pointsize>
+     <family>Parchment</family>
+     <pointsize>126</pointsize>
      <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
@@ -50,7 +51,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Old London</family>
+     <family>Parchment</family>
      <pointsize>64</pointsize>
     </font>
    </property>
@@ -79,7 +80,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>24</pointsize>
      <bold>false</bold>
     </font>
@@ -132,7 +133,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>24</pointsize>
      <bold>false</bold>
     </font>
@@ -162,7 +163,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>24</pointsize>
      <bold>false</bold>
     </font>
@@ -195,7 +196,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -217,7 +218,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -245,7 +246,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -270,7 +271,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -292,7 +293,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>Old London</family>
+     <family>Parchment</family>
      <pointsize>64</pointsize>
     </font>
    </property>
@@ -324,7 +325,7 @@ background-color: transparent;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>

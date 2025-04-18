@@ -94,7 +94,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <x>-5</x>
      <y>100</y>
      <width>1345</width>
-     <height>381</height>
+     <height>384</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="settingsLayout">
@@ -108,7 +108,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <widget class="QLabel" name="deviceLabel">
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>16</pointsize>
        </font>
       </property>
@@ -136,7 +136,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -161,7 +161,7 @@ background-color: white;</string>
      <widget class="QLabel" name="label">
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -188,7 +188,7 @@ Iambic Paddle uses left/right arrow keys.</string>
      <widget class="QLabel" name="volumeTitle">
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>16</pointsize>
        </font>
       </property>
@@ -242,7 +242,7 @@ Iambic Paddle uses left/right arrow keys.</string>
      <widget class="QLabel" name="wpmTitle">
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>16</pointsize>
        </font>
       </property>
@@ -261,7 +261,7 @@ Iambic Paddle uses left/right arrow keys.</string>
       </property>
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>
@@ -294,7 +294,7 @@ background-color: white;</string>
      <widget class="QLabel" name="label_2">
       <property name="font">
        <font>
-        <family>JMH Typewriter</family>
+        <family>OldNewspaperTypes</family>
         <pointsize>12</pointsize>
        </font>
       </property>

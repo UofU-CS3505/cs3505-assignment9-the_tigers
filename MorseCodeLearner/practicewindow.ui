@@ -64,6 +64,9 @@ border-bottom: 2px solid black;</string>
     <property name="text">
      <string>Practice</string>
     </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
@@ -104,7 +107,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>32</pointsize>
     </font>
    </property>
@@ -163,7 +166,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -199,7 +202,7 @@ background-color: white;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -235,7 +238,7 @@ background-color: white;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -254,7 +257,7 @@ background-color: white;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -315,7 +318,7 @@ border-style: solid double;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -328,13 +331,13 @@ border-style: solid double;</string>
     <rect>
      <x>180</x>
      <y>340</y>
-     <width>81</width>
+     <width>91</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>18</pointsize>
     </font>
    </property>
@@ -359,15 +362,15 @@ border-style: solid double;</string>
   <widget class="QLabel" name="scoreDisplayLabel">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>280</x>
      <y>340</y>
-     <width>191</width>
+     <width>171</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>18</pointsize>
     </font>
    </property>
@@ -428,7 +431,7 @@ border-style: solid double;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -459,8 +462,9 @@ QPushButton:hover {
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>52</pointsize>
+     <kerning>false</kerning>
     </font>
    </property>
    <property name="styleSheet">
@@ -493,7 +497,7 @@ padding-left: 1em;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -539,7 +543,7 @@ border-style: solid double;</string>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -564,14 +568,15 @@ QPushButton:hover {
     <rect>
      <x>480</x>
      <y>340</y>
-     <width>151</width>
+     <width>171</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>18</pointsize>
+     <kerning>true</kerning>
     </font>
    </property>
    <property name="text">
@@ -595,15 +600,15 @@ border-style: solid double;</string>
   <widget class="QLabel" name="highScoreDisplayLabel">
    <property name="geometry">
     <rect>
-     <x>630</x>
+     <x>650</x>
      <y>340</y>
-     <width>191</width>
+     <width>171</width>
      <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>JMH Typewriter</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>18</pointsize>
     </font>
    </property>

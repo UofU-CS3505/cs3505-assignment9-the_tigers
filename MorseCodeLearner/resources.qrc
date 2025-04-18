@@ -24,5 +24,6 @@
         <file>icons/light_off.png</file>
         <file>images/straight_key_up.png</file>
         <file>images/straight_key_down.png</file>
+        <file>fonts/Parchment.ttf</file>
     </qresource>
 </RCC>

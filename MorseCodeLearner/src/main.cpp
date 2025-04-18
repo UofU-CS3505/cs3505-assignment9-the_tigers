@@ -8,8 +8,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    QFontDatabase::addApplicationFont(":/fonts/Parchment.ttf");
     QFontDatabase::addApplicationFont(":/fonts/OldLondon.ttf");
-    QFontDatabase::addApplicationFont(":/fonts/JMHTypewriter.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/OldNewspaperTypes.ttf");
 
     KeyEventFilter *keyEventFilter = new KeyEventFilter(&a);
     a.installEventFilter(keyEventFilter);
