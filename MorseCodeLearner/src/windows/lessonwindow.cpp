@@ -10,7 +10,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 {
     ui->setupUi(this);
 
-    ui->backButton->setIcon(QIcon(":/icons/back.svg"));
+    ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
     ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
 

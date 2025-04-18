@@ -16,11 +16,19 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     ui->soundDisplayLabel->setPixmap(soundNotPlaying);
     ui->soundDisplayLabel->setScaledContents(true);
 
-    ui->backButton->setIcon(QIcon(":/icons/back.svg"));
+    ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
     QObject::connect(ui->backButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::onBackButtonClicked);
 
+    ui->checkInputButton->setIcon(QIcon(":/icons/check.png"));
+    ui->checkInputButton->setIconSize(QSize(52, 52));
     ui->checkInputButton->hide();
+
+    ui->skipButton->setIcon(QIcon(":/icons/skip.png"));
+    ui->skipButton->setIconSize(QSize(52, 52));
+    // add slight left padding
+    ui->skipButton->setStyleSheet("QPushButton {border: 1px solid black;\nbackground-color: transparent;\npadding-left: 4px;\n}\nQPushButton:hover {\n    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));\n}\n");
+
 
     QObject::connect(practiceHandler, &PracticeHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border: 1px solid black;}");});
     QObject::connect(practiceHandler, &PracticeHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border: 1px solid black;}");});
@@ -46,10 +54,14 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
         if (newMode == "Decode Morse" || newMode == "Decode Sound") {
             ui->checkInputButton->show();
             ui->skipButton->setFixedHeight(61);
+            // remove left padding
+            ui->skipButton->setStyleSheet("QPushButton {border: 1px solid black;\nbackground-color: transparent;\npadding-left: 0px;\n}\nQPushButton:hover {\n    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));\n}\n");
             ui->skipButton->move(1110, 310);
         } else {
             ui->checkInputButton->hide();
             ui->skipButton->setFixedHeight(131);
+            // add slight left padding
+            ui->skipButton->setStyleSheet("QPushButton {border: 1px solid black;\nbackground-color: transparent;\npadding-left: 4px;\n}\nQPushButton:hover {\n    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));\n}\n");
             ui->skipButton->move(1110, 240);
         }
 

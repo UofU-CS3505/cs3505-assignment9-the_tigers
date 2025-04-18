@@ -260,7 +260,6 @@ void PracticeHandler::skipProblem() {
 void PracticeHandler::saveHighScore(int score) {
     QSettings settings("Tigers", "MorseCodeLearner");
     QString key = QString::number(difficultyHandler->getDifficulty()) + QString::number(mode);
-    qDebug() << "Saving; Key: " << key << " | Score: " << score;
     settings.setValue(key, score);
 }
 

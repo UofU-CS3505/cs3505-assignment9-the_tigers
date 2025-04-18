@@ -1,16 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/back.svg</file>
+        <file>icons/back.png</file>
         <file>icons/app_icon.png</file>
-        <file>icons/pause.svg</file>
-        <file>icons/play.svg</file>
-        <file>icons/settings.svg</file>
-        <file>icons/swap.svg</file>
         <file>images/background.jpg</file>
         <file>images/illustrated_background.jpg</file>
         <file>fonts/JMHTypewriter.ttf</file>
         <file>fonts/OldLondon.ttf</file>
-        <file>icons/bookIcon.png</file>
         <file>textfiles/dictionary.txt</file>
         <file>icons/not_playing_audio.png</file>
         <file>icons/playing_audio.png</file>
@@ -18,5 +13,12 @@
         <file>icons/encodings.png</file>
         <file>icons/help.png</file>
         <file>icons/settings.png</file>
+        <file>icons/back.png</file>
+        <file>icons/pause.png</file>
+        <file>icons/play.png</file>
+        <file>icons/swap.png</file>
+        <file>icons/pointing_hand.png</file>
+        <file>icons/check.png</file>
+        <file>icons/skip.png</file>
     </qresource>
 </RCC>

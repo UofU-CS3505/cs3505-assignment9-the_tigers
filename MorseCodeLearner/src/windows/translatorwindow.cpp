@@ -12,23 +12,27 @@ translatorwindow::translatorwindow(QWidget *parent,
 {
     ui->setupUi(this);
 
-    ui->backButton->setIcon(QIcon(":/icons/back.svg"));
-    ui->backButton->setIconSize(QSize(52, 52));
+
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &translatorwindow::onBackButtonClicked);
     QObject::connect(ui->swapButton, &QPushButton::clicked, this, &translatorwindow::onSwapButtonClicked);
     QObject::connect(ui->inputText, &QTextEdit::textChanged, this, &translatorwindow::onInputTextTextChanged);
     QObject::connect(ui->audioPlayButton, &QPushButton::clicked, this, &translatorwindow::onAudioPlayButtonClicked);
     QObject::connect(ui->clearButton, &QPushButton::clicked, this, &translatorwindow::clearInput);
 
-    ui->swapButton->setIcon(QIcon(":/icons/swap.svg"));
-    ui->swapButton->setIconSize(QSize(52, 104));
+    ui->backButton->setIcon(QIcon(":/icons/back.png"));
+    ui->backButton->setIconSize(QSize(52, 52));
+    ui->swapButton->setIcon(QIcon(":/icons/swap.png"));
+    ui->swapButton->setIconSize(QSize(104, 104));
     ui->clearButton->setIcon(QIcon(":/icons/clear.png"));
-    ui->clearButton->setIconSize(QSize(58, 58));
+    ui->clearButton->setIconSize(QSize(64, 64));
+    ui->audioPlayButton->setIcon(QIcon(":/icons/play.png"));
+    ui->audioPlayButton->setIconSize(QSize(64, 64));
+    ui->handGraphic->setPixmap(QPixmap::fromImage(QImage(":/icons/pointing_hand.png")));
+    ui->handGraphic->setScaledContents(true);
+
 
     qApp->installEventFilter(this);
 
-    ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));
-    ui->audioPlayButton->setIconSize(QSize(52, 52));
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
     QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, &translatorwindow::handlePlaybackStopped);
@@ -145,7 +149,7 @@ void translatorwindow::onMorseReceived(const string morse) {
 void translatorwindow::onAudioPlayButtonClicked() {
     if (!morseHandler->getPlayback()) {
         morseHandler->stopPlayback();
-        ui->audioPlayButton->setIcon(QIcon(":/icons/pause.svg"));
+        ui->audioPlayButton->setIcon(QIcon(":/icons/pause.png"));
         ui->clearButton->setEnabled(false);
         ui->inputText->setEnabled(false);
 
@@ -167,7 +171,7 @@ void translatorwindow::clearInput() {
 }
 
 void translatorwindow::handlePlaybackStopped() {
-    ui->audioPlayButton->setIcon(QIcon(":/icons/play.svg"));
+    ui->audioPlayButton->setIcon(QIcon(":/icons/play.png"));
     ui->inputText->setEnabled(true);
     ui->clearButton->setEnabled(true);
 }

@@ -467,7 +467,7 @@ QPushButton:hover {
 </string>
    </property>
    <property name="text">
-    <string>Check</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLineEdit" name="inputText">
@@ -578,7 +578,7 @@ QPushButton:hover {
 </string>
    </property>
    <property name="text">
-    <string>Skip</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="highScoreLabel">
@@ -651,7 +651,6 @@ border-style: solid double;</string>
   <zorder>scoreDisplayLabel</zorder>
   <zorder>lineWidget_8</zorder>
   <zorder>lineWidget_9</zorder>
-  <zorder>checkInputButton</zorder>
   <zorder>inputText</zorder>
   <zorder>modeInstructionLabel</zorder>
   <zorder>soundDisplayLabel</zorder>
@@ -660,6 +659,7 @@ border-style: solid double;</string>
   <zorder>lineWidget_10</zorder>
   <zorder>highScoreDisplayLabel</zorder>
   <zorder>lineWidget_7</zorder>
+  <zorder>checkInputButton</zorder>
  </widget>
  <resources/>
  <connections/>
