@@ -20,5 +20,7 @@
         <file>icons/pointing_hand.png</file>
         <file>icons/check.png</file>
         <file>icons/skip.png</file>
+        <file>icons/light_on.png</file>
+        <file>icons/light_off.png</file>
     </qresource>
 </RCC>

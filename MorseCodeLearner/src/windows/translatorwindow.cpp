@@ -30,14 +30,17 @@ translatorwindow::translatorwindow(QWidget *parent,
     ui->handGraphic->setPixmap(QPixmap::fromImage(QImage(":/icons/pointing_hand.png")));
     ui->handGraphic->setScaledContents(true);
 
-
     qApp->installEventFilter(this);
 
+    QPixmap lightOn(QPixmap::fromImage(QImage(":/icons/light_on.png")));
+    QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
+    ui->flashIndicator->setPixmap(lightOff);
+    ui->flashIndicator->setScaledContents(true);
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &translatorwindow::onMorseReceived);
     QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, &translatorwindow::handlePlaybackStopped);
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border : 1px solid black;}");});
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 1px solid black;}");});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
 
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &translatorwindow::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &translatorwindow::handleSpaceReleased);

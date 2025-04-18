@@ -189,10 +189,13 @@ background: qradialgradient(
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>390</y>
-     <width>58</width>
-     <height>61</height>
+     <y>380</y>
+     <width>64</width>
+     <height>64</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>

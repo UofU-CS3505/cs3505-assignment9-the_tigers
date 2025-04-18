@@ -12,7 +12,11 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
-    ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border : 2px solid black; border-radius: 5px}");
+
+    QPixmap lightOn(QPixmap::fromImage(QImage(":/icons/light_on.png")));
+    QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
+    ui->flashIndicator->setPixmap(lightOff);
+    ui->flashIndicator->setScaledContents(true);
 
     // Buttons
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::onBackButtonClicked);
@@ -30,8 +34,8 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(morseHandler, &MorseHandler::decodedInput, lessonHandler, &LessonHandler::onMorseReceived);
 
     // Lesson Handler
-    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : white; border: 1px solid black;}");});
-    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setStyleSheet("QLabel { background-color : gray; border: 1px solid black;}");});
+    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
+    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
     QObject::connect(lessonHandler, &LessonHandler::guessCorrect, this, &lessonwindow::guessCorrect);
     QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &lessonwindow::guessIncorrect);
     QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &lessonwindow::displayTextQuestion);
