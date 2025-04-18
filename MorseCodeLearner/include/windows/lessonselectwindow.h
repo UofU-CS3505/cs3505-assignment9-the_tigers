@@ -86,16 +86,8 @@ private:
     QTimer timer;
 
     bool eventFilter(QObject *object, QEvent *event);
-    void jumpLessonOne();
-    void jumpLessonTwo();
-    void jumpLessonThree();
-    void jumpLessonFour();
-    void jumpLessonFive();
-    void jumpLessonSix();
-    void jumpLessonSeven();
-    void jumpLessonEight();
-    void jumpLessonNine();
-    void jumpLessonTen();
+
+    void jumpButton(b2Body* jumpBody);
 };
 
 #endif // LESSONSELECTWINDOW_H

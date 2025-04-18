@@ -54,12 +54,8 @@ private:
     QTimer timer;
 
     bool eventFilter(QObject *object, QEvent *event);
-    void jumpPractice();
-    void jumpLesson();
-    void jumpTranslator();
-    void jumpSettings();
-    void jumpHelp();
-    void jumpReference();
+
+    void jumpButton(b2Body* jumpBody);
 };
 
 #endif // MENUWINDOW_H

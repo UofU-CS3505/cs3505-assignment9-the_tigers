@@ -29,6 +29,14 @@ lessonselectwindow::lessonselectwindow(QWidget *parent)
     // Event Filters
     ui->lessonButton_1->installEventFilter(this);
     ui->lessonButton_2->installEventFilter(this);
+    ui->lessonButton_3->installEventFilter(this);
+    ui->lessonButton_4->installEventFilter(this);
+    ui->lessonButton_5->installEventFilter(this);
+    ui->lessonButton_6->installEventFilter(this);
+    ui->lessonButton_7->installEventFilter(this);
+    ui->lessonButton_8->installEventFilter(this);
+    ui->lessonButton_9->installEventFilter(this);
+    ui->lessonButton_10->installEventFilter(this);
 
     setupWorld();
 }
@@ -59,7 +67,7 @@ void lessonselectwindow::setupWorld() {
     b2Body* groundBody = world.CreateBody(&groundBodyDef);
 
     b2PolygonShape groundBox;
-    groundBox.SetAsBox(50.0f, 10.0f);
+    groundBox.SetAsBox(100.0f, 10.0f);
 
     groundBody->CreateFixture(&groundBox, 0.0f);
 
@@ -68,13 +76,53 @@ void lessonselectwindow::setupWorld() {
 
     b2BodyDef lessonOneBodyDefinition;
     lessonOneBodyDefinition.type = b2_dynamicBody;
-    lessonOneBodyDefinition.position.Set(8.0f, 0.0f);
+    lessonOneBodyDefinition.position.Set(8.0f, -48.0f);
     lessonOneBody = world.CreateBody(&lessonOneBodyDefinition);
 
     b2BodyDef lessonTwoBodyDefinition;
     lessonTwoBodyDefinition.type = b2_dynamicBody;
-    lessonTwoBodyDefinition.position.Set(16.0f, 0.0f);
+    lessonTwoBodyDefinition.position.Set(16.0f, -48.0f);
     lessonTwoBody = world.CreateBody(&lessonTwoBodyDefinition);
+
+    b2BodyDef lessonThreeBodyDefinition;
+    lessonThreeBodyDefinition.type = b2_dynamicBody;
+    lessonThreeBodyDefinition.position.Set(24.0f, -48.0f);
+    lessonThreeBody = world.CreateBody(&lessonThreeBodyDefinition);
+
+    b2BodyDef lessonFourBodyDefinition;
+    lessonFourBodyDefinition.type = b2_dynamicBody;
+    lessonFourBodyDefinition.position.Set(32.0f, -48.0f);
+    lessonFourBody = world.CreateBody(&lessonFourBodyDefinition);
+
+    b2BodyDef lessonFiveBodyDefinition;
+    lessonFiveBodyDefinition.type = b2_dynamicBody;
+    lessonFiveBodyDefinition.position.Set(40.0f, -48.0f);
+    lessonFiveBody = world.CreateBody(&lessonFiveBodyDefinition);
+
+    b2BodyDef lessonSixBodyDefinition;
+    lessonSixBodyDefinition.type = b2_dynamicBody;
+    lessonSixBodyDefinition.position.Set(48.0f, -48.0f);
+    lessonSixBody = world.CreateBody(&lessonSixBodyDefinition);
+
+    b2BodyDef lessonSevenBodyDefinition;
+    lessonSevenBodyDefinition.type = b2_dynamicBody;
+    lessonSevenBodyDefinition.position.Set(56.0f, -48.0f);
+    lessonSevenBody = world.CreateBody(&lessonSevenBodyDefinition);
+
+    b2BodyDef lessonEightBodyDefinition;
+    lessonEightBodyDefinition.type = b2_dynamicBody;
+    lessonEightBodyDefinition.position.Set(64.0f, -48.0f);
+    lessonEightBody = world.CreateBody(&lessonEightBodyDefinition);
+
+    b2BodyDef lessonNineBodyDefinition;
+    lessonNineBodyDefinition.type = b2_dynamicBody;
+    lessonNineBodyDefinition.position.Set(72.0f, -48.0f);
+    lessonNineBody = world.CreateBody(&lessonNineBodyDefinition);
+
+    b2BodyDef lessonTenBodyDefinition;
+    lessonTenBodyDefinition.type = b2_dynamicBody;
+    lessonTenBodyDefinition.position.Set(80.0f, -48.0f);
+    lessonTenBody = world.CreateBody(&lessonTenBodyDefinition);
 
     b2FixtureDef bodyFixtureDefinition;
     bodyFixtureDefinition.shape = &dynamicBox;
@@ -83,9 +131,25 @@ void lessonselectwindow::setupWorld() {
 
     lessonOneBody->CreateFixture(&bodyFixtureDefinition);
     lessonTwoBody->CreateFixture(&bodyFixtureDefinition);
+    lessonThreeBody->CreateFixture(&bodyFixtureDefinition);
+    lessonFourBody->CreateFixture(&bodyFixtureDefinition);
+    lessonFiveBody->CreateFixture(&bodyFixtureDefinition);
+    lessonSixBody->CreateFixture(&bodyFixtureDefinition);
+    lessonSevenBody->CreateFixture(&bodyFixtureDefinition);
+    lessonEightBody->CreateFixture(&bodyFixtureDefinition);
+    lessonNineBody->CreateFixture(&bodyFixtureDefinition);
+    lessonTenBody->CreateFixture(&bodyFixtureDefinition);
 
     lessonOneY = ui->lessonButton_1->y();
     lessonTwoY = ui->lessonButton_2->y();
+    lessonThreeY = ui->lessonButton_3->y();
+    lessonFourY = ui->lessonButton_4->y();
+    lessonFiveY = ui->lessonButton_5->y();
+    lessonSixY = ui->lessonButton_6->y();
+    lessonSevenY = ui->lessonButton_7->y();
+    lessonEightY = ui->lessonButton_8->y();
+    lessonNineY = ui->lessonButton_9->y();
+    lessonTenY = ui->lessonButton_10->y();
 
     timer.singleShot(10, this, &lessonselectwindow::updateWorld);
 }
@@ -97,8 +161,19 @@ void lessonselectwindow::updateWorld() {
 
     world.Step(timeStep, velocityIterations, positionIterations);
 
+    int rowHeightOffset = 230;
+
     ui->lessonButton_1->move(ui->lessonButton_1->x(), lessonOneY - lessonOneBody->GetPosition().y);
     ui->lessonButton_2->move(ui->lessonButton_2->x(), lessonTwoY - lessonTwoBody->GetPosition().y);
+    ui->lessonButton_3->move(ui->lessonButton_3->x(), lessonThreeY - lessonThreeBody->GetPosition().y);
+    ui->lessonButton_4->move(ui->lessonButton_4->x(), lessonFourY - lessonFourBody->GetPosition().y);
+    ui->lessonButton_5->move(ui->lessonButton_5->x(), lessonFiveY - lessonFiveBody->GetPosition().y);
+
+    ui->lessonButton_6->move(ui->lessonButton_6->x(), lessonSixY - lessonSixBody->GetPosition().y + rowHeightOffset);
+    ui->lessonButton_7->move(ui->lessonButton_7->x(), lessonSevenY - lessonSevenBody->GetPosition().y + rowHeightOffset);
+    ui->lessonButton_8->move(ui->lessonButton_8->x(), lessonEightY - lessonEightBody->GetPosition().y + rowHeightOffset);
+    ui->lessonButton_9->move(ui->lessonButton_9->x(), lessonNineY - lessonNineBody->GetPosition().y + rowHeightOffset);
+    ui->lessonButton_10->move(ui->lessonButton_10->x(), lessonTenY - lessonTenBody->GetPosition().y + rowHeightOffset);
 
     timer.singleShot(10, this, &lessonselectwindow::updateWorld);
 }
@@ -106,56 +181,51 @@ void lessonselectwindow::updateWorld() {
 bool lessonselectwindow::eventFilter(QObject *object, QEvent *event){
     if (event->type() == QEvent::Enter) {
         if (object == ui->lessonButton_1){
-            jumpLessonOne();
+            jumpButton(lessonOneBody);
         }
 
         if (object == ui->lessonButton_2) {
-            jumpLessonTwo();
+            jumpButton(lessonTwoBody);
+        }
+
+        if (object == ui->lessonButton_3) {
+            jumpButton(lessonThreeBody);
+        }
+
+        if (object == ui->lessonButton_4) {
+            jumpButton(lessonFourBody);
+        }
+
+        if (object == ui->lessonButton_5) {
+            jumpButton(lessonFiveBody);
+        }
+
+        if (object == ui->lessonButton_6) {
+            jumpButton(lessonSixBody);
+        }
+
+        if (object == ui->lessonButton_7) {
+            jumpButton(lessonSevenBody);
+        }
+
+        if (object == ui->lessonButton_8) {
+            jumpButton(lessonEightBody);
+        }
+
+        if (object == ui->lessonButton_9) {
+            jumpButton(lessonNineBody);
+        }
+
+        if (object == ui->lessonButton_10) {
+            jumpButton(lessonTenBody);
         }
     }
 
     return false;
 }
 
-void lessonselectwindow::jumpLessonOne(){
-    lessonOneBody->SetTransform(b2Vec2(lessonOneBody->GetTransform().p.x, -30.0f), 0);
-    lessonOneBody->SetAwake(true);
-}
-
-void lessonselectwindow::jumpLessonTwo(){
-    lessonTwoBody->SetTransform(b2Vec2(lessonTwoBody->GetTransform().p.x, -30.0f), 0);
-    lessonTwoBody->SetAwake(true);
-}
-
-void lessonselectwindow::jumpLessonThree(){
-
-}
-
-void lessonselectwindow::jumpLessonFour(){
-
-}
-
-void lessonselectwindow::jumpLessonFive(){
-
-}
-
-void lessonselectwindow::jumpLessonSix(){
-
-}
-
-void lessonselectwindow::jumpLessonSeven(){
-
-}
-
-void lessonselectwindow::jumpLessonEight(){
-
-}
-
-void lessonselectwindow::jumpLessonNine(){
-
-}
-
-void lessonselectwindow::jumpLessonTen(){
-
+void lessonselectwindow::jumpButton(b2Body* jumpBody){
+    jumpBody->SetTransform(b2Vec2(jumpBody->GetTransform().p.x, -28.0f), 0);
+    jumpBody->SetAwake(true);
 }
 

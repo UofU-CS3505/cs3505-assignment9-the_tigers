@@ -167,60 +167,35 @@ void MenuWindow::updateWorld() {
     timer.singleShot(10, this, &MenuWindow::updateWorld);
 }
 
-void MenuWindow::jumpPractice() {
-    practiceBody->SetTransform(b2Vec2(practiceBody->GetTransform().p.x, 8.0f), 0);
-    practiceBody->SetAwake(true);
-}
-
-void MenuWindow::jumpLesson() {
-    lessonBody->SetTransform(b2Vec2(lessonBody->GetTransform().p.x, 8.0f), 0);
-    lessonBody->SetAwake(true);
-}
-
-void MenuWindow::jumpTranslator() {
-    translatorBody->SetTransform(b2Vec2(translatorBody->GetTransform().p.x, 8.0f), 0);
-    translatorBody->SetAwake(true);
-}
-
-void MenuWindow::jumpSettings() {
-    settingsBody->SetTransform(b2Vec2(settingsBody->GetTransform().p.x, 8.0f), 0);
-    settingsBody->SetAwake(true);
-}
-
-void MenuWindow::jumpHelp() {
-    helpBody->SetTransform(b2Vec2(helpBody->GetTransform().p.x, 8.0f), 0);
-    helpBody->SetAwake(true);
-}
-
-void MenuWindow::jumpReference() {
-    referenceBody->SetTransform(b2Vec2(referenceBody->GetTransform().p.x, 8.0f), 0);
-    referenceBody->SetAwake(true);
+void MenuWindow::jumpButton(b2Body* jumpBody){
+    jumpBody->SetTransform(b2Vec2(jumpBody->GetTransform().p.x, 8.0f), 0);
+    jumpBody->SetAwake(true);
 }
 
 bool MenuWindow::eventFilter(QObject *object, QEvent *event) {
     if (event->type() == QEvent::Enter) {
         if (object == ui->practicenav){
-            jumpPractice();
+            jumpButton(practiceBody);
         }
 
         if (object == ui->learningnav) {
-            jumpLesson();
+            jumpButton(lessonBody);
         }
 
         if (object == ui->translatenav) {
-            jumpTranslator();
+            jumpButton(translatorBody);
         }
 
         if (object == ui->settingsnav) {
-            jumpSettings();
+            jumpButton(settingsBody);
         }
 
         if (object == ui->helpnav) {
-            jumpHelp();
+            jumpButton(helpBody);
         }
 
         if (object == ui->referencenav) {
-            jumpReference();
+            jumpButton(referenceBody);
         }
     }
 
