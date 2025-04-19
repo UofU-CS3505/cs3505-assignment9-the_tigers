@@ -24,6 +24,14 @@ private:
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
 
+    // Connection objects for illustrations, must be retained so they can be changed later
+    QMetaObject::Connection rightPressedConnection;
+    QMetaObject::Connection rightReleasedConnection;
+    QMetaObject::Connection leftPressedConnection;
+    QMetaObject::Connection leftReleasedConnection;
+    QMetaObject::Connection straightPressedConnection;
+    QMetaObject::Connection straightReleasedConnection;
+
 signals:
     /**
      * A signal that tells the stackedWidget to send the user back

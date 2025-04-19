@@ -36,14 +36,6 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     ui->flashIndicator->setPixmap(lightOff);
     ui->flashIndicator->setScaledContents(true);
 
-    // Telegraph illustrations
-    QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
-    QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
-    ui->illustrationLabel->setScaledContents(true);
-    ui->illustrationLabel->setPixmap(straightKeyUp);
-    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
-    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
-
     // Light Indicator
     QObject::connect(practiceHandler, &PracticeHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
     QObject::connect(practiceHandler, &PracticeHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
@@ -107,6 +99,35 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 
     QObject::connect(practiceHandler, &PracticeHandler::correctTextJump, this, &practicewindow::textJump);
     QObject::connect(practiceHandler, &PracticeHandler::incorrectTextShake, this, &practicewindow::textShake);
+
+    // Iambic paddle illustrations
+    QObject::connect(practiceHandler, &PracticeHandler::paddleSelected, this, [this, keyEventFilter](){
+        QObject::disconnect(straightPressedConnection);
+        QObject::disconnect(straightReleasedConnection);
+
+        QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));
+        QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
+        QPixmap paddleCenter(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
+        ui->illustrationLabel->setPixmap(paddleCenter);
+        rightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, [this, paddleRight](){ui->illustrationLabel->setPixmap(paddleRight);});
+        rightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, [this, paddleCenter](){ui->illustrationLabel->setPixmap(paddleCenter);});
+        leftPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, [this, paddleLeft](){ui->illustrationLabel->setPixmap(paddleLeft);});
+        leftReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, [this, paddleCenter](){ui->illustrationLabel->setPixmap(paddleCenter);});
+    });
+
+    // Straight key illustrations
+    QObject::connect(practiceHandler, &PracticeHandler::straightKeySelected, this, [this, keyEventFilter](){
+        QObject::disconnect(rightPressedConnection);
+        QObject::disconnect(rightReleasedConnection);
+        QObject::disconnect(leftPressedConnection);
+        QObject::disconnect(leftReleasedConnection);
+
+        QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+        QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
+        ui->illustrationLabel->setPixmap(straightKeyUp);
+        straightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
+        straightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
+    });
 
     setupWorld();
 }

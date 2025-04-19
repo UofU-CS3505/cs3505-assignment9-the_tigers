@@ -26,5 +26,8 @@
         <file>images/straight_key_down.png</file>
         <file>fonts/Parchment.ttf</file>
         <file>fonts/OldNewspaperTypes.ttf</file>
+        <file>images/paddle_center.png</file>
+        <file>images/paddle_left.png</file>
+        <file>images/paddle_right.png</file>
     </qresource>
 </RCC>

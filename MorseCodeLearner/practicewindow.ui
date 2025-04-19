@@ -170,6 +170,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::ClickFocus</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
 padding-left: 0.5em;
@@ -205,6 +208,9 @@ background-color: white;</string>
      <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::ClickFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
@@ -639,6 +645,9 @@ border-style: solid double;</string>
    </property>
    <property name="text">
     <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
   </widget>
   <zorder>lineWidget_4</zorder>

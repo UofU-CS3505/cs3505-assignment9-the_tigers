@@ -552,6 +552,9 @@ SWAP—Swap from Morse and English input with the swap button.</string>
    <property name="text">
     <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="flashIndicator">
    <property name="geometry">
@@ -583,8 +586,9 @@ SWAP—Swap from Morse and English input with the swap button.</string>
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>54</pointsize>
+     <kerning>false</kerning>
     </font>
    </property>
    <property name="focusPolicy">

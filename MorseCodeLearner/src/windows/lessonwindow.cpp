@@ -10,6 +10,9 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 {
     ui->setupUi(this);
 
+    qDebug() << "lesson page constructed";
+
+
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
 
@@ -22,15 +25,6 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     // Buttons
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::onBackButtonClicked);
     QObject::connect(this, &lessonwindow::backButtonClicked, lessonHandler, &LessonHandler::onBackButtonClicked);
-
-    // Telegraph illustrations
-    QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
-    QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
-    ui->illustrationLabel->setScaledContents(true);
-    ui->illustrationLabel->setPixmap(straightKeyUp);
-    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
-    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
-
 
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, lessonHandler, &LessonHandler::handleSpacePressed);
@@ -51,6 +45,35 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &lessonwindow::displayTextQuestion);
     QObject::connect(lessonHandler, &LessonHandler::updateInputText, this, &lessonwindow::updateInputText);
     QObject::connect(lessonHandler, &LessonHandler::completedLesson, this, &lessonwindow::onBackButtonClicked);
+
+    // Iambic paddle illustrations
+    QObject::connect(lessonHandler, &LessonHandler::paddleSelected, this, [this, keyEventFilter](){
+        QObject::disconnect(straightPressedConnection);
+        QObject::disconnect(straightReleasedConnection);
+
+        QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));
+        QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
+        QPixmap paddleCenter(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
+        ui->illustrationLabel->setPixmap(paddleCenter);
+        rightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, [this, paddleRight](){ui->illustrationLabel->setPixmap(paddleRight);});
+        rightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, [this, paddleCenter](){ui->illustrationLabel->setPixmap(paddleCenter);});
+        leftPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, [this, paddleLeft](){ui->illustrationLabel->setPixmap(paddleLeft);});
+        leftReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, [this, paddleCenter](){ui->illustrationLabel->setPixmap(paddleCenter);});
+    });
+
+    // Straight key illustrations
+    QObject::connect(lessonHandler, &LessonHandler::straightKeySelected, this, [this, keyEventFilter](){
+        QObject::disconnect(rightPressedConnection);
+        QObject::disconnect(rightReleasedConnection);
+        QObject::disconnect(leftPressedConnection);
+        QObject::disconnect(leftReleasedConnection);
+
+        QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+        QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
+        ui->illustrationLabel->setPixmap(straightKeyUp);
+        straightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
+        straightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
+    });
 }
 
 lessonwindow::~lessonwindow()

@@ -166,4 +166,12 @@ void LessonHandler::onBackButtonClicked() {
 
 void LessonHandler::setUserOnThisPage(bool userOnThisPage) {
     this->userOnThisPage = userOnThisPage;
+
+    if (userOnThisPage) {
+        if (morseHandler->getDevice() == MorseHandler::STRAIGHT_KEY) {
+            emit straightKeySelected();
+        } else {
+            emit paddleSelected();
+        }
+    }
 }

@@ -236,6 +236,16 @@ signals:
     void correctTextJump();
 
     /**
+     * For illustration, emitted when navigating to this page.
+     */
+    void paddleSelected();
+
+    /**
+     * For illustration, emitted when navigating to this page.
+     */
+    void straightKeySelected();
+
+    /**
      * Emits a signal for Box2D to make the text shake
      * when an incorrect answer is inputted.
      */
