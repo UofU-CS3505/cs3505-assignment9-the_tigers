@@ -179,7 +179,6 @@ private:
 
                     bufferedFrameCount -= availableFrames;
                 } else {
-                    qDebug() << "underrun";
                     renderClient->ReleaseBuffer(availableFrames, AUDCLNT_BUFFERFLAGS_SILENT);
                     continue;
                 }
