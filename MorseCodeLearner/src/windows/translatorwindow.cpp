@@ -65,6 +65,7 @@ translatorwindow::~translatorwindow() {
 }
 
 void translatorwindow::setUserOnThisPage(bool userOnThisPage) {
+    ui->morsePreview->setText("");
     this->userOnThisPage = userOnThisPage;
 }
 
@@ -97,7 +98,6 @@ void translatorwindow::onSwapButtonClicked() {
 
     ui->inputText->setText(ui->outputText->toPlainText());
 }
-
 
 void translatorwindow::onInputTextTextChanged() {
     std::string text = ui->inputText->toPlainText().toStdString();
@@ -157,6 +157,12 @@ void translatorwindow::onMorseReceived(const string morse) {
     ui->inputText->blockSignals(true);
     ui->inputText->setText(ui->inputText->toPlainText() + qmorse);
     ui->inputText->blockSignals(false);
+
+    if (morse == "/ " || morse == " ") {
+        ui->morsePreview->clear();
+    } else {
+        ui->morsePreview->setText(ui->morsePreview->text() + QString::fromStdString(morse));
+    }
 
     if (morse == " ") {
         onInputTextTextChanged();

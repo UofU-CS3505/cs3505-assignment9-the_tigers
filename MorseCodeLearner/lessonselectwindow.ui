@@ -124,6 +124,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     border-radius: 0px;
@@ -163,6 +166,9 @@ e, t, a, n, m, i</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     border-radius: 0px;
@@ -200,6 +206,9 @@ The Paddle</string>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -240,6 +249,9 @@ z, v, y, q, p, x</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     border-radius: 0px;
@@ -277,6 +289,9 @@ Words</string>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -317,6 +332,9 @@ k, r, s, o</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     border-radius: 0px;
@@ -355,6 +373,9 @@ Alphabet 3
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -395,6 +416,9 @@ b, j, f, l, c, h</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     border-radius: 0px;
@@ -434,6 +458,9 @@ Basics</string>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
     border-radius: 0px;
@@ -472,6 +499,9 @@ Practice</string>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {

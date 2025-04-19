@@ -45,7 +45,7 @@ void MorseHandler::straightKeyUp() {
     audioHandler.suspend();
     qint64 duration = keyDownTimer.elapsed();
 
-    if (duration < 1.5 * unit) { // User needs to be close enough to the dot timing
+    if (duration < 2 * unit) { // pick between 1.5 and 3
         emit decodedInput(".");
     } else {
         emit decodedInput("-");

@@ -217,6 +217,7 @@ void PracticeHandler::checkProblem() {
         streak++;
         score += problemText.length() * 100 * (streak * 0.25) * (1200 / morseHandler->getUnitTime());
         emit updateScore(QString::number(score));
+        emit correctTextJump();
 
         if (isHighScore(score)) {
             saveHighScore(score);
@@ -230,6 +231,7 @@ void PracticeHandler::checkProblem() {
         streak = 0;
         score = 0;
         emit updateScore(QString::number(0));
+        emit incorrectTextShake();
         loadProblemFromTextTimer.start(1000);
     }
 }

@@ -7,6 +7,8 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     , ui(new Ui::practicewindow)
     , keyEventFilter(keyEventFilter)
     , practiceHandler(practiceHandler)
+    , timer(this)
+    , world(b2Vec2(0, -20))
 {
     ui->setupUi(this);
 
@@ -102,6 +104,11 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 
     QObject::connect(ui->skipButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::skipProblem);
     QObject::connect(practiceHandler, &PracticeHandler::updateHighScore, ui->highScoreDisplayLabel, &QLabel::setText);
+
+    QObject::connect(practiceHandler, &PracticeHandler::correctTextJump, this, &practicewindow::textJump);
+    QObject::connect(practiceHandler, &PracticeHandler::incorrectTextShake, this, &practicewindow::textShake);
+
+    setupWorld();
 }
 
 practicewindow::~practicewindow() {
@@ -122,5 +129,81 @@ void practicewindow::updateInputText(QString text) {
 
 void practicewindow::updatePracticeText(QString text) {
     ui->problemText->setText(text);
+}
+
+void practicewindow::setupWorld(){
+    b2BodyDef groundBodyDef;
+    groundBodyDef.position.Set(0.0f, 0.0f);
+
+    b2Body* groundBody = world.CreateBody(&groundBodyDef);
+
+    b2PolygonShape groundBox;
+    groundBox.SetAsBox(50.0f, 10.0f);
+
+    groundBody->CreateFixture(&groundBox, 0.0f);
+
+    b2PolygonShape dynamicBox;
+    dynamicBox.SetAsBox(1.0f, 1.0f);
+
+    b2BodyDef textBodyDefinition;
+    textBodyDefinition.type = b2_dynamicBody;
+    textBodyDefinition.position.Set(0.0f, 0.0f);
+    textBody = world.CreateBody(&textBodyDefinition);
+
+    b2BodyDef shakeAnchorDefinition;
+    shakeAnchorDefinition.type = b2_staticBody;
+    shakeAnchorDefinition.position.Set(0.0f, 10.0f);
+    shakeAnchor = world.CreateBody(&shakeAnchorDefinition);
+
+    b2RopeJointDef ropeJointDefinition;
+    ropeJointDefinition.bodyA = shakeAnchor;
+    ropeJointDefinition.bodyB = textBody;
+    ropeJointDefinition.collideConnected = false;
+    ropeJoint = (b2RopeJoint*) world.CreateJoint(&ropeJointDefinition);
+
+    b2FixtureDef textFixtureDefinition;
+    textFixtureDefinition.shape = &dynamicBox;
+    textFixtureDefinition.density = 1.0f;
+    textFixtureDefinition.friction = 0.3f;
+
+    textBody->CreateFixture(&textFixtureDefinition);
+
+    problemTextX = ui->problemText->x();
+    problemTextY = ui->problemText->y();
+
+    timer.singleShot(10, this, &practicewindow::updateWorld);
+}
+
+void practicewindow::updateWorld(){
+    float32 timeStep = 1.0f / 60.0f;
+    int32 velocityIterations = 6;
+    int32 positionIterations = 2;
+
+    world.Step(timeStep, velocityIterations, positionIterations);
+
+    ui->problemText->move(problemTextX - textBody->GetPosition().x, problemTextY - textBody->GetPosition().y);
+
+    if(currentlyShaking){
+        if(shakeFrameCount >= 30){
+            currentlyShaking = false;
+            textBody->SetLinearVelocity(b2Vec2(0,0));
+            textBody->SetTransform(b2Vec2(0.0f, 1.0f), 0);
+        }
+
+        shakeFrameCount++;
+    }
+
+    timer.singleShot(10, this, &practicewindow::updateWorld);
+}
+
+void practicewindow::textJump(){
+    textBody->SetLinearVelocity(b2Vec2(0, 50000));
+    textBody->SetAwake(true);
+}
+
+void practicewindow::textShake(){
+    shakeFrameCount = 0;
+    currentlyShaking = true;
+    textBody->ApplyForce(b2Vec2(0, 10000), textBody->GetWorldCenter(), true);
 }
 

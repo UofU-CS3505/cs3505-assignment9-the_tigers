@@ -6,6 +6,7 @@
 #include "keyeventfilter.h"
 #include "difficultyhandler.h"
 #include "practicehandler.h"
+#include "Box2D/Box2D.h"
 
 namespace Ui {
 class practicewindow;
@@ -61,6 +62,16 @@ public slots:
      */
     void updateInputText(QString text);
 
+    /**
+     * Causes the text to jump before falling back into place.
+     */
+    void textJump();
+
+    /**
+     * Causes the text to shake before going back into place.
+     */
+    void textShake();
+
 private slots:
 
 private:
@@ -69,6 +80,29 @@ private:
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
     PracticeHandler *practiceHandler;
+
+    QTimer timer;
+
+    b2World world;
+    b2Body* textBody;
+    b2Body* shakeAnchor;
+    b2RopeJoint* ropeJoint;
+
+    int problemTextX;
+    int problemTextY;
+
+    int shakeFrameCount;
+    bool currentlyShaking;
+
+    /**
+     * Sets up Box2D objects and environment.
+     */
+    void setupWorld();
+
+    /**
+     * Gets updated Box2D positions.
+     */
+    void updateWorld();
 };
 
 #endif // PRACTICEWINDOW_H

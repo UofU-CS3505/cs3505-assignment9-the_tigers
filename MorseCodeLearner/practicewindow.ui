@@ -438,6 +438,9 @@ border-style: solid double;</string>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::NoFocus</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {border: 1px solid black;
 background-color: transparent;
@@ -466,6 +469,9 @@ QPushButton:hover {
      <pointsize>52</pointsize>
      <kerning>false</kerning>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::ClickFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
@@ -549,6 +555,9 @@ border-style: solid double;</string>
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {border: 1px solid black;
