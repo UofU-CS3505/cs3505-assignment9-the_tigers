@@ -320,17 +320,29 @@ private:
     std::atomic<bool> running;
     std::atomic<bool> suspended;
     float volume;
-    float lastOutputSample = 0.0f;
+    // float lastOutputSample = 0.0f;
 
     static void audioCallback(void* userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer) {
         auto* self = static_cast<CoreAudioSink*>(userData);
         std::unique_lock<std::mutex> lock(self->suspendMutex);
+
         if (self->suspended || !self->running) {
+            {
+                std::lock_guard<std::mutex> bufferLock(self->bufferMutex);
+                while (true) {
+                    if (abs(self->ringBuffer[self->bufferReadPos]) > 0.009) {
+                        self->bufferReadPos = (self->bufferReadPos + 1) % self->ringBuffer.size();
+                    } else {
+                        break;
+                    }
+                }
+            }
             std::memset(inBuffer->mAudioData, 0, inBuffer->mAudioDataBytesCapacity);
             inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
             AudioQueueEnqueueBuffer(inAQ, inBuffer, 0, nullptr);
             return;
         }
+
         lock.unlock();
 
         size_t frames = inBuffer->mAudioDataBytesCapacity / (sizeof(float) * self->channels);
