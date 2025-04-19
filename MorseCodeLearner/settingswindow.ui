@@ -199,6 +199,9 @@ Iambic Paddle uses left/right arrow keys.</string>
     </item>
     <item>
      <widget class="QSlider" name="volumeSlider">
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::ClickFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
       </property>
