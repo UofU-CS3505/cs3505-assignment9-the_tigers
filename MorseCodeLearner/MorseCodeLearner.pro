@@ -16,6 +16,7 @@ INCLUDEPATH += $$PWD/include/util \
                $$PWD/Box2D
 
 SOURCES += \
+    src/util/audiosink.cpp \
     src/util/crossplatformaudiosink.cpp \
     src/util/difficultyhandler.cpp \
     src/util/lessonhandler.cpp \
@@ -81,6 +82,7 @@ SOURCES += \
     Box2D/Rope/b2Rope.cpp
 
 HEADERS += \
+    include/util/audiosink.h \
     include/util/crossplatformaudiosink.h \
     include/util/difficultyhandler.h \
     include/util/keyeventfilter.h \
