@@ -175,14 +175,14 @@ void translatorwindow::onMorseReceived(const string morse) {
         return;
     }
     QString qmorse = QString::fromStdString(morse);
-    ui->inputText->blockSignals(true);
-    ui->inputText->setText(ui->inputText->toPlainText() + qmorse);
-    ui->inputText->blockSignals(false);
 
-    if (morse == "/ " || morse == " ") {
+    if (qmorse == "/ " || qmorse == " ") {
+        ui->inputText->blockSignals(true);
+        ui->inputText->setText(ui->inputText->toPlainText() + ui->morsePreview->text() + qmorse);
+        ui->inputText->blockSignals(false);
         ui->morsePreview->clear();
     } else {
-        ui->morsePreview->setText(ui->morsePreview->text() + QString::fromStdString(morse));
+        ui->morsePreview->setText(ui->morsePreview->text() + qmorse);
     }
 
     if (morse == " ") {

@@ -464,6 +464,50 @@ QPushButton:hover {
      <string>HAND GRAPHIC</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="morsePreview">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>210</y>
+      <width>181</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>54</pointsize>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::NoFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+        background: transparent;
+        border: none;
+        color: black; /* or any color you want */
+    }</string>
+    </property>
+    <property name="text">
+     <string>-----</string>
+    </property>
+    <property name="frame">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+    <property name="cursorMoveStyle">
+     <enum>Qt::CursorMoveStyle::VisualMoveStyle</enum>
+    </property>
+   </widget>
   </widget>
   <widget class="QFrame" name="instructionFrame">
    <property name="geometry">

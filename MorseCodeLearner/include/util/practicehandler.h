@@ -28,6 +28,7 @@ private:
     QString problemText; // contains the current problem in english
     QString inputText; // contains the user's input
     QString morseText; // contains morse input for english problem and morse input
+    QString morsePreviewText;
     bool acceptingInput = false;
     int score = 0;
     int streak = 0; // number of correct answers in a row
@@ -181,6 +182,8 @@ signals:
      * @param morseText - morse code representation
      */
     void updateInputText(QString morseText);
+
+    void updateMorsePreviewText(QString morse);
 
     /**
      * Signal that gets emitted when the back button is pressed.
