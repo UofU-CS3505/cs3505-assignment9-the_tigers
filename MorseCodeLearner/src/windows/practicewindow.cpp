@@ -167,10 +167,15 @@ void practicewindow::setupWorld(){
     b2PolygonShape dynamicBox;
     dynamicBox.SetAsBox(1.0f, 1.0f);
 
-    b2BodyDef textBodyDefinition;
-    textBodyDefinition.type = b2_dynamicBody;
-    textBodyDefinition.position.Set(0.0f, 2.0f);
-    textBody = world.CreateBody(&textBodyDefinition);
+    b2BodyDef textShakeBodyDefinition;
+    textShakeBodyDefinition.type = b2_dynamicBody;
+    textShakeBodyDefinition.position.Set(0.0f, 2.0f);
+    textShakeBody = world.CreateBody(&textShakeBodyDefinition);
+
+    b2BodyDef textJumpBodyDefinition;
+    textJumpBodyDefinition.type = b2_dynamicBody;
+    textJumpBodyDefinition.position.Set(5.0f, 2.0f);
+    textJumpBody = world.CreateBody(&textJumpBodyDefinition);
 
     b2BodyDef shakeAnchorDefinition;
     shakeAnchorDefinition.type = b2_staticBody;
@@ -179,16 +184,22 @@ void practicewindow::setupWorld(){
 
     b2RopeJointDef ropeJointDefinition;
     ropeJointDefinition.bodyA = shakeAnchor;
-    ropeJointDefinition.bodyB = textBody;
+    ropeJointDefinition.bodyB = textShakeBody;
     ropeJointDefinition.collideConnected = false;
     ropeJoint = (b2RopeJoint*) world.CreateJoint(&ropeJointDefinition);
 
-    b2FixtureDef textFixtureDefinition;
-    textFixtureDefinition.shape = &dynamicBox;
-    textFixtureDefinition.density = 1.0f;
-    textFixtureDefinition.friction = 0.3f;
+    b2FixtureDef textShakeFixtureDefinition;
+    textShakeFixtureDefinition.shape = &dynamicBox;
+    textShakeFixtureDefinition.density = 1.0f;
+    textShakeFixtureDefinition.friction = 0.3f;
 
-    textBody->CreateFixture(&textFixtureDefinition);
+    b2FixtureDef textJumpFixtureDefinition;
+    textJumpFixtureDefinition.shape = &dynamicBox;
+    textJumpFixtureDefinition.density = 5.0f;
+    textJumpFixtureDefinition.friction = 0.3f;
+
+    textShakeBody->CreateFixture(&textShakeFixtureDefinition);
+    textJumpBody->CreateFixture(&textJumpFixtureDefinition);
 
     problemTextX = ui->problemText->x();
     problemTextY = ui->problemText->y();
@@ -203,20 +214,20 @@ void practicewindow::updateWorld(){
 
     world.Step(timeStep, velocityIterations, positionIterations);
 
-    ui->problemText->move(problemTextX - textBody->GetPosition().x, problemTextY - textBody->GetPosition().y);
+    ui->problemText->move(problemTextX - textShakeBody->GetPosition().x, problemTextY - textShakeBody->GetPosition().y - textJumpBody->GetPosition().y + 4);
 
     if(currentlyShaking){
         if(shakeFrameCount >= 30){
             currentlyShaking = false;
-            textBody->SetLinearVelocity(b2Vec2(0,0));
+            textShakeBody->SetLinearVelocity(b2Vec2(0,0));
         }
 
         else if (shakeFrameCount % 2 == 0){
-            textBody->SetLinearVelocity(b2Vec2(5000,0));
+            textShakeBody->SetLinearVelocity(b2Vec2(5000,0));
         }
 
         else {
-            textBody->SetLinearVelocity(b2Vec2(-5000,0));
+            textShakeBody->SetLinearVelocity(b2Vec2(-5000,0));
         }
 
         shakeFrameCount++;
@@ -226,8 +237,8 @@ void practicewindow::updateWorld(){
 }
 
 void practicewindow::textJump(){
-    textBody->SetLinearVelocity(b2Vec2(0, 50000));
-    textBody->SetAwake(true);
+    textJumpBody->SetLinearVelocity(b2Vec2(0, 15));
+    textJumpBody->SetAwake(true);
 }
 
 void practicewindow::textShake(){

@@ -84,7 +84,8 @@ private:
     QTimer timer;
 
     b2World world;
-    b2Body* textBody;
+    b2Body* textShakeBody;
+    b2Body* textJumpBody;
     b2Body* shakeAnchor;
     b2RopeJoint* ropeJoint;
 
