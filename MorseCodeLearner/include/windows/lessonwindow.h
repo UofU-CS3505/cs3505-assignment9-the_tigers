@@ -5,6 +5,7 @@
 #include "keyeventfilter.h"
 #include "morsehandler.h"
 #include "lessonhandler.h"
+#include "Box2D/Box2D.h"
 
 namespace Ui {
 class lessonwindow;
@@ -24,6 +25,30 @@ private:
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
 
+    QTimer timer;
+
+    b2World world;
+    b2Body* textShakeBody;
+    b2Body* textJumpBody;
+    b2Body* shakeAnchor;
+    b2RopeJoint* ropeJoint;
+
+    int problemTextX;
+    int problemTextY;
+
+    int shakeFrameCount;
+    bool currentlyShaking;
+
+    /**
+     * Sets up Box2D objects and environment.
+     */
+    void setupWorld();
+
+    /**
+     * Gets updated Box2D positions.
+     */
+    void updateWorld();
+
     // Connection objects for illustrations, must be retained so they can be changed later
     QMetaObject::Connection rightPressedConnection;
     QMetaObject::Connection rightReleasedConnection;
@@ -40,6 +65,7 @@ signals:
     void goToLessonSelect();
 
     void backButtonClicked();
+
 private slots:
     void onBackButtonClicked();
 
