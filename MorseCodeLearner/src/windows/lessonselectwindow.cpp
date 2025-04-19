@@ -52,6 +52,7 @@ lessonselectwindow::~lessonselectwindow()
 
 void lessonselectwindow::checkAndUpdateLessonComplete() {
     QSettings settings("Tigers", "MorseCodeLearner");
+    int completedNumber = 0;
 
     for (int lessonNumber = 1; lessonNumber <= 10; lessonNumber++) {
         QPushButton* lessonButton = findChild<QPushButton*>(QString("lessonButton_%1").arg(lessonNumber));
@@ -64,8 +65,12 @@ void lessonselectwindow::checkAndUpdateLessonComplete() {
             checkmarkLabel->resize(checkmarkPixmap.size());
             checkmarkLabel->move(lessonButton->width() - checkmarkLabel->width() - 5, lessonButton->height() - checkmarkLabel->height() - 5);
             checkmarkLabel->show();
+
+            completedNumber++;
         }
     }
+
+    ui->lessonCompleteCounterLabel->setNum(completedNumber);
 }
 
 void lessonselectwindow::setUserOnThisPage(bool userOnThisPage) {
