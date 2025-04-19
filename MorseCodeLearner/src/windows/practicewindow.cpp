@@ -148,7 +148,7 @@ void practicewindow::setupWorld(){
 
     b2BodyDef textBodyDefinition;
     textBodyDefinition.type = b2_dynamicBody;
-    textBodyDefinition.position.Set(0.0f, 0.0f);
+    textBodyDefinition.position.Set(0.0f, 2.0f);
     textBody = world.CreateBody(&textBodyDefinition);
 
     b2BodyDef shakeAnchorDefinition;
@@ -188,7 +188,14 @@ void practicewindow::updateWorld(){
         if(shakeFrameCount >= 30){
             currentlyShaking = false;
             textBody->SetLinearVelocity(b2Vec2(0,0));
-            textBody->SetTransform(b2Vec2(0.0f, 1.0f), 0);
+        }
+
+        else if (shakeFrameCount % 2 == 0){
+            textBody->SetLinearVelocity(b2Vec2(5000,0));
+        }
+
+        else {
+            textBody->SetLinearVelocity(b2Vec2(-5000,0));
         }
 
         shakeFrameCount++;
@@ -205,6 +212,5 @@ void practicewindow::textJump(){
 void practicewindow::textShake(){
     shakeFrameCount = 0;
     currentlyShaking = true;
-    textBody->ApplyForce(b2Vec2(0, 10000), textBody->GetWorldCenter(), true);
 }
 
