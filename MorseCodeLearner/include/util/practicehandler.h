@@ -228,6 +228,18 @@ signals:
      * @param highScore - high score to send
      */
     void updateHighScore(QString highScore);
+
+    /**
+     * Emits a signal for Box2D to make the text jump
+     * when a correct answer is inputted.
+     */
+    void correctTextJump();
+
+    /**
+     * Emits a signal for Box2D to make the text shake
+     * when an incorrect answer is inputted.
+     */
+    void incorrectTextShake();
 };
 
 #endif // PRACTICEHANDLER_H
