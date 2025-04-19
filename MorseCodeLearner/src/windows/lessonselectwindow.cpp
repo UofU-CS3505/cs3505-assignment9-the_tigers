@@ -1,5 +1,6 @@
 #include "lessonselectwindow.h"
 #include "ui_lessonselectwindow.h"
+#include <QSettings>
 
 lessonselectwindow::lessonselectwindow(QWidget *parent)
     : QWidget(parent)
@@ -12,6 +13,9 @@ lessonselectwindow::lessonselectwindow(QWidget *parent)
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonselectwindow::onBackButtonClicked);
+
+    // Checkmark icon if lesson is completed
+    checkAndUpdateLessonComplete();
 
     // Connections for lesson buttons
     // TODO: emit to a slot in mainwindow, which then emits a signal to lessonhandler and lessonwindow
@@ -46,8 +50,27 @@ lessonselectwindow::~lessonselectwindow()
     delete ui;
 }
 
+void lessonselectwindow::checkAndUpdateLessonComplete() {
+    QSettings settings("Tigers", "MorseCodeLearner");
+
+    for (int lessonNumber = 1; lessonNumber <= 10; lessonNumber++) {
+        QPushButton* lessonButton = findChild<QPushButton*>(QString("lessonButton_%1").arg(lessonNumber));
+        bool lessonCompleted = settings.value(QString("lesson%1Completed").arg(lessonNumber), false).toBool();
+
+        if (lessonCompleted) {
+            QLabel* checkmarkLabel = new QLabel(lessonButton);
+            QPixmap checkmarkPixmap = QPixmap(":/icons/check.png").scaled(48, 48, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            checkmarkLabel->setPixmap(checkmarkPixmap);
+            checkmarkLabel->resize(checkmarkPixmap.size());
+            checkmarkLabel->move(lessonButton->width() - checkmarkLabel->width() - 5, lessonButton->height() - checkmarkLabel->height() - 5);
+            checkmarkLabel->show();
+        }
+    }
+}
+
 void lessonselectwindow::setUserOnThisPage(bool userOnThisPage) {
     this->userOnThisPage = userOnThisPage;
+    checkAndUpdateLessonComplete();
 }
 
 bool lessonselectwindow::getUserOnThisPage() {

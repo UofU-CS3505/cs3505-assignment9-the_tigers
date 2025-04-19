@@ -30,6 +30,8 @@ public:
      */
     ~lessonselectwindow();
 
+    void checkAndUpdateLessonComplete();
+
     void setUserOnThisPage(bool userOnThisPage);
 
     bool getUserOnThisPage();
