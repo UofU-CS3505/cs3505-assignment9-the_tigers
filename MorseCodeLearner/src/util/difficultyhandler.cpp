@@ -29,10 +29,10 @@ QString DifficultyHandler::getEasyString() {
 }
 
 QString DifficultyHandler::getMediumString() {
-    int randomSelection = rand() % 2;
+    int randomSelection = rand() % 5;
     practiceText = "";
 
-    if(randomSelection == 0) {
+    if(randomSelection > 0) {
         int randomPracticeIndex = rand() % dictionary.size();
         practiceText = QString::fromStdString(dictionary.at(randomPracticeIndex));
     }
@@ -52,9 +52,9 @@ QString DifficultyHandler::getHardString() {
     practiceText = "";
 
     for(int i = 0; i < 5; i++){
-        randomSelection = rand() % 2;
+        randomSelection = rand() % 4;
 
-        if (randomSelection == 0) {
+        if (randomSelection > 0) {
             randomPracticeIndex = rand() % dictionary.size();
             practiceText.append(dictionary.at(randomPracticeIndex));
         }

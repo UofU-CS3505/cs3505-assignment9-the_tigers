@@ -59,6 +59,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 
     QObject::connect(practiceHandler, &PracticeHandler::updateInputText, this, &practicewindow::updateInputText);
     QObject::connect(practiceHandler, &PracticeHandler::updatePracticeText, this, &practicewindow::updatePracticeText);
+    QObject::connect(practiceHandler, &PracticeHandler::updateMorsePreviewText, this, [=](QString morse) {ui->morsePreview->setText(morse);});
     QObject::connect(ui->difficultySelectBox, &QComboBox::currentTextChanged, practiceHandler, &PracticeHandler::setDifficulty);
 
     QObject::connect(ui->inputText, &QLineEdit::textChanged, practiceHandler, [practiceHandler, this](){practiceHandler->receiveInputText(ui->inputText->text());});

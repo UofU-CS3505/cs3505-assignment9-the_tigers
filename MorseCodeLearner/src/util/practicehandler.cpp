@@ -27,6 +27,8 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
 
 void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
     this->userOnThisPage = userOnThisPage;
+    morsePreviewText = "";
+    emit updateMorsePreviewText(morsePreviewText);
 
     if (userOnThisPage) {
         loadHighScore();
@@ -150,27 +152,28 @@ void PracticeHandler::onMorseReceived(const string morse) {
 
     QString qmorse = QString::fromStdString(morse);
 
+    if (qmorse == " " || qmorse == "/ ") {
+        morseText += morsePreviewText + qmorse;
+        emit updateInputText(morseText);
+        morsePreviewText = "";
+    } else {
+        morsePreviewText += qmorse;
+    }
+    emit updateMorsePreviewText(morsePreviewText);
+
     if (difficultyHandler->getDifficulty() == DifficultyHandler::difficulty::HARD) {
         // Hard Difficulty
         if (qmorse == "/ " && hardWordCounter < 4) {
             hardWordCounter++;
-            morseText += qmorse;
-            emit updateInputText(morseText);
         } else if (qmorse == "/ " && hardWordCounter >= 4) {
             checkProblem();
-        } else {
-            morseText += qmorse;
-            emit updateInputText(morseText);
         }
     }
     // checks for other modes
     else if (qmorse == "/ ") {
         checkProblem();
     }
-    else {
-        morseText += qmorse;
-        emit updateInputText(morseText);
-    }
+
 }
 
 void PracticeHandler::setDifficulty(QString difficulty) {
@@ -212,7 +215,8 @@ void PracticeHandler::setMode(QString newMode) {
 
 void PracticeHandler::checkProblem() {
     acceptingInput = false;
-    if (inputText == problemText) {
+
+    if (inputText == problemText || inputText == problemText + " " || inputText == problemText + " / ") {
         emit updatePracticeText("Correct!");
         streak++;
         score += problemText.length() * 100 * (streak * 0.25) * (1200 / morseHandler->getUnitTime());

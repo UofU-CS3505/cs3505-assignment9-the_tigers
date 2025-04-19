@@ -170,6 +170,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::NoFocus</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
 padding-left: 0.5em;
@@ -205,6 +208,9 @@ background-color: white;</string>
      <family>OldNewspaperTypes</family>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
@@ -329,7 +335,7 @@ border-style: solid double;</string>
   <widget class="QLabel" name="scoreLabel">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>210</x>
      <y>340</y>
      <width>91</width>
      <height>51</height>
@@ -348,8 +354,8 @@ border-style: solid double;</string>
   <widget class="QWidget" name="lineWidget_6" native="true">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>329</y>
+     <x>190</x>
+     <y>330</y>
      <width>20</width>
      <height>71</height>
     </rect>
@@ -362,7 +368,7 @@ border-style: solid double;</string>
   <widget class="QLabel" name="scoreDisplayLabel">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>310</x>
      <y>340</y>
      <width>171</width>
      <height>51</height>
@@ -471,7 +477,7 @@ QPushButton:hover {
     </font>
    </property>
    <property name="focusPolicy">
-    <enum>Qt::FocusPolicy::ClickFocus</enum>
+    <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
@@ -575,7 +581,7 @@ QPushButton:hover {
   <widget class="QLabel" name="highScoreLabel">
    <property name="geometry">
     <rect>
-     <x>480</x>
+     <x>490</x>
      <y>340</y>
      <width>171</width>
      <height>51</height>
@@ -595,7 +601,7 @@ QPushButton:hover {
   <widget class="QWidget" name="lineWidget_10" native="true">
    <property name="geometry">
     <rect>
-     <x>460</x>
+     <x>470</x>
      <y>330</y>
      <width>20</width>
      <height>71</height>
@@ -611,7 +617,7 @@ border-style: solid double;</string>
     <rect>
      <x>650</x>
      <y>340</y>
-     <width>171</width>
+     <width>141</width>
      <height>51</height>
     </rect>
    </property>
@@ -641,6 +647,38 @@ border-style: solid double;</string>
     <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
    </property>
   </widget>
+  <widget class="QLineEdit" name="morsePreview">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>240</y>
+     <width>221</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>54</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+        background: transparent;
+        border: none;
+        color: black; /* or any color you want */
+    }</string>
+   </property>
+   <property name="text">
+    <string>-----</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>lineWidget_4</zorder>
   <zorder>headerFrame</zorder>
   <zorder>problemText</zorder>
@@ -668,6 +706,7 @@ border-style: solid double;</string>
   <zorder>lineWidget_7</zorder>
   <zorder>checkInputButton</zorder>
   <zorder>illustrationLabel</zorder>
+  <zorder>morsePreview</zorder>
  </widget>
  <resources/>
  <connections/>
