@@ -646,6 +646,9 @@ border-style: solid double;</string>
    <property name="text">
     <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLineEdit" name="morsePreview">
    <property name="enabled">
@@ -654,15 +657,16 @@ border-style: solid double;</string>
    <property name="geometry">
     <rect>
      <x>530</x>
-     <y>240</y>
+     <y>190</y>
      <width>221</width>
-     <height>81</height>
+     <height>131</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Arial</family>
+     <family>OldNewspaperTypes</family>
      <pointsize>54</pointsize>
+     <kerning>false</kerning>
     </font>
    </property>
    <property name="styleSheet">

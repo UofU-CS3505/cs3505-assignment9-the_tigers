@@ -34,6 +34,12 @@ void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
         loadHighScore();
         loadPracticeProblem();
         firstAudioPlay = true;
+
+        if (morseHandler->getDevice() == MorseHandler::STRAIGHT_KEY) {
+            emit straightKeySelected();
+        } else {
+            emit paddleSelected();
+        }
     }
 }
 
@@ -147,7 +153,7 @@ void PracticeHandler::loadPracticeProblem(QString problemText) {
 }
 
 void PracticeHandler::onMorseReceived(const string morse) {
-    if (!userOnThisPage || !(mode == ENCODE_ENGLISH))
+    if (!userOnThisPage || !(mode == ENCODE_ENGLISH) || !acceptingInput)
         return;
 
     QString qmorse = QString::fromStdString(morse);

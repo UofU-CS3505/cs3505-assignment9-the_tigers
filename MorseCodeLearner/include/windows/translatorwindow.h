@@ -120,6 +120,14 @@ private:
     translateMode mode = MORSE_TO_TEXT;
 
     bool userOnThisPage = false;
+
+    // Connection objects for illustrations, must be retained so they can be changed later
+    QMetaObject::Connection rightPressedConnection;
+    QMetaObject::Connection rightReleasedConnection;
+    QMetaObject::Connection leftPressedConnection;
+    QMetaObject::Connection leftReleasedConnection;
+    QMetaObject::Connection straightPressedConnection;
+    QMetaObject::Connection straightReleasedConnection;
 };
 
 #endif // TRANSLATORWINDOW_H

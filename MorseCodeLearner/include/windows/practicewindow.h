@@ -103,6 +103,14 @@ private:
      * Gets updated Box2D positions.
      */
     void updateWorld();
+
+    // Connection objects for illustrations, must be retained so they can be changed later
+    QMetaObject::Connection rightPressedConnection;
+    QMetaObject::Connection rightReleasedConnection;
+    QMetaObject::Connection leftPressedConnection;
+    QMetaObject::Connection leftReleasedConnection;
+    QMetaObject::Connection straightPressedConnection;
+    QMetaObject::Connection straightReleasedConnection;
 };
 
 #endif // PRACTICEWINDOW_H

@@ -128,6 +128,16 @@ signals:
     void lightIndicatorOff();
 
     void completedLesson();
+
+    /**
+     * For illustration, emitted when navigating to this page.
+     */
+    void paddleSelected();
+
+    /**
+     * For illustration, emitted when navigating to this page.
+     */
+    void straightKeySelected();
 };
 
 #endif // LESSONHANDLER_H

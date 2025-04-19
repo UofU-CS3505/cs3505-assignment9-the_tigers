@@ -37,14 +37,6 @@ translatorwindow::translatorwindow(QWidget *parent,
     ui->flashIndicator->setPixmap(lightOff);
     ui->flashIndicator->setScaledContents(true);
 
-    // Telegraph illustrations
-    QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
-    QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
-    ui->illustrationLabel->setScaledContents(true);
-    ui->illustrationLabel->setPixmap(straightKeyUp);
-    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
-    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
-
     // Light indicator
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
@@ -67,6 +59,35 @@ translatorwindow::~translatorwindow() {
 void translatorwindow::setUserOnThisPage(bool userOnThisPage) {
     ui->morsePreview->setText("");
     this->userOnThisPage = userOnThisPage;
+
+    if (userOnThisPage) {
+        if (morseHandler->getDevice() == MorseHandler::STRAIGHT_KEY) {
+            QObject::disconnect(rightPressedConnection);
+            QObject::disconnect(rightReleasedConnection);
+            QObject::disconnect(leftPressedConnection);
+            QObject::disconnect(leftReleasedConnection);
+
+            // Straight key illustrations
+            QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+            QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
+            ui->illustrationLabel->setPixmap(straightKeyUp);
+            straightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
+            straightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
+        } else {
+            QObject::disconnect(straightPressedConnection);
+            QObject::disconnect(straightReleasedConnection);
+
+            // Iambic paddle illustrations
+            QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));
+            QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
+            QPixmap paddleCenter(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
+            ui->illustrationLabel->setPixmap(paddleCenter);
+            rightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, [this, paddleRight](){ui->illustrationLabel->setPixmap(paddleRight);});
+            rightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, [this, paddleCenter](){ui->illustrationLabel->setPixmap(paddleCenter);});
+            leftPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, [this, paddleLeft](){ui->illustrationLabel->setPixmap(paddleLeft);});
+            leftReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, [this, paddleCenter](){ui->illustrationLabel->setPixmap(paddleCenter);});
+        }
+    }
 }
 
 bool translatorwindow::getUserOnThisPage() {
