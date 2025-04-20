@@ -7,6 +7,8 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     , lessonHandler(lessonHandler)
     , morseHandler(morseHandler)
     , keyEventFilter(keyEventFilter)
+    , timer(this)
+    , world(b2Vec2(0, -20))
 {
     ui->setupUi(this);
 
@@ -75,6 +77,8 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
         straightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
         straightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
     });
+
+    setupWorld();
 }
 
 lessonwindow::~lessonwindow()
@@ -89,10 +93,16 @@ void lessonwindow::onBackButtonClicked() {
 
 void lessonwindow::guessCorrect() {
     ui->problemText->setText("Correct!");
+
+    textJumpBody->SetLinearVelocity(b2Vec2(0, 15));
+    textJumpBody->SetAwake(true);
 }
 
 void lessonwindow::guessIncorrect() {
     ui->problemText->setText("Incorrect!");
+
+    shakeFrameCount = 0;
+    currentlyShaking = true;
 }
 
 void lessonwindow::displayTextQuestion(QString text) {
@@ -108,3 +118,85 @@ void lessonwindow::updateLessonTitle(int lessonNumber) {
     ui->headerLabel->setText("Lesson " + QString::fromStdString(std::to_string(lessonNumber)));
 }
 
+void lessonwindow::setupWorld() {
+    b2BodyDef groundBodyDef;
+    groundBodyDef.position.Set(0.0f, 0.0f);
+
+    b2Body* groundBody = world.CreateBody(&groundBodyDef);
+
+    b2PolygonShape groundBox;
+    groundBox.SetAsBox(50.0f, 10.0f);
+
+    groundBody->CreateFixture(&groundBox, 0.0f);
+
+    b2PolygonShape dynamicBox;
+    dynamicBox.SetAsBox(1.0f, 1.0f);
+
+    b2BodyDef textShakeBodyDefinition;
+    textShakeBodyDefinition.type = b2_dynamicBody;
+    textShakeBodyDefinition.position.Set(0.0f, 2.0f);
+    textShakeBody = world.CreateBody(&textShakeBodyDefinition);
+
+    b2BodyDef textJumpBodyDefinition;
+    textJumpBodyDefinition.type = b2_dynamicBody;
+    textJumpBodyDefinition.position.Set(5.0f, 2.0f);
+    textJumpBody = world.CreateBody(&textJumpBodyDefinition);
+
+    b2BodyDef shakeAnchorDefinition;
+    shakeAnchorDefinition.type = b2_staticBody;
+    shakeAnchorDefinition.position.Set(0.0f, 10.0f);
+    shakeAnchor = world.CreateBody(&shakeAnchorDefinition);
+
+    b2RopeJointDef ropeJointDefinition;
+    ropeJointDefinition.bodyA = shakeAnchor;
+    ropeJointDefinition.bodyB = textShakeBody;
+    ropeJointDefinition.collideConnected = false;
+    ropeJoint = (b2RopeJoint*) world.CreateJoint(&ropeJointDefinition);
+
+    b2FixtureDef textShakeFixtureDefinition;
+    textShakeFixtureDefinition.shape = &dynamicBox;
+    textShakeFixtureDefinition.density = 1.0f;
+    textShakeFixtureDefinition.friction = 0.3f;
+
+    b2FixtureDef textJumpFixtureDefinition;
+    textJumpFixtureDefinition.shape = &dynamicBox;
+    textJumpFixtureDefinition.density = 5.0f;
+    textJumpFixtureDefinition.friction = 0.3f;
+
+    textShakeBody->CreateFixture(&textShakeFixtureDefinition);
+    textJumpBody->CreateFixture(&textJumpFixtureDefinition);
+
+    problemTextX = ui->problemText->x();
+    problemTextY = ui->problemText->y();
+
+    timer.singleShot(10, this, &lessonwindow::updateWorld);
+}
+
+void lessonwindow::updateWorld() {
+    float32 timeStep = 1.0f / 60.0f;
+    int32 velocityIterations = 6;
+    int32 positionIterations = 2;
+
+    world.Step(timeStep, velocityIterations, positionIterations);
+
+    ui->problemText->move(problemTextX - textShakeBody->GetPosition().x, problemTextY - textShakeBody->GetPosition().y - textJumpBody->GetPosition().y + 4);
+
+    if(currentlyShaking){
+        if(shakeFrameCount >= 30){
+            currentlyShaking = false;
+            textShakeBody->SetLinearVelocity(b2Vec2(0,0));
+        }
+
+        else if (shakeFrameCount % 2 == 0){
+            textShakeBody->SetLinearVelocity(b2Vec2(5000,0));
+        }
+
+        else {
+            textShakeBody->SetLinearVelocity(b2Vec2(-5000,0));
+        }
+
+        shakeFrameCount++;
+    }
+
+    timer.singleShot(10, this, &lessonwindow::updateWorld);
+}

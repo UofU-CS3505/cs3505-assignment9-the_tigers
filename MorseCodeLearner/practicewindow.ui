@@ -337,14 +337,14 @@ border-style: solid double;</string>
     <rect>
      <x>210</x>
      <y>340</y>
-     <width>91</width>
-     <height>51</height>
+     <width>81</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>OldNewspaperTypes</family>
-     <pointsize>18</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="text">
@@ -368,16 +368,16 @@ border-style: solid double;</string>
   <widget class="QLabel" name="scoreDisplayLabel">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>290</x>
      <y>340</y>
-     <width>171</width>
-     <height>51</height>
+     <width>181</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>OldNewspaperTypes</family>
-     <pointsize>18</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="text">
@@ -581,16 +581,16 @@ QPushButton:hover {
   <widget class="QLabel" name="highScoreLabel">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>340</y>
-     <width>171</width>
-     <height>51</height>
+     <x>210</x>
+     <y>370</y>
+     <width>141</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>OldNewspaperTypes</family>
-     <pointsize>18</pointsize>
+     <pointsize>14</pointsize>
      <kerning>true</kerning>
     </font>
    </property>
@@ -615,16 +615,16 @@ border-style: solid double;</string>
   <widget class="QLabel" name="highScoreDisplayLabel">
    <property name="geometry">
     <rect>
-     <x>650</x>
-     <y>340</y>
-     <width>141</width>
-     <height>51</height>
+     <x>350</x>
+     <y>370</y>
+     <width>111</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>OldNewspaperTypes</family>
-     <pointsize>18</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="text">
@@ -656,10 +656,10 @@ border-style: solid double;</string>
    </property>
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>190</y>
-     <width>221</width>
-     <height>131</height>
+     <x>480</x>
+     <y>330</y>
+     <width>331</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
