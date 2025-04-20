@@ -60,6 +60,8 @@ private slots:
     void displayTextQuestion(QString text);
 
     void updateInputText(QString inputText);
+
+    void updateLessonTitle(int lessonNumber);
 };
 
 

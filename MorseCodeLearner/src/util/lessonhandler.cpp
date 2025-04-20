@@ -72,6 +72,8 @@ void LessonHandler::startLesson(int lessonNumber) {
             return;
     }
 
+    emit updateLessonTitle(currentLessonNumber);
+
     for (const std::string &character : currentLessonCharacters) {
         learnedCharacters[character] = 0;
     }

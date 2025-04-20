@@ -138,6 +138,8 @@ signals:
      * For illustration, emitted when navigating to this page.
      */
     void straightKeySelected();
+
+    void updateLessonTitle(int lessonNumber);
 };
 
 #endif // LESSONHANDLER_H

@@ -19,6 +19,7 @@ INCLUDEPATH += $$PWD/include/util \
                $$PWD/Box2D
 
 SOURCES += \
+    src/windows/morsecodebasics.cpp \
     src/util/audiosink.cpp \
     src/util/crossplatformaudiosink.cpp \
     src/util/difficultyhandler.cpp \
@@ -102,6 +103,7 @@ HEADERS += \
     include/util/sinewavegenerator.h \
     include/windows/translatorwindow.h \
     include/util/practicehandler.h \
+    include/windows/morsecodebasics.h \
     Box2D/Box2D.h \
     Box2D/Collision/Shapes/b2ChainShape.h \
     Box2D/Collision/Shapes/b2CircleShape.h \
@@ -148,13 +150,14 @@ HEADERS += \
     Box2D/Dynamics/b2TimeStep.h \
     Box2D/Dynamics/b2World.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
-    Box2D/Rope/b2Rope.h
+    Box2D/Rope/b2Rope.h \
 
 FORMS += \
     lessonselectwindow.ui \
     lessonwindow.ui \
     mainwindow.ui \
     menuwindow.ui \
+    morsecodebasics.ui \
     practicewindow.ui \
     referencewindow.ui \
     settingswindow.ui \

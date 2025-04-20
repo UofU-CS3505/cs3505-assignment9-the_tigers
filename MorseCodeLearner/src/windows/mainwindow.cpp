@@ -36,9 +36,11 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(lessonSelectWindow, &lessonselectwindow::goHome, this, &MainWindow::goHome);
     QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);
     QObject::connect(referenceWindow, &referencewindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(morseCodeBasicsWindow, &MorseCodeBasics::goBack, this, &MainWindow::onLearningNavClicked);
 
     QObject::connect(this, &MainWindow::startLesson, lessonHandler, &LessonHandler::startLesson);
     QObject::connect(this, &MainWindow::userOnLessonPage, lessonHandler, &LessonHandler::setUserOnThisPage);
+    QObject::connect(this, &MainWindow::userOnMorseCodeBasics, morseCodeBasicsWindow, &MorseCodeBasics::setUserOnThisPage);
 
     // This needs to be called last
     settingsWindow->loadSettings();
@@ -57,6 +59,7 @@ void MainWindow::setUpPages() {
     translatorWindow = new translatorwindow(this, morseHandler, keyEventFilter);
     menuWindow = new MenuWindow();
     referenceWindow = new referencewindow(this);
+    morseCodeBasicsWindow = new MorseCodeBasics(this);
 
     stackedWidget->addWidget(lessonWindow);
     stackedWidget->addWidget(lessonSelectWindow);
@@ -65,6 +68,7 @@ void MainWindow::setUpPages() {
     stackedWidget->addWidget(translatorWindow);
     stackedWidget->addWidget(menuWindow);
     stackedWidget->addWidget(referenceWindow);
+    stackedWidget->addWidget(morseCodeBasicsWindow);
 
     stackedWidget->setCurrentWidget(menuWindow);
     menuWindow->setUserOnThisPage(true);
@@ -92,10 +96,22 @@ void MainWindow::onLearningNavClicked()
 }
 
 void MainWindow::onLessonClicked(int lessonNumber) {
-    stackedWidget->setCurrentWidget(lessonWindow);
-    emit userOnLessonPage(true);
-    this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
-    emit startLesson(lessonNumber);
+    if (lessonNumber == 1) {
+        stackedWidget->setCurrentWidget(morseCodeBasicsWindow);
+        emit userOnMorseCodeBasics(true);
+        this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
+    } else if (lessonNumber == 7) {
+
+    } else if (lessonNumber == 9) {
+
+    } else if (lessonNumber == 10) {
+
+    } else {
+        stackedWidget->setCurrentWidget(lessonWindow);
+        emit userOnLessonPage(true);
+        this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
+        emit startLesson(lessonNumber);
+    }
 }
 
 void MainWindow::onSettingsNavClicked()
