@@ -37,12 +37,13 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);
     QObject::connect(referenceWindow, &referencewindow::goHome, this, &MainWindow::goHome);
     QObject::connect(morseCodeBasicsWindow, &MorseCodeBasics::goBack, this, &MainWindow::onLearningNavClicked);
-    QObject::connect(numbersBasicsWindow, &NumbersBasics::goBack, this, &MainWindow::onLearningNavClicked);
+    QObject::connect(paddleLessonWindow, &PaddleLesson::goBack, this, &MainWindow::onLearningNavClicked);
 
     QObject::connect(this, &MainWindow::startLesson, lessonHandler, &LessonHandler::startLesson);
     QObject::connect(this, &MainWindow::userOnLessonPage, lessonHandler, &LessonHandler::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnMorseCodeBasics, morseCodeBasicsWindow, &MorseCodeBasics::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnNumbersBasics, numbersBasicsWindow, &NumbersBasics::setUserOnThisPage);
+    QObject::connect(this, &MainWindow::userOnPaddleLesson, paddleLessonWindow, &PaddleLesson::setUserOnThisPage);
 
     // This needs to be called last
     settingsWindow->loadSettings();
@@ -63,6 +64,7 @@ void MainWindow::setUpPages() {
     referenceWindow = new referencewindow(this);
     morseCodeBasicsWindow = new MorseCodeBasics(this);
     numbersBasicsWindow = new NumbersBasics(this);
+    paddleLessonWindow = new PaddleLesson(this);
 
     stackedWidget->addWidget(lessonWindow);
     stackedWidget->addWidget(lessonSelectWindow);
@@ -73,6 +75,7 @@ void MainWindow::setUpPages() {
     stackedWidget->addWidget(referenceWindow);
     stackedWidget->addWidget(morseCodeBasicsWindow);
     stackedWidget->addWidget(numbersBasicsWindow);
+    stackedWidget->addWidget(paddleLessonWindow);
 
     stackedWidget->setCurrentWidget(menuWindow);
     menuWindow->setUserOnThisPage(true);
@@ -111,7 +114,9 @@ void MainWindow::onLessonClicked(int lessonNumber) {
     } else if (lessonNumber == 9) {
 
     } else if (lessonNumber == 10) {
-
+        stackedWidget->setCurrentWidget(paddleLessonWindow);
+        emit userOnPaddleLesson(true);
+        this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
     } else {
         stackedWidget->setCurrentWidget(lessonWindow);
         emit userOnLessonPage(true);

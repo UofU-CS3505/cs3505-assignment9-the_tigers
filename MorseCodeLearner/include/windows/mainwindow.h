@@ -15,6 +15,7 @@
 #include "lessonhandler.h"
 #include "morsecodebasics.h"
 #include "numbersbasics.h"
+#include "paddlelesson.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -50,6 +51,8 @@ signals:
     void userOnMorseCodeBasics(bool userOnThisPage);
 
     void userOnNumbersBasics(bool userOnThisPage);
+
+    void userOnPaddleLesson(bool userOnThisPage);
 
 private slots:
     /**
@@ -99,6 +102,7 @@ private:
     MenuWindow* menuWindow;
     MorseCodeBasics* morseCodeBasicsWindow;
     NumbersBasics* numbersBasicsWindow;
+    PaddleLesson* paddleLessonWindow;
     referencewindow* referenceWindow;
     PracticeHandler* practiceHandler;
 
