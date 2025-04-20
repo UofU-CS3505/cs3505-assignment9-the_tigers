@@ -19,6 +19,7 @@ INCLUDEPATH += $$PWD/include/util \
                $$PWD/Box2D
 
 SOURCES += \
+    src/windows/numbersbasics.cpp \
     src/windows/morsecodebasics.cpp \
     src/util/audiosink.cpp \
     src/util/crossplatformaudiosink.cpp \
@@ -151,6 +152,7 @@ HEADERS += \
     Box2D/Dynamics/b2World.h \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
+    include/windows/numbersbasics.h
 
 FORMS += \
     lessonselectwindow.ui \
@@ -158,6 +160,7 @@ FORMS += \
     mainwindow.ui \
     menuwindow.ui \
     morsecodebasics.ui \
+    numbersbasics.ui \
     practicewindow.ui \
     referencewindow.ui \
     settingswindow.ui \
