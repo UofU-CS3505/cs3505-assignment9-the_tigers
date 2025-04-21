@@ -25,6 +25,7 @@ private:
     std::vector<std::string> lessonFiveLetters = {"b", "j", "f", "l", "c", "h"};
     std::vector<std::string> lessonSixLetters = {"z", "v", "y", "q", "p", "x"};
     std::vector<std::string> lessonEightNumbers = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    std::vector<std::string> lessonNineWords = {"hello world", "thank you", "repeat that"};
 
     std::unordered_map<std::string, int> learnedCharacters;
 
@@ -32,6 +33,7 @@ private:
     std::vector<std::string> currentLessonCharacters;
     std::string currentQuestion;
     QString morseText;
+    int wordCounter;
 
     QTimer timer;
 

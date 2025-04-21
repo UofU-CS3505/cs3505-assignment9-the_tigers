@@ -9,6 +9,7 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     userOnThisPage(false)
 {
     QTimer timer(this);
+    wordCounter = 0;
 }
 
 void LessonHandler::displayMorse(const std::string text) {
@@ -24,6 +25,7 @@ void LessonHandler::displayText(const std::string morse) {
 void LessonHandler::nextQuestion() {
     acceptingInput = true;
     int charactersLearned = 0;
+    wordCounter = 0;
 
     for (const std::string &character : currentLessonCharacters) {
         if (learnedCharacters[character] >= 3) {
@@ -43,7 +45,7 @@ void LessonHandler::nextQuestion() {
         }
     }
 
-    emit displayTextToUI("What is " + QString::fromStdString(currentQuestion) + " in morse?");
+    emit displayTextToUI("What is '" + QString::fromStdString(currentQuestion) + "' in morse?");
 }
 
 void LessonHandler::startLesson(int lessonNumber) {
@@ -67,6 +69,9 @@ void LessonHandler::startLesson(int lessonNumber) {
             break;
         case 8:
             currentLessonCharacters = lessonEightNumbers;
+            break;
+        case 9:
+            currentLessonCharacters = lessonNineWords;
             break;
         default:
             return;
@@ -114,11 +119,26 @@ void LessonHandler::onMorseReceived(const std::string morse) {
     if (acceptingInput) {
         QString qmorse = QString::fromStdString(morse);
 
-        if (qmorse == "/ ") {
-            checkUserGuess(morseText.toStdString());
+        if (currentLessonNumber == 9) {
+            if (qmorse == "/ " && wordCounter < 2) {
+                wordCounter++;
+                morseText += qmorse;
+                emit updateInputText(morseText);
+            } else {
+                morseText += qmorse;
+                emit updateInputText(morseText);
+            }
+
+            if (qmorse == "/ " && wordCounter >= 2) {
+                checkUserGuess(morseText.toStdString());
+            }
         } else {
-            morseText += qmorse;
-            emit updateInputText(morseText);
+            if (qmorse == "/ ") {
+                checkUserGuess(morseText.toStdString());
+            } else {
+                morseText += qmorse;
+                emit updateInputText(morseText);
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PaddleLesson</class>
- <widget class="QWidget" name="PaddleLesson">
+ <class>WordsLesson</class>
+ <widget class="QWidget" name="WordsLesson">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QLabel" name="label">
@@ -45,7 +45,7 @@
       </font>
      </property>
      <property name="text">
-      <string>The iambic paddle is an alternative device commonly used by morse code enthusiasts. Typically, while using a straight key, it is difficult to input correct morse above 18 words per minute. So, a new device was introduced that allows for much faster input, going up to even 30 words per minute.</string>
+      <string>If you haven’t already gone and messed with the translator page to try forming words in morse code, we encourage you to go try now. You’ll see slashes “/” in between words, which indicates you waited long enough before you started inputting the next morse character, so it started the next word.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -73,11 +73,11 @@
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>30</pointsize>
+       <pointsize>40</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>The iambic paddle works by having two vertical paddle shaped levers that you can push. The left paddle is a dot, and the right paddle is a dash. Usually people make a sort of American Sign Language “g” character with their hand and move their hand right or left around the paddle to either input dots or dashes. In this app, the left arrow button is used as the left paddle, and the right arrow button is used as the right paddle.</string>
+      <string>Morse code has an international set of timings, which determines how long dots, dashes, spaces between dots and dashes (intra-character spaces), spaces between different english characters (inter-character spaces), and spaces between words are.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -100,11 +100,21 @@
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>40</pointsize>
+       <pointsize>22</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>If you hold down one of the paddles, it will repeatedly emit either a dot or dash at the correct timings for you, based on your words per minute. If you hold both paddles down, it will alternate between sending dots and dashes.</string>
+      <string>Most often, you’ll encounter these timings, which are also the timings for this app:
+Dot: 1 unit
+Dash: 3 units
+Intra-character space: 1 unit
+Inter-character space: 3 units
+Space between words: 7 units
+
+This means that, for the word “paris”, the timings will add up to 50 units in total.
+.--. .- .-. .. … /
+10 dots = 10 units; 4 dashes = 12 units; 9 intra-character spaces = 9 units; 4 inter-character spaces = 12 units; and 1 word space at the end = 7 units; 10 + 12 + 9 + 12 + 7 = 50 units
+</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -113,102 +123,6 @@
       <bool>true</bool>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="page_4">
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>0</y>
-       <width>1141</width>
-       <height>481</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>OldNewspaperTypes</family>
-       <pointsize>35</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>The best way to learn to use the paddle is to practice with it. It is best to first learn all of the morse characters with the straight key, and then move on to the paddle once you have the basics down, and you wish to improve how fast you can go. The paddle can also help you achieve more consistent timings as you input morse.</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </widget>
-  </widget>
-  <widget class="QFrame" name="headerFrame">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1281</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border: none;
-border-bottom: 2px solid black;</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Shape::NoFrame</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Shadow::Sunken</enum>
-   </property>
-   <property name="lineWidth">
-    <number>1</number>
-   </property>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>10</y>
-      <width>731</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Old London</family>
-      <pointsize>40</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Lesson 10: The Paddle</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="backButton">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>64</width>
-      <height>64</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::FocusPolicy::ClickFocus</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: none;
-background-color: transparent;
-background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
    </widget>
   </widget>
   <widget class="QFrame" name="frame">
@@ -230,7 +144,7 @@ border-top: 2px solid black;</string>
    <property name="frameShadow">
     <enum>QFrame::Shadow::Raised</enum>
    </property>
-   <widget class="QPushButton" name="completeLessonButton">
+   <widget class="QPushButton" name="startPracticeButton">
     <property name="geometry">
      <rect>
       <x>580</x>
@@ -265,8 +179,8 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     </property>
     <property name="text">
      <string>Click To
-Complete
-Lesson</string>
+Start
+Practice</string>
     </property>
    </widget>
    <widget class="QPushButton" name="nextSlideButton">
@@ -313,6 +227,75 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-color: transparent;
+background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="headerFrame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1281</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;
+border-bottom: 2px solid black;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Shape::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Shadow::Sunken</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>10</y>
+      <width>731</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Old London</family>
+      <pointsize>40</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Lesson 9: Words</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>64</width>
+      <height>64</height>
+     </rect>
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>

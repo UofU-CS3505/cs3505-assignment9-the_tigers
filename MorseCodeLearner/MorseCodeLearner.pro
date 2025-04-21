@@ -85,7 +85,8 @@ SOURCES += \
     Box2D/Dynamics/b2Island.cpp \
     Box2D/Dynamics/b2World.cpp \
     Box2D/Dynamics/b2WorldCallbacks.cpp \
-    Box2D/Rope/b2Rope.cpp
+    Box2D/Rope/b2Rope.cpp \
+    src/windows/wordslesson.cpp
 
 HEADERS += \
     include/util/audiosink.h \
@@ -154,7 +155,8 @@ HEADERS += \
     Box2D/Dynamics/b2WorldCallbacks.h \
     Box2D/Rope/b2Rope.h \
     include/windows/numbersbasics.h \
-    include/windows/paddlelesson.h
+    include/windows/paddlelesson.h \
+    include/windows/wordslesson.h
 
 FORMS += \
     lessonselectwindow.ui \
@@ -167,7 +169,8 @@ FORMS += \
     practicewindow.ui \
     referencewindow.ui \
     settingswindow.ui \
-    translatorwindow.ui
+    translatorwindow.ui \
+    wordslesson.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

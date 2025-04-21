@@ -144,7 +144,7 @@ border-bottom: 2px solid black;</string>
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>20</y>
+      <y>10</y>
       <width>731</width>
       <height>61</height>
      </rect>
@@ -153,6 +153,8 @@ border-bottom: 2px solid black;</string>
      <font>
       <family>Old London</family>
       <pointsize>40</pointsize>
+      <underline>false</underline>
+      <kerning>true</kerning>
      </font>
     </property>
     <property name="text">
@@ -160,6 +162,9 @@ border-bottom: 2px solid black;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::TextInteractionFlag::LinksAccessibleByMouse</set>
     </property>
    </widget>
    <widget class="QPushButton" name="backButton">

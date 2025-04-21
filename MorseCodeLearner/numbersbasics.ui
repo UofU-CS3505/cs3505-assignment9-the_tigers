@@ -161,7 +161,7 @@ border-bottom: 2px solid black;</string>
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>20</y>
+      <y>10</y>
       <width>731</width>
       <height>61</height>
      </rect>

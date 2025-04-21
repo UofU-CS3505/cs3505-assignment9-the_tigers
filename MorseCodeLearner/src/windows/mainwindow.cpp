@@ -37,13 +37,17 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);
     QObject::connect(referenceWindow, &referencewindow::goHome, this, &MainWindow::goHome);
     QObject::connect(morseCodeBasicsWindow, &MorseCodeBasics::goBack, this, &MainWindow::onLearningNavClicked);
+    QObject::connect(numbersBasicsWindow, &NumbersBasics::goBack, this, &MainWindow::onLearningNavClicked);
     QObject::connect(paddleLessonWindow, &PaddleLesson::goBack, this, &MainWindow::onLearningNavClicked);
+    QObject::connect(wordsLessonWindow, &WordsLesson::goBack, this, &MainWindow::onLearningNavClicked);
+    QObject::connect(wordsLessonWindow, &WordsLesson::goToPracticeLesson, this, &MainWindow::onWordsLessonPracticeClicked);
 
     QObject::connect(this, &MainWindow::startLesson, lessonHandler, &LessonHandler::startLesson);
     QObject::connect(this, &MainWindow::userOnLessonPage, lessonHandler, &LessonHandler::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnMorseCodeBasics, morseCodeBasicsWindow, &MorseCodeBasics::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnNumbersBasics, numbersBasicsWindow, &NumbersBasics::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnPaddleLesson, paddleLessonWindow, &PaddleLesson::setUserOnThisPage);
+    QObject::connect(this, &MainWindow::userOnWordsLesson, wordsLessonWindow, &WordsLesson::setUserOnThisPage);
 
     // This needs to be called last
     settingsWindow->loadSettings();
@@ -65,6 +69,7 @@ void MainWindow::setUpPages() {
     morseCodeBasicsWindow = new MorseCodeBasics(this);
     numbersBasicsWindow = new NumbersBasics(this);
     paddleLessonWindow = new PaddleLesson(this);
+    wordsLessonWindow = new WordsLesson(this);
 
     stackedWidget->addWidget(lessonWindow);
     stackedWidget->addWidget(lessonSelectWindow);
@@ -76,6 +81,7 @@ void MainWindow::setUpPages() {
     stackedWidget->addWidget(morseCodeBasicsWindow);
     stackedWidget->addWidget(numbersBasicsWindow);
     stackedWidget->addWidget(paddleLessonWindow);
+    stackedWidget->addWidget(wordsLessonWindow);
 
     stackedWidget->setCurrentWidget(menuWindow);
     menuWindow->setUserOnThisPage(true);
@@ -112,7 +118,9 @@ void MainWindow::onLessonClicked(int lessonNumber) {
         emit userOnNumbersBasics(true);
         this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
     } else if (lessonNumber == 9) {
-
+        stackedWidget->setCurrentWidget(wordsLessonWindow);
+        emit userOnWordsLesson(true);
+        this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
     } else if (lessonNumber == 10) {
         stackedWidget->setCurrentWidget(paddleLessonWindow);
         emit userOnPaddleLesson(true);
@@ -137,6 +145,13 @@ void MainWindow::onReferenceNavClicked()
     stackedWidget->setCurrentWidget(referenceWindow);
     referenceWindow->setUserOnThisPage(true);
     this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
+}
+
+void MainWindow::onWordsLessonPracticeClicked() {
+    stackedWidget->setCurrentWidget(lessonWindow);
+    emit userOnLessonPage(true);
+    this->setStyleSheet("QMainWindow { background-image: url(:/images/background.jpg); background-position: center; width: 100%; height: 100%;}");
+    emit startLesson(9);
 }
 
 void MainWindow::goHome() {

@@ -16,6 +16,7 @@
 #include "morsecodebasics.h"
 #include "numbersbasics.h"
 #include "paddlelesson.h"
+#include "wordslesson.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -54,6 +55,8 @@ signals:
 
     void userOnPaddleLesson(bool userOnThisPage);
 
+    void userOnWordsLesson(bool userOnThisPage);
+
 private slots:
     /**
      * Called when navigating to the Translator Page.
@@ -86,6 +89,8 @@ private slots:
      */
     void onReferenceNavClicked();
 
+    void onWordsLessonPracticeClicked();
+
     /**
      * Called when a back/home button is pressed from any page.
      */
@@ -103,6 +108,7 @@ private:
     MorseCodeBasics* morseCodeBasicsWindow;
     NumbersBasics* numbersBasicsWindow;
     PaddleLesson* paddleLessonWindow;
+    WordsLesson* wordsLessonWindow;
     referencewindow* referenceWindow;
     PracticeHandler* practiceHandler;
 
