@@ -103,6 +103,8 @@ private slots:
     void onPreviousSlideClicked();
 
     void onStackedWidgetIndexChange(int index);
+
+    void setAudioDecodeMode(bool mode);
 };
 
 

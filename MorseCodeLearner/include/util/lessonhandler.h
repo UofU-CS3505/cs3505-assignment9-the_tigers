@@ -153,6 +153,10 @@ signals:
      * Emitted when morse code starts playing in decode audio mode.
      */
     void soundPlaying();
-};
 
+    /**
+     * Emitted so the window can change view stuff in decode audio mode.
+     */
+    void isAudioDecodeMode(bool mode);
+};
 #endif // LESSONHANDLER_H

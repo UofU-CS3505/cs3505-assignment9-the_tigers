@@ -73,6 +73,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
     QObject::connect(lessonHandler, &LessonHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
     QObject::connect(this, &lessonwindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
+    QObject::connect(lessonHandler, &LessonHandler::isAudioDecodeMode, this, &lessonwindow::setAudioDecodeMode);
 
     // Iambic paddle illustrations
     QObject::connect(lessonHandler, &LessonHandler::paddleSelected, this, [this, keyEventFilter](){
@@ -266,4 +267,12 @@ void lessonwindow::updateWorld() {
     }
 
     timer.singleShot(10, this, &lessonwindow::updateWorld);
+}
+
+void lessonwindow::setAudioDecodeMode(bool isAudio) {
+    if (isAudio) {
+        ui->soundDisplayLabel->show();
+    } else {
+        ui->soundDisplayLabel->hide();
+    }
 }

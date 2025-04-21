@@ -132,16 +132,19 @@ void LessonHandler::pickQuestionType() {
     switch (randomQuestion) {
         case 0:
             type = ENCODE_ENGLISH;
+            emit isAudioDecodeMode(false);
             emit isInputReadOnly(true);
             emit displayTextToUI("What is '" + QString::fromStdString(currentQuestion) + "' in morse?");
             break;
         case 1:
             type = DECODE_MORSE;
+            emit isAudioDecodeMode(false);
             emit isInputReadOnly(false);
             emit displayTextToUI("What is '" + QString::fromStdString(morseHandler->encodeText(currentQuestion)) + "' in English?");
             break;
         case 2:
             type = DECODE_SOUND;
+            emit isAudioDecodeMode(true);
             emit displayTextToUI("");
             emit isInputReadOnly(false);
             emit soundPlaying();
