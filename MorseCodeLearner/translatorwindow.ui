@@ -616,51 +616,6 @@ SWAP—Swap from Morse and English input with the swap button.</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLineEdit" name="morsePreview">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>430</x>
-     <y>370</y>
-     <width>181</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>OldNewspaperTypes</family>
-     <pointsize>54</pointsize>
-     <kerning>false</kerning>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::FocusPolicy::NoFocus</enum>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLineEdit {
-        background: transparent;
-        border: none;
-        color: black; /* or any color you want */
-    }</string>
-   </property>
-   <property name="text">
-    <string>-----</string>
-   </property>
-   <property name="frame">
-    <bool>false</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignmentFlag::AlignCenter</set>
-   </property>
-   <property name="cursorMoveStyle">
-    <enum>Qt::CursorMoveStyle::VisualMoveStyle</enum>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
