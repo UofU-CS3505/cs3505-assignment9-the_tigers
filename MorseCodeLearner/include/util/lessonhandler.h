@@ -34,6 +34,7 @@ private:
     std::string currentQuestion;
     QString morseText;
     int wordCounter;
+    float lessonProgress;
 
     QTimer timer;
 
@@ -142,6 +143,8 @@ signals:
     void straightKeySelected();
 
     void updateLessonTitle(int lessonNumber);
+
+    void updateLessonProgressBar(float progress);
 };
 
 #endif // LESSONHANDLER_H

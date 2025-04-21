@@ -88,6 +88,8 @@ private slots:
     void updateInputText(QString inputText);
 
     void updateLessonTitle(int lessonNumber);
+
+    void updateLessonProgressBar(float progress);
 };
 
 

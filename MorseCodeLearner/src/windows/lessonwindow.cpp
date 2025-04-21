@@ -48,6 +48,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::updateInputText, this, &lessonwindow::updateInputText);
     QObject::connect(lessonHandler, &LessonHandler::completedLesson, this, &lessonwindow::onBackButtonClicked);
     QObject::connect(lessonHandler, &LessonHandler::updateLessonTitle, this, &lessonwindow::updateLessonTitle);
+    QObject::connect(lessonHandler, &LessonHandler::updateLessonProgressBar, this, &lessonwindow::updateLessonProgressBar);
 
     // Iambic paddle illustrations
     QObject::connect(lessonHandler, &LessonHandler::paddleSelected, this, [this, keyEventFilter](){
@@ -116,6 +117,10 @@ void lessonwindow::updateInputText(QString inputText) {
 
 void lessonwindow::updateLessonTitle(int lessonNumber) {
     ui->headerLabel->setText("Lesson " + QString::fromStdString(std::to_string(lessonNumber)));
+}
+
+void lessonwindow::updateLessonProgressBar(float progress) {
+    ui->progressBar->setValue((int)progress);
 }
 
 void lessonwindow::setupWorld() {

@@ -217,6 +217,33 @@ background: qradialgradient(
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QProgressBar" name="progressBar">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>380</y>
+     <width>861</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QProgressBar {
+    border: 2px solid #888;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: #5cb85c;
+    width: 10px;
+    margin: 0.5px;
+}</string>
+   </property>
+   <property name="value">
+    <number>0</number>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

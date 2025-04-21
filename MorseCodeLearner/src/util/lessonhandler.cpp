@@ -10,6 +10,7 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
 {
     QTimer timer(this);
     wordCounter = 0;
+    lessonProgress = 0;
 }
 
 void LessonHandler::displayMorse(const std::string text) {
@@ -101,6 +102,14 @@ void LessonHandler::checkUserGuess(std::string guess) {
         emit updateInputText(morseText);
     }
 
+    int correctCount = 0;
+    for (const std::string &character : currentLessonCharacters) {
+        correctCount += learnedCharacters[character];
+    }
+
+    lessonProgress = ((float)correctCount / (float)(currentLessonCharacters.size() * 3)) * 100;
+    emit updateLessonProgressBar(lessonProgress);
+
     timer.singleShot(1500, this, [this](){nextQuestion();});
 }
 
@@ -185,6 +194,8 @@ void LessonHandler::onBackButtonClicked() {
     acceptingInput = false;
     userOnThisPage = false;
     morseText = "";
+    lessonProgress = 0;
+    emit updateLessonProgressBar(lessonProgress);
 }
 
 void LessonHandler::setUserOnThisPage(bool userOnThisPage) {
