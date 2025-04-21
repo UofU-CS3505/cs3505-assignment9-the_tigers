@@ -184,6 +184,7 @@ void LessonHandler::handleRightArrowReleased() {
 void LessonHandler::onBackButtonClicked() {
     acceptingInput = false;
     userOnThisPage = false;
+    morseText = "";
 }
 
 void LessonHandler::setUserOnThisPage(bool userOnThisPage) {
