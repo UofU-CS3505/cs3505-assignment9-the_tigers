@@ -12,8 +12,11 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 {
     ui->setupUi(this);
 
-    qDebug() << "lesson page constructed";
-
+    QPixmap soundPlaying(QPixmap::fromImage(QImage(":/icons/playing_audio.png")));
+    QPixmap soundNotPlaying(QPixmap::fromImage(QImage(":/icons/not_playing_audio.png")));
+    ui->soundDisplayLabel->hide();
+    ui->soundDisplayLabel->setPixmap(soundNotPlaying);
+    ui->soundDisplayLabel->setScaledContents(true);
 
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
@@ -45,9 +48,15 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, lessonHandler, &LessonHandler::handleLeftArrowReleased);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, lessonHandler, &LessonHandler::handleRightArrowPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, lessonHandler, &LessonHandler::handleRightArrowReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, [this, lessonHandler]() {
+        QString newText = ui->inputText->text();
+        lessonHandler->onInputReceived(newText.toStdString());
+        lessonHandler->handleEnterPressed();
+    });
 
     // Morse Handler
-    QObject::connect(morseHandler, &MorseHandler::decodedInput, lessonHandler, &LessonHandler::onMorseReceived);
+    QObject::connect(morseHandler, &MorseHandler::decodedInput, lessonHandler, &LessonHandler::onInputReceived);
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this, soundNotPlaying]() {ui->soundDisplayLabel->setPixmap(soundNotPlaying);});
 
     // Lesson Handler
     QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
@@ -61,6 +70,8 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::updateLessonProgressBar, this, &lessonwindow::updateLessonProgressBar);
     QObject::connect(lessonHandler, &LessonHandler::displayCorrectAnswer, this, &lessonwindow::displayCorrectAnswer);
     QObject::connect(lessonHandler, &LessonHandler::setReferenceText, this, &lessonwindow::setReferenceText);
+    QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
+    QObject::connect(lessonHandler, &LessonHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
     QObject::connect(this, &lessonwindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
 
     // Iambic paddle illustrations

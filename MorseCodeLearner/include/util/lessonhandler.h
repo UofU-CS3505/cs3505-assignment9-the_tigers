@@ -32,27 +32,18 @@ private:
     int currentLessonNumber;
     std::vector<std::string> currentLessonCharacters;
     std::string currentQuestion;
-    QString morseText;
+    QString inputText;
     int wordCounter;
     float lessonProgress;
 
     QTimer timer;
 
     bool acceptingInput;
-    bool userOnThisPage;
+    bool userOnThisPage = false;
     int currentIndex;
 
-    /**
-     * Sends a signal to the view of what morse to display.
-     * @param text - the text to translate to morse.
-     */
-    void displayMorse(const std::string text);
-
-    /**
-     * Sends a signal to the view of what text to display.
-     * @param morse - the morse to translate to text.
-     */
-    void displayText(const std::string morse);
+    enum questionType { ENCODE_ENGLISH, DECODE_MORSE, DECODE_SOUND };
+    questionType type = ENCODE_ENGLISH;
 
     /**
      * A helper method that displays each of the questions in a lesson.
@@ -60,6 +51,8 @@ private:
     void nextQuestion();
 
     void lessonComplete();
+
+    void pickQuestionType();
 
 public:
     /**
@@ -80,11 +73,10 @@ public slots:
 
     /**
      * A slot that checks the user's guess.
-     * @param guess - the user's guess.
      */
-    void checkUserGuess(std::string guess);
+    void checkUserGuess();
 
-    void onMorseReceived(const std::string morse);
+    void onInputReceived(const std::string input);
 
     void handleSpacePressed();
 
@@ -97,6 +89,8 @@ public slots:
     void handleRightArrowPressed();
 
     void handleRightArrowReleased();
+
+    void handleEnterPressed();
 
     void onBackButtonClicked();
 
@@ -152,6 +146,13 @@ signals:
     void displayCorrectAnswer(QString correctAnswer);
 
     void setReferenceText(QString referenceText);
+
+    void isInputReadOnly(bool readOnly);
+
+    /**
+     * Emitted when morse code starts playing in decode audio mode.
+     */
+    void soundPlaying();
 };
 
 #endif // LESSONHANDLER_H

@@ -14,16 +14,6 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     currentIndex = 0;
 }
 
-void LessonHandler::displayMorse(const std::string text) {
-    std::string morse = morseHandler->encodeText(text);
-    emit displayMorseToUI(morse);
-}
-
-void LessonHandler::displayText(const std::string morse) {
-    std::string text = morseHandler->decodeMorse(morse);
-    emit displayTextToUI(QString::fromStdString(text));
-}
-
 void LessonHandler::nextQuestion() {
     acceptingInput = true;
     int charactersLearned = 0;
@@ -47,7 +37,7 @@ void LessonHandler::nextQuestion() {
         }
     }
 
-    emit displayTextToUI("What is '" + QString::fromStdString(currentQuestion) + "' in morse?");
+    pickQuestionType();
 }
 
 void LessonHandler::startLesson(int lessonNumber) {
@@ -91,20 +81,26 @@ void LessonHandler::startLesson(int lessonNumber) {
     nextQuestion();
 }
 
-void LessonHandler::checkUserGuess(std::string guess) {
+void LessonHandler::checkUserGuess() {
     acceptingInput = false;
+    std::string guess = inputText.toStdString();
+    std::string correctAnswer;
 
-    std::string correctAnswer = morseHandler->encodeText(currentQuestion);
+    if (type == ENCODE_ENGLISH) {
+        correctAnswer = morseHandler->encodeText(currentQuestion);
+    } else {
+        correctAnswer = currentQuestion;
+    }
 
     if (guess == correctAnswer) {
         learnedCharacters[currentQuestion] += 1;
         emit guessCorrect();
-        morseText = "";
-        emit updateInputText(morseText);
+        inputText = "";
+        emit updateInputText(inputText);
     } else {
         emit guessIncorrect();
-        morseText = "";
-        emit updateInputText(morseText);
+        inputText = "";
+        emit updateInputText(inputText);
         timer.singleShot(1500, this, [this, correctAnswer](){emit displayCorrectAnswer(QString::fromStdString(correctAnswer));});
     }
 
@@ -130,76 +126,110 @@ void LessonHandler::lessonComplete() {
     timer.singleShot(1500, this, [=](){emit completedLesson();});
 }
 
-void LessonHandler::onMorseReceived(const std::string morse) {
-    if (acceptingInput) {
-        QString qmorse = QString::fromStdString(morse);
+void LessonHandler::pickQuestionType() {
+    int randomQuestion = rand() % 3;
+
+    switch (randomQuestion) {
+        case 0:
+            type = ENCODE_ENGLISH;
+            emit isInputReadOnly(true);
+            emit displayTextToUI("What is '" + QString::fromStdString(currentQuestion) + "' in morse?");
+            break;
+        case 1:
+            type = DECODE_MORSE;
+            emit isInputReadOnly(false);
+            emit displayTextToUI("What is '" + QString::fromStdString(morseHandler->encodeText(currentQuestion)) + "' in English?");
+            break;
+        case 2:
+            type = DECODE_SOUND;
+            emit displayTextToUI("");
+            emit isInputReadOnly(false);
+            emit soundPlaying();
+            morseHandler->playMorse(morseHandler->encodeText(currentQuestion));
+            break;
+    }
+}
+
+void LessonHandler::onInputReceived(const std::string input) {
+    if (!userOnThisPage)
+        return;
+    if (acceptingInput && type == ENCODE_ENGLISH) {
+        QString qmorse = QString::fromStdString(input);
 
         if (currentLessonNumber == 9) {
             if (qmorse == "/ " && wordCounter < 2) {
                 wordCounter++;
-                morseText += qmorse;
-                emit updateInputText(morseText);
+                inputText += qmorse;
+                emit updateInputText(inputText);
             } else {
-                morseText += qmorse;
-                emit updateInputText(morseText);
+                inputText += qmorse;
+                emit updateInputText(inputText);
             }
 
             if (qmorse == "/ " && wordCounter >= 2) {
-                checkUserGuess(morseText.toStdString());
+                checkUserGuess();
             }
         } else {
             if (qmorse == "/ ") {
-                checkUserGuess(morseText.toStdString());
+                checkUserGuess();
             } else {
-                morseText += qmorse;
-                emit updateInputText(morseText);
+                inputText += qmorse;
+                emit updateInputText(inputText);
             }
         }
+    } else {
+        inputText = QString::fromStdString(input);
     }
 }
 
 void LessonHandler::handleSpacePressed() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0 || type != ENCODE_ENGLISH)
         return;
     emit lightIndicatorOn();
     morseHandler->straightKeyDown();
 }
 
 void LessonHandler::handleSpaceReleased() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     emit lightIndicatorOff();
     morseHandler->straightKeyUp();
 }
 
 void LessonHandler::handleLeftArrowPressed() {
-    if (!userOnThisPage|| morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0)
+    if (!userOnThisPage|| morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDotDown();
 }
 
 void LessonHandler::handleLeftArrowReleased() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDotUp();
 }
 
 void LessonHandler::handleRightArrowPressed() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDashDown();
 }
 
 void LessonHandler::handleRightArrowReleased() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDashUp();
+}
+
+void LessonHandler::handleEnterPressed() {
+    if (!userOnThisPage || !acceptingInput || currentIndex == 0  || type == ENCODE_ENGLISH)
+        return;
+    checkUserGuess();
 }
 
 void LessonHandler::onBackButtonClicked() {
     acceptingInput = false;
     userOnThisPage = false;
-    morseText = "";
+    inputText = "";
     lessonProgress = 0;
     emit updateLessonProgressBar(lessonProgress);
 }

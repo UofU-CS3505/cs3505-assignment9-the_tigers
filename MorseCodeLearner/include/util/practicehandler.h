@@ -136,6 +136,11 @@ public slots:
     void handleRightArrowReleased();
 
     /**
+     * Handles logic for pressing the enter key, i.e. checking a problem
+     */
+    void handleEnterPressed();
+
+    /**
      * Slot for when the MorseHandler object sends us a morse character.
      * The morse character is appended to our input text box.
      * @param morse The morse character.
