@@ -40,10 +40,6 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(ui->previousSlideButton, &QPushButton::clicked, this, &lessonwindow::onPreviousSlideClicked);
     QObject::connect(ui->stackedWidget, &QStackedWidget::currentChanged, this, &lessonwindow::onStackedWidgetIndexChange);
     QObject::connect(this, &lessonwindow::backButtonClicked, lessonHandler, &LessonHandler::onBackButtonClicked);
-    QObject::connect(ui->inputText, &QTextEdit::textChanged, this, [this, &lessonHandler]() {
-        QString newText = ui->inputText->toPlainText();
-        lessonHandler->onInputReceived(newText.toStdString());
-    });
 
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, lessonHandler, &LessonHandler::handleSpacePressed);
@@ -52,7 +48,11 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, lessonHandler, &LessonHandler::handleLeftArrowReleased);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, lessonHandler, &LessonHandler::handleRightArrowPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, lessonHandler, &LessonHandler::handleRightArrowReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, lessonHandler, &LessonHandler::checkUserGuess);
+    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, [this, &lessonHandler]() {
+        QString newText = ui->inputText->text();
+        lessonHandler->onInputReceived(newText.toStdString());
+        lessonHandler->handleEnterPressed();
+    });
 
     // Morse Handler
     QObject::connect(morseHandler, &MorseHandler::decodedInput, lessonHandler, &LessonHandler::onInputReceived);
@@ -70,7 +70,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::updateLessonProgressBar, this, &lessonwindow::updateLessonProgressBar);
     QObject::connect(lessonHandler, &LessonHandler::displayCorrectAnswer, this, &lessonwindow::displayCorrectAnswer);
     QObject::connect(lessonHandler, &LessonHandler::setReferenceText, this, &lessonwindow::setReferenceText);
-    QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QTextEdit::setReadOnly);
+    QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
     QObject::connect(lessonHandler, &LessonHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
     QObject::connect(this, &lessonwindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
 

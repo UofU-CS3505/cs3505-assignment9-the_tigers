@@ -218,6 +218,12 @@ void LessonHandler::handleRightArrowReleased() {
     morseHandler->paddleDashUp();
 }
 
+void LessonHandler::handleEnterPressed() {
+    if (!userOnThisPage || !acceptingInput || currentIndex == 0  || type == ENCODE_ENGLISH)
+        return;
+    checkUserGuess();
+}
+
 void LessonHandler::onBackButtonClicked() {
     acceptingInput = false;
     userOnThisPage = false;

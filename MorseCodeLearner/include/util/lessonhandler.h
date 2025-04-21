@@ -90,6 +90,8 @@ public slots:
 
     void handleRightArrowReleased();
 
+    void handleEnterPressed();
+
     void onBackButtonClicked();
 
     void setUserOnThisPage(bool userOnThisPage);
