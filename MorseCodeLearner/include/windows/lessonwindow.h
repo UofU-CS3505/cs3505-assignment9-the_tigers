@@ -90,6 +90,8 @@ private slots:
     void updateLessonTitle(int lessonNumber);
 
     void updateLessonProgressBar(float progress);
+
+    void displayCorrectAnswer(QString correctAnswer);
 };
 
 

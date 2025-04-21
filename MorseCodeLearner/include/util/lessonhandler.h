@@ -145,6 +145,8 @@ signals:
     void updateLessonTitle(int lessonNumber);
 
     void updateLessonProgressBar(float progress);
+
+    void displayCorrectAnswer(QString correctAnswer);
 };
 
 #endif // LESSONHANDLER_H

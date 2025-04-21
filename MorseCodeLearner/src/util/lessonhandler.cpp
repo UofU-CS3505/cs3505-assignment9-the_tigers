@@ -100,6 +100,7 @@ void LessonHandler::checkUserGuess(std::string guess) {
         emit guessIncorrect();
         morseText = "";
         emit updateInputText(morseText);
+        timer.singleShot(1500, this, [this, correctAnswer](){emit displayCorrectAnswer(QString::fromStdString(correctAnswer));});
     }
 
     int correctCount = 0;
@@ -110,7 +111,7 @@ void LessonHandler::checkUserGuess(std::string guess) {
     lessonProgress = ((float)correctCount / (float)(currentLessonCharacters.size() * 3)) * 100;
     emit updateLessonProgressBar(lessonProgress);
 
-    timer.singleShot(1500, this, [this](){nextQuestion();});
+    timer.singleShot(3000, this, [this](){nextQuestion();});
 }
 
 void LessonHandler::lessonComplete() {
