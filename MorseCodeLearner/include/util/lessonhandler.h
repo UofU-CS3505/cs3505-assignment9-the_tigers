@@ -40,6 +40,7 @@ private:
 
     bool acceptingInput;
     bool userOnThisPage;
+    int currentIndex;
 
     /**
      * Sends a signal to the view of what morse to display.
@@ -101,6 +102,8 @@ public slots:
 
     void setUserOnThisPage(bool userOnThisPage);
 
+    void setCurrentIndex(int currentIndex);
+
 signals:
     /**
      * A signal that gets emitted when the user is correct.
@@ -147,6 +150,8 @@ signals:
     void updateLessonProgressBar(float progress);
 
     void displayCorrectAnswer(QString correctAnswer);
+
+    void setReferenceText(QString referenceText);
 };
 
 #endif // LESSONHANDLER_H

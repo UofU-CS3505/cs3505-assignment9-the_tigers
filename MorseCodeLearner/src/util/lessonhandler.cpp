@@ -11,6 +11,7 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     QTimer timer(this);
     wordCounter = 0;
     lessonProgress = 0;
+    currentIndex = 0;
 }
 
 void LessonHandler::displayMorse(const std::string text) {
@@ -80,9 +81,13 @@ void LessonHandler::startLesson(int lessonNumber) {
 
     emit updateLessonTitle(currentLessonNumber);
 
+    std::string referenceText = "";
     for (const std::string &character : currentLessonCharacters) {
         learnedCharacters[character] = 0;
+        referenceText.append(character + ": " + morseHandler->encodeText(character) + "\n");
     }
+
+    emit setReferenceText(QString::fromStdString(referenceText));
     nextQuestion();
 }
 
@@ -154,39 +159,39 @@ void LessonHandler::onMorseReceived(const std::string morse) {
 }
 
 void LessonHandler::handleSpacePressed() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0)
         return;
     emit lightIndicatorOn();
     morseHandler->straightKeyDown();
 }
 
 void LessonHandler::handleSpaceReleased() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0)
         return;
     emit lightIndicatorOff();
     morseHandler->straightKeyUp();
 }
 
 void LessonHandler::handleLeftArrowPressed() {
-    if (!userOnThisPage|| morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput)
+    if (!userOnThisPage|| morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0)
         return;
     morseHandler->paddleDotDown();
 }
 
 void LessonHandler::handleLeftArrowReleased() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0)
         return;
     morseHandler->paddleDotUp();
 }
 
 void LessonHandler::handleRightArrowPressed() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0)
         return;
     morseHandler->paddleDashDown();
 }
 
 void LessonHandler::handleRightArrowReleased() {
-    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0)
         return;
     morseHandler->paddleDashUp();
 }
@@ -209,4 +214,8 @@ void LessonHandler::setUserOnThisPage(bool userOnThisPage) {
             emit paddleSelected();
         }
     }
+}
+
+void LessonHandler::setCurrentIndex(int currentIndex) {
+    this->currentIndex = currentIndex;
 }

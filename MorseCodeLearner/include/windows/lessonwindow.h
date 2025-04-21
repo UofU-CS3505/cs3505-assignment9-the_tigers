@@ -26,6 +26,7 @@ private:
     KeyEventFilter *keyEventFilter;
 
     QTimer timer;
+    int currentIndex;
 
     b2World world;
     b2Body* textShakeBody;
@@ -66,6 +67,8 @@ signals:
 
     void backButtonClicked();
 
+    void setCurrentIndex(int currentIndex);
+
 private slots:
     void onBackButtonClicked();
 
@@ -92,6 +95,14 @@ private slots:
     void updateLessonProgressBar(float progress);
 
     void displayCorrectAnswer(QString correctAnswer);
+
+    void setReferenceText(QString referenceText);
+
+    void onNextSlideClicked();
+
+    void onPreviousSlideClicked();
+
+    void onStackedWidgetIndexChange(int index);
 };
 
 

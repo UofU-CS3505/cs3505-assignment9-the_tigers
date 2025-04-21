@@ -18,6 +18,13 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
 
+    ui->previousSlideButton->setIcon(QIcon(":/icons/back.png"));
+    ui->previousSlideButton->setIconSize(QSize(52, 52));
+    ui->previousSlideButton->setVisible(false);
+
+    ui->nextSlideButton->setIcon(QIcon(QPixmap(":/icons/back.png").transformed(QTransform().scale(-1, 1)))); // Reverses the arrow icon
+    ui->nextSlideButton->setIconSize(QSize(52, 52));
+
     // Light indicator
     QPixmap lightOn(QPixmap::fromImage(QImage(":/icons/light_on.png")));
     QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
@@ -26,6 +33,9 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 
     // Buttons
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::onBackButtonClicked);
+    QObject::connect(ui->nextSlideButton, &QPushButton::clicked, this, &lessonwindow::onNextSlideClicked);
+    QObject::connect(ui->previousSlideButton, &QPushButton::clicked, this, &lessonwindow::onPreviousSlideClicked);
+    QObject::connect(ui->stackedWidget, &QStackedWidget::currentChanged, this, &lessonwindow::onStackedWidgetIndexChange);
     QObject::connect(this, &lessonwindow::backButtonClicked, lessonHandler, &LessonHandler::onBackButtonClicked);
 
     // Key Event Filters
@@ -50,6 +60,8 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::updateLessonTitle, this, &lessonwindow::updateLessonTitle);
     QObject::connect(lessonHandler, &LessonHandler::updateLessonProgressBar, this, &lessonwindow::updateLessonProgressBar);
     QObject::connect(lessonHandler, &LessonHandler::displayCorrectAnswer, this, &lessonwindow::displayCorrectAnswer);
+    QObject::connect(lessonHandler, &LessonHandler::setReferenceText, this, &lessonwindow::setReferenceText);
+    QObject::connect(this, &lessonwindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
 
     // Iambic paddle illustrations
     QObject::connect(lessonHandler, &LessonHandler::paddleSelected, this, [this, keyEventFilter](){
@@ -81,6 +93,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     });
 
     setupWorld();
+    currentIndex = 0;
 }
 
 lessonwindow::~lessonwindow()
@@ -91,6 +104,9 @@ lessonwindow::~lessonwindow()
 void lessonwindow::onBackButtonClicked() {
     emit backButtonClicked();
     emit goToLessonSelect();
+    currentIndex = 0;
+    ui->stackedWidget->setCurrentIndex(currentIndex);
+    emit setCurrentIndex(currentIndex);
 }
 
 void lessonwindow::guessCorrect() {
@@ -126,6 +142,36 @@ void lessonwindow::updateLessonProgressBar(float progress) {
 
 void lessonwindow::displayCorrectAnswer(QString correctAnswer) {
     ui->problemText->setText("The correct answer was: " + correctAnswer);
+}
+
+void lessonwindow::setReferenceText(QString referenceText) {
+    ui->referenceLabel->setText(referenceText);
+}
+
+void lessonwindow::onNextSlideClicked() {
+    if (currentIndex != 1) {
+        currentIndex++;
+        ui->stackedWidget->setCurrentIndex(currentIndex);
+    }
+}
+
+void lessonwindow::onPreviousSlideClicked() {
+    if (currentIndex != 0) {
+        currentIndex--;
+        ui->stackedWidget->setCurrentIndex(currentIndex);
+    }
+}
+
+void lessonwindow::onStackedWidgetIndexChange(int index) {
+    emit setCurrentIndex(index);
+
+    if (index == 0) {
+        ui->previousSlideButton->setVisible(false);
+        ui->nextSlideButton->setVisible(true);
+    } else if (index == 1) {
+        ui->previousSlideButton->setVisible(true);
+        ui->nextSlideButton->setVisible(false);
+    }
 }
 
 void lessonwindow::setupWorld() {
