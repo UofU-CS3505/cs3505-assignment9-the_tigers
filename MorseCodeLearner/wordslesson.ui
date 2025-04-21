@@ -101,6 +101,7 @@
       <font>
        <family>OldNewspaperTypes</family>
        <pointsize>22</pointsize>
+       <kerning>false</kerning>
       </font>
      </property>
      <property name="text">

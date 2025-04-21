@@ -213,8 +213,13 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <height>481</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <kerning>true</kerning>
+    </font>
+   </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page_10">
     <widget class="QLabel" name="label_14">
@@ -230,6 +235,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       <font>
        <family>OldNewspaperTypes</family>
        <pointsize>35</pointsize>
+       <kerning>true</kerning>
       </font>
      </property>
      <property name="text">
@@ -262,13 +268,14 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       <font>
        <family>OldNewspaperTypes</family>
        <pointsize>30</pointsize>
+       <kerning>false</kerning>
       </font>
      </property>
      <property name="text">
-      <string>0 contains all dashes: —--
+      <string>0 contains all dashes: -----
 Going up to 1, we add one dot to the start, like this: .----
 Then 2: ..---
-3: …–
+3: …--
 4: ….-
 5: …..</string>
      </property>
@@ -294,15 +301,16 @@ Then 2: ..---
       <font>
        <family>OldNewspaperTypes</family>
        <pointsize>30</pointsize>
+       <kerning>false</kerning>
       </font>
      </property>
      <property name="text">
       <string>But, you might wonder how we increase to 6 here. We’ll just add a dash to the beginning:
 -....
 And then just as we added dots to the beginning with the earlier numbers, we add dashes:
-7: –...
-8: —..
-9: —-.</string>
+7: --...
+8: ---..
+9: ----.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
