@@ -97,6 +97,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <height>621</height>
     </rect>
    </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
    <widget class="QWidget" name="page">
     <widget class="QLabel" name="referenceLabel">
      <property name="geometry">
@@ -243,7 +246,7 @@ QProgressBar::chunk {
       </font>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::FocusPolicy::NoFocus</enum>
+      <enum>Qt::FocusPolicy::ClickFocus</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">border: 1px solid black;
@@ -261,7 +264,7 @@ padding-left: 1em;</string>
       <bool>true</bool>
      </property>
      <property name="readOnly">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
    </widget>

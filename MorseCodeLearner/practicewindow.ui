@@ -477,7 +477,7 @@ QPushButton:hover {
     </font>
    </property>
    <property name="focusPolicy">
-    <enum>Qt::FocusPolicy::NoFocus</enum>
+    <enum>Qt::FocusPolicy::ClickFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">border: 1px solid black;
