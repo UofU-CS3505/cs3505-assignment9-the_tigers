@@ -51,7 +51,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, practiceHandler, &PracticeHandler::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, practiceHandler, &PracticeHandler::handleSpaceReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, practiceHandler, &PracticeHandler::checkProblem);
+    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, practiceHandler, &PracticeHandler::handleEnterPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, practiceHandler, &PracticeHandler::handleLeftArrowPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, practiceHandler, &PracticeHandler::handleLeftArrowReleased);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, practiceHandler, &PracticeHandler::handleRightArrowPressed);

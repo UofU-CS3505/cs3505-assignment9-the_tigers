@@ -48,7 +48,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, lessonHandler, &LessonHandler::handleLeftArrowReleased);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, lessonHandler, &LessonHandler::handleRightArrowPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, lessonHandler, &LessonHandler::handleRightArrowReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, [this, &lessonHandler]() {
+    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, [this, lessonHandler]() {
         QString newText = ui->inputText->text();
         lessonHandler->onInputReceived(newText.toStdString());
         lessonHandler->handleEnterPressed();

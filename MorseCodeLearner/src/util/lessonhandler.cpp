@@ -151,6 +151,8 @@ void LessonHandler::pickQuestionType() {
 }
 
 void LessonHandler::onInputReceived(const std::string input) {
+    if (!userOnThisPage)
+        return;
     if (acceptingInput && type == ENCODE_ENGLISH) {
         QString qmorse = QString::fromStdString(input);
 

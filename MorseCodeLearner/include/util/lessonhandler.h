@@ -39,7 +39,7 @@ private:
     QTimer timer;
 
     bool acceptingInput;
-    bool userOnThisPage;
+    bool userOnThisPage = false;
     int currentIndex;
 
     enum questionType { ENCODE_ENGLISH, DECODE_MORSE, DECODE_SOUND };
