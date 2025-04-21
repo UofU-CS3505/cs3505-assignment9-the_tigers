@@ -69,6 +69,9 @@ signals:
 
     void setCurrentIndex(int currentIndex);
 
+public slots:
+    void startLesson(int lessonNumber);
+
 private slots:
     void onBackButtonClicked();
 
@@ -105,6 +108,8 @@ private slots:
     void onStackedWidgetIndexChange(int index);
 
     void setAudioDecodeMode(bool mode);
+
+
 };
 
 
