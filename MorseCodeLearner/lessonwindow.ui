@@ -277,6 +277,19 @@ QProgressBar::chunk {
       <number>0</number>
      </property>
     </widget>
+    <widget class="QLabel" name="soundDisplayLabel">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>40</y>
+       <width>64</width>
+       <height>64</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>soundDisplayLabel</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QPushButton" name="previousSlideButton">
