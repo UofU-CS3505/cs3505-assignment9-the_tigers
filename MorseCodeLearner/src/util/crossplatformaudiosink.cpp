@@ -249,8 +249,10 @@ public:
     }
 
     void suspend() override {
-        std::lock_guard<std::mutex> lock(suspendMutex);
-        suspended = true;
+        {
+            std::lock_guard<std::mutex> lock(suspendMutex);
+            suspended = true;
+        }
         AudioQueuePause(audioQueue);
     }
 
@@ -259,7 +261,20 @@ public:
             std::lock_guard<std::mutex> lock(suspendMutex);
             suspended = false;
         }
-        cv.notify_all();
+
+        {
+            std::lock_guard<std::mutex> lock(bufferMutex);
+            while (true) {
+                if (abs(ringBuffer[bufferReadPos]) > 0.009) {
+                    bufferReadPos = (bufferReadPos + 1) % ringBuffer.size();
+                } else {
+                    break;
+                }
+            }
+        }
+
+
+        fadeOut = 1;
 
         AudioQueueStart(audioQueue, nullptr);
     }
@@ -319,24 +334,35 @@ private:
     std::atomic<bool> running;
     std::atomic<bool> suspended;
     float volume;
+
+    double fadeOut = 1.0f;
     // float lastOutputSample = 0.0f;
 
     static void audioCallback(void* userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer) {
         auto* self = static_cast<CoreAudioSink*>(userData);
+        size_t frames = inBuffer->mAudioDataBytesCapacity / (sizeof(float) * self->channels);
+        float* output = reinterpret_cast<float*>(inBuffer->mAudioData);
+
         std::unique_lock<std::mutex> lock(self->suspendMutex);
 
         if (self->suspended || !self->running) {
-            {
-                std::lock_guard<std::mutex> bufferLock(self->bufferMutex);
-                while (true) {
-                    if (abs(self->ringBuffer[self->bufferReadPos]) > 0.009) {
-                        self->bufferReadPos = (self->bufferReadPos + 1) % self->ringBuffer.size();
-                    } else {
-                        break;
-                    }
+            std::lock_guard<std::mutex> bufferLock(self->bufferMutex);
+
+            // Fade out while suspended, lasts approx 44 ms
+            if (self->bufferedFrameCount >= frames) {
+                // qDebug() << "number of times: " << frames * self->channels;
+                for (size_t i = 0; i < frames * self->channels; ++i) {
+                    output[i] = self->ringBuffer[self->bufferReadPos] * self->volume * self->fadeOut;
+                    self->bufferReadPos = (self->bufferReadPos + 1) % self->ringBuffer.size();
+                    self->fadeOut -= 1 / (double)(frames * self->channels * 3);
+                    if(self->fadeOut < 0)
+                        self->fadeOut = 0;
                 }
+                self->bufferedFrameCount -= frames;
+            } else {
+                std::memset(output, 0, inBuffer->mAudioDataBytesCapacity);
             }
-            std::memset(inBuffer->mAudioData, 0, inBuffer->mAudioDataBytesCapacity);
+            qDebug() << "here";
             inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
             AudioQueueEnqueueBuffer(inAQ, inBuffer, 0, nullptr);
             return;
@@ -344,19 +370,11 @@ private:
 
         lock.unlock();
 
-        size_t frames = inBuffer->mAudioDataBytesCapacity / (sizeof(float) * self->channels);
-        float* output = reinterpret_cast<float*>(inBuffer->mAudioData);
-
         std::lock_guard<std::mutex> bufferLock(self->bufferMutex);
         if (self->bufferedFrameCount >= frames) {
             for (size_t i = 0; i < frames * self->channels; ++i) {
                 output[i] = self->ringBuffer[self->bufferReadPos] * self->volume;
                 self->bufferReadPos = (self->bufferReadPos + 1) % self->ringBuffer.size();
-
-                // if (abs(self->lastOutputSample - output[i]) > 0.0576)
-                //     qDebug() << "prev: " << output[i-1] << " sample: " << output[i];
-
-                // self->lastOutputSample = output[i];
             }
             self->bufferedFrameCount -= frames;
         } else {
