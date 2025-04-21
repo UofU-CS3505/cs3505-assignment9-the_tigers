@@ -122,6 +122,7 @@ void lessonwindow::onBackButtonClicked() {
 }
 
 void lessonwindow::guessCorrect() {
+    ui->soundDisplayLabel->hide();
     ui->problemText->setText("Correct!");
 
     textJumpBody->SetLinearVelocity(b2Vec2(0, 15));
@@ -129,6 +130,7 @@ void lessonwindow::guessCorrect() {
 }
 
 void lessonwindow::guessIncorrect() {
+    ui->soundDisplayLabel->hide();
     ui->problemText->setText("Incorrect!");
 
     shakeFrameCount = 0;
