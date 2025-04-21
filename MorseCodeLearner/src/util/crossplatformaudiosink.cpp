@@ -253,7 +253,7 @@ public:
             std::lock_guard<std::mutex> lock(suspendMutex);
             suspended = true;
         }
-        AudioQueuePause(audioQueue);
+        // AudioQueuePause(audioQueue);
     }
 
     void resume() override {
@@ -335,7 +335,7 @@ private:
     std::atomic<bool> suspended;
     float volume;
 
-    double fadeOut = 1.0f;
+    double fadeOut = 0.0f;
     // float lastOutputSample = 0.0f;
 
     static void audioCallback(void* userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer) {
@@ -349,7 +349,7 @@ private:
             std::lock_guard<std::mutex> bufferLock(self->bufferMutex);
 
             // Fade out while suspended, lasts approx 44 ms
-            if (self->bufferedFrameCount >= frames) {
+            if (self->bufferedFrameCount >= frames && self->fadeOut > 0) {
                 // qDebug() << "number of times: " << frames * self->channels;
                 for (size_t i = 0; i < frames * self->channels; ++i) {
                     output[i] = self->ringBuffer[self->bufferReadPos] * self->volume * self->fadeOut;
@@ -362,9 +362,11 @@ private:
             } else {
                 std::memset(output, 0, inBuffer->mAudioDataBytesCapacity);
             }
-            qDebug() << "here";
             inBuffer->mAudioDataByteSize = inBuffer->mAudioDataBytesCapacity;
             AudioQueueEnqueueBuffer(inAQ, inBuffer, 0, nullptr);
+            if (self->fadeOut == 0) {
+                AudioQueuePause(inAQ);
+            }
             return;
         }
 
