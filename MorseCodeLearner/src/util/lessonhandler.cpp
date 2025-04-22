@@ -108,7 +108,12 @@ void LessonHandler::checkUserGuess() {
         emit guessIncorrect();
         inputText = "";
         emit updateInputText(inputText);
-        timer.singleShot(1500, this, [this, correctAnswer](){emit displayCorrectAnswer(QString::fromStdString(correctAnswer));});
+
+        if (type == ENCODE_ENGLISH) {
+            timer.singleShot(1500, this, [this, correctAnswer](){emit displayCorrectAnswer(QString::fromStdString(morseHandler->encodeText(correctAnswer)));});
+        } else {
+            timer.singleShot(1500, this, [this, correctAnswer](){emit displayCorrectAnswer(QString::fromStdString(correctAnswer));});
+        }
     }
 
     int correctCount = 0;
