@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QLabel" name="label">
@@ -41,14 +41,14 @@
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>35</pointsize>
+       <pointsize>24</pointsize>
       </font>
      </property>
      <property name="text">
       <string>If you haven’t already gone and messed with the translator page to try forming words in morse code, we encourage you to go try now. You’ll see slashes “/” in between words, which indicates you waited long enough before you started inputting the next morse character, so it started the next word.</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -73,14 +73,14 @@
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>40</pointsize>
+       <pointsize>24</pointsize>
       </font>
      </property>
      <property name="text">
       <string>Morse code has an international set of timings, which determines how long dots, dashes, spaces between dots and dashes (intra-character spaces), spaces between different english characters (inter-character spaces), and spaces between words are.</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -114,11 +114,13 @@ Space between words: 7 units
 
 This means that, for the word “paris”, the timings will add up to 50 units in total.
 .--. .- .-. .. … /
-10 dots = 10 units; 4 dashes = 12 units; 9 intra-character spaces = 9 units; 4 inter-character spaces = 12 units; and 1 word space at the end = 7 units; 10 + 12 + 9 + 12 + 7 = 50 units
+10 dots = 10 units; 4 dashes = 12 units; 9 intra-character spaces = 9 units;
+4 inter-character spaces = 12 units; and 1 word space at the end = 7 units;
+10 + 12 + 9 + 12 + 7 = 50 units
 </string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

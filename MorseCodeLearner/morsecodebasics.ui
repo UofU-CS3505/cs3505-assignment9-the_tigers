@@ -44,14 +44,15 @@
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>35</pointsize>
+       <pointsize>24</pointsize>
+       <kerning>true</kerning>
       </font>
      </property>
      <property name="text">
       <string>Morse code is a telecommunications method which encodes text characters as standardized sequences of two different signal durations, called dots and dashes, or dits and dahs. Morse code is named after Samuel Morse, one of the early developers of the system adopted for electrical telegraphy.</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -76,14 +77,16 @@
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>30</pointsize>
+       <pointsize>24</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>In the early days, morse code was transmitted using a telegraph, which is a type of “straight key”. A straight key, also known as a keyer, sends an active signal when pressed down, and sends no signal when unpressed. In this app, the straight key is bound to the space bar. Dots are emitted by pressing the spacebar quickly, and dashes are emitted by holding down the spacebar for a slightly longer amount of time.</string>
+      <string>In the early days, morse code was transmitted using a telegraph, which is a type of “straight key”. A straight key, also known as a keyer, sends an active signal when pressed down, and sends no signal when unpressed. In this app, the straight key is bound to the space bar.
+
+Dots are emitted by pressing the spacebar quickly, and dashes are emitted by holding down the spacebar for a slightly longer amount of time.</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -103,14 +106,16 @@
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>30</pointsize>
+       <pointsize>24</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>In these next lessons, we will teach you the encodings for all of the letters of the English alphabet, starting with the shortest characters which contain only one or two dots and dashes, and then increase to the harder letters, which contain up to 4 dots and dashes. The app defaults to 10 words per minute, and if that feels too slow or too fast, you can adjust this timing in the settings menu.</string>
+      <string>In these next lessons, we will teach you the encodings for all of the letters of the English alphabet, starting with the shortest characters which contain only one or two dots and dashes, and then increase to the harder letters, which contain up to 4 dots and dashes.
+
+The app defaults to 10 words per minute—if that feels too slow or too fast, you can adjust this timing in the settings menu.</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
