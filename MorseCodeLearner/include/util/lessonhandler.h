@@ -28,6 +28,9 @@ private:
     std::vector<std::string> lessonNineWords = {"hello world", "thank you", "repeat that"};
 
     std::unordered_map<std::string, int> learnedCharacters;
+    int encodeQuestionTimes;
+    int decodeQuestionTimes;
+    int soundQuestionTimes;
 
     int currentLessonNumber;
     std::vector<std::string> currentLessonCharacters;

@@ -10,6 +10,9 @@
     <height>720</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::FocusPolicy::ClickFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -98,7 +101,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QLabel" name="referenceLabel">
@@ -112,8 +115,8 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      </property>
      <property name="font">
       <font>
-       <family>Segoe UI</family>
-       <pointsize>36</pointsize>
+       <family>OldNewspaperTypes</family>
+       <pointsize>32</pointsize>
        <kerning>false</kerning>
       </font>
      </property>
@@ -138,7 +141,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>48</pointsize>
+       <pointsize>32</pointsize>
        <kerning>false</kerning>
       </font>
      </property>

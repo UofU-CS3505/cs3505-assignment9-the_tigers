@@ -43,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(wordsLessonWindow, &WordsLesson::goToPracticeLesson, this, &MainWindow::onWordsLessonPracticeClicked);
 
     QObject::connect(this, &MainWindow::startLesson, lessonHandler, &LessonHandler::startLesson);
+    QObject::connect(this, &MainWindow::startLesson, lessonWindow, &lessonwindow::startLesson);
     QObject::connect(this, &MainWindow::userOnLessonPage, lessonHandler, &LessonHandler::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnMorseCodeBasics, morseCodeBasicsWindow, &MorseCodeBasics::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnNumbersBasics, numbersBasicsWindow, &NumbersBasics::setUserOnThisPage);

@@ -69,6 +69,12 @@ void LessonHandler::startLesson(int lessonNumber) {
             return;
     }
 
+    currentIndex = 0;
+
+    encodeQuestionTimes = currentLessonCharacters.size();
+    decodeQuestionTimes = currentLessonCharacters.size();
+    soundQuestionTimes = currentLessonCharacters.size();
+
     emit updateLessonTitle(currentLessonNumber);
 
     std::string referenceText = "";
@@ -127,9 +133,9 @@ void LessonHandler::lessonComplete() {
 }
 
 void LessonHandler::pickQuestionType() {
-    int randomQuestion = rand() % 3;
+    int sw = learnedCharacters[currentQuestion];
 
-    switch (randomQuestion) {
+    switch (sw) {
         case 0:
             type = ENCODE_ENGLISH;
             emit isAudioDecodeMode(false);
@@ -140,7 +146,7 @@ void LessonHandler::pickQuestionType() {
             type = DECODE_MORSE;
             emit isAudioDecodeMode(false);
             emit isInputReadOnly(false);
-            emit displayTextToUI("What is '" + QString::fromStdString(morseHandler->encodeText(currentQuestion)) + "' in English?");
+            emit displayTextToUI("What is '" + QString::fromStdString(morseHandler->encodeText(currentQuestion)).chopped(1) + "' in English?");
             break;
         case 2:
             type = DECODE_SOUND;
@@ -200,7 +206,7 @@ void LessonHandler::handleSpaceReleased() {
 }
 
 void LessonHandler::handleLeftArrowPressed() {
-    if (!userOnThisPage|| morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
+    if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDotDown();
 }
@@ -212,6 +218,9 @@ void LessonHandler::handleLeftArrowReleased() {
 }
 
 void LessonHandler::handleRightArrowPressed() {
+
+
+
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDashDown();

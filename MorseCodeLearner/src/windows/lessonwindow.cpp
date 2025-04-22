@@ -71,6 +71,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::displayCorrectAnswer, this, &lessonwindow::displayCorrectAnswer);
     QObject::connect(lessonHandler, &LessonHandler::setReferenceText, this, &lessonwindow::setReferenceText);
     QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
+    QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::clearFocus);
     QObject::connect(lessonHandler, &LessonHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
     QObject::connect(this, &lessonwindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
     QObject::connect(lessonHandler, &LessonHandler::isAudioDecodeMode, this, &lessonwindow::setAudioDecodeMode);
@@ -277,4 +278,9 @@ void lessonwindow::setAudioDecodeMode(bool isAudio) {
     } else {
         ui->soundDisplayLabel->hide();
     }
+}
+
+void lessonwindow::startLesson(int lessonNumber) {
+    currentIndex = 0;
+    ui->stackedWidget->setCurrentIndex(currentIndex);
 }
