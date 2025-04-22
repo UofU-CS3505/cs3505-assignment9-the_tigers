@@ -66,6 +66,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
             ui->skipButton->setStyleSheet("QPushButton {border: 1px solid black;\nbackground-color: transparent;\npadding-left: 0px;\n}\nQPushButton:hover {\n    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));\n}\n");
             ui->skipButton->move(1110, 260);
         } else {
+            ui->inputText->clearFocus();
             ui->checkInputButton->hide();
             ui->skipButton->setFixedHeight(131);
             // add slight left padding
