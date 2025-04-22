@@ -141,9 +141,33 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">border: 2px solid black;
-padding-left: 0.5em;
-background-color: white;</string>
+       <string notr="true">QComboBox {
+	border: 2px solid black;
+	background-color: white;
+	padding-left: 0.5em;
+}
+
+QComboBox QAbstractItemView {
+	selection-background-color: white;
+	background-color: white;
+	border: 1px solid black;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left: 1px solid black;
+}
+
+QComboBox::down-arrow {
+	image: url(&quot;:/icons/down_arrow.png&quot;);
+	width: 12px;
+	height: 12px;
+}</string>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
       </property>
       <item>
        <property name="text">
