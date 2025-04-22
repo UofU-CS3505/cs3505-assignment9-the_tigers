@@ -22,7 +22,7 @@ public:
     }
 
     ~WasapiAudioSink() {
-        stop();
+        WasapiAudioSink::stop();
         if (renderClient) renderClient->Release();
         if (audioClient) audioClient->Release();
     }
@@ -77,6 +77,7 @@ public:
 
     void stop() override {
         running = false;
+        cv.notify_all();
         if (thread.joinable()) thread.join();
         if (audioClient) audioClient->Stop();
         CoUninitialize();
