@@ -21,13 +21,10 @@ int main(int argc, char *argv[])
     PracticeHandler practiceHandler(&morseHandler);
     LessonHandler lessonHandler(&morseHandler);
 
-    MainWindow window(nullptr, &morseHandler, keyEventFilter, &practiceHandler, &lessonHandler);
-    window.setFixedSize(1280, 720);
-    window.setWindowIcon(QIcon(":/icons/app_icon.png"));
+    MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler, &lessonHandler);
+    menu.setFixedSize(1280, 720);
+    menu.setWindowIcon(QIcon(":/icons/app_icon.png"));
 
-    window.show();
-
-    qApp->setQuitOnLastWindowClosed(true);
-
-    exit(a.exec());
+    menu.show();
+    return a.exec();
 }
