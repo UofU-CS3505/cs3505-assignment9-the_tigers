@@ -113,14 +113,14 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
   <widget class="QFrame" name="inputsframe">
    <property name="geometry">
     <rect>
-     <x>-1</x>
-     <y>81</y>
+     <x>0</x>
+     <y>100</y>
      <width>1282</width>
      <height>291</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">border: 1px solid black;</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::Shape::NoFrame</enum>
@@ -134,10 +134,10 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     </property>
     <property name="geometry">
      <rect>
-      <x>89</x>
-      <y>160</y>
-      <width>1080</width>
-      <height>130</height>
+      <x>180</x>
+      <y>150</y>
+      <width>877</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="font">
@@ -192,10 +192,10 @@ background: qradialgradient(
     </property>
     <property name="geometry">
      <rect>
-      <x>89</x>
+      <x>180</x>
       <y>0</y>
-      <width>1080</width>
-      <height>130</height>
+      <width>877</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="font">
@@ -248,10 +248,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </property>
     <property name="geometry">
      <rect>
-      <x>1169</x>
+      <x>1056</x>
       <y>0</y>
-      <width>113</width>
-      <height>130</height>
+      <width>115</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -297,10 +297,10 @@ QPushButton:hover {
    <widget class="QPushButton" name="audioPlayButton">
     <property name="geometry">
      <rect>
-      <x>1169</x>
-      <y>160</y>
-      <width>121</width>
-      <height>130</height>
+      <x>1056</x>
+      <y>150</y>
+      <width>115</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -337,10 +337,10 @@ QPushButton:hover {
    <widget class="QLabel" name="outputLabel">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>90</x>
       <y>0</y>
-      <width>90</width>
-      <height>40</height>
+      <width>91</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -361,6 +361,9 @@ QPushButton:hover {
       <pointsize>16</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid black;</string>
+    </property>
     <property name="text">
      <string>TEXT</string>
     </property>
@@ -371,10 +374,10 @@ QPushButton:hover {
    <widget class="QLabel" name="inputLabel">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>160</y>
-      <width>90</width>
-      <height>40</height>
+      <x>90</x>
+      <y>150</y>
+      <width>91</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -393,6 +396,9 @@ QPushButton:hover {
     <property name="layoutDirection">
      <enum>Qt::LayoutDirection::LeftToRight</enum>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid black;</string>
+    </property>
     <property name="text">
      <string>MORSE</string>
     </property>
@@ -403,15 +409,14 @@ QPushButton:hover {
    <widget class="QFrame" name="spacerFrame">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>129</y>
-      <width>1282</width>
-      <height>32</height>
+      <x>90</x>
+      <y>130</y>
+      <width>1081</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-top: 2px solid black;
-border-bottom: 2px solid black;</string>
+     <string notr="true">border: 1px solid black;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::Shape::StyledPanel</enum>
@@ -423,9 +428,9 @@ border-bottom: 2px solid black;</string>
    <widget class="QPushButton" name="clearButton">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>199</y>
-      <width>90</width>
+      <x>90</x>
+      <y>190</y>
+      <width>91</width>
       <height>91</height>
      </rect>
     </property>
@@ -451,160 +456,61 @@ QPushButton:hover {
    <widget class="QLabel" name="handGraphic">
     <property name="geometry">
      <rect>
-      <x>5</x>
+      <x>95</x>
       <y>45</y>
       <width>80</width>
       <height>80</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;</string>
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>HAND GRAPHIC</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="morsePreview">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
+   <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>210</y>
-      <width>181</width>
-      <height>81</height>
+      <x>90</x>
+      <y>40</y>
+      <width>91</width>
+      <height>91</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>OldNewspaperTypes</family>
-      <pointsize>54</pointsize>
-      <kerning>false</kerning>
-     </font>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::FocusPolicy::NoFocus</enum>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLineEdit {
-        background: transparent;
-        border: none;
-        color: black; /* or any color you want */
-    }</string>
-    </property>
-    <property name="text">
-     <string>-----</string>
-    </property>
-    <property name="frame">
-     <bool>false</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignCenter</set>
-    </property>
-    <property name="cursorMoveStyle">
-     <enum>Qt::CursorMoveStyle::VisualMoveStyle</enum>
+     <string notr="true">border: 1px solid black;</string>
     </property>
    </widget>
+   <zorder>widget</zorder>
+   <zorder>inputText</zorder>
+   <zorder>outputText</zorder>
+   <zorder>swapButton</zorder>
+   <zorder>audioPlayButton</zorder>
+   <zorder>outputLabel</zorder>
+   <zorder>inputLabel</zorder>
+   <zorder>spacerFrame</zorder>
+   <zorder>clearButton</zorder>
+   <zorder>handGraphic</zorder>
   </widget>
-  <widget class="QFrame" name="instructionFrame">
-   <property name="geometry">
-    <rect>
-     <x>960</x>
-     <y>370</y>
-     <width>321</width>
-     <height>351</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border: 1px solid black;</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Shape::NoFrame</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Shadow::Raised</enum>
-   </property>
-   <widget class="QLabel" name="instructionHeaderLabel">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>321</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>OldNewspaperTypes</family>
-      <pointsize>28</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>INSTRUCTIONS</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="instructionLabel">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>80</y>
-      <width>321</width>
-      <height>271</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>OldNewspaperTypes</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-top: 2px solid black;</string>
-    </property>
-    <property name="text">
-     <string>TYPING—In Morse→English mode, write a message into the bottom box using &quot;.&quot;, &quot;-&quot;, and &quot;/” characters. The message will be displayed in the top box in plain English. In English→Morse mode, type in the bottom box in plain text and it will display in the top. Clear the bottom box with the clear button.
-SPACEBAR—In Morse→English mode, the spacebar can be tapped to input dots and dashes.
-PLAYING—Use the play button on the right to play your message in morse.
-SWAP—Swap from Morse and English input with the swap button.</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QLabel" name="illustrationLabel">
+  <widget class="QWidget" name="lineWidget_6" native="true">
    <property name="geometry">
     <rect>
      <x>190</x>
-     <y>430</y>
-     <width>600</width>
-     <height>250</height>
+     <y>390</y>
+     <width>20</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">b</string>
-   </property>
-   <property name="text">
-    <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
+    <string notr="true">border-left: 1px solid black;
+border-style: solid double;</string>
    </property>
   </widget>
   <widget class="QLabel" name="flashIndicator">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>90</x>
      <y>390</y>
      <width>64</width>
      <height>64</height>
@@ -616,6 +522,158 @@ SWAP—Swap from Morse and English input with the swap button.</string>
    <property name="text">
     <string/>
    </property>
+  </widget>
+  <widget class="QWidget" name="lineWidget_7" native="true">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>390</y>
+     <width>20</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-left: 1px solid black;
+border-style: solid double;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="illustrationLabel">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>520</y>
+     <width>420</width>
+     <height>175</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">b</string>
+   </property>
+   <property name="text">
+    <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="instructionLabel">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>390</y>
+     <width>611</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>OldNewspaperTypes</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>TYPE your message to translate between morse and English!
+Swap translation direction with the arrows, and hear the message in morse by clicking play. Clear your input by clicking the broom!</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QWidget" name="lineWidget_8" native="true">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>460</y>
+     <width>1081</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-bottom: 1px solid black;
+border-style: solid double;</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="lineWidget_4" native="true">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>450</y>
+     <width>1081</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-bottom: 1px solid black;
+border-style: solid double;</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="morsePreviewBackground" native="true">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>390</y>
+     <width>311</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: qradialgradient(
+        cx:0.5, cy:0.5,
+        fx:0.5, fy:0.5,
+        radius:0.75,
+        stop:0 rgba(255, 255, 255, 255),
+        stop:0.7 rgba(255, 255, 255, 200),
+        stop:1 rgba(255, 255, 255, 0)
+   		);
+        border: 1px solid black;</string>
+   </property>
+   <widget class="QLineEdit" name="morsePreview">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>-10</y>
+      <width>291</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>OldNewspaperTypes</family>
+      <pointsize>54</pointsize>
+      <kerning>false</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+border: none;</string>
+    </property>
+    <property name="text">
+     <string>-----</string>
+    </property>
+    <property name="frame">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
