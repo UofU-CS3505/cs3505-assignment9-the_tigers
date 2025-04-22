@@ -4,6 +4,12 @@
 #include "crossplatformaudiosink.h"
 #include "crossplatformaudiosink.cpp"
 
+/**
+ * Wrapper class for a CrossPlatformAudioSink
+ *
+ * @author Michael Timothy
+ * @date 4/21/2025
+ */
 class AudioSink : public CrossPlatformAudioSink
 {
 public:
