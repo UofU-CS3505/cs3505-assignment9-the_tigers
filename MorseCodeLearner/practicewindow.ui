@@ -100,7 +100,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>90</y>
+     <y>100</y>
      <width>1080</width>
      <height>61</height>
     </rect>
