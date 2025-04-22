@@ -93,15 +93,13 @@ void LessonHandler::startLesson(int lessonNumber) {
 void LessonHandler::checkUserGuess() {
     acceptingInput = false;
     std::string guess = inputText.toStdString();
-    std::string correctAnswer;
+    std::string correctAnswer = currentQuestion;
 
     if (type == ENCODE_ENGLISH) {
-        correctAnswer = morseHandler->encodeText(currentQuestion);
-    } else {
-        correctAnswer = currentQuestion;
+        guess = morseHandler->decodeMorse(guess);
     }
 
-    if (guess == correctAnswer) {
+    if (guess == correctAnswer || guess == correctAnswer + " ") {
         learnedCharacters[currentQuestion] += 1;
         emit guessCorrect();
         inputText = "";
