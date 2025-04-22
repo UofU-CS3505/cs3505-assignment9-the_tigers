@@ -79,6 +79,7 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
     QObject::connect(this, &lessonwindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
     QObject::connect(lessonHandler, &LessonHandler::isAudioDecodeMode, this, &lessonwindow::setAudioDecodeMode);
+    QObject::connect(lessonHandler, &LessonHandler::focusInput, this, [this](){ui->inputText->setFocus();});
 
     // Iambic paddle illustrations
     QObject::connect(lessonHandler, &LessonHandler::paddleSelected, this, [this, keyEventFilter](){

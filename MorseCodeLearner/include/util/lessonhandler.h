@@ -161,5 +161,10 @@ signals:
      * Emitted so the window can change view stuff in decode audio mode.
      */
     void isAudioDecodeMode(bool mode);
+
+    /**
+     * Emitted to focus input for decode morse or decode audio problems.
+     */
+    void focusInput();
 };
 #endif // LESSONHANDLER_H

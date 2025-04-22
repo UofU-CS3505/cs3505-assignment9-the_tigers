@@ -149,6 +149,7 @@ void LessonHandler::pickQuestionType() {
             type = DECODE_MORSE;
             emit isAudioDecodeMode(false);
             emit isInputReadOnly(false);
+            emit focusInput();
             emit displayTextToUI("What is '" + QString::fromStdString(morseHandler->encodeText(currentQuestion)).chopped(1) + "' in English?");
             break;
         case 2:
@@ -156,6 +157,7 @@ void LessonHandler::pickQuestionType() {
             emit isAudioDecodeMode(true);
             emit displayTextToUI("");
             emit isInputReadOnly(false);
+            emit focusInput();
             emit soundPlaying();
             morseHandler->playMorse(morseHandler->encodeText(currentQuestion));
             break;
