@@ -12,6 +12,9 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     wordCounter = 0;
     lessonProgress = 0;
     currentIndex = 0;
+
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [this](){emit lightIndicatorOn();});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [this](){emit lightIndicatorOff();});
 }
 
 void LessonHandler::nextQuestion() {
@@ -194,14 +197,12 @@ void LessonHandler::onInputReceived(const std::string input) {
 void LessonHandler::handleSpacePressed() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0 || type != ENCODE_ENGLISH)
         return;
-    emit lightIndicatorOn();
     morseHandler->straightKeyDown();
 }
 
 void LessonHandler::handleSpaceReleased() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
-    emit lightIndicatorOff();
     morseHandler->straightKeyUp();
 }
 

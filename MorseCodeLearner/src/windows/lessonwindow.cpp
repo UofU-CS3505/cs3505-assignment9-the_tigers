@@ -28,11 +28,15 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     ui->nextSlideButton->setIcon(QIcon(QPixmap(":/icons/back.png").transformed(QTransform().scale(-1, 1)))); // Reverses the arrow icon
     ui->nextSlideButton->setIconSize(QSize(52, 52));
 
+    ui->progressDisplayLabel->setText("0%");
+
     // Light indicator
     QPixmap lightOn(QPixmap::fromImage(QImage(":/icons/light_on.png")));
     QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
     ui->flashIndicator->setPixmap(lightOff);
     ui->flashIndicator->setScaledContents(true);
+    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
+    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
 
     // Buttons
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::onBackButtonClicked);
@@ -153,6 +157,8 @@ void lessonwindow::updateLessonTitle(int lessonNumber) {
 
 void lessonwindow::updateLessonProgressBar(float progress) {
     ui->progressBar->setValue((int)progress);
+    QString progressString = QString::number((int)progress) + "%";
+    ui->progressDisplayLabel->setText(progressString);
 }
 
 void lessonwindow::displayCorrectAnswer(QString correctAnswer) {

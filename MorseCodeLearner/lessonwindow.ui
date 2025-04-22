@@ -135,7 +135,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
        <x>0</x>
        <y>30</y>
        <width>1080</width>
-       <height>130</height>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
@@ -183,7 +183,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>300</y>
+       <y>250</y>
        <width>64</width>
        <height>64</height>
       </rect>
@@ -192,41 +192,53 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       <string notr="true"/>
      </property>
      <property name="text">
-      <string/>
+      <string>FLASH</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
     <widget class="QProgressBar" name="progressBar">
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>300</y>
+       <y>260</y>
        <width>861</width>
        <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">QProgressBar {
-    border: 2px solid #888;
-    border-radius: 5px;
+    border: 1px solid black;
     background-color: #f0f0f0;
+	background: qradialgradient(
+        cx:0.5, cy:0.5,
+        fx:0.5, fy:0.5,
+        radius:0.75,
+        stop:0 rgba(255, 255, 255, 255),
+        stop:0.7 rgba(255, 255, 255, 200),
+        stop:1 rgba(255, 255, 255, 0)
+    );
     text-align: center;
 }
 
 QProgressBar::chunk {
-    background-color: #5cb85c;
+    background-color: black;
     width: 10px;
-    margin: 0.5px;
 }</string>
      </property>
      <property name="value">
       <number>0</number>
+     </property>
+     <property name="textVisible">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QLabel" name="soundDisplayLabel">
      <property name="geometry">
       <rect>
        <x>510</x>
-       <y>40</y>
+       <y>20</y>
        <width>64</width>
        <height>64</height>
       </rect>
@@ -239,7 +251,7 @@ QProgressBar::chunk {
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>160</y>
+       <y>110</y>
        <width>1081</width>
        <height>131</height>
       </rect>
@@ -273,6 +285,92 @@ padding-left: 1em;</string>
       <bool>false</bool>
      </property>
     </widget>
+    <widget class="QWidget" name="lineWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>1081</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-bottom: 1px solid black;
+border-style: solid double;</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="lineWidget_2" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>81</y>
+       <width>1081</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-bottom: 1px solid black;
+border-style: solid double;</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="lineWidget_6" native="true">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>250</y>
+       <width>20</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-left: 1px solid black;
+border-style: solid double;</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="lineWidget_7" native="true">
+     <property name="geometry">
+      <rect>
+       <x>990</x>
+       <y>250</y>
+       <width>20</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-left: 1px solid black;
+border-style: solid double;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="progressDisplayLabel">
+     <property name="geometry">
+      <rect>
+       <x>1010</x>
+       <y>260</y>
+       <width>71</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>OldNewspaperTypes</family>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>0%</string>
+     </property>
+    </widget>
+    <zorder>problemText</zorder>
+    <zorder>illustrationLabel</zorder>
+    <zorder>flashIndicator</zorder>
+    <zorder>progressBar</zorder>
+    <zorder>inputText</zorder>
+    <zorder>lineWidget</zorder>
+    <zorder>lineWidget_2</zorder>
+    <zorder>soundDisplayLabel</zorder>
+    <zorder>lineWidget_6</zorder>
+    <zorder>lineWidget_7</zorder>
+    <zorder>progressDisplayLabel</zorder>
    </widget>
   </widget>
   <widget class="QPushButton" name="previousSlideButton">
