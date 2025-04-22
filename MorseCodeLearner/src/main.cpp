@@ -29,5 +29,5 @@ int main(int argc, char *argv[])
 
     qApp->setQuitOnLastWindowClosed(true);
 
-    exit(a.exec());
+    return a.exec();
 }
