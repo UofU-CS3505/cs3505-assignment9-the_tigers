@@ -85,6 +85,10 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::paddleSelected, this, [this, keyEventFilter](){
         QObject::disconnect(straightPressedConnection);
         QObject::disconnect(straightReleasedConnection);
+        QObject::disconnect(rightPressedConnection);
+        QObject::disconnect(rightReleasedConnection);
+        QObject::disconnect(leftPressedConnection);
+        QObject::disconnect(leftReleasedConnection);
 
         QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));
         QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
@@ -131,6 +135,8 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 
     // Straight key illustrations
     QObject::connect(lessonHandler, &LessonHandler::straightKeySelected, this, [this, keyEventFilter](){
+        QObject::disconnect(straightPressedConnection);
+        QObject::disconnect(straightReleasedConnection);
         QObject::disconnect(rightPressedConnection);
         QObject::disconnect(rightReleasedConnection);
         QObject::disconnect(leftPressedConnection);

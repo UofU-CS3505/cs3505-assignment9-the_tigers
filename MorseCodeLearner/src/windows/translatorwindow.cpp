@@ -62,6 +62,8 @@ void translatorwindow::setUserOnThisPage(bool userOnThisPage) {
 
     if (userOnThisPage) {
         if (morseHandler->getDevice() == MorseHandler::STRAIGHT_KEY) {
+            QObject::disconnect(straightPressedConnection);
+            QObject::disconnect(straightReleasedConnection);
             QObject::disconnect(rightPressedConnection);
             QObject::disconnect(rightReleasedConnection);
             QObject::disconnect(leftPressedConnection);
@@ -76,6 +78,10 @@ void translatorwindow::setUserOnThisPage(bool userOnThisPage) {
         } else {
             QObject::disconnect(straightPressedConnection);
             QObject::disconnect(straightReleasedConnection);
+            QObject::disconnect(rightPressedConnection);
+            QObject::disconnect(rightReleasedConnection);
+            QObject::disconnect(leftPressedConnection);
+            QObject::disconnect(leftReleasedConnection);
 
             // Iambic paddle illustrations
             QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));

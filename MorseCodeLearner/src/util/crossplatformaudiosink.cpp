@@ -18,7 +18,7 @@ class WasapiAudioSink : public CrossPlatformAudioSink {
 public:
     WasapiAudioSink()
         : audioClient(nullptr), renderClient(nullptr), sampleRate(48000), channels(2), running(false) {
-        ringBuffer.resize(sampleRate * channels * 1);
+        ringBuffer.resize(sampleRate * channels * 1); // 1 second buffer, can be resized
     }
 
     ~WasapiAudioSink() {
@@ -171,15 +171,16 @@ private:
                         bufferReadPos = (bufferReadPos + 1) % ringBuffer.size();
                         floatData[i] = sample * volume;
 
-                        // if (abs(sample - prevSample) > 0.0576) {
-                        //     qDebug() << "sample: " << sample << " prev: " << prevSample;
-                        //     qDebug() << "read pos: " << bufferReadPos << " write pos: " << bufferWritePos;
-                        // }
+                        if (abs(sample - prevSample) > 0.0576) {
+                            qDebug() << "sample: " << sample << " prev: " << prevSample;
+                            qDebug() << "read pos: " << bufferReadPos << " write pos: " << bufferWritePos;
+                        }
                         prevSample = sample;
                     }
 
                     bufferedFrameCount -= availableFrames;
                 } else {
+                    qDebug() << "underrun";
                     renderClient->ReleaseBuffer(availableFrames, AUDCLNT_BUFFERFLAGS_SILENT);
                     continue;
                 }

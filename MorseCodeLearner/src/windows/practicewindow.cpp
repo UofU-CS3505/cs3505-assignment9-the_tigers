@@ -90,6 +90,10 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     QObject::connect(practiceHandler, &PracticeHandler::paddleSelected, this, [this, keyEventFilter](){
         QObject::disconnect(straightPressedConnection);
         QObject::disconnect(straightReleasedConnection);
+        QObject::disconnect(rightPressedConnection);
+        QObject::disconnect(rightReleasedConnection);
+        QObject::disconnect(leftPressedConnection);
+        QObject::disconnect(leftReleasedConnection);
 
         QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));
         QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
@@ -136,6 +140,8 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
 
     // Straight key illustrations
     QObject::connect(practiceHandler, &PracticeHandler::straightKeySelected, this, [this, keyEventFilter](){
+        QObject::disconnect(straightPressedConnection);
+        QObject::disconnect(straightReleasedConnection);
         QObject::disconnect(rightPressedConnection);
         QObject::disconnect(rightReleasedConnection);
         QObject::disconnect(leftPressedConnection);
