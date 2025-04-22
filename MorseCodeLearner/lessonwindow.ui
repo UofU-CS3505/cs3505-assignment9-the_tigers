@@ -107,9 +107,9 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     <widget class="QLabel" name="referenceLabel">
      <property name="geometry">
       <rect>
-       <x>490</x>
+       <x>-10</x>
        <y>0</y>
-       <width>591</width>
+       <width>1091</width>
        <height>621</height>
       </rect>
      </property>
@@ -124,7 +124,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
       <string>TextLabel</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
    </widget>
