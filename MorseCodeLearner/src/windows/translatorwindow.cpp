@@ -81,11 +81,44 @@ void translatorwindow::setUserOnThisPage(bool userOnThisPage) {
             QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));
             QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
             QPixmap paddleCenter(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
+            QPixmap paddleBoth(QPixmap::fromImage(QImage(":/images/paddle_both.png")));
             ui->illustrationLabel->setPixmap(paddleCenter);
-            rightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, [this, paddleRight](){ui->illustrationLabel->setPixmap(paddleRight);});
-            rightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, [this, paddleCenter](){ui->illustrationLabel->setPixmap(paddleCenter);});
-            leftPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, [this, paddleLeft](){ui->illustrationLabel->setPixmap(paddleLeft);});
-            leftReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, [this, paddleCenter](){ui->illustrationLabel->setPixmap(paddleCenter);});
+            rightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, [this, paddleRight, paddleBoth](){
+                if (paddleState == LEFT) {
+                    paddleState = BOTH;
+                    ui->illustrationLabel->setPixmap(paddleBoth);
+                } else {
+                    paddleState = RIGHT;
+                    ui->illustrationLabel->setPixmap(paddleRight);
+                }
+            });
+            rightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, [this, paddleCenter, paddleLeft](){
+                if (paddleState == BOTH) {
+                    paddleState = LEFT;
+                    ui->illustrationLabel->setPixmap(paddleLeft);
+                } else {
+                    paddleState = CENTER;
+                    ui->illustrationLabel->setPixmap(paddleCenter);
+                }
+            });
+            leftPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, [this, paddleLeft, paddleBoth](){
+                if (paddleState == RIGHT) {
+                    paddleState = BOTH;
+                    ui->illustrationLabel->setPixmap(paddleBoth);
+                } else {
+                    paddleState = LEFT;
+                    ui->illustrationLabel->setPixmap(paddleLeft);
+                }
+            });
+            leftReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, [this, paddleCenter, paddleRight](){
+                if (paddleState == BOTH) {
+                    paddleState = RIGHT;
+                    ui->illustrationLabel->setPixmap(paddleRight);
+                } else {
+                    paddleState = CENTER;
+                    ui->illustrationLabel->setPixmap(paddleCenter);
+                }
+            });
         }
     }
 }

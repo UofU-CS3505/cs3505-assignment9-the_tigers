@@ -28,6 +28,12 @@ private:
     QTimer timer;
     int currentIndex;
 
+    enum paddleAnimationStates {
+        LEFT, RIGHT, CENTER, BOTH
+    };
+
+    paddleAnimationStates paddleState = CENTER;
+
     b2World world;
     b2Body* textShakeBody;
     b2Body* textJumpBody;

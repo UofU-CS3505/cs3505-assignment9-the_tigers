@@ -1,6 +1,15 @@
 #ifndef CROSSPLATFORMAUDIOSINK_H
 #define CROSSPLATFORMAUDIOSINK_H
 
+/**
+ * An audio sink implementation similar to QAudioSink but specifically designed
+ * for the playback of generated sine wave data.
+ *
+ * Implementation works for macOS and Windows using CoreAudio and Wasapi accordingly.
+ *
+ * @author Michael Timothy
+ * @date 4/21/2025
+ */
 class CrossPlatformAudioSink
 {
 public:

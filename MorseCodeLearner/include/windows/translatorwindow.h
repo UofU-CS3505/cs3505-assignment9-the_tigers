@@ -117,6 +117,12 @@ private:
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
 
+    enum paddleAnimationStates {
+        LEFT, RIGHT, CENTER, BOTH
+    };
+
+    paddleAnimationStates paddleState = CENTER;
+
     translateMode mode = MORSE_TO_TEXT;
 
     bool userOnThisPage = false;

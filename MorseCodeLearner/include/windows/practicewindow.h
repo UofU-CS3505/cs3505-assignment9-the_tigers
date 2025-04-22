@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "morsehandler.h"
 #include "keyeventfilter.h"
-#include "difficultyhandler.h"
 #include "practicehandler.h"
 #include "Box2D/Box2D.h"
 
@@ -82,6 +81,12 @@ private:
     PracticeHandler *practiceHandler;
 
     QTimer timer;
+
+    enum paddleAnimationStates {
+        LEFT, RIGHT, CENTER, BOTH
+    };
+
+    paddleAnimationStates paddleState = CENTER;
 
     b2World world;
     b2Body* textShakeBody;
