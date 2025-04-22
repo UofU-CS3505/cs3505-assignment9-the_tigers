@@ -175,9 +175,30 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
     <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">border: 1px solid black;
-padding-left: 0.5em;
-background-color: white;</string>
+    <string notr="true">QComboBox {
+	border: 1px solid black;
+	background-color: white;
+	padding-left: 0.5em;
+}
+
+QComboBox QAbstractItemView {
+	selection-background-color: white;
+	background-color: white;
+	border: 1px solid black;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left: 1px solid black;
+}
+
+QComboBox::down-arrow {
+	image: url(&quot;:/icons/down_arrow.png&quot;);
+	width: 12px;
+	height: 12px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -214,9 +235,30 @@ background-color: white;</string>
     <enum>Qt::FocusPolicy::NoFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">border: 1px solid black;
-padding-left: 0.5em;
-background-color: white;</string>
+    <string notr="true">QComboBox {
+	border: 1px solid black;
+	background-color: white;
+	padding-left: 0.5em;
+}
+
+QComboBox QAbstractItemView {
+	selection-background-color: white;
+	background-color: white;
+	border: 1px solid black;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left: 1px solid black;
+}
+
+QComboBox::down-arrow {
+	image: url(&quot;:/icons/down_arrow.png&quot;);
+	width: 12px;
+	height: 12px;
+}</string>
    </property>
    <item>
     <property name="text">
@@ -240,7 +282,7 @@ background-color: white;</string>
      <x>840</x>
      <y>340</y>
      <width>111</width>
-     <height>20</height>
+     <height>16</height>
     </rect>
    </property>
    <property name="font">
@@ -651,39 +693,62 @@ border-style: solid double;</string>
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLineEdit" name="morsePreview">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
+  <widget class="QWidget" name="morsePreviewBackground" native="true">
    <property name="geometry">
     <rect>
-     <x>480</x>
+     <x>490</x>
      <y>330</y>
-     <width>331</width>
+     <width>311</width>
      <height>71</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <family>OldNewspaperTypes</family>
-     <pointsize>54</pointsize>
-     <kerning>false</kerning>
-    </font>
-   </property>
    <property name="styleSheet">
-    <string notr="true">QLineEdit {
-        background: transparent;
-        border: none;
-        color: black; /* or any color you want */
-    }</string>
+    <string notr="true">background: qradialgradient(
+        cx:0.5, cy:0.5,
+        fx:0.5, fy:0.5,
+        radius:0.75,
+        stop:0 rgba(255, 255, 255, 255),
+        stop:0.7 rgba(255, 255, 255, 200),
+        stop:1 rgba(255, 255, 255, 0)
+   		);
+        border: 1px solid black;</string>
    </property>
-   <property name="text">
-    <string>-----</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignmentFlag::AlignCenter</set>
-   </property>
+   <widget class="QLineEdit" name="morsePreview">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>-10</y>
+      <width>291</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>OldNewspaperTypes</family>
+      <pointsize>54</pointsize>
+      <kerning>false</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+border: none;</string>
+    </property>
+    <property name="text">
+     <string>-----</string>
+    </property>
+    <property name="frame">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
+  <zorder>morsePreviewBackground</zorder>
+  <zorder>modeInstructionLabel</zorder>
   <zorder>lineWidget_4</zorder>
   <zorder>headerFrame</zorder>
   <zorder>problemText</zorder>
@@ -702,7 +767,6 @@ border-style: solid double;</string>
   <zorder>lineWidget_8</zorder>
   <zorder>lineWidget_9</zorder>
   <zorder>inputText</zorder>
-  <zorder>modeInstructionLabel</zorder>
   <zorder>soundDisplayLabel</zorder>
   <zorder>skipButton</zorder>
   <zorder>highScoreLabel</zorder>
@@ -711,7 +775,6 @@ border-style: solid double;</string>
   <zorder>lineWidget_7</zorder>
   <zorder>checkInputButton</zorder>
   <zorder>illustrationLabel</zorder>
-  <zorder>morsePreview</zorder>
  </widget>
  <resources/>
  <connections/>

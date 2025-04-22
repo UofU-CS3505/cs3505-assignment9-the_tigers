@@ -234,15 +234,17 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>35</pointsize>
+       <pointsize>24</pointsize>
        <kerning>true</kerning>
       </font>
      </property>
      <property name="text">
-      <string>Numbers in morse code are much simpler to remember than regular letters because numbers follow a pattern that is easy to follow. It is important to remember that all numbers are 5 morse characters long.</string>
+      <string>Numbers in morse code are much simpler to remember than regular letters because numbers follow a pattern that is easy to follow.
+
+All numbers are 5 morse characters long.</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -267,7 +269,7 @@ background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>30</pointsize>
+       <pointsize>24</pointsize>
        <kerning>false</kerning>
       </font>
      </property>
@@ -280,7 +282,7 @@ Then 2: ..---
 5: …..</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -300,7 +302,7 @@ Then 2: ..---
      <property name="font">
       <font>
        <family>OldNewspaperTypes</family>
-       <pointsize>30</pointsize>
+       <pointsize>24</pointsize>
        <kerning>false</kerning>
       </font>
      </property>
@@ -313,7 +315,7 @@ And then just as we added dots to the beginning with the earlier numbers, we add
 9: ----.</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
