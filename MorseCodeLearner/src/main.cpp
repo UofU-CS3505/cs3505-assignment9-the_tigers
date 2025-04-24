@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     MorseHandler morseHandler(MorseHandler::STRAIGHT_KEY, 12);
     morseHandler.setVolume(100);
 
-    PracticeHandler practiceHandler(&morseHandler);
+    PracticeHandler practiceHandler(&morseHandler, keyEventFilter);
     LessonHandler lessonHandler(&morseHandler);
 
     MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler, &lessonHandler);
