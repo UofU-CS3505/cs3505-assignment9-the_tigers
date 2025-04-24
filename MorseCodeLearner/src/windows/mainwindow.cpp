@@ -62,7 +62,6 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::setUpPages() {
-    translatorWindow = new translatorwindow(this, translateHandler);
     lessonWindow = new LessonWindow(lessonHandler, morseHandler, keyEventFilter);
     lessonSelectWindow = new LessonSelectWindow();
     practiceWindow = new PracticeWindow(this, practiceHandler);

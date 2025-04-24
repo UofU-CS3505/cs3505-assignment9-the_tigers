@@ -68,7 +68,6 @@ void TranslateHandler::onSwapTranslateMode() {
 void TranslateHandler::onInputTextChanged(const std::string text) {
     currentInputText = text;
     if (mode == TEXT_TO_MORSE) {
-        qDebug() << currentInputText;
         currentOutputText = morseHandler->encodeText(currentInputText);
     } else {
         currentOutputText = morseHandler->decodeMorse(currentInputText);
