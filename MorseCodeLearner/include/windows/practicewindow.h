@@ -15,20 +15,19 @@ class practicewindow;
  * The practice page. Allows the user to infinitely practice morse code decoding and encoding.
  *
  * @name Chandler Eyre and Michael Timothy
- * @date 04/15/2025
+ * @date 04/24/2025
  */
-class practicewindow : public QWidget
+class PracticeWindow : public QWidget
 {
     Q_OBJECT
 
 public:
     /**
-     * Constructor for a practice window. Takes in a MorseHandler, MorseAudioHandler, and KeyEventFilter.
+     * Constructor for a practice window. Takes in a PracticeHandler.
      */
-    explicit practicewindow(QWidget *parent = nullptr,
-                            KeyEventFilter *keyEventFilter = nullptr,
+    explicit PracticeWindow(QWidget *parent = nullptr,
                             PracticeHandler *practiceHandler = nullptr);
-    ~practicewindow();
+    ~PracticeWindow();
 
     void setUserOnThisPage(bool userOnThisPage);
 
@@ -75,9 +74,6 @@ private slots:
 
 private:
     Ui::practicewindow *ui;
-
-    MorseHandler *morseHandler;
-    KeyEventFilter *keyEventFilter;
     PracticeHandler *practiceHandler;
 
     QTimer timer;

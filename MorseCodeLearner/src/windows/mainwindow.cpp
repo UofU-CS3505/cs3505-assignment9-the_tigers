@@ -30,14 +30,14 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(menuWindow, &MenuWindow::goToSettingsPage, this, &MainWindow::onSettingsNavClicked);
     QObject::connect(menuWindow, &MenuWindow::goToReferencePage, this, &MainWindow::onReferenceNavClicked);
 
-    QObject::connect(lessonSelectWindow, &lessonselectwindow::selectLesson, this, &MainWindow::onLessonClicked);
+    QObject::connect(lessonSelectWindow, &LessonSelectWindow::selectLesson, this, &MainWindow::onLessonClicked);
 
     QObject::connect(translatorWindow, &translatorwindow::goHome, this, &MainWindow::goHome);
     QObject::connect(practiceHandler, &PracticeHandler::goHome, this, &MainWindow::goHome);
-    QObject::connect(lessonWindow, &lessonwindow::goToLessonSelect, this, &MainWindow::onLearningNavClicked);
-    QObject::connect(lessonSelectWindow, &lessonselectwindow::goHome, this, &MainWindow::goHome);
-    QObject::connect(settingsWindow, &settingswindow::goHome, this, &MainWindow::goHome);
-    QObject::connect(referenceWindow, &referencewindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(lessonWindow, &LessonWindow::goToLessonSelect, this, &MainWindow::onLearningNavClicked);
+    QObject::connect(lessonSelectWindow, &LessonSelectWindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(settingsWindow, &SettingsWindow::goHome, this, &MainWindow::goHome);
+    QObject::connect(referenceWindow, &ReferenceWindow::goHome, this, &MainWindow::goHome);
     QObject::connect(morseCodeBasicsWindow, &MorseCodeBasics::goBack, this, &MainWindow::onLearningNavClicked);
     QObject::connect(numbersBasicsWindow, &NumbersBasics::goBack, this, &MainWindow::onLearningNavClicked);
     QObject::connect(paddleLessonWindow, &PaddleLesson::goBack, this, &MainWindow::onLearningNavClicked);
@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent,
     QObject::connect(wordsLessonWindow, &WordsLesson::goToPracticeLesson, this, &MainWindow::onWordsLessonPracticeClicked);
 
     QObject::connect(this, &MainWindow::startLesson, lessonHandler, &LessonHandler::startLesson);
-    QObject::connect(this, &MainWindow::startLesson, lessonWindow, &lessonwindow::startLesson);
+    QObject::connect(this, &MainWindow::startLesson, lessonWindow, &LessonWindow::startLesson);
     QObject::connect(this, &MainWindow::userOnLessonPage, lessonHandler, &LessonHandler::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnMorseCodeBasics, morseCodeBasicsWindow, &MorseCodeBasics::setUserOnThisPage);
     QObject::connect(this, &MainWindow::userOnNumbersBasics, numbersBasicsWindow, &NumbersBasics::setUserOnThisPage);
@@ -62,13 +62,14 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::setUpPages() {
-    lessonWindow = new lessonwindow(lessonHandler, morseHandler, keyEventFilter);
-    lessonSelectWindow = new lessonselectwindow();
-    practiceWindow = new practicewindow(this, practiceHandler);
-    settingsWindow = new settingswindow(this, morseHandler);
+    translatorWindow = new translatorwindow(this, translateHandler);
+    lessonWindow = new LessonWindow(lessonHandler, morseHandler, keyEventFilter);
+    lessonSelectWindow = new LessonSelectWindow();
+    practiceWindow = new PracticeWindow(this, practiceHandler);
+    settingsWindow = new SettingsWindow(this, morseHandler);
     translatorWindow = new translatorwindow(this, translateHandler);
     menuWindow = new MenuWindow();
-    referenceWindow = new referencewindow(this);
+    referenceWindow = new ReferenceWindow(this);
     morseCodeBasicsWindow = new MorseCodeBasics(this);
     numbersBasicsWindow = new NumbersBasics(this);
     paddleLessonWindow = new PaddleLesson(this);

@@ -2,7 +2,7 @@
 #include "ui_lessonselectwindow.h"
 #include <QSettings>
 
-lessonselectwindow::lessonselectwindow(QWidget *parent)
+LessonSelectWindow::LessonSelectWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::lessonselectwindow)
     , world(b2Vec2(0, -20))
@@ -12,7 +12,7 @@ lessonselectwindow::lessonselectwindow(QWidget *parent)
 
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
-    QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonselectwindow::onBackButtonClicked);
+    QObject::connect(ui->backButton, &QPushButton::clicked, this, &LessonSelectWindow::onBackButtonClicked);
 
     // Checkmark icon if lesson is completed
     checkAndUpdateLessonComplete();
@@ -45,12 +45,12 @@ lessonselectwindow::lessonselectwindow(QWidget *parent)
     setupWorld();
 }
 
-lessonselectwindow::~lessonselectwindow()
+LessonSelectWindow::~LessonSelectWindow()
 {
     delete ui;
 }
 
-void lessonselectwindow::checkAndUpdateLessonComplete() {
+void LessonSelectWindow::checkAndUpdateLessonComplete() {
     QSettings settings("Tigers", "MorseCodeLearner");
     int completedNumber = 0;
 
@@ -73,22 +73,22 @@ void lessonselectwindow::checkAndUpdateLessonComplete() {
     ui->lessonCompleteCounterLabel->setNum(completedNumber);
 }
 
-void lessonselectwindow::setUserOnThisPage(bool userOnThisPage) {
+void LessonSelectWindow::setUserOnThisPage(bool userOnThisPage) {
     this->userOnThisPage = userOnThisPage;
     checkAndUpdateLessonComplete();
 }
 
-bool lessonselectwindow::getUserOnThisPage() {
+bool LessonSelectWindow::getUserOnThisPage() {
     return userOnThisPage;
 }
 
-void lessonselectwindow::onBackButtonClicked()
+void LessonSelectWindow::onBackButtonClicked()
 {
     emit goHome();
     userOnThisPage = false;
 }
 
-void lessonselectwindow::setupWorld() {
+void LessonSelectWindow::setupWorld() {
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0.0f, -50.0f);
 
@@ -179,10 +179,10 @@ void lessonselectwindow::setupWorld() {
     lessonNineY = ui->lessonButton_9->y();
     lessonTenY = ui->lessonButton_10->y();
 
-    timer.singleShot(10, this, &lessonselectwindow::updateWorld);
+    timer.singleShot(10, this, &LessonSelectWindow::updateWorld);
 }
 
-void lessonselectwindow::updateWorld() {
+void LessonSelectWindow::updateWorld() {
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
@@ -203,10 +203,10 @@ void lessonselectwindow::updateWorld() {
     ui->lessonButton_9->move(ui->lessonButton_9->x(), lessonNineY - lessonNineBody->GetPosition().y + rowHeightOffset);
     ui->lessonButton_10->move(ui->lessonButton_10->x(), lessonTenY - lessonTenBody->GetPosition().y + rowHeightOffset);
 
-    timer.singleShot(10, this, &lessonselectwindow::updateWorld);
+    timer.singleShot(10, this, &LessonSelectWindow::updateWorld);
 }
 
-bool lessonselectwindow::eventFilter(QObject *object, QEvent *event){
+bool LessonSelectWindow::eventFilter(QObject *object, QEvent *event){
     if (event->type() == QEvent::Enter) {
         if (object == ui->lessonButton_1){
             jumpButton(lessonOneBody);
@@ -252,7 +252,7 @@ bool lessonselectwindow::eventFilter(QObject *object, QEvent *event){
     return false;
 }
 
-void lessonselectwindow::jumpButton(b2Body* jumpBody){
+void LessonSelectWindow::jumpButton(b2Body* jumpBody){
     jumpBody->SetTransform(b2Vec2(jumpBody->GetTransform().p.x, -28.0f), 0);
     jumpBody->SetAwake(true);
 }

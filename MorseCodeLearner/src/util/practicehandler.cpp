@@ -1,15 +1,18 @@
 #include "practicehandler.h"
 #include <QSettings>
 
-PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
+PracticeHandler::PracticeHandler(MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QObject *parent)
     : QObject{parent}
     , morseHandler(morseHandler)
+    , keyEventFilter(keyEventFilter)
 {
+    difficultyHandler = new DifficultyHandler();
+
+    // Timer setup and connects
     loadProblemTimer.setSingleShot(true);
     loadProblemFromTextTimer.setSingleShot(true);
     audioDelayTimer.setSingleShot(true);
 
-    // Timer connects
     QObject::connect(&loadProblemTimer, &QTimer::timeout, this, [this](){loadPracticeProblem();});
     QObject::connect(&loadProblemFromTextTimer, &QTimer::timeout, this, [this](){loadPracticeProblem(problemText);});
     QObject::connect(&audioDelayTimer, &QTimer::timeout, this, [this, morseHandler](){
@@ -17,12 +20,19 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, QObject *parent)
         emit soundPlaying();
     });
 
-    difficultyHandler = new DifficultyHandler();
-
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &PracticeHandler::onMorseReceived);
     QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this](){emit soundNotPlaying();});
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [this](){emit lightIndicatorOn();});
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [this](){emit lightIndicatorOff();});
+
+    // Key Event Filters
+    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &PracticeHandler::handleSpacePressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &PracticeHandler::handleSpaceReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, &PracticeHandler::handleEnterPressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, &PracticeHandler::handleLeftArrowPressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, &PracticeHandler::handleLeftArrowReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, &PracticeHandler::handleRightArrowPressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, &PracticeHandler::handleRightArrowReleased);
 }
 
 void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
@@ -65,36 +75,42 @@ void PracticeHandler::handleSpacePressed() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || mode != ENCODE_ENGLISH)
         return;
     morseHandler->straightKeyDown();
+    emit straightKeyPressed();
 }
 
 void PracticeHandler::handleSpaceReleased() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || mode != ENCODE_ENGLISH)
         return;
     morseHandler->straightKeyUp();
+    emit straightKeyReleased();
 }
 
 void PracticeHandler::handleLeftArrowPressed() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || mode != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDotDown();
+    emit leftPaddlePressed();
 }
 
 void PracticeHandler::handleLeftArrowReleased() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDotUp();
+    emit leftPaddleReleased();
 }
 
 void PracticeHandler::handleRightArrowPressed() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || mode != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDashDown();
+    emit rightPaddlePressed();
 }
 
 void PracticeHandler::handleRightArrowReleased() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || mode != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDashUp();
+    emit rightPaddleReleased();
 }
 
 void PracticeHandler::handleEnterPressed() {
@@ -192,9 +208,11 @@ void PracticeHandler::setDifficulty(QString difficulty) {
     firstAudioPlay = true;
     difficultyHandler->setDifficulty(difficulty);
     score = 0;
+    streak = 0;
     audioDelayTimer.stop();
 
     emit updateScore(QString::number(score));
+    loadHighScore();
     loadPracticeProblem();
 }
 
@@ -284,13 +302,14 @@ void PracticeHandler::saveHighScore(int score) {
 void PracticeHandler::loadHighScore() {
     QSettings settings("Tigers", "MorseCodeLearner");
     QString key = QString::number(difficultyHandler->getDifficulty()) + QString::number(mode);
-    int highScore = settings.value(key).toInt();
+    int highScore = settings.value(key, 0).toInt();
     emit updateHighScore(QString::number(highScore));
 }
 
 bool PracticeHandler::isHighScore(int score) {
     QSettings settings("Tigers", "MorseCodeLearner");
     QString key = QString::number(difficultyHandler->getDifficulty()) + QString::number(mode);
-    return score > settings.value(key).toInt();
+
+    return score > settings.value(key, 0).toInt();
 }
 

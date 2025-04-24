@@ -2,10 +2,9 @@
 #include "ui_practicewindow.h"
 #include <ctime>
 
-practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, PracticeHandler *practiceHandler)
+PracticeWindow::PracticeWindow(QWidget *parent, PracticeHandler *practiceHandler)
     : QWidget(parent)
     , ui(new Ui::practicewindow)
-    , keyEventFilter(keyEventFilter)
     , practiceHandler(practiceHandler)
     , timer(this)
     , world(b2Vec2(0, -20))
@@ -31,32 +30,25 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     // add slight left padding
     ui->skipButton->setStyleSheet("QPushButton {border: 1px solid black;\nbackground-color: transparent;\npadding-left: 4px;\n}\nQPushButton:hover {\n    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 0));\n}\n");
 
+    // Light Indicator
     QPixmap lightOn(QPixmap::fromImage(QImage(":/icons/light_on.png")));
     QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
     ui->flashIndicator->setPixmap(lightOff);
     ui->flashIndicator->setScaledContents(true);
-
-    // Light Indicator
     QObject::connect(practiceHandler, &PracticeHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
     QObject::connect(practiceHandler, &PracticeHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
 
-    // Key Event Filters
-    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, practiceHandler, &PracticeHandler::handleSpacePressed);
-    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, practiceHandler, &PracticeHandler::handleSpaceReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, practiceHandler, &PracticeHandler::handleEnterPressed);
-    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, practiceHandler, &PracticeHandler::handleLeftArrowPressed);
-    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, practiceHandler, &PracticeHandler::handleLeftArrowReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, practiceHandler, &PracticeHandler::handleRightArrowPressed);
-    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, practiceHandler, &PracticeHandler::handleRightArrowReleased);
 
-    QObject::connect(practiceHandler, &PracticeHandler::updateInputText, this, &practicewindow::updateInputText);
-    QObject::connect(practiceHandler, &PracticeHandler::updatePracticeText, this, &practicewindow::updatePracticeText);
+    QObject::connect(practiceHandler, &PracticeHandler::updateInputText, this, &PracticeWindow::updateInputText);
+    QObject::connect(practiceHandler, &PracticeHandler::updatePracticeText, this, &PracticeWindow::updatePracticeText);
     QObject::connect(practiceHandler, &PracticeHandler::updateMorsePreviewText, this, [=](QString morse) {ui->morsePreview->setText(morse);});
     QObject::connect(ui->difficultySelectBox, &QComboBox::currentTextChanged, practiceHandler, &PracticeHandler::setDifficulty);
+    QObject::connect(ui->difficultySelectBox, &QComboBox::currentTextChanged, this, [=]() {ui->headerLabel->setFocus();});
 
     QObject::connect(ui->inputText, &QLineEdit::textChanged, practiceHandler, [practiceHandler, this](){practiceHandler->receiveInputText(ui->inputText->text());});
 
     QObject::connect(ui->modeSelectBox, &QComboBox::currentTextChanged, this, [=](){
+        ui->headerLabel->setFocus();
         QString newMode = ui->modeSelectBox->currentText();
         practiceHandler->setMode(ui->modeSelectBox->currentText());
         if (newMode == "Decode Morse" || newMode == "Decode Sound") {
@@ -87,7 +79,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     });
 
     // Iambic paddle illustrations
-    QObject::connect(practiceHandler, &PracticeHandler::paddleSelected, this, [this, keyEventFilter](){
+    QObject::connect(practiceHandler, &PracticeHandler::paddleSelected, this, [this, practiceHandler](){
         QObject::disconnect(straightPressedConnection);
         QObject::disconnect(straightReleasedConnection);
         QObject::disconnect(rightPressedConnection);
@@ -99,8 +91,10 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
         QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
         QPixmap paddleCenter(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
         QPixmap paddleBoth(QPixmap::fromImage(QImage(":/images/paddle_both.png")));
+
         ui->illustrationLabel->setPixmap(paddleCenter);
-        rightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, [this, paddleRight, paddleBoth](){
+
+        rightPressedConnection = QObject::connect(practiceHandler, &PracticeHandler::rightPaddlePressed, this, [this, paddleRight, paddleBoth](){
             if (paddleState == LEFT) {
                 paddleState = BOTH;
                 ui->illustrationLabel->setPixmap(paddleBoth);
@@ -109,7 +103,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
                 ui->illustrationLabel->setPixmap(paddleRight);
             }
         });
-        rightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, [this, paddleCenter, paddleLeft](){
+        rightReleasedConnection = QObject::connect(practiceHandler, &PracticeHandler::rightPaddleReleased, this, [this, paddleCenter, paddleLeft](){
             if (paddleState == BOTH) {
                 paddleState = LEFT;
                 ui->illustrationLabel->setPixmap(paddleLeft);
@@ -118,7 +112,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
                 ui->illustrationLabel->setPixmap(paddleCenter);
             }
         });
-        leftPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, [this, paddleLeft, paddleBoth](){
+        leftPressedConnection = QObject::connect(practiceHandler, &PracticeHandler::leftPaddlePressed, this, [this, paddleLeft, paddleBoth](){
             if (paddleState == RIGHT) {
                 paddleState = BOTH;
                 ui->illustrationLabel->setPixmap(paddleBoth);
@@ -127,7 +121,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
                 ui->illustrationLabel->setPixmap(paddleLeft);
             }
         });
-        leftReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, [this, paddleCenter, paddleRight](){
+        leftReleasedConnection = QObject::connect(practiceHandler, &PracticeHandler::leftPaddleReleased, this, [this, paddleCenter, paddleRight](){
             if (paddleState == BOTH) {
                 paddleState = RIGHT;
                 ui->illustrationLabel->setPixmap(paddleRight);
@@ -139,7 +133,7 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     });
 
     // Straight key illustrations
-    QObject::connect(practiceHandler, &PracticeHandler::straightKeySelected, this, [this, keyEventFilter](){
+    QObject::connect(practiceHandler, &PracticeHandler::straightKeySelected, this, [this, practiceHandler](){
         QObject::disconnect(straightPressedConnection);
         QObject::disconnect(straightReleasedConnection);
         QObject::disconnect(rightPressedConnection);
@@ -147,11 +141,17 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
         QObject::disconnect(leftPressedConnection);
         QObject::disconnect(leftReleasedConnection);
 
-        QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
         QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
+        QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+
         ui->illustrationLabel->setPixmap(straightKeyUp);
-        straightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
-        straightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
+
+        straightPressedConnection = QObject::connect(practiceHandler, &PracticeHandler::straightKeyPressed, this, [this, straightKeyDown](){
+            ui->illustrationLabel->setPixmap(straightKeyDown);
+        });
+        straightReleasedConnection = QObject::connect(practiceHandler, &PracticeHandler::straightKeyReleased, this, [this, straightKeyUp](){
+            ui->illustrationLabel->setPixmap(straightKeyUp);
+        });
     });
 
     QObject::connect(practiceHandler, &PracticeHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
@@ -167,33 +167,33 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     QObject::connect(ui->skipButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::skipProblem);
     QObject::connect(practiceHandler, &PracticeHandler::updateHighScore, ui->highScoreDisplayLabel, &QLabel::setText);
 
-    QObject::connect(practiceHandler, &PracticeHandler::correctTextJump, this, &practicewindow::textJump);
-    QObject::connect(practiceHandler, &PracticeHandler::incorrectTextShake, this, &practicewindow::textShake);
+    QObject::connect(practiceHandler, &PracticeHandler::correctTextJump, this, &PracticeWindow::textJump);
+    QObject::connect(practiceHandler, &PracticeHandler::incorrectTextShake, this, &PracticeWindow::textShake);
 
     setupWorld();
 }
 
-practicewindow::~practicewindow() {
+PracticeWindow::~PracticeWindow() {
     delete ui;
 }
 
-void practicewindow::setUserOnThisPage(bool userOnThisPage) {
+void PracticeWindow::setUserOnThisPage(bool userOnThisPage) {
     practiceHandler->setUserOnThisPage(userOnThisPage);
 }
 
-bool practicewindow::getUserOnThisPage() {
+bool PracticeWindow::getUserOnThisPage() {
     return practiceHandler->getUserOnThisPage();
 }
 
-void practicewindow::updateInputText(QString text) {
+void PracticeWindow::updateInputText(QString text) {
     ui->inputText->setText(text);
 }
 
-void practicewindow::updatePracticeText(QString text) {
+void PracticeWindow::updatePracticeText(QString text) {
     ui->problemText->setText(text);
 }
 
-void practicewindow::setupWorld(){
+void PracticeWindow::setupWorld(){
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0.0f, 0.0f);
 
@@ -244,10 +244,10 @@ void practicewindow::setupWorld(){
     problemTextX = ui->problemText->x();
     problemTextY = ui->problemText->y();
 
-    timer.singleShot(10, this, &practicewindow::updateWorld);
+    timer.singleShot(10, this, &PracticeWindow::updateWorld);
 }
 
-void practicewindow::updateWorld(){
+void PracticeWindow::updateWorld(){
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
@@ -273,15 +273,15 @@ void practicewindow::updateWorld(){
         shakeFrameCount++;
     }
 
-    timer.singleShot(10, this, &practicewindow::updateWorld);
+    timer.singleShot(10, this, &PracticeWindow::updateWorld);
 }
 
-void practicewindow::textJump(){
+void PracticeWindow::textJump(){
     textJumpBody->SetLinearVelocity(b2Vec2(0, 15));
     textJumpBody->SetAwake(true);
 }
 
-void practicewindow::textShake(){
+void PracticeWindow::textShake(){
     shakeFrameCount = 0;
     currentlyShaking = true;
 }

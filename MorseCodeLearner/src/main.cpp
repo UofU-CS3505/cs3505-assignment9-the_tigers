@@ -8,6 +8,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    // QSettings settings("Tigers", "MorseCodeLearner");
+    // settings.clear();
+
     QFontDatabase::addApplicationFont(":/fonts/Parchment.ttf");
     QFontDatabase::addApplicationFont(":/fonts/OldLondon.ttf");
     QFontDatabase::addApplicationFont(":/fonts/OldNewspaperTypes.ttf");
@@ -18,7 +21,7 @@ int main(int argc, char *argv[])
     MorseHandler morseHandler(MorseHandler::STRAIGHT_KEY, 12);
     morseHandler.setVolume(100);
 
-    PracticeHandler practiceHandler(&morseHandler);
+    PracticeHandler practiceHandler(&morseHandler, keyEventFilter);
     LessonHandler lessonHandler(&morseHandler);
     TranslateHandler translateHandler(&morseHandler, keyEventFilter);
 
