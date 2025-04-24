@@ -333,6 +333,28 @@ Determines timing in practice and translate mode</string>
     </item>
    </layout>
   </widget>
+  <widget class="QLabel" name="illustrationLabel">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>520</y>
+     <width>420</width>
+     <height>175</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">b</string>
+   </property>
+   <property name="text">
+    <string>TELEGRAPH ILLUSTRATION GOES HERE</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

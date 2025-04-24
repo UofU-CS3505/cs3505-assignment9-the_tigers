@@ -14,6 +14,13 @@ SettingsWindow::SettingsWindow(QWidget *parent, MorseHandler *morseHandler)
     QObject::connect(ui->volumeSlider, &QAbstractSlider::valueChanged, this, &SettingsWindow::volumeChanged);
     QObject::connect(ui->wpmSpinBox, &QSpinBox::valueChanged, this, &SettingsWindow::wpmChanged);
     QObject::connect(ui->inputDevice, &QComboBox::currentIndexChanged, this, &SettingsWindow::onInputDeviceIndexChanged);
+
+    // Set up illustration
+    if (morseHandler->getDevice() == MorseHandler::STRAIGHT_KEY) {
+        ui->illustrationLabel->setPixmap(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+    } else {
+        ui->illustrationLabel->setPixmap(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
+    }
 }
 
 SettingsWindow::~SettingsWindow()
@@ -47,10 +54,13 @@ void SettingsWindow::wpmChanged(int wpm){
 
 void SettingsWindow::onInputDeviceIndexChanged(int index)
 {
+    // Change input device on the backend
     if (index == 0) {
         morseHandler->setDevice(MorseHandler::STRAIGHT_KEY);
+        ui->illustrationLabel->setPixmap(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
     } else if (index == 1) {
         morseHandler->setDevice(MorseHandler::IAMBIC_PADDLE);
+        ui->illustrationLabel->setPixmap(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
     }
 }
 

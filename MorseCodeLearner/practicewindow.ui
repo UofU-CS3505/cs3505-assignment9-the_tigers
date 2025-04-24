@@ -692,6 +692,9 @@ border-style: solid double;</string>
    <property name="scaledContents">
     <bool>true</bool>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QWidget" name="morsePreviewBackground" native="true">
    <property name="geometry">
