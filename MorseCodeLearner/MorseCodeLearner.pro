@@ -19,6 +19,7 @@ INCLUDEPATH += $$PWD/include/util \
                $$PWD/Box2D
 
 SOURCES += \
+    src/util/translatehandler.cpp \
     src/windows/paddlelesson.cpp \
     src/windows/numbersbasics.cpp \
     src/windows/morsecodebasics.cpp \
@@ -94,6 +95,7 @@ HEADERS += \
     include/util/difficultyhandler.h \
     include/util/keyeventfilter.h \
     include/util/lessonhandler.h \
+    include/util/translatehandler.h \
     include/windows/lessonselectwindow.h \
     include/windows/lessonwindow.h \
     include/windows/mainwindow.h \

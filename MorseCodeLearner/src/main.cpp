@@ -20,8 +20,9 @@ int main(int argc, char *argv[])
 
     PracticeHandler practiceHandler(&morseHandler);
     LessonHandler lessonHandler(&morseHandler);
+    TranslateHandler translateHandler(&morseHandler, keyEventFilter);
 
-    MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler, &lessonHandler);
+    MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler, &lessonHandler, &translateHandler);
     menu.setFixedSize(1280, 720);
     menu.setWindowIcon(QIcon(":/icons/app_icon.png"));
 

@@ -179,7 +179,7 @@ string MorseHandler::encodeText(const string text) {
     for (char c : text) {
         c = std::tolower(c);
         if (c == ' ') {
-            encodedText += " / ";
+            encodedText += "/ ";
         } else {
             if (encodings.count(c) == 0) {  // Unknown chars are encoded as "?"
                 encodedText += "?";
