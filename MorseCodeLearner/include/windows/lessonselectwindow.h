@@ -15,7 +15,7 @@ class lessonselectwindow;
  * @name Aiden Fornalski and Chandler Eyre
  * @date 04/11/2025
  */
-class lessonselectwindow : public QWidget
+class LessonSelectWindow : public QWidget
 {
     Q_OBJECT
 
@@ -23,12 +23,12 @@ public:
     /**
      * Constructor for a lesson select window.
      */
-    explicit lessonselectwindow(QWidget *parent = nullptr);
+    explicit LessonSelectWindow(QWidget *parent = nullptr);
 
     /**
      * Destructor for a lesson select window.
      */
-    ~lessonselectwindow();
+    ~LessonSelectWindow();
 
     void checkAndUpdateLessonComplete();
 

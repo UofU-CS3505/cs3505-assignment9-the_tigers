@@ -1,7 +1,7 @@
 #include "lessonwindow.h"
 #include "ui_lessonwindow.h"
 
-lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QWidget *parent)
+LessonWindow::LessonWindow(LessonHandler *lessonHandler, MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::lessonwindow)
     , lessonHandler(lessonHandler)
@@ -39,11 +39,11 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
 
     // Buttons
-    QObject::connect(ui->backButton, &QPushButton::clicked, this, &lessonwindow::onBackButtonClicked);
-    QObject::connect(ui->nextSlideButton, &QPushButton::clicked, this, &lessonwindow::onNextSlideClicked);
-    QObject::connect(ui->previousSlideButton, &QPushButton::clicked, this, &lessonwindow::onPreviousSlideClicked);
-    QObject::connect(ui->stackedWidget, &QStackedWidget::currentChanged, this, &lessonwindow::onStackedWidgetIndexChange);
-    QObject::connect(this, &lessonwindow::backButtonClicked, lessonHandler, &LessonHandler::onBackButtonClicked);
+    QObject::connect(ui->backButton, &QPushButton::clicked, this, &LessonWindow::onBackButtonClicked);
+    QObject::connect(ui->nextSlideButton, &QPushButton::clicked, this, &LessonWindow::onNextSlideClicked);
+    QObject::connect(ui->previousSlideButton, &QPushButton::clicked, this, &LessonWindow::onPreviousSlideClicked);
+    QObject::connect(ui->stackedWidget, &QStackedWidget::currentChanged, this, &LessonWindow::onStackedWidgetIndexChange);
+    QObject::connect(this, &LessonWindow::backButtonClicked, lessonHandler, &LessonHandler::onBackButtonClicked);
 
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, lessonHandler, &LessonHandler::handleSpacePressed);
@@ -65,20 +65,20 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     // Lesson Handler
     QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
     QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
-    QObject::connect(lessonHandler, &LessonHandler::guessCorrect, this, &lessonwindow::guessCorrect);
-    QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &lessonwindow::guessIncorrect);
-    QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &lessonwindow::displayTextQuestion);
-    QObject::connect(lessonHandler, &LessonHandler::updateInputText, this, &lessonwindow::updateInputText);
-    QObject::connect(lessonHandler, &LessonHandler::completedLesson, this, &lessonwindow::onBackButtonClicked);
-    QObject::connect(lessonHandler, &LessonHandler::updateLessonTitle, this, &lessonwindow::updateLessonTitle);
-    QObject::connect(lessonHandler, &LessonHandler::updateLessonProgressBar, this, &lessonwindow::updateLessonProgressBar);
-    QObject::connect(lessonHandler, &LessonHandler::displayCorrectAnswer, this, &lessonwindow::displayCorrectAnswer);
-    QObject::connect(lessonHandler, &LessonHandler::setReferenceText, this, &lessonwindow::setReferenceText);
+    QObject::connect(lessonHandler, &LessonHandler::guessCorrect, this, &LessonWindow::guessCorrect);
+    QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &LessonWindow::guessIncorrect);
+    QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &LessonWindow::displayTextQuestion);
+    QObject::connect(lessonHandler, &LessonHandler::updateInputText, this, &LessonWindow::updateInputText);
+    QObject::connect(lessonHandler, &LessonHandler::completedLesson, this, &LessonWindow::onBackButtonClicked);
+    QObject::connect(lessonHandler, &LessonHandler::updateLessonTitle, this, &LessonWindow::updateLessonTitle);
+    QObject::connect(lessonHandler, &LessonHandler::updateLessonProgressBar, this, &LessonWindow::updateLessonProgressBar);
+    QObject::connect(lessonHandler, &LessonHandler::displayCorrectAnswer, this, &LessonWindow::displayCorrectAnswer);
+    QObject::connect(lessonHandler, &LessonHandler::setReferenceText, this, &LessonWindow::setReferenceText);
     QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
     QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::clearFocus);
     QObject::connect(lessonHandler, &LessonHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
-    QObject::connect(this, &lessonwindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
-    QObject::connect(lessonHandler, &LessonHandler::isAudioDecodeMode, this, &lessonwindow::setAudioDecodeMode);
+    QObject::connect(this, &LessonWindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
+    QObject::connect(lessonHandler, &LessonHandler::isAudioDecodeMode, this, &LessonWindow::setAudioDecodeMode);
     QObject::connect(lessonHandler, &LessonHandler::focusInput, this, [this](){ui->inputText->setFocus();});
 
     // Iambic paddle illustrations
@@ -153,12 +153,12 @@ lessonwindow::lessonwindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     currentIndex = 0;
 }
 
-lessonwindow::~lessonwindow()
+LessonWindow::~LessonWindow()
 {
     delete ui;
 }
 
-void lessonwindow::onBackButtonClicked() {
+void LessonWindow::onBackButtonClicked() {
     emit backButtonClicked();
     emit goToLessonSelect();
     currentIndex = 0;
@@ -166,7 +166,7 @@ void lessonwindow::onBackButtonClicked() {
     emit setCurrentIndex(currentIndex);
 }
 
-void lessonwindow::guessCorrect() {
+void LessonWindow::guessCorrect() {
     ui->soundDisplayLabel->hide();
     ui->problemText->setText("Correct!");
 
@@ -174,7 +174,7 @@ void lessonwindow::guessCorrect() {
     textJumpBody->SetAwake(true);
 }
 
-void lessonwindow::guessIncorrect() {
+void LessonWindow::guessIncorrect() {
     ui->soundDisplayLabel->hide();
     ui->problemText->setText("Incorrect!");
 
@@ -182,48 +182,48 @@ void lessonwindow::guessIncorrect() {
     currentlyShaking = true;
 }
 
-void lessonwindow::displayTextQuestion(QString text) {
+void LessonWindow::displayTextQuestion(QString text) {
     ui->inputText->setText("");
     ui->problemText->setText(text);
 }
 
-void lessonwindow::updateInputText(QString inputText) {
+void LessonWindow::updateInputText(QString inputText) {
     ui->inputText->setText(inputText);
 }
 
-void lessonwindow::updateLessonTitle(int lessonNumber) {
+void LessonWindow::updateLessonTitle(int lessonNumber) {
     ui->headerLabel->setText("Lesson " + QString::fromStdString(std::to_string(lessonNumber)));
 }
 
-void lessonwindow::updateLessonProgressBar(float progress) {
+void LessonWindow::updateLessonProgressBar(float progress) {
     ui->progressBar->setValue((int)progress);
     QString progressString = QString::number((int)progress) + "%";
     ui->progressDisplayLabel->setText(progressString);
 }
 
-void lessonwindow::displayCorrectAnswer(QString correctAnswer) {
+void LessonWindow::displayCorrectAnswer(QString correctAnswer) {
     ui->problemText->setText("The correct answer was: " + correctAnswer);
 }
 
-void lessonwindow::setReferenceText(QString referenceText) {
+void LessonWindow::setReferenceText(QString referenceText) {
     ui->referenceLabel->setText(referenceText);
 }
 
-void lessonwindow::onNextSlideClicked() {
+void LessonWindow::onNextSlideClicked() {
     if (currentIndex != 1) {
         currentIndex++;
         ui->stackedWidget->setCurrentIndex(currentIndex);
     }
 }
 
-void lessonwindow::onPreviousSlideClicked() {
+void LessonWindow::onPreviousSlideClicked() {
     if (currentIndex != 0) {
         currentIndex--;
         ui->stackedWidget->setCurrentIndex(currentIndex);
     }
 }
 
-void lessonwindow::onStackedWidgetIndexChange(int index) {
+void LessonWindow::onStackedWidgetIndexChange(int index) {
     emit setCurrentIndex(index);
 
     if (index == 0) {
@@ -235,7 +235,7 @@ void lessonwindow::onStackedWidgetIndexChange(int index) {
     }
 }
 
-void lessonwindow::setupWorld() {
+void LessonWindow::setupWorld() {
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0.0f, 0.0f);
 
@@ -286,10 +286,10 @@ void lessonwindow::setupWorld() {
     problemTextX = ui->problemText->x();
     problemTextY = ui->problemText->y();
 
-    timer.singleShot(10, this, &lessonwindow::updateWorld);
+    timer.singleShot(10, this, &LessonWindow::updateWorld);
 }
 
-void lessonwindow::updateWorld() {
+void LessonWindow::updateWorld() {
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
@@ -315,10 +315,10 @@ void lessonwindow::updateWorld() {
         shakeFrameCount++;
     }
 
-    timer.singleShot(10, this, &lessonwindow::updateWorld);
+    timer.singleShot(10, this, &LessonWindow::updateWorld);
 }
 
-void lessonwindow::setAudioDecodeMode(bool isAudio) {
+void LessonWindow::setAudioDecodeMode(bool isAudio) {
     if (isAudio) {
         ui->soundDisplayLabel->show();
     } else {
@@ -326,7 +326,7 @@ void lessonwindow::setAudioDecodeMode(bool isAudio) {
     }
 }
 
-void lessonwindow::startLesson(int lessonNumber) {
+void LessonWindow::startLesson(int lessonNumber) {
     currentIndex = 0;
     ui->stackedWidget->setCurrentIndex(currentIndex);
 }

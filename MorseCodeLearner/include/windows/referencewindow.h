@@ -7,13 +7,13 @@ namespace Ui {
 class referencewindow;
 }
 
-class referencewindow : public QWidget
+class ReferenceWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit referencewindow(QWidget *parent = nullptr);
-    ~referencewindow();
+    explicit ReferenceWindow(QWidget *parent = nullptr);
+    ~ReferenceWindow();
     void setUserOnThisPage(bool userOnThisPage);
     bool getUserOnThisPage();
 

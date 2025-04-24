@@ -2,7 +2,7 @@
 #include "ui_practicewindow.h"
 #include <ctime>
 
-practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, PracticeHandler *practiceHandler)
+PracticeWindow::PracticeWindow(QWidget *parent, KeyEventFilter *keyEventFilter, PracticeHandler *practiceHandler)
     : QWidget(parent)
     , ui(new Ui::practicewindow)
     , keyEventFilter(keyEventFilter)
@@ -49,8 +49,8 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, practiceHandler, &PracticeHandler::handleRightArrowPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, practiceHandler, &PracticeHandler::handleRightArrowReleased);
 
-    QObject::connect(practiceHandler, &PracticeHandler::updateInputText, this, &practicewindow::updateInputText);
-    QObject::connect(practiceHandler, &PracticeHandler::updatePracticeText, this, &practicewindow::updatePracticeText);
+    QObject::connect(practiceHandler, &PracticeHandler::updateInputText, this, &PracticeWindow::updateInputText);
+    QObject::connect(practiceHandler, &PracticeHandler::updatePracticeText, this, &PracticeWindow::updatePracticeText);
     QObject::connect(practiceHandler, &PracticeHandler::updateMorsePreviewText, this, [=](QString morse) {ui->morsePreview->setText(morse);});
     QObject::connect(ui->difficultySelectBox, &QComboBox::currentTextChanged, practiceHandler, &PracticeHandler::setDifficulty);
 
@@ -167,33 +167,33 @@ practicewindow::practicewindow(QWidget *parent, KeyEventFilter *keyEventFilter, 
     QObject::connect(ui->skipButton, &QPushButton::clicked, practiceHandler, &PracticeHandler::skipProblem);
     QObject::connect(practiceHandler, &PracticeHandler::updateHighScore, ui->highScoreDisplayLabel, &QLabel::setText);
 
-    QObject::connect(practiceHandler, &PracticeHandler::correctTextJump, this, &practicewindow::textJump);
-    QObject::connect(practiceHandler, &PracticeHandler::incorrectTextShake, this, &practicewindow::textShake);
+    QObject::connect(practiceHandler, &PracticeHandler::correctTextJump, this, &PracticeWindow::textJump);
+    QObject::connect(practiceHandler, &PracticeHandler::incorrectTextShake, this, &PracticeWindow::textShake);
 
     setupWorld();
 }
 
-practicewindow::~practicewindow() {
+PracticeWindow::~PracticeWindow() {
     delete ui;
 }
 
-void practicewindow::setUserOnThisPage(bool userOnThisPage) {
+void PracticeWindow::setUserOnThisPage(bool userOnThisPage) {
     practiceHandler->setUserOnThisPage(userOnThisPage);
 }
 
-bool practicewindow::getUserOnThisPage() {
+bool PracticeWindow::getUserOnThisPage() {
     return practiceHandler->getUserOnThisPage();
 }
 
-void practicewindow::updateInputText(QString text) {
+void PracticeWindow::updateInputText(QString text) {
     ui->inputText->setText(text);
 }
 
-void practicewindow::updatePracticeText(QString text) {
+void PracticeWindow::updatePracticeText(QString text) {
     ui->problemText->setText(text);
 }
 
-void practicewindow::setupWorld(){
+void PracticeWindow::setupWorld(){
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0.0f, 0.0f);
 
@@ -244,10 +244,10 @@ void practicewindow::setupWorld(){
     problemTextX = ui->problemText->x();
     problemTextY = ui->problemText->y();
 
-    timer.singleShot(10, this, &practicewindow::updateWorld);
+    timer.singleShot(10, this, &PracticeWindow::updateWorld);
 }
 
-void practicewindow::updateWorld(){
+void PracticeWindow::updateWorld(){
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
@@ -273,15 +273,15 @@ void practicewindow::updateWorld(){
         shakeFrameCount++;
     }
 
-    timer.singleShot(10, this, &practicewindow::updateWorld);
+    timer.singleShot(10, this, &PracticeWindow::updateWorld);
 }
 
-void practicewindow::textJump(){
+void PracticeWindow::textJump(){
     textJumpBody->SetLinearVelocity(b2Vec2(0, 15));
     textJumpBody->SetAwake(true);
 }
 
-void practicewindow::textShake(){
+void PracticeWindow::textShake(){
     shakeFrameCount = 0;
     currentlyShaking = true;
 }
