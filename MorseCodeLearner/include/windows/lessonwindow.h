@@ -14,7 +14,6 @@ class lessonwindow;
 class lessonwindow : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit lessonwindow(LessonHandler *lessonHandler = nullptr, MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QWidget *parent = nullptr);
     ~lessonwindow();

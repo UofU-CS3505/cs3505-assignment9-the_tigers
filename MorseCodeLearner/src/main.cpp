@@ -8,6 +8,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    // QSettings settings("Tigers", "MorseCodeLearner");
+    // settings.clear();
+
     QFontDatabase::addApplicationFont(":/fonts/Parchment.ttf");
     QFontDatabase::addApplicationFont(":/fonts/OldLondon.ttf");
     QFontDatabase::addApplicationFont(":/fonts/OldNewspaperTypes.ttf");

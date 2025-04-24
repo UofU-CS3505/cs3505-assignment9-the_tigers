@@ -732,6 +732,9 @@ border-style: solid double;</string>
       <kerning>false</kerning>
      </font>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::FocusPolicy::NoFocus</enum>
+    </property>
     <property name="styleSheet">
      <string notr="true">background: transparent;
 border: none;</string>
