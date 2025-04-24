@@ -360,6 +360,28 @@ border-style: solid double;</string>
       <string>0%</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>310</y>
+       <width>571</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>OldNewspaperTypes</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>If decoding, check your answer with the ENTER key!</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
     <zorder>problemText</zorder>
     <zorder>illustrationLabel</zorder>
     <zorder>flashIndicator</zorder>
@@ -371,6 +393,7 @@ border-style: solid double;</string>
     <zorder>lineWidget_6</zorder>
     <zorder>lineWidget_7</zorder>
     <zorder>progressDisplayLabel</zorder>
+    <zorder>label</zorder>
    </widget>
   </widget>
   <widget class="QPushButton" name="previousSlideButton">
