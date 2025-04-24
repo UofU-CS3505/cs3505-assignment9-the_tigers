@@ -1,7 +1,7 @@
 #include "referencewindow.h"
 #include "ui_referencewindow.h"
 
-referencewindow::referencewindow(QWidget *parent)
+ReferenceWindow::ReferenceWindow(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::referencewindow)
 {
@@ -9,23 +9,23 @@ referencewindow::referencewindow(QWidget *parent)
 
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
-    QObject::connect(ui->backButton, &QPushButton::clicked, this, &referencewindow::on_backButton_clicked);
+    QObject::connect(ui->backButton, &QPushButton::clicked, this, &ReferenceWindow::on_backButton_clicked);
 }
 
-referencewindow::~referencewindow()
+ReferenceWindow::~ReferenceWindow()
 {
     delete ui;
 }
 
-void referencewindow::setUserOnThisPage(bool userOnThisPage) {
+void ReferenceWindow::setUserOnThisPage(bool userOnThisPage) {
     this->userOnThisPage = userOnThisPage;
 }
 
-bool referencewindow::getUserOnThisPage() {
+bool ReferenceWindow::getUserOnThisPage() {
     return userOnThisPage;
 }
 
-void referencewindow::on_backButton_clicked()
+void ReferenceWindow::on_backButton_clicked()
 {
     emit goHome();
     userOnThisPage = false;

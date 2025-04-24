@@ -192,9 +192,11 @@ void PracticeHandler::setDifficulty(QString difficulty) {
     firstAudioPlay = true;
     difficultyHandler->setDifficulty(difficulty);
     score = 0;
+    streak = 0;
     audioDelayTimer.stop();
 
     emit updateScore(QString::number(score));
+    loadHighScore();
     loadPracticeProblem();
 }
 
@@ -284,13 +286,14 @@ void PracticeHandler::saveHighScore(int score) {
 void PracticeHandler::loadHighScore() {
     QSettings settings("Tigers", "MorseCodeLearner");
     QString key = QString::number(difficultyHandler->getDifficulty()) + QString::number(mode);
-    int highScore = settings.value(key).toInt();
+    int highScore = settings.value(key, 0).toInt();
     emit updateHighScore(QString::number(highScore));
 }
 
 bool PracticeHandler::isHighScore(int score) {
     QSettings settings("Tigers", "MorseCodeLearner");
     QString key = QString::number(difficultyHandler->getDifficulty()) + QString::number(mode);
-    return score > settings.value(key).toInt();
+
+    return score > settings.value(key, 0).toInt();
 }
 

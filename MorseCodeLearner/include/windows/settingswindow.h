@@ -9,13 +9,13 @@ namespace Ui {
 class settingswindow;
 }
 
-class settingswindow : public QWidget
+class SettingsWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit settingswindow(QWidget *parent = nullptr, MorseHandler *morseHandler = nullptr);
-    ~settingswindow();
+    explicit SettingsWindow(QWidget *parent = nullptr, MorseHandler *morseHandler = nullptr);
+    ~SettingsWindow();
     void setUserOnThisPage(bool userOnThisPage);
     bool getUserOnThisPage();
     void loadSettings();

@@ -17,7 +17,7 @@ class practicewindow;
  * @name Chandler Eyre and Michael Timothy
  * @date 04/15/2025
  */
-class practicewindow : public QWidget
+class PracticeWindow : public QWidget
 {
     Q_OBJECT
 
@@ -25,10 +25,10 @@ public:
     /**
      * Constructor for a practice window. Takes in a MorseHandler, MorseAudioHandler, and KeyEventFilter.
      */
-    explicit practicewindow(QWidget *parent = nullptr,
+    explicit PracticeWindow(QWidget *parent = nullptr,
                             KeyEventFilter *keyEventFilter = nullptr,
                             PracticeHandler *practiceHandler = nullptr);
-    ~practicewindow();
+    ~PracticeWindow();
 
     void setUserOnThisPage(bool userOnThisPage);
 

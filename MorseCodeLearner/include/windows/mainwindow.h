@@ -99,17 +99,17 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QStackedWidget* stackedWidget;
-    lessonwindow* lessonWindow;
-    lessonselectwindow* lessonSelectWindow;
-    practicewindow* practiceWindow;
-    settingswindow* settingsWindow;
+    LessonWindow* lessonWindow;
+    LessonSelectWindow* lessonSelectWindow;
+    PracticeWindow* practiceWindow;
+    SettingsWindow* settingsWindow;
     translatorwindow* translatorWindow;
     MenuWindow* menuWindow;
     MorseCodeBasics* morseCodeBasicsWindow;
     NumbersBasics* numbersBasicsWindow;
     PaddleLesson* paddleLessonWindow;
     WordsLesson* wordsLessonWindow;
-    referencewindow* referenceWindow;
+    ReferenceWindow* referenceWindow;
     PracticeHandler* practiceHandler;
 
     /**
