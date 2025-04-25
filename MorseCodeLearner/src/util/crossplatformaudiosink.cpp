@@ -14,6 +14,12 @@
 #include <windows.h>
 #include <combaseapi.h>
 
+/**
+ * Uses Wasapi to create an audio sink similiar to QAudioSink. Uses 2 channels,
+ * and a ring buffer. When an audio sink is started, a new thread is created that
+ * runs the main audio loop to play back audio from the buffer at a sample rate of
+ * 48 kHz.
+ */
 class WasapiAudioSink : public CrossPlatformAudioSink {
 public:
     WasapiAudioSink()
@@ -28,6 +34,7 @@ public:
     }
 
     void start() override {
+        // Initialization of a Wasapi audioClient
         HRESULT hr = CoInitialize(nullptr);
         if (FAILED(hr)) {
             qDebug() << "coinitialize failed: " << hr;
@@ -87,7 +94,9 @@ public:
         volume = v;
     }
 
-    // assumes buffer lock from caller
+    /**
+     * Returns the amount of frames that are available in the buffer per channel.
+     */
     size_t bufferedFrames() {
         if (bufferWritePos >= bufferReadPos)
             return (bufferWritePos - bufferReadPos) / channels;
@@ -130,6 +139,9 @@ private:
     float volume = 1.0f;
     float prevSample = 0.0f;
 
+    /**
+     * Main audio playback loop ran by a seperate thread.
+     */
     void loop() {
         while (running) {
             {
@@ -171,6 +183,9 @@ private:
                         bufferReadPos = (bufferReadPos + 1) % ringBuffer.size();
                         floatData[i] = sample * volume;
 
+                        // Difference should never be greater than 0.0576,
+                        // which is the maximum difference between two different samples
+                        // in a sine wave with frequency 440 hz and sample rate of 48kHz.
                         if (abs(sample - prevSample) > 0.0576) {
                             qDebug() << "sample: " << sample << " prev: " << prevSample;
                             qDebug() << "read pos: " << bufferReadPos << " write pos: " << bufferWritePos;
@@ -179,7 +194,7 @@ private:
                     }
 
                     bufferedFrameCount -= availableFrames;
-                } else {
+                } else { // Buffer underrun has occured
                     // qDebug() << "underrun";
                     renderClient->ReleaseBuffer(availableFrames, AUDCLNT_BUFFERFLAGS_SILENT);
                     continue;
@@ -203,6 +218,11 @@ private:
 #import <AudioToolbox/AudioToolbox.h>
 #import <CoreAudio/CoreAudio.h>
 
+/**
+ * Uses CoreAudio and AudioToolbox to create an audio sink similiar to QAudioSink. Uses 2 channels, a sample rate of 48 kHz,
+ * and a ring buffer. When an audio sink is started, an AudioQueue is initialized which calls
+ * the audioCallback method which gives the AudioQueue audio data to play from the ring buffer.
+ */
 class CoreAudioSink : public CrossPlatformAudioSink {
 public:
     CoreAudioSink()
@@ -217,6 +237,7 @@ public:
     }
 
     void start() override {
+        // AudioQueue init
         AudioStreamBasicDescription format = {};
         format.mSampleRate = sampleRate;
         format.mFormatID = kAudioFormatLinearPCM;
@@ -227,6 +248,7 @@ public:
         format.mBytesPerPacket = format.mBytesPerFrame * format.mFramesPerPacket;
         format.mBitsPerChannel = 32;
 
+        // Arbitrary value 132, basically just manually adjusting the buffer size to get the best result with the least amount of popping.
         bufferByteSize = format.mBytesPerFrame * sampleRate / 132;
 
         AudioQueueNewOutput(&format, audioCallback, this, nullptr, nullptr, 0, &audioQueue);
@@ -251,11 +273,8 @@ public:
     }
 
     void suspend() override {
-        {
-            std::lock_guard<std::mutex> lock(suspendMutex);
-            suspended = true;
-        }
-        // AudioQueuePause(audioQueue);
+        std::lock_guard<std::mutex> lock(suspendMutex);
+        suspended = true;
     }
 
     void resume() override {
@@ -264,7 +283,7 @@ public:
             suspended = false;
         }
 
-        {
+        { // Make sure we are starting from a sample close to 0 to avoid popping
             std::lock_guard<std::mutex> lock(bufferMutex);
             while (true) {
                 if (abs(ringBuffer[bufferReadPos]) > 0.009) {
@@ -275,9 +294,7 @@ public:
             }
         }
 
-
         fadeOut = 1;
-
         AudioQueueStart(audioQueue, nullptr);
     }
 
@@ -292,7 +309,6 @@ public:
     }
 
     int writeAudioData(const float* data, int numFrames) override {
-
         std::lock_guard<std::mutex> lock(bufferMutex);
         size_t framesAvailable = (ringBuffer.size() / channels) - bufferedFrameCount;
 
@@ -308,6 +324,9 @@ public:
         return numFrames;
     }
 
+    /**
+     * Returns the amount of frames that are available in the buffer per channel.
+     */
     size_t bufferedFrames() {
         if (bufferWritePos >= bufferReadPos)
             return (bufferWritePos - bufferReadPos) / channels;
@@ -316,7 +335,7 @@ public:
     }
 
 private:
-    static constexpr int kNumBuffers = 3;
+    static constexpr int kNumBuffers = 3; // Number of buffers to write to / read from; 3 is typical for CoreAudio
 
     AudioQueueRef audioQueue;
     AudioQueueBufferRef buffers[kNumBuffers];
@@ -338,8 +357,11 @@ private:
     float volume;
 
     double fadeOut = 0.0f;
-    // float lastOutputSample = 0.0f;
 
+    /**
+     * Main audio loop called by the AudioQueue object. Writes to the audio queue buffer
+     * with data available from the sink's buffer.
+     */
     static void audioCallback(void* userData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer) {
         auto* self = static_cast<CoreAudioSink*>(userData);
         size_t frames = inBuffer->mAudioDataBytesCapacity / (sizeof(float) * self->channels);
@@ -352,7 +374,6 @@ private:
 
             // Fade out while suspended, lasts approx 44 ms
             if (self->bufferedFrameCount >= frames && self->fadeOut > 0) {
-                // qDebug() << "number of times: " << frames * self->channels;
                 for (size_t i = 0; i < frames * self->channels; ++i) {
                     output[i] = self->ringBuffer[self->bufferReadPos] * self->volume * self->fadeOut;
                     self->bufferReadPos = (self->bufferReadPos + 1) % self->ringBuffer.size();

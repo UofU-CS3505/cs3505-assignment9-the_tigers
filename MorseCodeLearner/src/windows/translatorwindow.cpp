@@ -1,6 +1,5 @@
 #include "translatorwindow.h"
 #include "ui_translatorwindow.h"
-#include <QDebug>
 
 translatorwindow::translatorwindow(QWidget *parent,
                                    TranslateHandler *translateHandler)
@@ -10,7 +9,7 @@ translatorwindow::translatorwindow(QWidget *parent,
 {
     ui->setupUi(this);
 
-    // Setup ui
+    // General ui setup
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
     ui->swapButton->setIcon(QIcon(":/icons/swap.png"));
@@ -29,6 +28,8 @@ translatorwindow::translatorwindow(QWidget *parent,
     QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
     ui->flashIndicator->setPixmap(lightOff);
     ui->flashIndicator->setScaledContents(true);
+
+    /// Connections
 
     // Changing input device
     QObject::connect(translateHandler, &TranslateHandler::paddleSelected, this, &translatorwindow::paddleSelected);

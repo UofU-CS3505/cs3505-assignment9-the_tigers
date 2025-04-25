@@ -3,17 +3,13 @@
 
 #include <QObject>
 #include <QTimer>
-#include <QAudioFormat>
-#include <QAudioOutput>
-#include <QAudioDevice>
-#include <QAudioSink>
 #include "audiosink.h"
 #include "sinewavegenerator.h"
 
 using std::string;
 
 /**
- * Handles all morse code audio using QAudioSink
+ * Handles all morse code audio using a custom audio sink
  * and a sine wave generator.
  *
  * @name Michael Timothy
@@ -25,8 +21,6 @@ class MorseAudioHandler : public QObject
 private:
     SineWaveGenerator *sineGenerator;
     AudioSink *audio;
-    QAudioDevice outputDevice;
-    QAudioFormat format;
     QTimer stopTimer;
     QTimer gapTimer;
 
@@ -34,10 +28,10 @@ private:
 
     bool playingPlayback;
 
-    int frequency;
+    int frequency; // Could be customized, for now we'll leave at 440 hz
     float unit;
 
-    int sampleRate = 48000;
+    int sampleRate = 48000; // 48kHz
     const int framesPerBatch = 480; // ~10ms
 
     QTimer *audioBufferTimer;
@@ -49,8 +43,14 @@ public:
     MorseAudioHandler(float unit = 120); // 120 is 10 wpm
     ~MorseAudioHandler();
 
+    /**
+     * Sets the unit time. Conversion to unit is WPM / 1200
+     */
     void setWpm(float wpm);
 
+    /**
+     * Sets the volume of the audio sink.
+     */
     void setVolume(signed int volumeValue);
 
     /**
@@ -98,8 +98,14 @@ signals:
      */
     void playbackEnd();
 
+    /**
+     * Sent to turn on a light indicator when audio has started playing.
+     */
     void lightIndicatorOn();
 
+    /**
+     * Sent to turn off a light indicator when audio has stopped playing.
+     */
     void lightIndicatorOff();
 };
 

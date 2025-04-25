@@ -6,6 +6,7 @@
 #include <QKeyEvent>
 #include <QTextEdit>
 #include <QApplication>
+#include <QLineEdit>
 
 /**
  * An event filter for key presses.
@@ -19,6 +20,13 @@
 class KeyEventFilter : public QObject
 {
     Q_OBJECT
+protected:
+    /**
+     * The event filter object, which intercepts the space key,
+     * left/right arrow keys, and enter key.
+     */
+    bool eventFilter(QObject *obj, QEvent *event) override;
+
 public:
     explicit KeyEventFilter(QObject *parent = nullptr);
 
@@ -31,8 +39,7 @@ signals:
     void rightArrowReleased();
     void enterPressed();
 
-protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
+
 };
 
 #endif // KEYEVENTFILTER_H

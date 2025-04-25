@@ -9,7 +9,7 @@ void SineWaveGenerator::generate(float *buffer, int numFrames) {
         if (phase >= 2.0f * M_PI)
             phase -= 2.0f * M_PI;
 
-        buffer[i * 2]     = sample; // Left channel
+        buffer[i * 2] = sample; // Left channel
         buffer[i * 2 + 1] = sample; // Right channel
     }
 }

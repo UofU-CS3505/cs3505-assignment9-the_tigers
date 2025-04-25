@@ -17,8 +17,17 @@ class SineWaveGenerator {
 public:
     SineWaveGenerator(float freq, int sampleRate);
 
+    /**
+     * Generates a specified number of sine wave frames frames
+     * and puts them in side of the buffer at
+     * the buffer pointer given.
+     */
     void generate(float *buffer, int numFrames);
 
+    /**
+     * Sets the phase back a number of frames to preserve continous frames
+     * in the case that frames were dropped by an audio sink.
+     */
     void revertPhase(int frames);
 
 private:

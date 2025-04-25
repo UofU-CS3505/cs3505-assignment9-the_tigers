@@ -1,6 +1,4 @@
 #include "morsehandler.h"
-#include <QDebug>
-#include <sstream>
 
 MorseHandler::MorseHandler(device input, int wpm) : unit(1200 / wpm), inputDevice(input) {
     charGapTimer.setSingleShot(true);

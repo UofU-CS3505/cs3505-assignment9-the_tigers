@@ -1,5 +1,4 @@
 #include "keyeventfilter.h"
-#include <QLineEdit>
 
 KeyEventFilter::KeyEventFilter(QObject *parent) : QObject(parent) {}
 

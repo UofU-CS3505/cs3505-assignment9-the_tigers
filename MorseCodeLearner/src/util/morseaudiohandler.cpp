@@ -1,9 +1,6 @@
 #include "morseaudiohandler.h"
-#include "qdebug.h"
-#include <QMediaDevices>
 
 MorseAudioHandler::MorseAudioHandler(float unit) : unit(unit) {
-
     frequency = 440;
 
     audio = new AudioSink();

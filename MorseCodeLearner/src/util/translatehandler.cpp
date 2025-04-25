@@ -5,6 +5,7 @@ TranslateHandler::TranslateHandler(MorseHandler *morseHandler, KeyEventFilter *k
     morseHandler(morseHandler),
     keyEventFilter(keyEventFilter)
 {
+    // Key Event Connections
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &TranslateHandler::handleSpacePressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &TranslateHandler::handleSpaceReleased);
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, &TranslateHandler::handleLeftArrowPressed);
@@ -12,16 +13,16 @@ TranslateHandler::TranslateHandler(MorseHandler *morseHandler, KeyEventFilter *k
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, &TranslateHandler::handleRightArrowPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, &TranslateHandler::handleRightArrowReleased);
 
+    // Morse Handler Connections
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &TranslateHandler::onMorseReceived);
-    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, &TranslateHandler::onPlaybackStopped);
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [=]() {emit setPlayButtonPaused();});
 
+    // Light indicator handling
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {emit turnLightIndicatorOn();});
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {emit turnLightIndicatorOff();});
 }
 
-TranslateHandler::~TranslateHandler() {
-
-}
+TranslateHandler::~TranslateHandler() {}
 
 void TranslateHandler::onUserEnteredTranslate() {
     userUsingTranslator = true;
@@ -152,8 +153,4 @@ void TranslateHandler::onClearInput() {
     currentInputText.clear();
     emit updateInputText(currentInputText);
     morseHandler->stopPlayback();
-}
-
-void TranslateHandler::onPlaybackStopped() {
-    emit setPlayButtonPaused();
 }

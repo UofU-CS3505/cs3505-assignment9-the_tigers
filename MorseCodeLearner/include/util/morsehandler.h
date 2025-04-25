@@ -5,6 +5,7 @@
 #include <map>
 #include <QTimer>
 #include <QElapsedTimer>
+#include <sstream>
 #include <morseaudiohandler.h>
 
 using std::map, std::string;
@@ -36,9 +37,12 @@ class MorseHandler : public QObject
 {
     Q_OBJECT
 private:
-
     enum morseChar { DOT, DASH, EMPTY };
 
+    /**
+     * Unit is the amount of time a dot lasts. Other timings are based off of this unit.
+     * Calculated using WPM / 1200
+     */
     float unit;
 
     bool paddleDotIsDown = false;
@@ -72,18 +76,39 @@ public:
         {'5', "....."}, {'6', "-...."}, {'7', "--..."}, {'8', "---.."}, {'9', "----."}
     };
 
+    /**
+     * Reverse encodings as in the key is the morse encoding and the value
+     * is the character, such as {".-", 'a'}
+     */
     map<string, char> reverseEncodings;
 
     enum device { STRAIGHT_KEY, IAMBIC_PADDLE };
 
+    /**
+     * Constructor for a morse handler. Needs an input device and wpm.
+     */
     MorseHandler(device inputDevice, int wpm);
 
+    /**
+     * Encodes text to morse.
+     * @return A std::string with the encoded morse.
+     */
     string encodeText(const string text);
 
+    /**
+     * Decodes morse to text.
+     * @return A std::string with the decoded text.
+     */
     string decodeMorse(const string morse);
 
+    /**
+     * Sets the current device.
+     */
     void setDevice(device input);
 
+    /**
+     * Returns the currently selected device.
+     */
     device getDevice();
 
     /**
@@ -102,12 +127,41 @@ public:
      */
     void straightKeyUp();
 
+    /**
+     * Used when the left paddle is pressed.
+     * Stops gap timers and either immediately plays
+     * a dot or makes the pending symbol a dot.
+     */
     void paddleDotDown();
+
+    /**
+     * Used when the left paddle is released.
+     * Starts gap timers.
+     */
     void paddleDotUp();
+
+    /**
+     * Used when the right paddle is pressed.
+     * Stops gap timers and either immediately plays
+     * a dash or makes the pending symbol a dash.
+     */
     void paddleDashDown();
+
+    /**
+     * Used when the right paddle is released.
+     * Starts gap timers.
+     */
     void paddleDashUp();
 
+    /**
+     * Uses the morse audio handler to play audio for the symbol passed in.
+     */
     void playSymbol(morseChar symbol);
+
+    /**
+     * Either starts gap timers, calls playSymbol with a dot, playSymbol with a dash,
+     * or calls playSymbol with the pending symbol.
+     */
     void onSymbolComplete();
 
     /**
@@ -129,15 +183,26 @@ public:
      */
     float getUnitTime();
 
+    /**
+     * @return Whether audio is currently playing or not.
+     */
     bool getPlayback();
 
+    /**
+     * Tells the audio handler to stop any audio playback.
+     */
     void stopPlayback();
 
+    /**
+     * Passes along a string of morse to be played by the morse audio handler.
+     */
     void playMorse(string morse);
 
+    /**
+     * Sets the volume of the audio handler.
+     * @param volume An int from 0-100.
+     */
     void setVolume(int volume);
-
-
 
 private slots:
     /**
@@ -157,14 +222,23 @@ signals:
      */
     void decodedInput(const std::string morse);
 
+    /**
+     * Signal that is emitted when the audio handler has finished playback of audio.
+     */
     void playbackEnd();
 
+    /**
+     * Signal that is sent when any audio starts.
+     */
     void lightIndicatorOn();
+
+    /**
+     * Signal that is sent when any audio stops.
+     */
     void lightIndicatorOff();
+
 private:
     device inputDevice;
 };
-
-
 
 #endif // MORSEHANDLER_H
