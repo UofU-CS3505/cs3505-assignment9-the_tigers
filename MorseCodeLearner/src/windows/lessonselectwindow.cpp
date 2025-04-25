@@ -18,7 +18,6 @@ LessonSelectWindow::LessonSelectWindow(QWidget *parent)
     checkAndUpdateLessonComplete();
 
     // Connections for lesson buttons
-    // TODO: emit to a slot in mainwindow, which then emits a signal to lessonhandler and lessonwindow
     QObject::connect(ui->lessonButton_1, &QPushButton::clicked, this, [this](){emit selectLesson(1);});
     QObject::connect(ui->lessonButton_2, &QPushButton::clicked, this, [this](){emit selectLesson(2);});
     QObject::connect(ui->lessonButton_3, &QPushButton::clicked, this, [this](){emit selectLesson(3);});

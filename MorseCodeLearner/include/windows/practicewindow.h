@@ -12,7 +12,7 @@ class practicewindow;
 /**
  * The practice page. Allows the user to infinitely practice morse code decoding and encoding.
  *
- * @name Chandler Eyre and Michael Timothy
+ * @name Chandler Eyre, Michael Timothy, Taylor Marlow
  * @date 04/24/2025
  */
 class PracticeWindow : public QWidget
@@ -68,6 +68,10 @@ public:
      * @param practiceHandler - A pointer to the Practice Handler
      */
     explicit PracticeWindow(QWidget *parent = nullptr, PracticeHandler *practiceHandler = nullptr);
+
+    /**
+     * Destructor for a practice window.
+     */
     ~PracticeWindow();
 
     /**

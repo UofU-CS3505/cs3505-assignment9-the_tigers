@@ -9,21 +9,22 @@ MenuWindow::MenuWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Setup UI
     ui->settingsnav->setIcon(QIcon(":/icons/settings.png"));
     ui->settingsnav->setIconSize(QSize(51, 51));
-
     ui->referencenav->setIcon(QIcon(":/icons/encodings.png"));
     ui->referencenav->setIconSize(QSize(56, 56));
-
     ui->helpnav->setIcon(QIcon(":/icons/help.png"));
     ui->helpnav->setIconSize(QSize(50, 50));
 
+    // Hide help labels
     ui->settingsHelpLabel->hide();
     ui->learnHelpLabel->hide();
     ui->practiceHelpLabel->hide();
     ui->translateHelpLabel->hide();
     ui->encodingsHelpLabel->hide();
 
+    // Navigate between pages
     QObject::connect(ui->translatenav, &QPushButton::clicked, this, [=]() {
         emit goToTranslatorPage();
         userOnThisPage = false;
@@ -46,6 +47,7 @@ MenuWindow::MenuWindow(QWidget *parent)
     });
     QObject::connect(ui->helpnav, &QPushButton::clicked, this, &MenuWindow::toggleHelp);
 
+    // Event filter installs
     ui->practicenav->installEventFilter(this);
     ui->learningnav->installEventFilter(this);
     ui->translatenav->installEventFilter(this);
