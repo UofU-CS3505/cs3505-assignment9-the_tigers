@@ -8,18 +8,17 @@
 using std::vector;
 using std::string;
 
+/**
+ * The difficulty handler.
+ * Tracks current difficulty for practice mode, and generates practice problem strings for the current difficulty.
+ *
+ * @name Taylor Marlow, Chandler Eyre
+ * @date 4/24/2025
+ */
 class DifficultyHandler : public QObject {
     Q_OBJECT
 
-public:
-    DifficultyHandler();
-
-    enum difficulty {EASY, MEDIUM, HARD};
-
-    /**
-     * @return the current difficulty
-     */
-    difficulty getDifficulty();
+public: enum difficulty {EASY, MEDIUM, HARD}; // declared here for private chosen difficulty
 
 private:
     vector<string> easyOptions = {"a", "b", "c", "d", "e", "f", "g", "h",
@@ -33,19 +32,67 @@ private:
 
     QString practiceText = "";
     difficulty chosenDifficulty = EASY;
+
+    /**
+     * Fills the dictionary from a file.
+     * These will be the words used in medium and hard strings.
+     */
     void fillDictionary();
+
+    /**
+     * Generates an easy string (one character or number)
+     * @return - Easy string
+     */
     QString getEasyString();
+
+    /**
+     * Generates a medium string (one word or multi-digit number)
+     * @return - Medium string
+     */
     QString getMediumString();
+
+    /**
+     * Generates a hard string (5 words/callsigns)
+     * @return - Hard string
+     */
     QString getHardString();
+
+    /**
+     * Generates a callsign: 1 letter, 1 number, then 4 more letters.
+     * @return - A callsign
+     */
     QString generateCallSign();
 
+public:
+    /**
+     * Difficulty handler constructor.
+     */
+    DifficultyHandler();
+
+    /**
+     * @return The current difficulty
+     */
+    difficulty getDifficulty();
+
 public slots:
+    /**
+     * Sets the difficulty
+     * @param difficulty - easy, medium, or hard
+     */
     void setDifficulty(QString difficulty);
+
+    /**
+     * Generates practice problem string using current difficulty.
+     * @return - The practice problem string
+     */
     QString getPracticeString();
 
 signals:
+    /**
+     * Sends practice problem string.
+     * @param practiceText - Practice problem string to send
+     */
     void sendPracticeString(QString practiceText);
-
 };
 
 #endif // DIFFICULTYHANDLER_H

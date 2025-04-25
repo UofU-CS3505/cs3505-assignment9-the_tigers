@@ -15,7 +15,7 @@ void DifficultyHandler::fillDictionary() {
         return;
 
     QString line;
-    while(!file.atEnd()){
+    while (!file.atEnd()){
         line = file.readLine().trimmed();
         dictionary.push_back(line.toStdString());
     }
@@ -32,11 +32,10 @@ QString DifficultyHandler::getMediumString() {
     int randomSelection = rand() % 5;
     practiceText = "";
 
-    if(randomSelection > 0) {
+    if (randomSelection > 0) {
         int randomPracticeIndex = rand() % dictionary.size();
         practiceText = QString::fromStdString(dictionary.at(randomPracticeIndex));
     }
-
     else {
         // Gets a number between 100 and 10,000,000
         int randomPracticeNumber = (rand() % 9999901) + 100;
@@ -51,18 +50,17 @@ QString DifficultyHandler::getHardString() {
     int randomPracticeIndex;
     practiceText = "";
 
-    for(int i = 0; i < 5; i++){
+    // Create string from 5 words or callsigns
+    for (int i = 0; i < 5; i++){
         randomSelection = rand() % 4;
 
         if (randomSelection > 0) {
             randomPracticeIndex = rand() % dictionary.size();
             practiceText.append(dictionary.at(randomPracticeIndex));
         }
-
         else {
             practiceText.append(generateCallSign());
         }
-
         if (i != 4) {
             practiceText.append(" ");
         }
@@ -77,8 +75,8 @@ QString DifficultyHandler::generateCallSign() {
     char letter;
     int randomDigit;
 
-    for(int i = 0; i < 5; i++){
-        if(i == 1){
+    for (int i = 0; i < 5; i++) {
+        if (i == 1) {
             randomDigit = rand() % 10;
             callSign.append(std::to_string(randomDigit));
         }
@@ -95,15 +93,13 @@ QString DifficultyHandler::generateCallSign() {
 QString DifficultyHandler::getPracticeString() {
     QString practiceString;
 
-    switch(chosenDifficulty) {
+    switch (chosenDifficulty) {
     case EASY:
         practiceString = getEasyString();
         break;
-
     case MEDIUM:
         practiceString = getMediumString();
         break;
-
     case HARD:
         practiceString = getHardString();
         break;
@@ -118,12 +114,10 @@ void DifficultyHandler::setDifficulty(QString difficulty) {
     if (difficulty == "easy") {
         chosenDifficulty = EASY;
     }
-
-    else if( difficulty == "medium") {
+    else if ( difficulty == "medium") {
         chosenDifficulty = MEDIUM;
     }
-
-    else if( difficulty == "hard") {
+    else if ( difficulty == "hard") {
         chosenDifficulty = HARD;
     }
 }
