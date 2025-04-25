@@ -21,10 +21,11 @@ int main(int argc, char *argv[])
     MorseHandler morseHandler(MorseHandler::STRAIGHT_KEY, 12);
     morseHandler.setVolume(100);
 
-    PracticeHandler practiceHandler(&morseHandler);
+    PracticeHandler practiceHandler(&morseHandler, keyEventFilter);
     LessonHandler lessonHandler(&morseHandler, keyEventFilter);
+    TranslateHandler translateHandler(&morseHandler, keyEventFilter);
 
-    MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler, &lessonHandler);
+    MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler, &lessonHandler, &translateHandler);
     menu.setFixedSize(1280, 720);
     menu.setWindowIcon(QIcon(":/icons/app_icon.png"));
 

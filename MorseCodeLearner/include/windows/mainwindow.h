@@ -33,12 +33,14 @@ public:
                         MorseHandler *morseHandler = nullptr,
                         KeyEventFilter *keyEventFilter = nullptr,
                         PracticeHandler *practiceHandler = nullptr,
-                        LessonHandler *lessonHandler = nullptr);
+                        LessonHandler *lessonHandler = nullptr,
+                        TranslateHandler *translateHandler = nullptr);
     ~MainWindow();
 
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
     LessonHandler *lessonHandler;
+    TranslateHandler *translateHandler;
 
 signals:
     /**

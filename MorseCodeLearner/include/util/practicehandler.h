@@ -4,6 +4,7 @@
 #include <QObject>
 #include "morsehandler.h"
 #include "difficultyhandler.h"
+#include "keyeventfilter.h"
 
 /**
  * Model and backend handler for practice mode.
@@ -12,7 +13,7 @@
  * Modes: Encode English, Decode Morse, Decode Audio
  *
  * @name Chandler Eyre
- * @date 4/17/25
+ * @date 4/24/25
  */
 
 class PracticeHandler : public QObject
@@ -20,6 +21,7 @@ class PracticeHandler : public QObject
     Q_OBJECT
 private:
     MorseHandler *morseHandler;
+    KeyEventFilter *keyEventFilter;
     DifficultyHandler *difficultyHandler;
     QTimer loadProblemTimer;
     QTimer loadProblemFromTextTimer;
@@ -78,9 +80,10 @@ public:
     /**
      * Constructor for the Practice Handler.
      * @param morseHandler - a pointer to the Morse Handler
+     * @param eventFilter - a pointer to the KeyEventFilter
      * @param parent - The QObject parent
      */
-    explicit PracticeHandler(MorseHandler *morseHandler = nullptr, QObject *parent = nullptr);
+    explicit PracticeHandler(MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QObject *parent = nullptr);
 
     /**
      * Sets whether the user is on this page.
@@ -188,6 +191,10 @@ signals:
      */
     void updateInputText(QString morseText);
 
+    /**
+     * Emits the the current morse character for preview.
+     * @param morse - morse code representation of current character
+     */
     void updateMorsePreviewText(QString morse);
 
     /**
@@ -258,6 +265,36 @@ signals:
      * when an incorrect answer is inputted.
      */
     void incorrectTextShake();
+
+    /**
+     * Emitted when the straight key is pressed.
+     */
+    void straightKeyPressed();
+
+    /**
+     * Emitted when the straight key is released.
+     */
+    void straightKeyReleased();
+
+    /**
+     * Emitted when the left paddle is pressed.
+     */
+    void leftPaddlePressed();
+
+    /**
+     * Emitted when the left paddle is released.
+     */
+    void leftPaddleReleased();
+
+    /**
+     * Emitted when the right paddle is pressed.
+     */
+    void rightPaddlePressed();
+
+    /**
+     * Emitted when the right paddle is released.
+     */
+    void rightPaddleReleased();
 };
 
 #endif // PRACTICEHANDLER_H

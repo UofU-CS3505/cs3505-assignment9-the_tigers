@@ -6,8 +6,7 @@
 #include <QApplication>
 #include <QWidget>
 #include <QTimer>
-#include "morsehandler.h"
-#include "keyeventfilter.h"
+#include "translatehandler.h"
 
 namespace Ui {
 class translatorwindow;
@@ -23,109 +22,16 @@ class translatorwindow;
 class translatorwindow : public QWidget
 {
     Q_OBJECT
-public:
-    /**
-     * Constructor for a translator window. Takes in a MorseHandler, MorseAudioHandler, and KeyEventFilter.
-     */
-    explicit translatorwindow(QWidget *parent = nullptr,
-                              MorseHandler *morseHandler = nullptr,
-                              KeyEventFilter *keyEventFilter = nullptr);
-    ~translatorwindow();
-
-    void setUserOnThisPage(bool userOnThisPage);
-
-    bool getUserOnThisPage();
-
-signals:
-    /**
-     * Signal that gets emitted when the back button is pressed.
-     */
-    void goHome();
-
-private slots:
-    /**
-     * Resets the page's state when the back button is clicked.
-     */
-    void onBackButtonClicked();
-
-    /**
-     * Swaps the input type and puts whatever is currently in the output text box
-     * into the input text box.
-     */
-    void onSwapButtonClicked();
-
-    /**
-     * Updates the output text box with the translated version of the input text box.
-     */
-    void onInputTextTextChanged();
-
-    /**
-     * Slot for when the MorseHandler object sends us a morse character.
-     * The morse character is appended to our input text box.
-     * @param morse The morse character.
-     */
-    void onMorseReceived(const std::string morse);
-
-    /**
-     * Starts playback of the morse that is either in the input box or output box depending on the
-     * current translate mode.
-     *
-     * Disables morse device input while playing.
-     */
-    void onAudioPlayButtonClicked();
-
-    /**
-     * Tells the MorseHandler and MorseAudioHandler that the straight key has been pressed
-     * as long as: the user is currently on this page, playback of morse is not currently being played,
-     * and the translate mode is morse to text.
-     */
-    void handleSpacePressed();
-
-    /**
-     * Tells the MorseHandler and MorseAudioHandler that the straight key has been released
-     * as long as: the user is currently on this page, playback of morse is not currently being played,
-     * and the translate mode is morse to text.
-     */
-    void handleSpaceReleased();
-
-    void handleLeftArrowPressed();
-
-    void handleLeftArrowReleased();
-
-    void handleRightArrowPressed();
-
-    void handleRightArrowReleased();
-
-    /**
-     * Clears the current input.
-     */
-    void clearInput();
-
-    /**
-     * Handles view logic when audio playback finishes.
-     * Reenables elements.
-     */
-    void handlePlaybackStopped();
 
 private:
     Ui::translatorwindow *ui;
-
-    enum translateMode {
-        MORSE_TO_TEXT, TEXT_TO_MORSE
-    };
-
-    MorseHandler *morseHandler;
-    KeyEventFilter *keyEventFilter;
+    TranslateHandler *translateHandler;
 
     enum paddleAnimationStates {
         LEFT, RIGHT, CENTER, BOTH
     };
 
     paddleAnimationStates paddleState = CENTER;
-
-    translateMode mode = MORSE_TO_TEXT;
-
-    bool userOnThisPage = false;
 
     // Connection objects for illustrations, must be retained so they can be changed later
     QMetaObject::Connection rightPressedConnection;
@@ -134,6 +40,52 @@ private:
     QMetaObject::Connection leftReleasedConnection;
     QMetaObject::Connection straightPressedConnection;
     QMetaObject::Connection straightReleasedConnection;
+
+public:
+    /**
+     * Constructor for a translator window. Takes in a MorseHandler, MorseAudioHandler, and KeyEventFilter.
+     */
+    explicit translatorwindow(QWidget *parent = nullptr,
+                              TranslateHandler *translateHandler = nullptr);
+    ~translatorwindow();
+
+    void setUserOnThisPage(bool userOnThisPage);
+
+private slots:
+
+    void paddleSelected();
+
+    void straightKeySelected();
+
+    void modeEnglishToMorse();
+
+    void modeMorseToEnglish();
+
+    void handlePlaybackStarted();
+
+    /**
+     * Handles view logic when audio playback finishes.
+     * Reenables elements.
+     */
+    void handlePlaybackStopped();
+
+
+    /**
+     * Resets the page's state when the back button is clicked.
+     */
+    void onBackButtonClicked();
+
+signals:
+    /**
+     * Signal that gets emitted when the back button is pressed.
+     */
+    void goHome();
+
+    void inputTextChanged(const std::string text);
+
+    void enteredTranslator();
+
+    void leftTranslator();
 };
 
 #endif // TRANSLATORWINDOW_H

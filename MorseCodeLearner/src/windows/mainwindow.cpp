@@ -5,11 +5,13 @@ MainWindow::MainWindow(QWidget *parent,
                        MorseHandler *morseHandler,
                        KeyEventFilter *keyEventFilter,
                        PracticeHandler *practiceHandler,
-                       LessonHandler *lessonHandler)
+                       LessonHandler *lessonHandler,
+                       TranslateHandler *translateHandler)
     : QMainWindow(parent)
     , morseHandler(morseHandler)
     , keyEventFilter(keyEventFilter)
     , lessonHandler(lessonHandler)
+    , translateHandler(translateHandler)
     , ui(new Ui::MainWindow)
     , practiceHandler(practiceHandler)
 {
@@ -62,9 +64,9 @@ MainWindow::~MainWindow()
 void MainWindow::setUpPages() {
     lessonWindow = new LessonWindow(lessonHandler);
     lessonSelectWindow = new LessonSelectWindow();
-    practiceWindow = new PracticeWindow(this, keyEventFilter, practiceHandler);
+    practiceWindow = new PracticeWindow(this, practiceHandler);
     settingsWindow = new SettingsWindow(this, morseHandler);
-    translatorWindow = new translatorwindow(this, morseHandler, keyEventFilter);
+    translatorWindow = new translatorwindow(this, translateHandler);
     menuWindow = new MenuWindow();
     referenceWindow = new ReferenceWindow(this);
     morseCodeBasicsWindow = new MorseCodeBasics(this);
