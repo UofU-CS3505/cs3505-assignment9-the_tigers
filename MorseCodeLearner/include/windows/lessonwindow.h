@@ -10,6 +10,13 @@ namespace Ui {
 class lessonwindow;
 }
 
+/**
+ * The lesson window, it displays the current lesson's characters and words
+ * that the user needs to learn.
+ *
+ * @name Aiden Fornalski, Taylor Marlow, Chandler Eyre
+ * @date 04/24/2025
+ */
 class LessonWindow : public QWidget
 {
     Q_OBJECT

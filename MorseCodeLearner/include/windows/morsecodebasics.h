@@ -8,7 +8,7 @@ class MorseCodeBasics;
 }
 
 /**
- * Window for morse code basics.
+ * Window for morse code basics lesson.
  * Displays a series of pages teaching the history and basics of morse code.
  *
  * @name Aiden Fornalski
@@ -56,9 +56,16 @@ private slots:
     void completeLesson();
 
 public slots:
+    /**
+     * Sets whether the user is currently on this page.
+     * @param userOnThisPage
+     */
     void setUserOnThisPage(bool userOnThisPage);
 
 signals:
+    /**
+     * Emits a singla to go back to the main menu.
+     */
     void goBack();
 };
 
