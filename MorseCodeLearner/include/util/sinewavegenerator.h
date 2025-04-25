@@ -10,7 +10,7 @@
  * which allows for the generator to revert its phase, allowing for a seamless
  * continuous sine wave.
  *
- * @author Michael Timothy
+ * @name Michael Timothy
  * @date 4/21/2025
  */
 class SineWaveGenerator {

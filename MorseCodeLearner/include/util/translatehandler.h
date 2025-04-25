@@ -8,7 +8,7 @@
 /**
  * Handles all translating logic for the translator page.
  *
- * @author Michael Timothy
+ * @name Michael Timothy
  * @date 4/24/2025
  */
 class TranslateHandler : public QObject

@@ -21,13 +21,13 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, KeyEventFilter *keyEven
     QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, &LessonHandler::handleLeftArrowReleased);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, &LessonHandler::handleRightArrowPressed);
     QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, &LessonHandler::handleRightArrowReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, [this](){emit getInputTextSignal();});
+    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, [=]() {emit getInputTextSignal();});
 
     // Morse Handler
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &LessonHandler::onInputReceived);
-    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this](){emit soundNotPlaying();});
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [this](){emit setLightIndicator(true);});
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [this](){emit setLightIndicator(false);});
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [=]() {emit soundNotPlaying();});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {emit setLightIndicator(true);});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {emit setLightIndicator(false);});
 }
 
 void LessonHandler::nextQuestion() {
@@ -137,7 +137,7 @@ void LessonHandler::checkUserGuess() {
     lessonProgress = ((float)correctCount / (float)(currentLessonCharacters.size() * 3)) * 100;
     emit updateLessonProgressBar(lessonProgress);
 
-    timer.singleShot(3000, this, [this](){nextQuestion();});
+    timer.singleShot(3000, this, [=]() {nextQuestion();});
 }
 
 void LessonHandler::lessonComplete() {

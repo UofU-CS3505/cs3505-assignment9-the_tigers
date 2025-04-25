@@ -24,6 +24,14 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+/**
+ * The MainWindow class contains a stacked widget with all of the different pages of our app
+ * and thus acts as the main navigation handler for the app. Connections between
+ * pages are done in the constructor of Main Window.
+ *
+ * @name Aiden Fornalski
+ * @date 4/12/25
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

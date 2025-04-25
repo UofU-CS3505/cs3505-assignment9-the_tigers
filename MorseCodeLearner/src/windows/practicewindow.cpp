@@ -65,8 +65,6 @@ PracticeWindow::PracticeWindow(QWidget *parent, PracticeHandler *practiceHandler
 
     // Send input text to the handler
     QObject::connect(ui->inputText, &QLineEdit::textChanged, practiceHandler, [practiceHandler, this](){practiceHandler->receiveInputText(ui->inputText->text());});
-    // QObject::connect(practiceHandler, &PracticeHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
-    // QObject::connect(practiceHandler, &PracticeHandler::focusInput, this, [this]() {ui->inputText->setFocus();});
 
     // Box2D Effects
     QObject::connect(practiceHandler, &PracticeHandler::correctTextJump, this, &PracticeWindow::textJump);

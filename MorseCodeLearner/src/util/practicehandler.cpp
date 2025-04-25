@@ -13,19 +13,19 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, KeyEventFilter *key
     loadProblemFromTextTimer.setSingleShot(true);
     audioDelayTimer.setSingleShot(true);
 
-    QObject::connect(&loadProblemTimer, &QTimer::timeout, this, [this](){loadPracticeProblem();});
-    QObject::connect(&loadProblemFromTextTimer, &QTimer::timeout, this, [this](){loadPracticeProblem(problemText);});
+    QObject::connect(&loadProblemTimer, &QTimer::timeout, this, [=]() {loadPracticeProblem();});
+    QObject::connect(&loadProblemFromTextTimer, &QTimer::timeout, this, [=]() {loadPracticeProblem(problemText);});
     QObject::connect(&audioDelayTimer, &QTimer::timeout, this, [this, morseHandler](){
         morseHandler->playMorse(morseHandler->encodeText(problemText.toStdString()));
         emit soundPlaying();
     });
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &PracticeHandler::onMorseReceived);
-    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this](){emit soundNotPlaying();});
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [=]() {emit soundNotPlaying();});
 
     // Pass light indicator to window
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [this](){emit lightIndicatorOn();});
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [this](){emit lightIndicatorOff();});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [=]() {emit lightIndicatorOn();});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [=]() {emit lightIndicatorOff();});
 
     // Key Event Filters
     QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &PracticeHandler::handleSpacePressed);

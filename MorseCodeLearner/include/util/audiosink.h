@@ -7,7 +7,7 @@
 /**
  * Wrapper class for a CrossPlatformAudioSink
  *
- * @author Michael Timothy
+ * @name Michael Timothy
  * @date 4/21/2025
  */
 class AudioSink : public CrossPlatformAudioSink

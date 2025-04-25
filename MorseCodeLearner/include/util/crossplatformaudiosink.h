@@ -9,7 +9,7 @@
  *
  * Implementation works for macOS and Windows using CoreAudio and Wasapi accordingly.
  *
- * @author Michael Timothy
+ * @name Michael Timothy
  * @date 4/21/2025
  */
 class CrossPlatformAudioSink
