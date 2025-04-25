@@ -2,8 +2,6 @@
 #define PRACTICEWINDOW_H
 
 #include <QWidget>
-#include "morsehandler.h"
-#include "keyeventfilter.h"
 #include "practicehandler.h"
 #include "Box2D/Box2D.h"
 
@@ -21,33 +19,84 @@ class PracticeWindow : public QWidget
 {
     Q_OBJECT
 
+private:
+    Ui::practicewindow *ui;
+    PracticeHandler *practiceHandler;
+
+    QTimer timer;
+
+    enum paddleAnimationStates {
+        LEFT, RIGHT, CENTER, BOTH
+    };
+    paddleAnimationStates paddleState = CENTER;
+
+    // Box2D elements
+    b2World world;
+    b2Body* textShakeBody;
+    b2Body* textJumpBody;
+    b2Body* shakeAnchor;
+    b2RopeJoint* ropeJoint;
+
+    int problemTextX;
+    int problemTextY;
+
+    int shakeFrameCount;
+    bool currentlyShaking;
+
+    // Connection objects for illustrations, must be retained so they can be changed later
+    QMetaObject::Connection rightPressedConnection;
+    QMetaObject::Connection rightReleasedConnection;
+    QMetaObject::Connection leftPressedConnection;
+    QMetaObject::Connection leftReleasedConnection;
+    QMetaObject::Connection straightPressedConnection;
+    QMetaObject::Connection straightReleasedConnection;
+
+    /**
+     * Sets up Box2D objects and environment.
+     */
+    void setupWorld();
+
+    /**
+     * Gets updated Box2D positions.
+     */
+    void updateWorld();
+
 public:
     /**
-     * Constructor for a practice window. Takes in a PracticeHandler.
+     * Constructor for a practice window.
+     * @param parent - The QObject parent
+     * @param practiceHandler - A pointer to the Practice Handler
      */
-    explicit PracticeWindow(QWidget *parent = nullptr,
-                            PracticeHandler *practiceHandler = nullptr);
+    explicit PracticeWindow(QWidget *parent = nullptr, PracticeHandler *practiceHandler = nullptr);
     ~PracticeWindow();
 
+    /**
+     * Sets whether the user is on this page.
+     * @param userOnThisPage - Whether the user is on this page.
+     */
     void setUserOnThisPage(bool userOnThisPage);
 
+    /**
+     * @return - Whether the user is on this page.
+     */
     bool getUserOnThisPage();
 
-signals:
+private slots:
     /**
-     * Signal that gets emitted when the back button is pressed.
+     * Changes the illustration to the paddle.
      */
-    void goHome();
+    void paddleSelected();
 
     /**
-     * Signal that sets the practice difficulty.
+     * Changes the illustration to the straight key.
      */
-    void setDifficulty(QString difficulty);
+    void straightKeySelected();
 
     /**
-     * Gets the correct practice text for the currently selected difficulty.
+     * Visual changes for each mode
+     * @param newMode - The new mode
      */
-    void getPracticeText();
+    void changeMode(QString newMode);
 
 public slots:
     /**
@@ -70,49 +119,21 @@ public slots:
      */
     void textShake();
 
-private slots:
-
-private:
-    Ui::practicewindow *ui;
-    PracticeHandler *practiceHandler;
-
-    QTimer timer;
-
-    enum paddleAnimationStates {
-        LEFT, RIGHT, CENTER, BOTH
-    };
-
-    paddleAnimationStates paddleState = CENTER;
-
-    b2World world;
-    b2Body* textShakeBody;
-    b2Body* textJumpBody;
-    b2Body* shakeAnchor;
-    b2RopeJoint* ropeJoint;
-
-    int problemTextX;
-    int problemTextY;
-
-    int shakeFrameCount;
-    bool currentlyShaking;
+signals:
+    /**
+     * Signal that gets emitted when the back button is pressed.
+     */
+    void goHome();
 
     /**
-     * Sets up Box2D objects and environment.
+     * Signal that sets the practice difficulty.
      */
-    void setupWorld();
+    void setDifficulty(QString difficulty);
 
     /**
-     * Gets updated Box2D positions.
+     * Gets the correct practice text for the currently selected difficulty.
      */
-    void updateWorld();
-
-    // Connection objects for illustrations, must be retained so they can be changed later
-    QMetaObject::Connection rightPressedConnection;
-    QMetaObject::Connection rightReleasedConnection;
-    QMetaObject::Connection leftPressedConnection;
-    QMetaObject::Connection leftReleasedConnection;
-    QMetaObject::Connection straightPressedConnection;
-    QMetaObject::Connection straightReleasedConnection;
+    void getPracticeText();
 };
 
 #endif // PRACTICEWINDOW_H

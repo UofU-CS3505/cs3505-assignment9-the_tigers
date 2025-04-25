@@ -23,22 +23,27 @@ private:
     MorseHandler *morseHandler;
     KeyEventFilter *keyEventFilter;
     DifficultyHandler *difficultyHandler;
+
+    // Timers
     QTimer loadProblemTimer;
     QTimer loadProblemFromTextTimer;
     QTimer audioDelayTimer;
+
     bool userOnThisPage = false;
+
     QString problemText; // contains the current problem in english
     QString inputText; // contains the user's input
     QString morseText; // contains morse input for english problem and morse input
-    QString morsePreviewText;
-    bool acceptingInput = false;
+    QString morsePreviewText; // currently typed morse character
+
     int score = 0;
     int streak = 0; // number of correct answers in a row
+
+    bool acceptingInput = false;
     bool firstAudioPlay = true; // whether this is the first question in decode audio mode
     int hardWordCounter = 0; // the amount of words input thus far; used to track when to check the problem in hard mode
 
     enum practiceMode { ENCODE_ENGLISH, DECODE_MORSE, DECODE_SOUND };
-
     practiceMode mode = ENCODE_ENGLISH;
 
     /**
@@ -79,8 +84,8 @@ private:
 public:
     /**
      * Constructor for the Practice Handler.
-     * @param morseHandler - a pointer to the Morse Handler
-     * @param eventFilter - a pointer to the KeyEventFilter
+     * @param morseHandler - A pointer to the Morse Handler
+     * @param eventFilter - A pointer to the KeyEventFilter
      * @param parent - The QObject parent
      */
     explicit PracticeHandler(MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QObject *parent = nullptr);
@@ -213,16 +218,6 @@ signals:
     void lightIndicatorOff();
 
     /**
-     * @param readOnly - Whether the user input box should be read only.
-     */
-    void isInputReadOnly(bool readOnly);
-
-    /**
-     * Focus the input box.
-     */
-    void focusInput();
-
-    /**
      * Emits the current score
      * @param score - New score
      */
@@ -249,16 +244,6 @@ signals:
      * when a correct answer is inputted.
      */
     void correctTextJump();
-
-    /**
-     * For illustration, emitted when navigating to this page.
-     */
-    void paddleSelected();
-
-    /**
-     * For illustration, emitted when navigating to this page.
-     */
-    void straightKeySelected();
 
     /**
      * Emits a signal for Box2D to make the text shake
@@ -295,6 +280,16 @@ signals:
      * Emitted when the right paddle is released.
      */
     void rightPaddleReleased();
+
+    /**
+     * Emitted when the paddle is selected as input device.
+     */
+    void paddleSelected();
+
+    /**
+     * Emitted when the straight key is selected as input device.
+     */
+    void straightKeySelected();
 };
 
 #endif // PRACTICEHANDLER_H

@@ -22,6 +22,8 @@ PracticeHandler::PracticeHandler(MorseHandler *morseHandler, KeyEventFilter *key
 
     QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &PracticeHandler::onMorseReceived);
     QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this](){emit soundNotPlaying();});
+
+    // Pass light indicator to window
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [this](){emit lightIndicatorOn();});
     QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [this](){emit lightIndicatorOff();});
 
@@ -45,6 +47,7 @@ void PracticeHandler::setUserOnThisPage(bool userOnThisPage) {
         loadPracticeProblem();
         firstAudioPlay = true;
 
+        // Default illustrations
         if (morseHandler->getDevice() == MorseHandler::STRAIGHT_KEY) {
             emit straightKeySelected();
         } else {
@@ -119,14 +122,14 @@ void PracticeHandler::handleEnterPressed() {
     checkProblem();
 }
 
-
 void PracticeHandler::loadPracticeProblem() {
+    // Reset state
     inputText = "";
     morseText = "";
     hardWordCounter = 0;
     morseHandler->stopPlayback();
 
-    problemText = difficultyHandler->getPracticeString();
+    problemText = difficultyHandler->getPracticeString(); // Load new problem
 
     if (mode == ENCODE_ENGLISH) {
         emit updatePracticeText(problemText);
@@ -135,6 +138,7 @@ void PracticeHandler::loadPracticeProblem() {
     } else if (mode == DECODE_SOUND) {
         emit updatePracticeText("");
 
+        // Logic to delay sound playing if newly navigated to page or switched to audio mode
         if (firstAudioPlay) {
             audioDelayTimer.start(1000);
             firstAudioPlay = false;
@@ -149,6 +153,7 @@ void PracticeHandler::loadPracticeProblem() {
 }
 
 void PracticeHandler::loadPracticeProblem(QString problemText) {
+    // Reset state
     inputText = "";
     morseText = "";
     hardWordCounter = 0;
@@ -161,6 +166,7 @@ void PracticeHandler::loadPracticeProblem(QString problemText) {
     } else if (mode == DECODE_SOUND) {
         emit updatePracticeText("");
 
+        // Logic to delay sound playing if newly navigated to page or switched to audio mode
         if (firstAudioPlay) {
             audioDelayTimer.start(1000);
             firstAudioPlay = false;
@@ -178,8 +184,8 @@ void PracticeHandler::onMorseReceived(const string morse) {
     if (!userOnThisPage || !(mode == ENCODE_ENGLISH) || !acceptingInput)
         return;
 
+    // Update the morse preview, or the full input if the character is complete
     QString qmorse = QString::fromStdString(morse);
-
     if (qmorse == " " || qmorse == "/ ") {
         morseText += morsePreviewText + qmorse;
         emit updateInputText(morseText);
@@ -189,15 +195,15 @@ void PracticeHandler::onMorseReceived(const string morse) {
     }
     emit updateMorsePreviewText(morsePreviewText);
 
+    // Logic for hard difficulty (handling multiple words)
     if (difficultyHandler->getDifficulty() == DifficultyHandler::difficulty::HARD) {
-        // Hard Difficulty
         if (qmorse == "/ " && hardWordCounter < 4) {
             hardWordCounter++;
         } else if (qmorse == "/ " && hardWordCounter >= 4) {
             checkProblem();
         }
     }
-    // checks for other modes
+    // Medium and easy difficulty
     else if (qmorse == "/ ") {
         checkProblem();
     }
@@ -217,27 +223,23 @@ void PracticeHandler::setDifficulty(QString difficulty) {
 }
 
 void PracticeHandler::setMode(QString newMode) {
+    // State reset
     firstAudioPlay = true;
     audioDelayTimer.stop();
-
-    newMode = newMode.toLower();
-    if (newMode == "encode english") {
-        mode = ENCODE_ENGLISH;
-        emit isInputReadOnly(true);
-    } else if (newMode == "decode morse") {
-        mode = DECODE_MORSE;
-        emit isInputReadOnly(false);
-        emit focusInput();
-    } else if (newMode == "decode sound") {
-        mode = DECODE_SOUND;
-        emit isInputReadOnly(false);
-        emit focusInput();
-        emit updateInputText("");
-    }
-
     score = 0;
     streak = 0;
     emit updateScore(QString::number(score));
+
+    // Mode switching logic
+    newMode = newMode.toLower();
+    if (newMode == "encode english") {
+        mode = ENCODE_ENGLISH;
+    } else if (newMode == "decode morse") {
+        mode = DECODE_MORSE;
+    } else if (newMode == "decode sound") {
+        mode = DECODE_SOUND;
+        emit updateInputText("");
+    }
 
     loadHighScore();
     loadPracticeProblem();
@@ -246,6 +248,7 @@ void PracticeHandler::setMode(QString newMode) {
 void PracticeHandler::checkProblem() {
     acceptingInput = false;
 
+    // Correct answer
     if (inputText == problemText || inputText == problemText + " " || inputText == problemText + " / ") {
         emit updatePracticeText("Correct!");
         streak++;
@@ -260,6 +263,7 @@ void PracticeHandler::checkProblem() {
 
         loadProblemTimer.start(1500);
     }
+    // Incorrect answer
     else {
         emit updatePracticeText("Try Again!");
         streak = 0;
@@ -273,6 +277,7 @@ void PracticeHandler::checkProblem() {
 void PracticeHandler::receiveInputText(QString text) {
     if (!acceptingInput)
         return;
+
     if (mode == ENCODE_ENGLISH) {
         inputText = QString::fromStdString(morseHandler->decodeMorse(text.toStdString()));
     } else {
