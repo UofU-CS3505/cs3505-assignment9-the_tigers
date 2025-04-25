@@ -9,7 +9,8 @@ ReferenceWindow::ReferenceWindow(QWidget *parent)
 
     ui->backButton->setIcon(QIcon(":/icons/back.png"));
     ui->backButton->setIconSize(QSize(52, 52));
-    QObject::connect(ui->backButton, &QPushButton::clicked, this, &ReferenceWindow::on_backButton_clicked);
+
+    QObject::connect(ui->backButton, &QPushButton::clicked, this, &ReferenceWindow::onBackButtonClicked);
 }
 
 ReferenceWindow::~ReferenceWindow()
@@ -25,7 +26,7 @@ bool ReferenceWindow::getUserOnThisPage() {
     return userOnThisPage;
 }
 
-void ReferenceWindow::on_backButton_clicked()
+void ReferenceWindow::onBackButtonClicked()
 {
     emit goHome();
     userOnThisPage = false;
