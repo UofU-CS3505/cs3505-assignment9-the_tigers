@@ -2,9 +2,10 @@
 #include <QObject>
 #include <QSettings>
 
-LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
+LessonHandler::LessonHandler(MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QObject* parent) :
     QObject(parent),
     morseHandler(morseHandler),
+    keyEventFilter(keyEventFilter),
     acceptingInput(false),
     userOnThisPage(false)
 {
@@ -13,8 +14,20 @@ LessonHandler::LessonHandler(MorseHandler *morseHandler, QObject* parent) :
     lessonProgress = 0;
     currentIndex = 0;
 
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [this](){emit lightIndicatorOn();});
-    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [this](){emit lightIndicatorOff();});
+    // Key Event Filters
+    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, &LessonHandler::handleSpacePressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, &LessonHandler::handleSpaceReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, &LessonHandler::handleLeftArrowPressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, &LessonHandler::handleLeftArrowReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, &LessonHandler::handleRightArrowPressed);
+    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, &LessonHandler::handleRightArrowReleased);
+    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, [this](){emit getInputTextSignal();});
+
+    // Morse Handler
+    QObject::connect(morseHandler, &MorseHandler::decodedInput, this, &LessonHandler::onInputReceived);
+    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this](){emit soundNotPlaying();});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOn, this, [this](){emit setLightIndicator(true);});
+    QObject::connect(morseHandler, &MorseHandler::lightIndicatorOff, this, [this](){emit setLightIndicator(false);});
 }
 
 void LessonHandler::nextQuestion() {
@@ -203,39 +216,42 @@ void LessonHandler::handleSpacePressed() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0 || type != ENCODE_ENGLISH)
         return;
     morseHandler->straightKeyDown();
+    emit straightKeyPressed();
 }
 
 void LessonHandler::handleSpaceReleased() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::STRAIGHT_KEY || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->straightKeyUp();
+    emit straightKeyReleased();
 }
 
 void LessonHandler::handleLeftArrowPressed() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDotDown();
+    emit paddleLeftPressed();
 }
 
 void LessonHandler::handleLeftArrowReleased() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDotUp();
+    emit paddleLeftReleased();
 }
 
 void LessonHandler::handleRightArrowPressed() {
-
-
-
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDashDown();
+    emit paddleRightPressed();
 }
 
 void LessonHandler::handleRightArrowReleased() {
     if (!userOnThisPage || morseHandler->getDevice() != MorseHandler::IAMBIC_PADDLE || !acceptingInput || currentIndex == 0  || type != ENCODE_ENGLISH)
         return;
     morseHandler->paddleDashUp();
+    emit paddleRightReleased();
 }
 
 void LessonHandler::handleEnterPressed() {
@@ -266,4 +282,9 @@ void LessonHandler::setUserOnThisPage(bool userOnThisPage) {
 
 void LessonHandler::setCurrentIndex(int currentIndex) {
     this->currentIndex = currentIndex;
+}
+
+void LessonHandler::getInputText(QString inputText) {
+    onInputReceived(inputText.toStdString());
+    handleEnterPressed();
 }

@@ -1,18 +1,15 @@
 #include "lessonwindow.h"
 #include "ui_lessonwindow.h"
 
-LessonWindow::LessonWindow(LessonHandler *lessonHandler, MorseHandler *morseHandler, KeyEventFilter *keyEventFilter, QWidget *parent)
+LessonWindow::LessonWindow(LessonHandler *lessonHandler, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::lessonwindow)
     , lessonHandler(lessonHandler)
-    , morseHandler(morseHandler)
-    , keyEventFilter(keyEventFilter)
     , timer(this)
     , world(b2Vec2(0, -20))
 {
     ui->setupUi(this);
 
-    QPixmap soundPlaying(QPixmap::fromImage(QImage(":/icons/playing_audio.png")));
     QPixmap soundNotPlaying(QPixmap::fromImage(QImage(":/icons/not_playing_audio.png")));
     ui->soundDisplayLabel->hide();
     ui->soundDisplayLabel->setPixmap(soundNotPlaying);
@@ -31,40 +28,18 @@ LessonWindow::LessonWindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     ui->progressDisplayLabel->setText("0%");
 
     // Light indicator
-    QPixmap lightOn(QPixmap::fromImage(QImage(":/icons/light_on.png")));
     QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
     ui->flashIndicator->setPixmap(lightOff);
     ui->flashIndicator->setScaledContents(true);
-    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
-    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
 
     // Buttons
     QObject::connect(ui->backButton, &QPushButton::clicked, this, &LessonWindow::onBackButtonClicked);
     QObject::connect(ui->nextSlideButton, &QPushButton::clicked, this, &LessonWindow::onNextSlideClicked);
     QObject::connect(ui->previousSlideButton, &QPushButton::clicked, this, &LessonWindow::onPreviousSlideClicked);
     QObject::connect(ui->stackedWidget, &QStackedWidget::currentChanged, this, &LessonWindow::onStackedWidgetIndexChange);
-    QObject::connect(this, &LessonWindow::backButtonClicked, lessonHandler, &LessonHandler::onBackButtonClicked);
-
-    // Key Event Filters
-    QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, lessonHandler, &LessonHandler::handleSpacePressed);
-    QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, lessonHandler, &LessonHandler::handleSpaceReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, lessonHandler, &LessonHandler::handleLeftArrowPressed);
-    QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, lessonHandler, &LessonHandler::handleLeftArrowReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, lessonHandler, &LessonHandler::handleRightArrowPressed);
-    QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, lessonHandler, &LessonHandler::handleRightArrowReleased);
-    QObject::connect(keyEventFilter, &KeyEventFilter::enterPressed, this, [this, lessonHandler]() {
-        QString newText = ui->inputText->text();
-        lessonHandler->onInputReceived(newText.toStdString());
-        lessonHandler->handleEnterPressed();
-    });
-
-    // Morse Handler
-    QObject::connect(morseHandler, &MorseHandler::decodedInput, lessonHandler, &LessonHandler::onInputReceived);
-    QObject::connect(morseHandler, &MorseHandler::playbackEnd, this, [this, soundNotPlaying]() {ui->soundDisplayLabel->setPixmap(soundNotPlaying);});
 
     // Lesson Handler
-    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOn, this, [=]() {ui->flashIndicator->setPixmap(lightOn);});
-    QObject::connect(lessonHandler, &LessonHandler::lightIndicatorOff, this, [=]() {ui->flashIndicator->setPixmap(lightOff);});
+    QObject::connect(lessonHandler, &LessonHandler::setLightIndicator, this, &LessonWindow::setLightIndicator);
     QObject::connect(lessonHandler, &LessonHandler::guessCorrect, this, &LessonWindow::guessCorrect);
     QObject::connect(lessonHandler, &LessonHandler::guessIncorrect, this, &LessonWindow::guessIncorrect);
     QObject::connect(lessonHandler, &LessonHandler::displayTextToUI, this, &LessonWindow::displayTextQuestion);
@@ -74,80 +49,23 @@ LessonWindow::LessonWindow(LessonHandler *lessonHandler, MorseHandler *morseHand
     QObject::connect(lessonHandler, &LessonHandler::updateLessonProgressBar, this, &LessonWindow::updateLessonProgressBar);
     QObject::connect(lessonHandler, &LessonHandler::displayCorrectAnswer, this, &LessonWindow::displayCorrectAnswer);
     QObject::connect(lessonHandler, &LessonHandler::setReferenceText, this, &LessonWindow::setReferenceText);
-    QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::setReadOnly);
-    QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, ui->inputText, &QLineEdit::clearFocus);
-    QObject::connect(lessonHandler, &LessonHandler::soundPlaying, this, [this, soundPlaying]() {ui->soundDisplayLabel->setPixmap(soundPlaying);});
-    QObject::connect(this, &LessonWindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
+    QObject::connect(lessonHandler, &LessonHandler::isInputReadOnly, this, &LessonWindow::setInputReadOnly);
+    QObject::connect(lessonHandler, &LessonHandler::soundPlaying, this, &LessonWindow::setSoundPlaying);
+    QObject::connect(lessonHandler, &LessonHandler::soundNotPlaying, this, &LessonWindow::setSoundNotPlaying);
     QObject::connect(lessonHandler, &LessonHandler::isAudioDecodeMode, this, &LessonWindow::setAudioDecodeMode);
-    QObject::connect(lessonHandler, &LessonHandler::focusInput, this, [this](){ui->inputText->setFocus();});
+    QObject::connect(lessonHandler, &LessonHandler::focusInput, this, &LessonWindow::setFocusInput);
+    QObject::connect(lessonHandler, &LessonHandler::getInputTextSignal, this, &LessonWindow::sendInputText);
+
+    // Lesson Window
+    QObject::connect(this, &LessonWindow::setCurrentIndex, lessonHandler, &LessonHandler::setCurrentIndex);
+    QObject::connect(this, &LessonWindow::backButtonClicked, lessonHandler, &LessonHandler::onBackButtonClicked);
+    QObject::connect(this, &LessonWindow::sendInputTextSignal, lessonHandler, &LessonHandler::getInputText);
 
     // Iambic paddle illustrations
-    QObject::connect(lessonHandler, &LessonHandler::paddleSelected, this, [this, keyEventFilter](){
-        QObject::disconnect(straightPressedConnection);
-        QObject::disconnect(straightReleasedConnection);
-        QObject::disconnect(rightPressedConnection);
-        QObject::disconnect(rightReleasedConnection);
-        QObject::disconnect(leftPressedConnection);
-        QObject::disconnect(leftReleasedConnection);
+    QObject::connect(lessonHandler, &LessonHandler::paddleSelected, this, &LessonWindow::paddleSelected);
 
-        QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));
-        QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
-        QPixmap paddleCenter(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
-        QPixmap paddleBoth(QPixmap::fromImage(QImage(":/images/paddle_both.png")));
-        ui->illustrationLabel->setPixmap(paddleCenter);
-        rightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowPressed, this, [this, paddleRight, paddleBoth](){
-            if (paddleState == LEFT) {
-                paddleState = BOTH;
-                ui->illustrationLabel->setPixmap(paddleBoth);
-            } else {
-                paddleState = RIGHT;
-                ui->illustrationLabel->setPixmap(paddleRight);
-            }
-        });
-        rightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::rightArrowReleased, this, [this, paddleCenter, paddleLeft](){
-            if (paddleState == BOTH) {
-                paddleState = LEFT;
-                ui->illustrationLabel->setPixmap(paddleLeft);
-            } else {
-                paddleState = CENTER;
-                ui->illustrationLabel->setPixmap(paddleCenter);
-            }
-        });
-        leftPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowPressed, this, [this, paddleLeft, paddleBoth](){
-            if (paddleState == RIGHT) {
-                paddleState = BOTH;
-                ui->illustrationLabel->setPixmap(paddleBoth);
-            } else {
-                paddleState = LEFT;
-                ui->illustrationLabel->setPixmap(paddleLeft);
-            }
-        });
-        leftReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::leftArrowReleased, this, [this, paddleCenter, paddleRight](){
-            if (paddleState == BOTH) {
-                paddleState = RIGHT;
-                ui->illustrationLabel->setPixmap(paddleRight);
-            } else {
-                paddleState = CENTER;
-                ui->illustrationLabel->setPixmap(paddleCenter);
-            }
-        });
-    });
-
-    // Straight key illustrations
-    QObject::connect(lessonHandler, &LessonHandler::straightKeySelected, this, [this, keyEventFilter](){
-        QObject::disconnect(straightPressedConnection);
-        QObject::disconnect(straightReleasedConnection);
-        QObject::disconnect(rightPressedConnection);
-        QObject::disconnect(rightReleasedConnection);
-        QObject::disconnect(leftPressedConnection);
-        QObject::disconnect(leftReleasedConnection);
-
-        QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
-        QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
-        ui->illustrationLabel->setPixmap(straightKeyUp);
-        straightPressedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spacePressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
-        straightReleasedConnection = QObject::connect(keyEventFilter, &KeyEventFilter::spaceReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
-    });
+    // Straight Key Illustrations
+    QObject::connect(lessonHandler, &LessonHandler::straightKeySelected, this, &LessonWindow::straightKeySelected);
 
     setupWorld();
     currentIndex = 0;
@@ -156,6 +74,72 @@ LessonWindow::LessonWindow(LessonHandler *lessonHandler, MorseHandler *morseHand
 LessonWindow::~LessonWindow()
 {
     delete ui;
+}
+
+void LessonWindow::straightKeySelected() {
+    QObject::disconnect(straightPressedConnection);
+    QObject::disconnect(straightReleasedConnection);
+    QObject::disconnect(rightPressedConnection);
+    QObject::disconnect(rightReleasedConnection);
+    QObject::disconnect(leftPressedConnection);
+    QObject::disconnect(leftReleasedConnection);
+
+    QPixmap straightKeyUp(QPixmap::fromImage(QImage(":/images/straight_key_up.png")));
+    QPixmap straightKeyDown(QPixmap::fromImage(QImage(":/images/straight_key_down.png")));
+    ui->illustrationLabel->setPixmap(straightKeyUp);
+    straightPressedConnection = QObject::connect(lessonHandler, &LessonHandler::straightKeyPressed, this, [this, straightKeyDown](){ui->illustrationLabel->setPixmap(straightKeyDown);});
+    straightReleasedConnection = QObject::connect(lessonHandler, &LessonHandler::straightKeyReleased, this, [this, straightKeyUp](){ui->illustrationLabel->setPixmap(straightKeyUp);});
+}
+
+void LessonWindow::paddleSelected() {
+    QObject::disconnect(straightPressedConnection);
+    QObject::disconnect(straightReleasedConnection);
+    QObject::disconnect(rightPressedConnection);
+    QObject::disconnect(rightReleasedConnection);
+    QObject::disconnect(leftPressedConnection);
+    QObject::disconnect(leftReleasedConnection);
+
+    QPixmap paddleRight(QPixmap::fromImage(QImage(":/images/paddle_right.png")));
+    QPixmap paddleLeft(QPixmap::fromImage(QImage(":/images/paddle_left.png")));
+    QPixmap paddleCenter(QPixmap::fromImage(QImage(":/images/paddle_center.png")));
+    QPixmap paddleBoth(QPixmap::fromImage(QImage(":/images/paddle_both.png")));
+    ui->illustrationLabel->setPixmap(paddleCenter);
+    rightPressedConnection = QObject::connect(lessonHandler, &LessonHandler::paddleRightPressed, this, [this, paddleRight, paddleBoth](){
+        if (paddleState == LEFT) {
+            paddleState = BOTH;
+            ui->illustrationLabel->setPixmap(paddleBoth);
+        } else {
+            paddleState = RIGHT;
+            ui->illustrationLabel->setPixmap(paddleRight);
+        }
+    });
+    rightReleasedConnection = QObject::connect(lessonHandler, &LessonHandler::paddleRightReleased, this, [this, paddleCenter, paddleLeft](){
+        if (paddleState == BOTH) {
+            paddleState = LEFT;
+            ui->illustrationLabel->setPixmap(paddleLeft);
+        } else {
+            paddleState = CENTER;
+            ui->illustrationLabel->setPixmap(paddleCenter);
+        }
+    });
+    leftPressedConnection = QObject::connect(lessonHandler, &LessonHandler::paddleLeftPressed, this, [this, paddleLeft, paddleBoth](){
+        if (paddleState == RIGHT) {
+            paddleState = BOTH;
+            ui->illustrationLabel->setPixmap(paddleBoth);
+        } else {
+            paddleState = LEFT;
+            ui->illustrationLabel->setPixmap(paddleLeft);
+        }
+    });
+    leftReleasedConnection = QObject::connect(lessonHandler, &LessonHandler::paddleLeftReleased, this, [this, paddleCenter, paddleRight](){
+        if (paddleState == BOTH) {
+            paddleState = RIGHT;
+            ui->illustrationLabel->setPixmap(paddleRight);
+        } else {
+            paddleState = CENTER;
+            ui->illustrationLabel->setPixmap(paddleCenter);
+        }
+    });
 }
 
 void LessonWindow::onBackButtonClicked() {
@@ -329,4 +313,38 @@ void LessonWindow::setAudioDecodeMode(bool isAudio) {
 void LessonWindow::startLesson(int lessonNumber) {
     currentIndex = 0;
     ui->stackedWidget->setCurrentIndex(currentIndex);
+}
+
+void LessonWindow::setLightIndicator(bool lightIndicator) {
+    QPixmap lightOn(QPixmap::fromImage(QImage(":/icons/light_on.png")));
+    QPixmap lightOff(QPixmap::fromImage(QImage(":/icons/light_off.png")));
+
+    if (lightIndicator) {
+        ui->flashIndicator->setPixmap(lightOn);
+    } else {
+        ui->flashIndicator->setPixmap(lightOff);
+    }
+}
+
+void LessonWindow::setInputReadOnly(bool readOnly) {
+    ui->inputText->setReadOnly(readOnly);
+    ui->inputText->clearFocus();
+}
+
+void LessonWindow::setSoundPlaying() {
+    QPixmap soundPlaying(QPixmap::fromImage(QImage(":/icons/playing_audio.png")));
+    ui->soundDisplayLabel->setPixmap(soundPlaying);
+}
+
+void LessonWindow::setSoundNotPlaying() {
+    QPixmap soundNotPlaying(QPixmap::fromImage(QImage(":/icons/not_playing_audio.png")));
+    ui->soundDisplayLabel->setPixmap(soundNotPlaying);
+}
+
+void LessonWindow::setFocusInput() {
+    ui->inputText->setFocus();
+}
+
+void LessonWindow::sendInputText() {
+    emit sendInputTextSignal(ui->inputText->text());
 }

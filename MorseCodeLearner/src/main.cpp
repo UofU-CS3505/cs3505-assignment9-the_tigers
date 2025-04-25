@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     morseHandler.setVolume(100);
 
     PracticeHandler practiceHandler(&morseHandler);
-    LessonHandler lessonHandler(&morseHandler);
+    LessonHandler lessonHandler(&morseHandler, keyEventFilter);
 
     MainWindow menu(nullptr, &morseHandler, keyEventFilter, &practiceHandler, &lessonHandler);
     menu.setFixedSize(1280, 720);

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "morsehandler.h"
+#include "keyeventfilter.h"
 
 /**
  * The model and handler for interactive lessons (i.e. lessons that have practice questions).
@@ -18,6 +19,7 @@ class LessonHandler : public QObject
     Q_OBJECT
 private:
     MorseHandler *morseHandler;
+    KeyEventFilter *keyEventFilter;
 
     std::vector<std::string> lessonTwoLetters = {"e", "t", "a", "n", "m", "i"};
     std::vector<std::string> lessonThreeLetters = {"k", "r", "s", "o"};
@@ -53,8 +55,14 @@ private:
      */
     void nextQuestion();
 
+    /**
+     * A helper method that runs when the lesson in completed.
+     */
     void lessonComplete();
 
+    /**
+     * A helper method that randomly picks the question type.
+     */
     void pickQuestionType();
 
 public:
@@ -64,7 +72,7 @@ public:
      * @param keyEventFilter - a pointer to the Key Event Filter.
      * @param parent - the QObject (nullptr by default).
      */
-    explicit LessonHandler(MorseHandler *morseHandler = nullptr, QObject* parent = nullptr);
+    explicit LessonHandler(MorseHandler *morseHandler = nullptr, KeyEventFilter *keyEventFilter = nullptr, QObject* parent = nullptr);
 
 public slots:
     /**
@@ -79,27 +87,74 @@ public slots:
      */
     void checkUserGuess();
 
+    /**
+     * Slot that runs when a morse input is received.
+     * @param input - the morse input in a string.
+     */
     void onInputReceived(const std::string input);
 
+    /**
+     * Runs when the space bar is pressed down.
+     */
     void handleSpacePressed();
 
+    /**
+     * Runs when the space bar is released.
+     */
     void handleSpaceReleased();
 
+    /**
+     * Runs when the left arrow key is pressed down.
+     */
     void handleLeftArrowPressed();
 
+    /**
+     * Runs when the left arrow key is released.
+     */
     void handleLeftArrowReleased();
 
+    /**
+     * Runs when the right arrow key is pressed down.
+     */
     void handleRightArrowPressed();
 
+    /**
+     * Runs when the right arrow key is released.
+     */
     void handleRightArrowReleased();
 
+    /**
+     * Runs when the enter key is used.
+     */
     void handleEnterPressed();
 
+    /**
+     * Runs when the back button is clicked from the UI.
+     */
     void onBackButtonClicked();
 
+    /**
+     * Runs when the user is on the page or leaves the
+     * page.
+     * @param userOnThisPage - whether the user is on the
+     * page or not.
+     */
     void setUserOnThisPage(bool userOnThisPage);
 
+    /**
+     * Runs when the current index of the stackedWidget
+     * from the UI is changed.
+     * @param currentIndex - the current index in the
+     * stackedWidget.
+     */
     void setCurrentIndex(int currentIndex);
+
+    /**
+     * Gets what is currently in the input box from the
+     * UI.
+     * @param inputText - the input from the input box.
+     */
+    void getInputText(QString inputText);
 
 signals:
     /**
@@ -113,23 +168,29 @@ signals:
     void guessIncorrect();
 
     /**
-     * A signal that gets emitted to send the morse to a view.
-     * @param morse - the morse to send.
-     */
-    void displayMorseToUI(std::string morse);
-
-    /**
      * A signal that gets emitted to send the text to a view.
      * @param text - the text to send.
      */
     void displayTextToUI(QString text);
 
+    /**
+     * Updates what the text should be in the input box from
+     * the UI.
+     * @param inputText - the new text to display in the
+     * input box.
+     */
     void updateInputText(QString inputText);
 
-    void lightIndicatorOn();
+    /**
+     * Sets the light indicator in the UI.
+     * @param lightIndicator - true if on, false if off.
+     */
+    void setLightIndicator(bool lightIndicator);
 
-    void lightIndicatorOff();
-
+    /**
+     * A signal to let the UI know that the lesson has been
+     * completed.
+     */
     void completedLesson();
 
     /**
@@ -142,20 +203,51 @@ signals:
      */
     void straightKeySelected();
 
+    /**
+     * Sets and updates the lesson title in the lesson UI.
+     * @param lessonNumber - the current lesson number.
+     */
     void updateLessonTitle(int lessonNumber);
 
+    /**
+     * Updates the lesson progress bar in the lesson UI.
+     * @param progress - what the current progress through the
+     * lesson is.
+     */
     void updateLessonProgressBar(float progress);
 
+    /**
+     * Displays what the correct answer of a question was to
+     * the UI.
+     * @param correctAnswer - the correct answer of the question.
+     */
     void displayCorrectAnswer(QString correctAnswer);
 
+    /**
+     * Sets the reference text in the UI (the slide before the
+     * actual lesson practice).
+     * @param referenceText - the reference text for the
+     * specified question.
+     */
     void setReferenceText(QString referenceText);
 
+    /**
+     * Sets the input box to be read only mode or not read
+     * only mode.
+     * @param readOnly - true for read only mode, false to not be
+     * read only mode.
+     */
     void isInputReadOnly(bool readOnly);
 
     /**
      * Emitted when morse code starts playing in decode audio mode.
      */
     void soundPlaying();
+
+    /**
+     * Emitted when morse code is no longer playing in decode audio mode.
+     */
+    void soundNotPlaying();
 
     /**
      * Emitted so the window can change view stuff in decode audio mode.
@@ -166,5 +258,40 @@ signals:
      * Emitted to focus input for decode morse or decode audio problems.
      */
     void focusInput();
+
+    /**
+     * Asks the UI for the text in the input box.
+     */
+    void getInputTextSignal();
+
+    /**
+     * Emitted when the straight key is pressed.
+     */
+    void straightKeyPressed();
+
+    /**
+     * Emitted when the straight key is released.
+     */
+    void straightKeyReleased();
+
+    /**
+     * Emitted when the left paddle is pressed.
+     */
+    void paddleLeftPressed();
+
+    /**
+     * Emitted when the left paddle is released.
+     */
+    void paddleLeftReleased();
+
+    /**
+     * Emitted when the right paddle is pressed.
+     */
+    void paddleRightPressed();
+
+    /**
+     * Emitted when the right paddle is released.
+     */
+    void paddleRightReleased();
 };
 #endif // LESSONHANDLER_H
